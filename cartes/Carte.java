@@ -15,7 +15,7 @@ public abstract class Carte {
 		this.nom = nom;
 		this.origine = origine;
 		this.capacite = capacite;
-		System.out.println("carte" + nom + "créée");
+		System.out.println("carte" + nom + "cr��e");
 	}
 	
 	public Origine getOrigine() {
@@ -49,7 +49,5 @@ public abstract class Carte {
 	}
 
 	public abstract void activerCapacite ();
-	
-	ffrrusgsuigdgazè_çd_çàusàjfàjdà_çufe_çzyr_çdfd_hfçysçfs;
 
 }
