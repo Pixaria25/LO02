@@ -49,7 +49,5 @@ public abstract class Carte {
 	}
 
 	public abstract void activerCapacite ();
-	
-	ffrrusgsuigdgazè_çd_çàusàjfàjdà_çufe_çzyr_çdfd_hfçysçfs;
 
 }
