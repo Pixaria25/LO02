@@ -35,7 +35,7 @@ public class Capacite {
 					
 		} while (choix < 0 | choix >  partie.getJoueurs().size());
 		sc.close();
-		System.out.println("Vous avez ciblé " + partie.getJoueurs().get(choix).getNom());
+		System.out.println("Vous avez ciblé " + (partie.getJoueurs().get(choix)).getNom());
 		return partie.getJoueurs().get(choix);
 		
 	}

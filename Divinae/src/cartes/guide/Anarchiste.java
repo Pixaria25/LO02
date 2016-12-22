@@ -1,4 +1,4 @@
-package cartes.croyant;
+package cartes.guide;
 
 import cartes.Capacite;
 import cartes.Dogme;
