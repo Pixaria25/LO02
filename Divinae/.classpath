@@ -2,8 +2,7 @@
 <classpath>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="/External Plug-in Libraries/.classpath"/>
 	<classpathentry kind="lib" path=".classpath"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/External Plug-in Libraries"/>
+	<classpathentry kind="lib" path="/External Plug-in Libraries/.classpath"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
