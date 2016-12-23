@@ -1,14 +1,15 @@
-package cartes.guide;
+package cartes.croyant;
 
 import cartes.Capacite;
 import cartes.Dogme;
 import cartes.Origine;
-import cartes.croyant.Croyant;
 
 public  class Pillards extends Croyant {
   
   public Pillards (String nom, Origine origine, String capacite, Dogme[] dogme, int nombreCroyant) {
-	 	super(nom, origine, capacite, dogme, nombreCroyant);
+	 	super("Pillards", Origine.Nuit, "Récupérez les points d'Action d'une Divinité n'ayant pas encore joué durant "
+	 			+ "ce tour. Les points d'Action dardents leur Origine. La Divinité perd ses points.", 
+	 			new Dogme [] {Dogme.Symboles, Dogme.Nature, Dogme.Mystique}, 4);
 		// TODO Auto-generated constructor stub
 	}
   

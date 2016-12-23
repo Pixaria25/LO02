@@ -7,7 +7,7 @@ import cartes.Origine;
 public  class Demons extends Croyant {
   
   public Demons (String nom, Origine origine, String capacite, Dogme[] dogme, int nombreCroyant) {
-	 	super(nom, origine, capacite, dogme, nombreCroyant);
+	 	super(nom, Origine.Nuit, "Donne un point d'Action d'Origine Nuit.", dogme, 2);
 		// TODO Auto-generated constructor stub
 	}
   
