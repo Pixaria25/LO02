@@ -6,7 +6,7 @@ import cartes.Origine;
 
 public abstract class Ermite extends Croyant {
 
-  public Ermite (String nom, Origine origine, String capacite, Dogme[] dogme, int nombreCroyant) {
+  public Ermite (String nom, Dogme[] dogme) {
 		super(nom, Origine.Jour, "Impose le sacrifice d'un Croyant d'un autre joueur, qui choisit"
 				+ " la carte. La capacite spéciale du sacrifice est jouée.", dogme, 1);
 		

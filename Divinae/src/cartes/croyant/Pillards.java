@@ -6,7 +6,7 @@ import cartes.Origine;
 
 public  class Pillards extends Croyant {
   
-  public Pillards (String nom, Origine origine, String capacite, Dogme[] dogme, int nombreCroyant) {
+  public Pillards () {
 	 	super("Pillards", Origine.Nuit, "Récupérez les points d'Action d'une Divinité n'ayant pas encore joué durant "
 	 			+ "ce tour. Les points d'Action dardents leur Origine. La Divinité perd ses points.", 
 	 			new Dogme [] {Dogme.Symboles, Dogme.Nature, Dogme.Mystique}, 4);

@@ -6,7 +6,7 @@ import cartes.Origine;
 
 public class GuerriersSaints extends Croyant {
 
-	public GuerriersSaints(String nom, Origine origine, String capacite, Dogme[] dogme, int nombreCroyant) {
+	public GuerriersSaints() {
 		super("Guerriers Saints", Origine.Jour, "Un Guide Spirituel revient dans la main de sa Divinité."
 				+ " Ses Croyants reviennent au centre de la table.",new Dogme[]{Dogme.Symboles,Dogme.Nature,Dogme.Mystique}, 4);
 		// TODO Auto-generated constructor stub
