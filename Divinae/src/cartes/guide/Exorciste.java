@@ -10,7 +10,9 @@ import cartes.Origine;
 public class Exorciste extends GuideSpirituel {
   
   public Exorciste (String nom, Origine origine, String capacite, Dogme[] dogme, int nombreCroyant) {
-	 	super(nom, origine, capacite, dogme, nombreCroyant);
+	 	super("Exorciste", Origine.Jour, "Une Divinité d'Origine Nuit ou ayant les Dogmes Mystique et Chaos "
+	 			+ "reprend dans sa main l'un de ses Guides Spirituels. Les Croyants qui y étaient attachés sont défaussés.",
+	 			new Dogme [] {Dogme.Chaos,Dogme.Mystique}, 1);
 		
 		// TODO Auto-generated constructor stub
 	}

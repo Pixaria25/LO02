@@ -7,7 +7,8 @@ import cartes.Origine;
 public class Revenant extends Croyant {
 
 	public Revenant(String nom, Origine origine, String capacite, Dogme[] dogme, int nombreCroyant) {
-		super(nom, origine, capacite, dogme, nombreCroyant);
+		super("Revenant", Origine.Neant, "Lancez le dé de Cosmogonie. Le tour se finit normalement, mais "
+				+ "sous cette nouvelle influence.", new Dogme [] {Dogme.Mystique, Dogme.Humain, Dogme.Nature}, 1);
 		// TODO Auto-generated constructor stub
 	}
 

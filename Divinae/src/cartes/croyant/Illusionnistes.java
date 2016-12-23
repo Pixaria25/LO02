@@ -7,7 +7,8 @@ import cartes.Origine;
 public class Illusionnistes extends Croyant {
 
 	public Illusionnistes(String nom, Origine origine, String capacite, Dogme[] dogme, int nombreCroyant) {
-		super(nom, origine, capacite, dogme, nombreCroyant);
+		super("Illusionnistes", Origine.Nuit, "Vous bénéficiez de la capacité spéciale de sacrifice d'une carte de Croyant "
+				+ "appartenant à une autre Divinité. La carte en question reste en jeu.", new Dogme [] {Dogme.Chaos, Dogme.Humain, Dogme.Symboles}, 4);
 		// TODO Auto-generated constructor stub
 	}
 
