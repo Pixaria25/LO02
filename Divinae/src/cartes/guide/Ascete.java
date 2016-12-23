@@ -13,8 +13,10 @@ import cartes.divinite.Divinite;
 
 public class Ascete extends GuideSpirituel {
   
-  public Ascete (String nom, Origine origine, String capacite, Dogme [] dogme, int nombreCroyant) {
-	 	super(nom, origine, capacite, dogme, nombreCroyant);
+  public Ascete () {
+	 	super("Ascete", Origine.Nuit, "Sacrifie 2 cartes Croyants d'une Divinité ayant le Dogme Humain ou Symboles."
+	 			+ " Les capacités spéciales sont jouées normalement.",
+	 			new Dogme [] {Dogme.Humain,Dogme.Symboles}, 1);
 		
 		// TODO Auto-generated constructor stub
 	}

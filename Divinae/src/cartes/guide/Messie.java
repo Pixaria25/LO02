@@ -9,8 +9,9 @@ public class Messie extends GuideSpirituel {
 
 	
 
-	public Messie(String nom, Origine origine, String capacite, Dogme[] dogme,int nombreCroyantLiable) {
-		super(nom, origine, capacite, dogme, nombreCroyantLiable);
+	public Messie() {
+		super("Messie", Origine.Jour, "Le joueur pose le dé de Cosmogonie sur la face qu'il désire et commence"
+				+ " un nouveau tour de jeu.", new Dogme [] {Dogme.Humain,Dogme.Mystique}, 3);
 		// TODO Auto-generated constructor stub
 	}
 

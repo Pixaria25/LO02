@@ -9,8 +9,8 @@ public class Martyr extends GuideSpirituel {
 
 	
 
-	public Martyr(String nom, Origine origine, String capacite, Dogme[] dogme,int nombreCroyantLiable) {
-		super(nom, origine, capacite, dogme, nombreCroyantLiable);
+	public Martyr(String nom, Origine origine, Dogme[] dogme) {
+		super(nom, origine, "Equivalent à la pose d'une carte Apocalypse.", dogme, 2);
 		// TODO Auto-generated constructor stub
 	}
 

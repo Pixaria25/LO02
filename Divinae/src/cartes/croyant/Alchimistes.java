@@ -9,7 +9,7 @@ public  class Alchimistes extends Croyant {
 	private int option;
 
 	public Alchimistes(String nom, Origine origine, String capacite, Dogme [] dogme, int nombreCroyant, int option) {
-		super(nom, origine, capacite, dogme, nombreCroyant);
+		super(nom, Origine.Nuit, capacite, dogme, 2);
 		this.option = option;
 		// TODO Auto-generated constructor stub
 	}
@@ -29,5 +29,5 @@ public  class Alchimistes extends Croyant {
 		
 		}
 	}
-	
+
 }
