@@ -8,7 +8,8 @@ import cartes.Origine;
 public class Anarchiste extends GuideSpirituel {
   
   public Anarchiste (String nom, Origine origine, String capacite, Dogme[] dogme, int nombreCroyant) {
-	 	super(nom, origine, capacite, dogme, nombreCroyant);
+	 	super("Anarchiste", Origine.Neant,  "Sacrifie un Guide Spirituel, si lui ou sa Divinité ne croit pas au Dogme Chaos."
+	 			+ "Les capacités spéciales sont jouées normalement.", new Dogme [] {Dogme.Humain,Dogme.Chaos}, 3);
 		
 		// TODO Auto-generated constructor stub
 	}
