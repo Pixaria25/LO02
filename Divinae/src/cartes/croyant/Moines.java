@@ -6,7 +6,7 @@ import cartes.Origine;
 
 public class Moines extends Croyant {
   
-  public Moines (String nom, Origine origine, String capacite, Dogme [] dogme, int nombreCroyant) {
+  public Moines (String nom, Dogme [] dogme) {
 	 	super(nom, Origine.Jour, "Donne un point d'action d'Origine jour"
 	 			, dogme, 2);
 		

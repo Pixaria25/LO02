@@ -7,7 +7,7 @@ import cartes.Origine;
 public class Vampire extends Croyant {
 
  
-  public Vampire (String nom, Origine origine, String capacite, Dogme[] dogme, int nombreCroyant) {
+  public Vampire (String nom, Dogme[] dogme) {
 		super(nom, Origine.Nuit, "Impose le sacrifice d'un Croyant d'un autre joueur. Celui-ci choisit le "
 				+ "sacrifié. La capacité spéciale du sacrifice est jouée.", dogme, 1);
 

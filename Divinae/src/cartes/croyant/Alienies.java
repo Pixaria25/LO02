@@ -1,7 +1,5 @@
 package cartes.croyant;
 
-import com.sun.org.glassfish.gmbal.Description;
-
 import cartes.Capacite;
 import cartes.Dogme;
 import cartes.Origine;
@@ -10,7 +8,7 @@ public  class Alienies extends Croyant {
 
 	private int option;
 
-	public Alienies(String nom, Origine origine, String capacite, Dogme[] dogme, int nombreCroyant, int option) {
+	public Alienies(String nom, String capacite, Dogme[] dogme, int option) {
 		super(nom, Origine.Neant, capacite, dogme, 2);
 		this.option = option;
 		// TODO Auto-generated constructor stub
