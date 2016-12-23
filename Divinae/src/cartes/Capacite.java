@@ -18,6 +18,9 @@ public class Capacite {
 	private static boolean autorisationApocalypse = true;
 	
 	
+	
+	
+	
 	public static Joueur choisirJoueurCible (Partie partie) {
 		int choix = 0;
 		
@@ -72,8 +75,6 @@ public class Capacite {
 	public static List <GuideSpirituel> choisirDiviniteEtDogme (Dogme dogme1, Dogme dogme2, Partie partie) {
 		int choixDivinite = 0;
 		List <GuideSpirituel> GspCiblable = new ArrayList<GuideSpirituel>();
-		int choix = 0;
-		
 		while (choixDivinite < partie.getJoueurs().size()) {
 			if (Capacite.comparerDogme(partie.getJoueurs().get(choixDivinite).getDivinite().getDogme(), dogme1, partie) && Capacite.comparerDogme(partie.getJoueurs().get(choixDivinite).getDivinite().getDogme(), dogme2, partie)) {
 				GspCiblable.addAll(partie.getJoueurs().get(choixDivinite).getGuides());		
@@ -86,8 +87,6 @@ public class Capacite {
 	public static List<GuideSpirituel> choisirDiviniteOrigine (Origine origine, Partie partie) {
 		int choixDivinite = 0;
 		List<GuideSpirituel> GspCiblable = new ArrayList<GuideSpirituel>();
-		int choix = 0;
-		
 		while (choixDivinite < partie.getJoueurs().size()) {
 			if (partie.getJoueurs().get(choixDivinite).getDivinite().getOrigine()== (origine)) {
 				GspCiblable.addAll(partie.getJoueurs().get(choixDivinite).getGuides());		
@@ -142,14 +141,12 @@ public class Capacite {
 
 	public static GuideSpirituel choisirSonGsp (Carte carte, Partie partie) {
 		List <GuideSpirituel> gspCiblable = new ArrayList<GuideSpirituel>();
-		int indexGsp = 0;
 		int indexJoueur = partie.getJoueurs().indexOf(carte.getJoueurLie());
 		int choix;
 			 for (int i =0; i < partie.getJoueurs().get(indexJoueur).getGuides().size(); i++ ) {
 				gspCiblable.add(partie.getJoueurs().get(indexJoueur).getGuide(i));		
 				
 			}
-			indexGsp = 0;
 			indexJoueur++;
 		
 			System.out.println("Veuillez sélectionner le Guide Spirituel à échanger par cette compétence :"+ "\n");
@@ -235,7 +232,7 @@ public class Capacite {
 	}
 	
 	public static List<Croyant> trierCroyantDogme (Origine origine1, Origine origine2, Dogme dogme, Partie partie){
-		List <Croyant> croyantCiblable = null;
+		List <Croyant> croyantCiblable = new ArrayList <Croyant> ();
 		for (int i = 0; i < partie.getTasDeCroyants().size(); i++) {
 			if ((partie.getTasDeCroyants(i).getOrigine()==(origine1) || (partie.getTasDeCroyants(i).getOrigine()==(origine2)))&& Capacite.comparerDogme(partie.getTasDeCroyants(i).getDogme(), dogme, partie)) {
 				croyantCiblable.add(partie.getTasDeCroyants(i));
@@ -286,10 +283,11 @@ public class Capacite {
 	
 	
 	
+	
+	
 	public static  void defausser (Carte carte, Partie partie) {
 		partie.getDefausse().ajoutCarte(carte);	
 	}
-
 	
 	public static void donnerPointAction (int point, Origine origine, Joueur joueur) {
 		if (autorisationPointAction == true) {
@@ -298,7 +296,6 @@ public class Capacite {
 			System.out.println("On ne peut pas gagner de point d'action jusqu'à la fin du tour (competence nihilistes)");
 		}
 	}
-	
 	
 	public static void renvoyerGsp (Partie partie) {
 		GuideSpirituel gsp = Capacite.choisirGsp(partie);
@@ -325,7 +322,6 @@ public class Capacite {
 		gspCiblable.get(choix).getJoueurLie().getMain().add(gspCiblable.get(choix));
 	}
 	
-
 	public static void empecherSacrifice ( Dogme dogme1, Dogme dogme2, String vise, Partie partie) {
 		int tourFixe = partie.getNombreTour();
 		int jtourActuel = tourFixe;
@@ -416,18 +412,16 @@ public class Capacite {
 		System.out.println("La nouvelle influence est " + partie.getDe().getInfluence());
 	}
 
-
 	public static void retirerCroyant (Partie partie) {
 		GuideSpirituel gsp = Capacite.choisirGsp(partie);
 		partie.getTasDeCroyants().addAll(gsp.getCroyantLie());
 		partie.getDefausse().ajoutCarte(gsp);
 	}
-	
 
 	public static void copierCapacite (Carte carte, Partie partie) {
 		int indice = 0 ;
 		int choix;
-		List<Croyant> croyantCiblable = null;
+		List <Croyant> croyantCiblable = new ArrayList <Croyant> ();
 		int indexJoueur = carte.getJoueurLie().getPartie().getJoueurs().indexOf(carte.getJoueurLie());
 		
 		for (int i = 0; i < partie.getJoueurs().size(); i++){
@@ -451,16 +445,14 @@ public class Capacite {
 			
 		} while (choix < 0 || choix > croyantCiblable.size());
 		
-		Joueur joueurInit = croyantCiblable.get(choix).getJoueurLie();
+		croyantCiblable.get(choix).getJoueurLie();
 		croyantCiblable.get(choix).setJoueurLie(carte.getJoueurLie());
 		croyantCiblable.get(choix).activerCapacite();
 		croyantCiblable.get(choix).setJoueurLie(carte.getJoueurLie());
 		
 		
 	}
-	
-	
-	//a corriger
+
 	public static void recupererPointAction (Carte carte, Partie partie){
 		int indexJoueur1 = partie.getIndexJoueur1();
 		int indexJoueurCourant = carte.getJoueurLie().getPartie().getJoueurs().indexOf(carte.getJoueurLie());
@@ -469,28 +461,48 @@ public class Capacite {
 				carte.getJoueurLie().ajoutPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Jour.ordinal()],Origine.Jour);
 				carte.getJoueurLie().ajoutPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Nuit.ordinal()],Origine.Nuit );
 				carte.getJoueurLie().ajoutPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Neant.ordinal()],Origine.Neant);
+				
+				partie.getJoueurs().get(i).soustrPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Jour.ordinal()],Origine.Jour);
+				partie.getJoueurs().get(i).soustrPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Nuit.ordinal()],Origine.Nuit);
+				partie.getJoueurs().get(i).soustrPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Neant.ordinal()],Origine.Neant);	
 			}
 			for (int i = indexJoueur1-1; i > -1 ;i--){
-				carte.getJoueurLie().ajoutPointsAction(partie.getJoueurs().get(i).getPointsAction()[0],Origine.Jour);
-				carte.getJoueurLie().ajoutPointsAction(partie.getJoueurs().get(i).getPointsAction()[1],Origine.Nuit );
-				carte.getJoueurLie().ajoutPointsAction(partie.getJoueurs().get(i).getPointsAction()[2],Origine.Neant);
+				carte.getJoueurLie().ajoutPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Jour.ordinal()],Origine.Jour);
+				carte.getJoueurLie().ajoutPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Nuit.ordinal()],Origine.Nuit );
+				carte.getJoueurLie().ajoutPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Neant.ordinal()],Origine.Neant);
+				
+				partie.getJoueurs().get(i).soustrPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Jour.ordinal()],Origine.Jour);
+				partie.getJoueurs().get(i).soustrPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Nuit.ordinal()],Origine.Nuit);
+				partie.getJoueurs().get(i).soustrPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Neant.ordinal()],Origine.Neant);
 			}
 		} else if (indexJoueur1 > indexJoueurCourant){
 				for (int i = indexJoueurCourant+1; i < indexJoueur1;i++){
-					carte.getJoueurLie().ajoutPointsAction(partie.getJoueurs().get(i).getPointsAction()[0],Origine.Jour);
-					carte.getJoueurLie().ajoutPointsAction(partie.getJoueurs().get(i).getPointsAction()[1],Origine.Nuit );
-					carte.getJoueurLie().ajoutPointsAction(partie.getJoueurs().get(i).getPointsAction()[2],Origine.Neant);
+					carte.getJoueurLie().ajoutPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Jour.ordinal()],Origine.Jour);
+					carte.getJoueurLie().ajoutPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Nuit.ordinal()],Origine.Nuit );
+					carte.getJoueurLie().ajoutPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Neant.ordinal()],Origine.Neant);
+					
+					partie.getJoueurs().get(i).soustrPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Jour.ordinal()],Origine.Jour);
+					partie.getJoueurs().get(i).soustrPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Nuit.ordinal()],Origine.Nuit);
+					partie.getJoueurs().get(i).soustrPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Neant.ordinal()],Origine.Neant);
 				}
 			} else {
 				for (int i = indexJoueurCourant+1; i < partie.getJoueurs().size();i++){
-					carte.getJoueurLie().ajoutPointsAction(partie.getJoueurs().get(i).getPointsAction()[0],Origine.Jour);
-					carte.getJoueurLie().ajoutPointsAction(partie.getJoueurs().get(i).getPointsAction()[1],Origine.Nuit );
-					carte.getJoueurLie().ajoutPointsAction(partie.getJoueurs().get(i).getPointsAction()[2],Origine.Neant);
+					carte.getJoueurLie().ajoutPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Jour.ordinal()],Origine.Jour);
+					carte.getJoueurLie().ajoutPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Nuit.ordinal()],Origine.Nuit );
+					carte.getJoueurLie().ajoutPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Neant.ordinal()],Origine.Neant);
+					
+					partie.getJoueurs().get(i).soustrPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Jour.ordinal()],Origine.Jour);
+					partie.getJoueurs().get(i).soustrPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Nuit.ordinal()],Origine.Nuit);
+					partie.getJoueurs().get(i).soustrPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Neant.ordinal()],Origine.Neant);
 				}
 				for (int i = indexJoueur1-1; i > -1 ;i--){
-					carte.getJoueurLie().ajoutPointsAction(partie.getJoueurs().get(i).getPointsAction()[0],Origine.Jour);
-					carte.getJoueurLie().ajoutPointsAction(partie.getJoueurs().get(i).getPointsAction()[1],Origine.Nuit );
-					carte.getJoueurLie().ajoutPointsAction(partie.getJoueurs().get(i).getPointsAction()[2],Origine.Neant);
+					carte.getJoueurLie().ajoutPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Jour.ordinal()],Origine.Jour);
+					carte.getJoueurLie().ajoutPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Nuit.ordinal()],Origine.Nuit );
+					carte.getJoueurLie().ajoutPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Neant.ordinal()],Origine.Neant);
+					
+					partie.getJoueurs().get(i).soustrPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Jour.ordinal()],Origine.Jour);
+					partie.getJoueurs().get(i).soustrPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Nuit.ordinal()],Origine.Nuit);
+					partie.getJoueurs().get(i).soustrPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Neant.ordinal()],Origine.Neant);
 				}
 			}
 		
@@ -507,7 +519,6 @@ public class Capacite {
 		}
 		
 	}
-
 
 	public static void bloquerPointAction (Partie partie) {
 		int tourFixe = partie.getNombreTour();
