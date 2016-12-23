@@ -8,7 +8,7 @@ public class Travailleurs extends Croyant {
 	private int option; 
 	
 	public Travailleurs(String nom, Origine origine, String capacite, Dogme [] dogme, int nombreCroyant, int option) {
-		super(nom, origine.Jour, "Empêche une Divinité possédant le Dogme Nature ou "
+		super(nom, Origine.Jour, "Empêche une Divinité possédant le Dogme Nature ou "
 				+ "le Dogme Mystique de sacrifier une de ses cartes de Croyants duant ce tour.", dogme, 2);
 		this.option = option;
 		// TODO Auto-generated constructor stub
