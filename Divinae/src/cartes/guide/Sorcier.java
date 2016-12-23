@@ -12,7 +12,9 @@ public class Sorcier extends GuideSpirituel {
 	
 
 	public Sorcier(String nom, Origine origine, String capacite, Dogme[] dogme,int nombreCroyantLiable) {
-		super(nom, origine, capacite, dogme, nombreCroyantLiable);
+		super("Sorcier", Origine.Nuit, "Echangez l'un de vos Guides Spirituels avec un d'une autre Divinité. "
+				+ "Vous choisissez les deus Guides Spirituels en question. Les Croyants restent attachés aux mêmes cartes.",
+				new Dogme [] {Dogme.Mystique,Dogme.Symboles}, 3);
 		// TODO Auto-generated constructor stub
 	}
 
