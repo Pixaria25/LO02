@@ -7,9 +7,7 @@ import cartes.Origine;
 public class Moines extends Croyant {
   
   public Moines (String nom, Dogme [] dogme) {
-	 	super(nom, Origine.Jour, "Donne un point d'action d'Origine jour"
-	 			, dogme, 2);
-		
+	 	super(nom, Origine.Jour, "Donne un point d'action d'Origine jour", dogme, 2);
 		// TODO Auto-generated constructor stub
 	}
 

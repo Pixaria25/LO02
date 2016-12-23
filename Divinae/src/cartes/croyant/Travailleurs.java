@@ -7,8 +7,9 @@ import cartes.Origine;
 public class Travailleurs extends Croyant {
 	private int option; 
 	
+
 	public Travailleurs(String nom, Dogme [] dogme, int option) {
-		super(nom, Origine.Jour, "Empêche une Divinité possédant le Dogme Nature ou "
+		super(nom, Origine.Jour, "EmpÃªche une DivinitÃ© possÃ©dant le Dogme Nature ou "
 				+ "le Dogme Mystique de sacrifier une de ses cartes de Croyants duant ce tour.", dogme, 2);
 		this.option = option;
 		// TODO Auto-generated constructor stub
@@ -25,7 +26,7 @@ public class Travailleurs extends Croyant {
 		case 3 : 
 			Capacite.prendreCartes(this, 2, this.getJoueurLie().getPartie());
 			break;
-		default : System.out.println("Problème ! Cette option de capacité n'est pas prise en compte dans le code");
+		default : System.out.println("ProblÃ¨me ! Cette option de capacitÃ© n'est pas prise en compte dans le code");
 		}
 	}
 	

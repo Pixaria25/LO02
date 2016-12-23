@@ -11,7 +11,7 @@ public abstract class Croyant extends Carte {
 	private int nombreCroyant;
 	private GuideSpirituel guideLie;
 	
-	public Croyant(String nom, Origine origine, String capacite,Dogme[] dogme, int nombreCroyant) {
+	public Croyant(String nom, Origine origine, String capacite, Dogme[] dogme, int nombreCroyant) {
 		// TODO Auto-generated constructor stub
 		super(nom, origine, capacite);
 	    this.dogme = dogme;

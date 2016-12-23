@@ -8,7 +8,7 @@ import cartes.divinite.Divinite;
 
 public class Shaman extends GuideSpirituel {
   
-  public Shaman (String nom, Origine origine, String capacite, Dogme[] dogme, int nombreCroyant) {
+  public Shaman () {
 	 	super("Shaman", Origine.Nuit, "Sacrifie tous les Croyants d'Origine Néant d'une Divinité ayant le Dogme Humain."
 	 			+ "Les capacités spéciales sont jouées normalement.", new Dogme [] {Dogme.Nature,Dogme.Symboles}, 3);
 		// TODO Auto-generated constructor stub
