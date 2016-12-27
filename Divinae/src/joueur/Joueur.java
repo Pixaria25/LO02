@@ -23,6 +23,7 @@ public class Joueur {
 	private boolean autorisationgsp = true;
 	private boolean autorisationcr = true;
 	private Partie partie;
+	private Scanner sc = new Scanner(System.in);
 	
 	public static final int TAILLE_MAIN_MAX = 7;
 	
@@ -37,6 +38,13 @@ public class Joueur {
 	
 	public void poserCarteAction() {
 		
+		afficherMain();
+		System.out.println("Entrez le numero de la carte que vous voulez jouer.");
+		int choixCarte = -1;
+		do {
+			choixCarte = sc.nextInt();
+		} while(choixCarte < 0 || choixCarte >= main.size());
+		partie.getTable().add(main.remove(choixCarte));
 	}
 	
 	public void activerCapaciteCarte(Carte carte) {
@@ -47,9 +55,14 @@ public class Joueur {
 		}
 	}
 	
+	public void afficherMain() {
+		for(int i = 0; i < main.size(); i++) {
+			System.out.println(i+" - "+main.get(i).getNom());
+		}
+	}
+	
 	public void defausser(int nombreCartes) {
-		System.out.println("Quelles cartes voulez-vous défausser ?");
-		Scanner sc = new Scanner(System.in);
+		System.out.println("Quelles cartes voulez-vous défausser ?");		
 		for(int i = 0; i < nombreCartes; i++) {
 			boolean carteDefaussee = false;
 			do{
@@ -63,7 +76,6 @@ public class Joueur {
 				}
 			} while(!carteDefaussee);
 		}
-		sc.close();
 	}
 		
 	public void completerMain() {
@@ -72,10 +84,6 @@ public class Joueur {
 		for(int i = 0; i < nbreCartes; i++) {
 			main.add(partie.getPioche().sortirUneCarte());
 		}
-	}
-	
-	public void finirTour() {
-		
 	}
 	
 	public Divinite getDivinite() {

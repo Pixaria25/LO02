@@ -40,7 +40,7 @@ public class Partie {
 		this.partieFinie = false;
 	}
 	
-	Scanner scanner = new Scanner(System.in);
+	private Scanner scanner = new Scanner(System.in);
 
 	public void lancerUnePartie() {
 		System.out.println("Lancement d'une partie.");

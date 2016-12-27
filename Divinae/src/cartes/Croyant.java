@@ -1,6 +1,6 @@
 package cartes;
 
-public abstract class Croyant extends Carte {
+public abstract class Croyant extends Carte implements Action {
 	
 	private Dogme [] dogme;
 	private int nombreCroyant;
@@ -10,10 +10,16 @@ public abstract class Croyant extends Carte {
 		// TODO Auto-generated constructor stub
 		super(nom, origine, capacite);
 	    this.dogme = dogme;
-		nombreCroyant = this.nombreCroyant;
-		System.out.println("carte" + nom + "créée");
+		this.nombreCroyant = nombreCroyant;
+		this.guideLie = null;
 	}
 
+	@Override
+	public void poserCarteAction() {
+		// TODO Auto-generated method stub
+		getJoueurLie().getPartie().getTasDeCroyants().add(this);
+	}
+	
 	public GuideSpirituel getGuideLie() {
 		return guideLie;
 	}
@@ -21,6 +27,9 @@ public abstract class Croyant extends Carte {
 	public Dogme[] getDogme() {
 		return dogme;
 	}
-	
 
+	public int getNombreCroyant() {
+		return nombreCroyant;
+	}
+	
 }
