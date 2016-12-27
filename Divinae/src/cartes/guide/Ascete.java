@@ -5,10 +5,10 @@ import java.util.List;
 import java.util.Scanner;
 
 import cartes.Capacite;
+import cartes.Croyant;
 import cartes.Dogme;
 import cartes.GuideSpirituel;
 import cartes.Origine;
-import cartes.croyant.Croyant;
 import cartes.divinite.Divinite;
 
 public class Ascete extends GuideSpirituel {

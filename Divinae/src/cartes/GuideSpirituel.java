@@ -1,9 +1,6 @@
 package cartes;
 
 import java.util.Scanner;
-
-import cartes.croyant.Croyant;
-
 import java.util.ArrayList;
 import java.util.List;
 

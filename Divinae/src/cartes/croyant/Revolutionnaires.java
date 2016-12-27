@@ -3,6 +3,7 @@ package cartes.croyant;
 import java.util.Scanner;
 
 import cartes.Capacite;
+import cartes.Croyant;
 import cartes.Dogme;
 import cartes.Origine;
 
