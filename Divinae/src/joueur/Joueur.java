@@ -9,7 +9,7 @@ import cartes.Croyant;
 import cartes.GuideSpirituel;
 import cartes.Origine;
 import cartes.divinite.Divinite;
-import partie.Defausse;
+
 import partie.Partie;
 
 public class Joueur {
