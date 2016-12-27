@@ -1,7 +1,11 @@
 Action
 [=>Abe] Capacite (Vérifier et compléter)
 [Done] Croyant et Gp (Les constructeurs) 
-Compléter les méthodes manquantes (check classes par classes)
+Compléter les méthodes manquantes (check classes par classes) :
+      Partie : finirUnTour()
+      Partie : remplissage pioche
+      poserCarteAction()
+      Joueur : ajouter méthode sacrifierCarte()
 Commenter et visuel
 Mettre en place les threads
 Interface Graphique
