@@ -5,9 +5,9 @@ import java.util.List;
 import java.util.Scanner;
 
 import cartes.Carte;
+import cartes.Croyant;
 import cartes.GuideSpirituel;
 import cartes.Origine;
-import cartes.croyant.Croyant;
 import cartes.divinite.Divinite;
 import partie.Defausse;
 import partie.Partie;

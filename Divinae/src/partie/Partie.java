@@ -7,8 +7,8 @@ import java.util.Random;
 import java.util.Scanner;
 
 import cartes.Carte;
+import cartes.Croyant;
 import cartes.Origine;
-import cartes.croyant.Croyant;
 import cartes.divinite.*;
 import joueur.Joueur;
 import joueur.JoueurVirtuel;

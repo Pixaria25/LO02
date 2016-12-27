@@ -3,10 +3,10 @@ package cartes.guide;
 import java.util.List;
 
 import cartes.Capacite;
+import cartes.Croyant;
 import cartes.Dogme;
 import cartes.GuideSpirituel;
 import cartes.Origine;
-import cartes.croyant.Croyant;
 
 public class Paladin extends GuideSpirituel {
   

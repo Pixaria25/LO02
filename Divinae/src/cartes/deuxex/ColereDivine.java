@@ -1,10 +1,9 @@
 package cartes.deuxex;
 
-import cartes.Action;
-import cartes.Carte;
+import cartes.DeusEx;
 import cartes.Origine;
 
-public class ColereDivine extends Carte implements Action {
+public class ColereDivine extends DeusEx {
 
 	public ColereDivine(Origine origine) {
 		super("Colère Divine", origine, "");
@@ -16,12 +15,6 @@ public class ColereDivine extends Carte implements Action {
 		}
 		capacite += " ou Néant, dont la capacité spéciale n'a pas effet. Les Croyants attachés reviennent au centre de la table.";
 		setCapacite(capacite);
-	}
-
-	@Override
-	public void poserCarteAction() {
-		activerCapacite();
-
 	}
 
 	@Override

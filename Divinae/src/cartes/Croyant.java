@@ -1,9 +1,4 @@
-package cartes.croyant;
-
-import cartes.Carte;
-import cartes.Dogme;
-import cartes.GuideSpirituel;
-import cartes.Origine;
+package cartes;
 
 public abstract class Croyant extends Carte {
 	
