@@ -20,4 +20,8 @@ public class Apocalypse extends Carte implements Action {
 		activerCapacite();
 	}
 
+	@Override
+	public String toString() {
+		return "Carte " + getNom() + "\n " + getOrigine() + "\n " + getCapacite();
+	}
 }

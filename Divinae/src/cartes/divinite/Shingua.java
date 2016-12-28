@@ -3,6 +3,7 @@ package cartes.divinite;
 import java.util.List;
 
 import cartes.Capacite;
+import cartes.Divinite;
 import cartes.Dogme;
 import cartes.GuideSpirituel;
 import cartes.Origine;

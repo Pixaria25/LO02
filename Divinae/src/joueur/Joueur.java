@@ -6,10 +6,9 @@ import java.util.Scanner;
 
 import cartes.Carte;
 import cartes.Croyant;
+import cartes.Divinite;
 import cartes.GuideSpirituel;
 import cartes.Origine;
-import cartes.divinite.Divinite;
-
 import partie.Partie;
 
 public class Joueur {
@@ -46,7 +45,7 @@ public class Joueur {
 		} while(choixCarte < 0 || choixCarte >= main.size());
 		partie.getTable().add(main.remove(choixCarte));
 	}
-	
+	 
 	public void activerCapaciteCarte(Carte carte) {
 		if ((autorisationgsp == false && carte instanceof GuideSpirituel) | (autorisationcr == false && carte instanceof Croyant)) {
 			System.out.println("Vous ne pouvez pas sacrifier de carte ce tour ci ! (utilisation d'une capacité contre vous)");
@@ -148,5 +147,14 @@ public class Joueur {
 		return partie;
 	}
 
+	public boolean aDesCartesSansOrigine() {
+		boolean retour = false;
+		for(int i = 0; i < main.size(); i++) {
+			if(main.get(i).getOrigine() == Origine.Aucune) {
+				retour = true;
+			}
+		}
+		return retour;
+	}
 	
 }

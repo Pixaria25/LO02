@@ -48,5 +48,8 @@ public abstract class GuideSpirituel extends Carte {
 		return dogme;
 	}
 	
-	
+	@Override
+	public String toString() {
+		return "Guide Spirituel " + getNom() + "\n " + getOrigine() + "\n " + dogme + "\n " + getCapacite();
+	}
 }

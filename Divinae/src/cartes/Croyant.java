@@ -32,4 +32,8 @@ public abstract class Croyant extends Carte implements Action {
 		return nombreCroyant;
 	}
 	
+	@Override
+	public String toString() {
+		return "Croyant" + getNom() + "\n " + getOrigine() + "\n " + dogme + "\n " + getCapacite();
+	}
 }

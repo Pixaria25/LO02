@@ -49,11 +49,5 @@ public abstract class Carte {
 	}
 
 	public abstract void activerCapacite ();
-
-	@Override
-	public String toString() {
-		return "Carte " + nom + "\n " + origine + "\n " + capacite;
-	}
-
 	
 }
