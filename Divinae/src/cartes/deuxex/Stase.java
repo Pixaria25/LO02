@@ -1,6 +1,8 @@
 package cartes.deuxex;
 
+import cartes.Capacite;
 import cartes.DeusEx;
+import cartes.GuideSpirituel;
 import cartes.Origine;
 
 public class Stase extends DeusEx {
@@ -13,8 +15,11 @@ public class Stase extends DeusEx {
 
 	@Override
 	public void activerCapacite() {
-		// TODO Auto-generated method stub
-
+		GuideSpirituel Gp = Capacite.choisirGsp(this.getJoueurLie().getPartie());
+		Gp.setProtectionCiblage(true);
+		for (int i = 0; i < Gp.getCroyantLie().size(); i++) {
+			Gp.getCroyantLie(i).setProtectionCiblage(true);
+		}
 	}
 
 }

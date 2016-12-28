@@ -74,10 +74,6 @@ public class Joueur {
 		}
 	}
 	
-	public void finirTour() {
-		
-	}
-	
 	public Divinite getDivinite() {
 		return divinite;
 	}
@@ -138,6 +134,11 @@ public class Joueur {
 
 	public Partie getPartie() {
 		return partie;
+	}
+
+	public void sacrifierCarte(Carte carte) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	

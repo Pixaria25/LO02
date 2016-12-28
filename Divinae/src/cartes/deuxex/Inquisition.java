@@ -1,8 +1,9 @@
 package cartes.deuxex;
 
+import cartes.Capacite;
 import cartes.DeusEx;
+import cartes.GuideSpirituel;
 import cartes.Origine;
-import partie.De;
 
 public class Inquisition extends DeusEx {
 
@@ -14,10 +15,25 @@ public class Inquisition extends DeusEx {
 
 	@Override
 	public void activerCapacite() {
-		// TODO Auto-generated method stub
-		De de = new De();
-		de.lancerDe();
+		GuideSpirituel SonGp = Capacite.choisirGsp(this.getJoueurLie().getPartie());
+		while (SonGp.getJoueurLie()==this.getJoueurLie()){
+			System.out.println("Votre choix n'est pas valide, veuillez choisir un guide spirituel ne vous appartenant pas dans un premier temps");
+			SonGp = Capacite.choisirGsp(this.getJoueurLie().getPartie());
+		}
+		GuideSpirituel MonGp = Capacite.choisirSonGsp(this.getJoueurLie(), this.getJoueurLie().getPartie());
 		
+		this.getJoueurLie().getPartie().getDe().lancerDe();
+		Origine influence = this.getJoueurLie().getPartie().getDe().getInfluence();
+		
+		switch (influence) {
+		case Jour : SonGp.getJoueurLie().sacrifierCarte(SonGp);
+					System.out.println("Sacrifice du guide spirituel adverse.");
+		break;
+		case Nuit : MonGp.getJoueurLie().sacrifierCarte(MonGp);
+					System.out.println("Sacrifice de votre guide spirituel.");
+		break;
+		default: System.out.println("Rien ne se passe la face est Néant.");
+			break;
+		}
 	}
-
 }

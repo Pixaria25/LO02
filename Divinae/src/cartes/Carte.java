@@ -8,8 +8,8 @@ public abstract class Carte {
 	private String capacite;
 	private String nom;
 	private Joueur joueurLie;
-	
-	
+	private boolean protectionCiblage = false;
+		
 	public Carte(String nom, Origine origine, String capacite) {
 		// TODO Auto-generated constructor stub
 		this.nom = nom;
@@ -46,6 +46,14 @@ public abstract class Carte {
 	
 	public void setJoueurLie(Joueur joueurLie) {
 		this.joueurLie = joueurLie;
+	}
+
+	public boolean isProtectionCiblage() {
+		return protectionCiblage;
+	}
+
+	public void setProtectionCiblage(boolean protectionCiblagle) {
+		this.protectionCiblage = protectionCiblagle;
 	}
 
 	public abstract void activerCapacite ();

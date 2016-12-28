@@ -1,5 +1,6 @@
 package cartes.deuxex;
 
+import cartes.Capacite;
 import cartes.DeusEx;
 import cartes.Origine;
 
@@ -13,8 +14,7 @@ public class Diversion extends DeusEx {
 
 	@Override
 	public void activerCapacite() {
-		// TODO Auto-generated method stub
-		
+		Capacite.prendreCartes(this, 3, this.getJoueurLie().getPartie());		
 	}
 
 }
