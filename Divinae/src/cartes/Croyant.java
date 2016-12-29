@@ -6,6 +6,7 @@ public abstract class Croyant extends Carte implements Action {
 	private int nombreCroyant;
 	private GuideSpirituel guideLie;
 	
+	
 	public Croyant(String nom, Origine origine, String capacite, Dogme[] dogme, int nombreCroyant) {
 		// TODO Auto-generated constructor stub
 		super(nom, origine, capacite);
@@ -23,6 +24,10 @@ public abstract class Croyant extends Carte implements Action {
 	public GuideSpirituel getGuideLie() {
 		return guideLie;
 	}
+	
+	public void setGuideLie(GuideSpirituel guideLie) {
+		this.guideLie = guideLie;
+	}
 
 	public Dogme[] getDogme() {
 		return dogme;
@@ -36,4 +41,5 @@ public abstract class Croyant extends Carte implements Action {
 	public String toString() {
 		return "Croyant" + getNom() + "\n " + getOrigine() + "\n " + dogme + "\n " + getCapacite();
 	}
+
 }

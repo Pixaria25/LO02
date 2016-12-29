@@ -48,7 +48,7 @@ public class Joueur {
 	 
 	public void activerCapaciteCarte(Carte carte) {
 		if ((autorisationgsp == false && carte instanceof GuideSpirituel) | (autorisationcr == false && carte instanceof Croyant)) {
-			System.out.println("Vous ne pouvez pas sacrifier de carte ce tour ci ! (utilisation d'une capacité contre vous)");
+			System.out.println("Vous ne pouvez pas sacrifier de carte ce tour ci ! (utilisation d'une capacitÃ© contre vous)");
 		} else { 
 			carte.activerCapacite();
 		}
@@ -61,7 +61,7 @@ public class Joueur {
 	}
 	
 	public void defausser(int nombreCartes) {
-		System.out.println("Quelles cartes voulez-vous défausser ?");		
+		System.out.println("Quelles cartes voulez-vous dÃ©fausser ?");		
 		for(int i = 0; i < nombreCartes; i++) {
 			boolean carteDefaussee = false;
 			do{
@@ -69,7 +69,7 @@ public class Joueur {
 				if(carte >= nombreCartes) {
 					System.out.println("Choix invalide.");
 				} else {
-					System.out.println("La carte "+main.get(carte).getNom()+" a été retirée.");
+					System.out.println("La carte "+main.get(carte).getNom()+" a Ã©tÃ© retirÃ©e.");
 					partie.getDefausse().ajoutCarte(main.remove(carte));
 					carteDefaussee = true;
 				}
@@ -147,6 +147,13 @@ public class Joueur {
 		return partie;
 	}
 
+
+	public void sacrifierCarte(Carte carte) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
 	public boolean aDesCartesSansOrigine() {
 		boolean retour = false;
 		for(int i = 0; i < main.size(); i++) {
@@ -156,5 +163,6 @@ public class Joueur {
 		}
 		return retour;
 	}
+
 	
 }

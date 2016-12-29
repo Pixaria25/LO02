@@ -1,6 +1,8 @@
 package cartes.deuxex;
 
+import cartes.Capacite;
 import cartes.DeusEx;
+import cartes.GuideSpirituel;
 import cartes.Origine;
 
 public class OrdreCeleste extends DeusEx {
@@ -13,8 +15,12 @@ public class OrdreCeleste extends DeusEx {
 
 	@Override
 	public void activerCapacite() {
-		// TODO Auto-generated method stub
-
+		GuideSpirituel GpVole = Capacite.choisirGsp(this.getJoueurLie().getPartie());
+		while (GpVole.getCroyantLie() == this.getJoueurLie()){
+			System.out.println("Veuillez choisir un autre guide spirituel que l'un des votre pour cette effet.");
+			GpVole = Capacite.choisirGsp(this.getJoueurLie().getPartie());
+		}
+		GpVole.setJoueurLie(this.getJoueurLie());
 	}
 
 }

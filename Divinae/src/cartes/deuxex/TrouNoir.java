@@ -1,5 +1,6 @@
 package cartes.deuxex;
 
+import cartes.Capacite;
 import cartes.DeusEx;
 import cartes.Origine;
 
@@ -12,8 +13,7 @@ public class TrouNoir extends DeusEx {
 
 	@Override
 	public void activerCapacite() {
-		// TODO Auto-generated method stub
-
+		Capacite.bloquerPointAction(this.getJoueurLie().getPartie());
 	}
 
 }

@@ -12,7 +12,7 @@ public class Miroir extends DeusEx {
 
 	@Override
 	public void activerCapacite() {
-		// TODO Auto-generated method stub
+		// A coder à la fin ! Grand switch ... avec test de toutes les cartes qui cible un autre joueur
 
 	}
 

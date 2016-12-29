@@ -1,7 +1,10 @@
 package cartes.deuxex;
 
+import cartes.Capacite;
 import cartes.DeusEx;
 import cartes.Origine;
+import joueur.Joueur;
+import partie.Partie;
 
 public class Fouberie extends DeusEx {
 
@@ -13,8 +16,25 @@ public class Fouberie extends DeusEx {
 
 	@Override
 	public void activerCapacite() {
-		// TODO Auto-generated method stub
+		Partie partie = this.getJoueurLie().getPartie();
+		Joueur joueur = Capacite.choisirJoueurCible(this.getJoueurLie().getPartie());
+		int nbCroyantCiblable = 0;
+		for (int i = 0; i < joueur.getGuides().size(); i++) {
+			for(int j =0; j < joueur.getGuide(i).getCroyantLie().size(); j++){
+				if (joueur.getGuide(i).getCroyantLie(j).isProtectionCiblage()) {
+					nbCroyantCiblable++;
+				} 
+			} 
+		}
 
+		if (nbCroyantCiblable < 2) {
+			System.out.println("Veuillez choisir un autre joueur, celui-ci n'a pas assez de croyants ciblables.");
+			joueur = Capacite.choisirJoueurCible(this.getJoueurLie().getPartie());
+		}
+		
+		for (int k =0; k < 2; k++) {
+			Capacite.defausser(Capacite.choisirCroyant(joueur, partie), partie);
+		}
 	}
 
 }

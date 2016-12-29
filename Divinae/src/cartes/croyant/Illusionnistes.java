@@ -4,6 +4,8 @@ import cartes.Capacite;
 import cartes.Croyant;
 import cartes.Dogme;
 import cartes.Origine;
+import joueur.Joueur;
+import partie.Partie;
 
 public class Illusionnistes extends Croyant {
 
@@ -15,9 +17,13 @@ public class Illusionnistes extends Croyant {
 
 	@Override
 	public void activerCapacite() {
-		// TODO Auto-generated method stub
-		Capacite.copierCapacite(this, this.getJoueurLie().getPartie());
+		Partie partie = this.getJoueurLie().getPartie();
+		Joueur joueur = Capacite.choisirJoueurCible(partie);
+		if (joueur.getNombreCroyant() == 0) {
+			System.out.println("Ce Joueur n'a pas de croyants.");
+			joueur = Capacite.choisirJoueurCible(partie);
+		}
+		Capacite.copierCapacite(Capacite.choisirCroyant(joueur, partie), partie);
 		Capacite.defausser(this, this.getJoueurLie().getPartie());
 	}
-
 }

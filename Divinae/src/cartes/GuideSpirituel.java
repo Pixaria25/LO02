@@ -22,8 +22,9 @@ public abstract class GuideSpirituel extends Carte {
 		}
 	
 	public void convertirCroyant (Partie partie) {
+		//A modifier !
 		while (this.nombreCroyantLiable  >  croyantLie.size()) { 
-			System.out.println("Veuillez choisir la carte à prendre du tas (écrire le nom)");
+			System.out.println("Veuillez choisir une carte à prendre du tas (écrire le nom)");
 			Scanner sc = new Scanner(System.in);
 			String nom = sc.next();
 			int i = 0;
@@ -47,6 +48,11 @@ public abstract class GuideSpirituel extends Carte {
 	public Dogme[] getDogme() {
 		return dogme;
 	}
+
+	public int getNombreCroyantLiable() {
+		return nombreCroyantLiable;
+	}
+	
 	
 	@Override
 	public String toString() {

@@ -19,8 +19,11 @@ public class ColereDivine extends DeusEx {
 
 	@Override
 	public void activerCapacite() {
-		// TODO Auto-generated method stub
-
+		if(this.getOrigine() == Origine.Jour) {
+			
+		} else {
+			
+		}
 	}
 
 }
