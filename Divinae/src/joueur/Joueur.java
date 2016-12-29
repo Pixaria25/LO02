@@ -6,10 +6,9 @@ import java.util.Scanner;
 
 import cartes.Carte;
 import cartes.Croyant;
+import cartes.Divinite;
 import cartes.GuideSpirituel;
 import cartes.Origine;
-import cartes.divinite.Divinite;
-import partie.Defausse;
 import partie.Partie;
 
 public class Joueur {
@@ -23,6 +22,7 @@ public class Joueur {
 	private boolean autorisationgsp = true;
 	private boolean autorisationcr = true;
 	private Partie partie;
+	private Scanner sc = new Scanner(System.in);
 	
 	public static final int TAILLE_MAIN_MAX = 7;
 	
@@ -37,19 +37,31 @@ public class Joueur {
 	
 	public void poserCarteAction() {
 		
+		afficherMain();
+		System.out.println("Entrez le numero de la carte que vous voulez jouer.");
+		int choixCarte = -1;
+		do {
+			choixCarte = sc.nextInt();
+		} while(choixCarte < 0 || choixCarte >= main.size());
+		partie.getTable().add(main.remove(choixCarte));
 	}
-	
+	 
 	public void activerCapaciteCarte(Carte carte) {
 		if ((autorisationgsp == false && carte instanceof GuideSpirituel) | (autorisationcr == false && carte instanceof Croyant)) {
-			System.out.println("Vous ne pouvez pas sacrifier de carte ce tour ci ! (utilisation d'une capacité contre vous)");
+			System.out.println("Vous ne pouvez pas sacrifier de carte ce tour ci ! (utilisation d'une capacitÃ© contre vous)");
 		} else { 
 			carte.activerCapacite();
 		}
 	}
 	
+	public void afficherMain() {
+		for(int i = 0; i < main.size(); i++) {
+			System.out.println(i+" - "+main.get(i).getNom());
+		}
+	}
+	
 	public void defausser(int nombreCartes) {
-		System.out.println("Quelles cartes voulez-vous défausser ?");
-		Scanner sc = new Scanner(System.in);
+		System.out.println("Quelles cartes voulez-vous dÃ©fausser ?");		
 		for(int i = 0; i < nombreCartes; i++) {
 			boolean carteDefaussee = false;
 			do{
@@ -57,13 +69,12 @@ public class Joueur {
 				if(carte >= nombreCartes) {
 					System.out.println("Choix invalide.");
 				} else {
-					System.out.println("La carte "+main.get(carte).getNom()+" a été retirée.");
+					System.out.println("La carte "+main.get(carte).getNom()+" a Ã©tÃ© retirÃ©e.");
 					partie.getDefausse().ajoutCarte(main.remove(carte));
 					carteDefaussee = true;
 				}
 			} while(!carteDefaussee);
 		}
-		sc.close();
 	}
 		
 	public void completerMain() {
@@ -136,9 +147,21 @@ public class Joueur {
 		return partie;
 	}
 
+
 	public void sacrifierCarte(Carte carte) {
 		// TODO Auto-generated method stub
 		
+	}
+
+
+	public boolean aDesCartesSansOrigine() {
+		boolean retour = false;
+		for(int i = 0; i < main.size(); i++) {
+			if(main.get(i).getOrigine() == Origine.Aucune) {
+				retour = true;
+			}
+		}
+		return retour;
 	}
 
 	

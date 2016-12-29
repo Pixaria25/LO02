@@ -1,5 +1,6 @@
 package cartes.divinite;
 
+import cartes.Divinite;
 import cartes.Dogme;
 import cartes.Origine;
 

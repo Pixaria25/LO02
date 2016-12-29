@@ -2,13 +2,12 @@ package partie;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
-import cartes.Carte;
-import cartes.Croyant;
-import cartes.Origine;
+import cartes.*;
 import cartes.divinite.*;
 import joueur.Joueur;
 import joueur.JoueurVirtuel;
@@ -40,7 +39,7 @@ public class Partie {
 		this.partieFinie = false;
 	}
 	
-	Scanner scanner = new Scanner(System.in);
+	private Scanner scanner = new Scanner(System.in);
 
 	public void lancerUnePartie() {
 		System.out.println("Lancement d'une partie.");
@@ -135,8 +134,9 @@ public class Partie {
 				switch(choixAction) {
 					case 1:
 						joueurCourant.poserCarteAction();
-						break;
+						demanderInterruption();
 					case 2:
+						demanderInterruption();
 						break;
 					case 3:
 						joueurCourant.activerCapaciteCarte(joueurCourant.getDivinite());
@@ -245,7 +245,73 @@ public class Partie {
 	
 	public void preparerTourProchain() {
 		indexJoueur1 = (indexJoueur1 + 1) % joueurs.size();
+	}
+	
+	private void demanderInterruption() {
+		String interruption = "";
+		do{
+			System.out.println("Est-ce qu'un joueur veut intervenir ? (y/n)");
+			interruption = scanner.nextLine();
+			if(interruption == "y") {
+				interruption();
+			}
+			if(interruption != "n" && interruption != "y") {
+				System.out.println("Reponse invalide.");
+			}
+		} while(interruption != "n");
+	}
+	
+	public void interruption() {
+		System.out.println("Quel joueur veut interrompre le tour ?");
+		HashSet<Integer> joueursValides = new HashSet<Integer>();
+		for(int i = 0; i < joueurs.size(); i++) {
+			if(!joueurs.get(i).getDivinite().capaciteActivee() || joueurs.get(i).aDesCartesSansOrigine()) {
+				System.out.println(i + " - " + joueurs.get(i).getNom());
+				joueursValides.add(i);
+			}
+		}
+		int choixJoueur = -1;
+		do{
+			System.out.println("Entrez le nombre du joueur voulu.");
+			choixJoueur = scanner.nextInt();
+		} while(!joueursValides.contains(choixJoueur));
+		Joueur joueurChoisi = joueurs.get(choixJoueur);
+		System.out.println();
 		
+		System.out.println("Choisissez l'action.");
+		HashSet<Integer> actionsValides = new HashSet<Integer>();
+		if(joueurChoisi.aDesCartesSansOrigine()) {
+			System.out.println("1 - Jouer une carte sans Origine");
+			actionsValides.add(1);
+		}
+		if(joueurChoisi.getDivinite().capaciteActivee()) {
+			System.out.println("2 - Active la capacite de la divinite");
+			actionsValides.add(2);
+		}
+		int choixAction = 0;
+		do{
+			System.out.println("Entrez le nombre de l'action voulue.");
+			choixAction = scanner.nextInt();
+		} while(!actionsValides.contains(choixAction));
+		
+		switch(choixAction) {
+			case 1:
+				HashSet<Integer> cartesValides = new HashSet<Integer>();
+				for(int i = 0; i < joueurChoisi.getMain().size(); i++) {
+					if(joueurChoisi.getMain().get(i).getOrigine() == Origine.Aucune) {
+						System.out.println(i+" - "+joueurChoisi.getMain().get(i).getNom());
+						cartesValides.add(i);
+					}
+				}
+				int carteChoisie = -1;
+				do{
+					System.out.println("Choisissez la carte que vous voulez jouer.");
+					carteChoisie = scanner.nextInt();
+				} while(!cartesValides.contains(carteChoisie));
+				table.add(joueurChoisi.getMain().remove(carteChoisie));
+			case 2:
+				joueurChoisi.getDivinite().activerCapacite();
+		}
 	}
 	
 	//Ajout des points aux joueurs selon le type de leur divinite et selon la valeur du de de Cosmogonie

@@ -16,7 +16,6 @@ public abstract class Divinite extends Carte {
 		this.dogme = dogme;
 		this.description = description;
 		this.capaciteActivee = false;
-		System.out.println("carte" + nom + "crée");
 		
 	}
 	
@@ -26,6 +25,10 @@ public abstract class Divinite extends Carte {
 
 	public Joueur getJoueurLie() {
 		return joueurLie;
+	}
+
+	public boolean capaciteActivee() {
+		return capaciteActivee;
 	}
 
 	@Override
@@ -39,5 +42,8 @@ public abstract class Divinite extends Carte {
 		}
 	}
 	
-	
+	@Override
+	public String toString() {
+		return "Divinite " + getNom() + "\n " + description + "\n " + getOrigine() + "\n " + dogme + "\n " + getCapacite();
+	}
 }

@@ -7,7 +7,6 @@ import java.util.Scanner;
 import cartes.Carte;
 import cartes.Origine;
 import cartes.GuideSpirituel;
-import cartes.divinite.Divinite;
 import joueur.Joueur;
 import partie.Partie;
 

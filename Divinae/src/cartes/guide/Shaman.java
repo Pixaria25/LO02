@@ -1,10 +1,10 @@
 package cartes.guide;
 
 import cartes.Capacite;
+import cartes.Divinite;
 import cartes.Dogme;
 import cartes.GuideSpirituel;
 import cartes.Origine;
-import cartes.divinite.Divinite;
 
 public class Shaman extends GuideSpirituel {
   
