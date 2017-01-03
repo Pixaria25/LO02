@@ -5,6 +5,8 @@ import java.util.HashSet;
 import java.util.Scanner;
 
 import divinae.api.cartes.types.Carte;
+import divinae.api.cartes.types.Croyant;
+import divinae.api.cartes.types.GuideSpirituel;
 import divinae.api.cartes.types.Origine;
 import divinae.api.joueur.Joueur;
 import divinae.api.partie.Partie;
@@ -27,27 +29,15 @@ public class InterfacePartie {
 		do{
 			System.out.println("1-Ajout de joueurs\n2-Retirer un Joueur\n3-Commencer a jouer\n4-Quitter");
 			
-			
 			System.out.println("Entrer un nombre valide.");
 			choix = scanner.nextInt();
-			
 	
 			switch(choix) {
 			case 1: 
 				ajouterUnJoueur();
 				break;
 			case 2:
-				System.out.println("Choisissez le joueur a supprimer.");
-				for(int i = 0; i < partie.getJoueurs().size(); i++) {
-					System.out.println(i+"-"+partie.getJoueurs().get(i).getNom());
-				}
-				int indexJoueur = 0;
-				do{
-					System.out.println("Entrer un nombre valide.");
-					indexJoueur = scanner.nextInt();
-				}  while (indexJoueur < 0  || indexJoueur > partie.getJoueurs().size());
-				System.out.println("Le joueur "+partie.getJoueurs().get(indexJoueur)+" a été supprimé.");
-				partie.retirerUnJoueur(indexJoueur);
+				supprimerJoueur();
 				break;
 			case 3:
 				if(partie.getJoueurs().size() < 2) {
@@ -109,11 +99,26 @@ public class InterfacePartie {
 		} while(!operationTerminee);
 	}
 	
+	public void supprimerJoueur() {
+		System.out.println("Choisissez le joueur a supprimer.");
+		for(int i = 0; i < partie.getJoueurs().size(); i++) {
+			System.out.println(i+"-"+partie.getJoueurs().get(i).getNom());
+		}
+		int indexJoueur = 0;
+		do{
+			System.out.println("Entrer un nombre valide.");
+			indexJoueur = scanner.nextInt();
+		}  while (indexJoueur < 0  || indexJoueur > partie.getJoueurs().size());
+		System.out.println("Le joueur "+partie.getJoueurs().get(indexJoueur)+" a été supprimé.");
+		partie.retirerUnJoueur(indexJoueur);
+	}
+	
 	public void jouer() {
 		do{
 			jouerUnTour();
 			partie.preparerTourProchain();
 		} while(!partie.isPartieFinie());
+		System.out.println("Le gagnant est "+partie.getJoueurs().get(partie.getIndexGagnant()).getNom()+".");
 	}
 	
 	public void jouerUnTour() {
@@ -169,6 +174,15 @@ public class InterfacePartie {
 							System.out.println("Quelle carte voulez-vous sacrifier ?");
 							for(int j = 0; j < listeCartesSacrifiables.size(); j++) {
 								System.out.println(j+" - "+listeCartesSacrifiables.get(j).getNom());
+							}
+							int choixSacrifice = -1;
+							do{
+								choixSacrifice = scanner.nextInt();
+							} while(choixSacrifice < 0 || choixSacrifice >= listeCartesSacrifiables.size());
+							if ((joueurCourant.isAutorisationgsp() == false && listeCartesSacrifiables.get(choixSacrifice) instanceof GuideSpirituel) | (joueurCourant.isAutorisationcr() == false && listeCartesSacrifiables.get(choixSacrifice) instanceof Croyant)) {
+								System.out.println("Vous ne pouvez pas sacrifier cette carte ce tour ci. (utilisation d'une capacite contre vous)");
+							} else {
+								joueurCourant.sacrificeNormal(listeCartesSacrifiables.get(choixSacrifice));
 							}
 						}
 						break;

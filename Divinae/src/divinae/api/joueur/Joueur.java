@@ -155,7 +155,7 @@ public class Joueur {
 		if ((autorisationgsp == false && carte instanceof GuideSpirituel) | (autorisationcr == false && carte instanceof Croyant)) {
 			System.out.println("Vous ne pouvez pas sacrifier de carte ce tour ci ! (utilisation d'une capacite contre vous)");
 		} else {
-			sacrificeNormal(carte);
+			sacrifierCarte(carte);
 		}
 	}
 	

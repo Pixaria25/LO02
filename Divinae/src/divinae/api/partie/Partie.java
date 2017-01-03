@@ -29,6 +29,7 @@ public class Partie {
 	private Defausse defausse;
 	private De de;
 	private boolean partieFinie;
+	private int indexGagnant = -1;
 	
 	public Partie() {
 		this.indexJoueur1 = 0;
@@ -41,7 +42,6 @@ public class Partie {
 		this.partieFinie = false;
 	}
 	
-	private Scanner scanner = new Scanner(System.in);
 	
 	public void debuterUnTour() {
 		de.lancerDe();
@@ -94,14 +94,14 @@ public class Partie {
 
 	public void finirUnePartie() {
 		int maxCroyants = 0;
-		int indexGagnant = 0;
+		indexGagnant = 0;
 		for(int i = 0; i < joueurs.size(); i++) {
 			if(joueurs.get(i).getNombreCroyant() > maxCroyants) {
 				maxCroyants = joueurs.get(i).getNombreCroyant();
 				indexGagnant = i;
 			}
 		}
-		System.out.println("Le gagnant est "+joueurs.get(indexGagnant).getNom()+".");
+		
 		partieFinie = true;
 	}
 	
@@ -190,6 +190,9 @@ public class Partie {
 	public boolean isPartieFinie() {
 		return partieFinie;
 	}
-	
-	
+
+
+	public int getIndexGagnant() {
+		return indexGagnant;
+	}
 }
