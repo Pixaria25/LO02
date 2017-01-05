@@ -20,5 +20,6 @@ public class Defausse {
 	public void remettrePioche(Pioche pioche) {
 		java.util.Collections.shuffle(defausse);
 		pioche.setPioche(defausse);
+		defausse = new ArrayList<Carte>();
 	}
 }

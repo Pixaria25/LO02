@@ -34,12 +34,8 @@ public abstract class Divinite extends Carte {
 	@Override
 	public void activerCapacite() {
 		// TODO Auto-generated method stub
-		if(!capaciteActivee) {
-			System.out.println(getJoueurLie()+" active la capacite de "+getNom());
-			capaciteActivee = true;
-		} else {
-			System.out.println("Vous ne pouvez pas activer la capacite de votre divinite.");
-		}
+		capaciteActivee = true;
+		
 	}
 	
 	@Override

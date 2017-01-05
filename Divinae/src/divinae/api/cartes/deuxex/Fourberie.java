@@ -6,9 +6,9 @@ import divinae.api.cartes.types.Origine;
 import divinae.api.joueur.Joueur;
 import divinae.api.partie.Partie;
 
-public class Fouberie extends DeusEx {
+public class Fourberie extends DeusEx {
 
-	public Fouberie() {
+	public Fourberie() {
 		super("Fouberie", Origine.Nuit, "Sacrifiez 2 cartes Croyants "
 				+ "d'une autre Divinité. Les capacités spéciales ne sont pas jouées.");
 		// TODO Auto-generated constructor stub

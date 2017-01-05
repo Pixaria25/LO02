@@ -5,7 +5,7 @@ import divinae.api.cartes.types.Croyant;
 import divinae.api.cartes.types.Dogme;
 import divinae.api.cartes.types.Origine;
 
-public abstract class Ermite extends Croyant {
+public class Ermite extends Croyant {
 
   public Ermite (String nom, Dogme[] dogme) {
 		super(nom, Origine.Jour, "Impose le sacrifice d'un Croyant d'un autre joueur, qui choisit"

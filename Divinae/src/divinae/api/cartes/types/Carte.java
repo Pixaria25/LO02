@@ -15,7 +15,6 @@ public abstract class Carte {
 		this.nom = nom;
 		this.origine = origine;
 		this.capacite = capacite;
-		System.out.println("carte" + nom + "créée");
 	}
 	
 	public Origine getOrigine() {

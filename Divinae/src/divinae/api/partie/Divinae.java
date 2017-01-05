@@ -17,7 +17,6 @@ public class Divinae {
 		switch(choix) {
 		case 1: 
 			Partie partie = new Partie();
-			partie.lancerUnePartie();
 		case 2:
 			System.out.println("Au revoir !");
 		}

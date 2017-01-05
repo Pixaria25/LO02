@@ -19,12 +19,11 @@ public abstract class GuideSpirituel extends Carte implements Action {
 		this.croyantLie = new ArrayList<Croyant>();
 		this.dogme = dogme;
 		this.nombreCroyantLiable = nombreCroyantLiable;
-		System.out.println("carte" + nom + "crée");
-		}
+	}
 	
 	public void convertirCroyant (Partie partie) {
 		//A modifier !
-		while (this.nombreCroyantLiable  >  croyantLie.size()) { 
+		while (this.nombreCroyantLiable  >  croyantLie.size() || partie.getTasDeCroyants().size() > 0) { 
 			System.out.println("Veuillez choisir une carte à prendre du tas (écrire le nom)");
 			Scanner sc = new Scanner(System.in);
 			String nom = sc.next();

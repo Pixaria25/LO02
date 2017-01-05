@@ -35,14 +35,7 @@ public class Joueur {
 		this.partie = partie;
 	}
 	
-	public void poserCarteAction() {
-		
-		afficherMain();
-		System.out.println("Entrez le numero de la carte que vous voulez jouer.");
-		int choixCarte = -1;
-		do {
-			choixCarte = sc.nextInt();
-		} while(choixCarte < 0 || choixCarte >= main.size());
+	public void poserCarteAction(int choixCarte) {
 		partie.getTable().add(main.remove(choixCarte));
 	}
 	 
@@ -50,10 +43,12 @@ public class Joueur {
 		carte.activerCapacite();
 	}
 	
-	public void afficherMain() {
+	public String afficherMain() {
+		String retour = "";
 		for(int i = 0; i < main.size(); i++) {
-			System.out.println(i+" - "+main.get(i).getNom());
+			retour += i+" - "+main.get(i).getNom();
 		}
+		return retour;
 	}
 	
 	public void defausser(int nombreCartes) {
@@ -74,7 +69,7 @@ public class Joueur {
 	}
 		
 	public void completerMain() {
-		System.out.println("Remplissage de la main jusqu'a "+TAILLE_MAIN_MAX+" cartes.");
+		
 		int nbreCartes = TAILLE_MAIN_MAX-main.size();
 		for(int i = 0; i < nbreCartes; i++) {
 			main.add(partie.getPioche().sortirUneCarte());
@@ -151,13 +146,6 @@ public class Joueur {
 		return partie;
 	}
 
-	public void sacrificeNormal(Carte carte) {
-		if ((autorisationgsp == false && carte instanceof GuideSpirituel) | (autorisationcr == false && carte instanceof Croyant)) {
-			System.out.println("Vous ne pouvez pas sacrifier de carte ce tour ci ! (utilisation d'une capacite contre vous)");
-		} else {
-			sacrifierCarte(carte);
-		}
-	}
 	
 	public void sacrifierCarte(Carte carte) {
 		carte.activerCapacite();

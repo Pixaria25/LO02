@@ -41,7 +41,7 @@ public class Transe extends DeusEx {
 	    				((Croyant) cartePosee).setGuideLie(joueur.getGuide(i));
 	    			} 
 	    		}
-	    	} else { System.out.println("Pas de place disponiblr pour lier ce croyant"); }
+	    	} else { System.out.println("Pas de place disponible pour lier ce croyant"); }
 	    break;
 	    
 	    case GuideSpirituel:

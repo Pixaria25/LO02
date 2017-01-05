@@ -2,18 +2,13 @@ package divinae.api.partie;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
-import java.util.Scanner;
-
-import javax.management.RuntimeErrorException;
 
 import divinae.api.cartes.divinite.*;
 import divinae.api.cartes.types.*;
 import divinae.api.joueur.Joueur;
 import divinae.api.joueur.JoueurVirtuel;
-import divinae.api.joueur.Strategie;
 import divinae.api.joueur.StrategieDefensive;
 import divinae.api.joueur.StrategieEquilibre;
 import divinae.api.joueur.StrategieOffensive;
@@ -91,6 +86,10 @@ public class Partie {
             this.joueurs.get(i).setDivinite(piocheDivinite.remove(rd.nextInt(piocheDivinite.size())));
         }
 	}
+	
+	public void remplirPioche() {
+		
+	}
 
 	public void finirUnePartie() {
 		int maxCroyants = 0;
@@ -131,6 +130,30 @@ public class Partie {
 				}
 			}
 		}
+	}
+	
+	public String afficherTable() {
+		String retour = "";
+		for(int i = 0; i < table.size(); i++) {
+			retour += table.get(i).getNom()+"\n";
+		}
+		return retour;
+	}
+	
+	public String afficherTasCroyants() {
+		String retour = "";
+		for(int i = 0; i < tasDeCroyants.size(); i++) {
+			retour += tasDeCroyants.get(i).getNom()+"\n";
+		}
+		return retour;
+	}
+	
+	public void afficherDetailsTable() {
+		
+	}
+	
+	public void afficherDetailsTasCroyants() {
+		
 	}
 	
 	public List<Croyant> getTasDeCroyants() {

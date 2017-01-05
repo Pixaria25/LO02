@@ -26,7 +26,8 @@ public  class Alienies extends Croyant {
 		case 3 : 
 			Capacite.prendreCartes(this, 2, this.getJoueurLie().getPartie());
 			break;
-		default : System.out.println("Problème ! Cette option de capacité n'est pas prise en compte dans le code");
+		default : 
+			throw new RuntimeException("Problème ! Cette option de capacité n'est pas prise en compte dans le code");
 		}
 	
 	}
