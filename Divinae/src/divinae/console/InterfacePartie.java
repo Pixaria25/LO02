@@ -143,15 +143,15 @@ public class InterfacePartie {
 			int nombreCartes = 7-joueurCourant.getMain().size();
 			System.out.println("Pioche de "+nombreCartes+" cartes.");
 			joueurCourant.completerMain();
-			
+			System.out.println(joueurCourant.afficherMain());
 			int choixAction = 0;
 			boolean tourJoueurFini = false;
 			do{
 				if(partie.isPartieFinie()) {
 					return;
 				}
-				partie.afficherTable();
-				partie.afficherTasCroyants();
+				System.out.println(partie.afficherTable());
+				System.out.println(partie.afficherTasCroyants());
 				System.out.println("1 - Jouer une carte");
 				System.out.println("2 - Sacrifier un croyant ou un guide spirituel");
 				System.out.println("3 - Activer la capacite de la Divinite");

@@ -34,6 +34,7 @@ public class Partie {
 		this.indexJoueur1 = 0;
 		this.joueurs = new ArrayList<Joueur>();
 		this.table = new ArrayList<Carte>();
+		this.tasDeCroyants = new ArrayList<Croyant>();
 		this.nombreTour = 1;
 		this.pioche = new Pioche();
 		this.defausse = new Defausse();
