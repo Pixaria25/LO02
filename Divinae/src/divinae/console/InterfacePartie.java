@@ -29,7 +29,7 @@ public class InterfacePartie {
 		int choix = 0;
 		do{
 			try{
-				System.out.println("1-Ajout de joueurs\n2-Retirer un Joueur\n3-Commencer a jouer\n4-Quitter");
+				System.out.println("1-Ajout de joueurs\n2-Retirer un joueur\n3-Commencer a jouer\n4-Quitter");
 				
 				System.out.println("Entrer un nombre valide.");
 				choix = scanner.nextInt();
@@ -105,21 +105,27 @@ public class InterfacePartie {
 	}
 	
 	public void supprimerJoueur() {
-		System.out.println("Choisissez le joueur a supprimer.");
-		for(int i = 0; i < partie.getJoueurs().size(); i++) {
-			System.out.println(i+"-"+partie.getJoueurs().get(i).getNom());
+		if(partie.getJoueurs().isEmpty()) {
+			System.out.println("Vous n'avez pas ajoute de joueurs !");
+		} else {
+			System.out.println("Choisissez le joueur a supprimer.");
+			for(int i = 0; i < partie.getJoueurs().size(); i++) {
+				System.out.println(i+"-"+partie.getJoueurs().get(i).getNom());
+			}
+			int indexJoueur = 0;
+			do{
+				System.out.println("Entrer un nombre valide.");
+				indexJoueur = scanner.nextInt();
+			}  while (indexJoueur < 0  || indexJoueur > partie.getJoueurs().size());
+			System.out.println("Le joueur "+partie.getJoueurs().get(indexJoueur)+" a été supprimé.");
+			partie.retirerUnJoueur(indexJoueur);
 		}
-		int indexJoueur = 0;
-		do{
-			System.out.println("Entrer un nombre valide.");
-			indexJoueur = scanner.nextInt();
-		}  while (indexJoueur < 0  || indexJoueur > partie.getJoueurs().size());
-		System.out.println("Le joueur "+partie.getJoueurs().get(indexJoueur)+" a été supprimé.");
-		partie.retirerUnJoueur(indexJoueur);
 	}
 	
 	public void jouer() {
 		partie.distribuerLesDivinites();
+		partie.remplirPioche();
+		partie.distribuerCartes();
 		do{
 			jouerUnTour();
 			partie.preparerTourProchain();
@@ -225,17 +231,15 @@ public class InterfacePartie {
 	private void defausser(Joueur joueur) {
 		System.out.println("Voulez-vous defausser des cartes ? (y/n)");
 		String reponse = "";
-		reponse = scanner.nextLine();
+		
 		do{
-			System.out.println("Est-ce qu'un joueur veut intervenir ? (y/n)");
-			reponse = scanner.nextLine();
-			
-			if(reponse != "n" && reponse != "y") {
+			reponse = scanner.next();
+			if(!(reponse.equals("n") || reponse.equals("y"))) {	
 				System.out.println("Reponse invalide.");
 			}
-		} while(reponse != "n" && reponse != "y");
+		} while(!(reponse.equals("n") || reponse.equals("y")));
 		int nombreCartes = 0;
-		if(reponse == "y") {
+		if(reponse.equals("y")) {
 			System.out.println("Combien de cartes voulez-vous defausser ?");
 			
 			boolean aDefausse = false;
@@ -247,6 +251,7 @@ public class InterfacePartie {
 					System.out.println("Ce nombre de cartes est invalide.");
 				}
 			} while(!aDefausse);
+			System.out.println("Quelles cartes voulez-vous dÃ©fausser ?");
 			joueur.defausser(nombreCartes);
 		}
 	}

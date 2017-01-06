@@ -52,15 +52,15 @@ public class Joueur {
 	}
 	
 	public void defausser(int nombreCartes) {
-		System.out.println("Quelles cartes voulez-vous défausser ?");		
 		for(int i = 0; i < nombreCartes; i++) {
 			boolean carteDefaussee = false;
 			do{
+				System.out.println(afficherMain());
 				int carte = sc.nextInt();
-				if(carte >= nombreCartes) {
+				if(carte >= main.size()) {
 					System.out.println("Choix invalide.");
 				} else {
-					System.out.println("La carte "+main.get(carte).getNom()+" a été retirée.");
+					System.out.println("La carte "+main.get(carte).getNom()+" a ete retiree.");
 					partie.getDefausse().ajoutCarte(main.remove(carte));
 					carteDefaussee = true;
 				}

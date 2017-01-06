@@ -12,6 +12,10 @@ import divinae.api.joueur.JoueurVirtuel;
 import divinae.api.joueur.StrategieDefensive;
 import divinae.api.joueur.StrategieEquilibre;
 import divinae.api.joueur.StrategieOffensive;
+import divinae.api.cartes.croyant.*;
+import divinae.api.cartes.deuxex.*;
+import divinae.api.cartes.guide.*;
+
 
 public class Partie {
 	
@@ -88,9 +92,54 @@ public class Partie {
 	}
 	
 	public void remplirPioche() {
-		
+		ArrayList<Carte> piocheCartes = new ArrayList<Carte>();
+		Collections.addAll(piocheCartes, 
+				new Moines(new Dogme[]{Dogme.Humain, Dogme.Nature, Dogme.Mystique}),
+				new Moines((new Dogme[]{Dogme.Mystique, Dogme.Humain, Dogme.Chaos})),
+				new Moines((new Dogme[]{Dogme.Symboles, Dogme.Mystique, Dogme.Chaos})),
+				new Moines((new Dogme[]{Dogme.Mystique, Dogme.Nature, Dogme.Symboles})),
+				new Moines((new Dogme[]{Dogme.Mystique, Dogme.Nature, Dogme.Chaos})),
+				new Travailleurs(new Dogme[]{Dogme.Symboles, Dogme.Humain, Dogme.Chaos}, 1),
+				new Travailleurs(new Dogme[]{Dogme.Humain, Dogme.Nature, Dogme.Symboles}, 2),
+				new Travailleurs(new Dogme[]{Dogme.Mystique, Dogme.Humain, Dogme.Chaos}, 3),
+				new Demons(new Dogme[]{Dogme.Humain, Dogme.Nature, Dogme.Mystique}),
+				new Demons(new Dogme[]{Dogme.Mystique, Dogme.Humain, Dogme.Chaos}),
+				new Demons(new Dogme[]{Dogme.Symboles, Dogme.Mystique, Dogme.Chaos}),
+				new Demons(new Dogme[]{Dogme.Mystique, Dogme.Nature, Dogme.Symboles}),
+				new Demons(new Dogme[]{Dogme.Mystique, Dogme.Nature, Dogme.Chaos}),
+				new Esprits(new Dogme[]{Dogme.Humain, Dogme.Nature, Dogme.Mystique}),
+				new Esprits(new Dogme[]{Dogme.Mystique, Dogme.Humain, Dogme.Chaos}),
+				new Esprits(new Dogme[]{Dogme.Symboles, Dogme.Mystique, Dogme.Chaos}),
+				new Esprits(new Dogme[]{Dogme.Mystique, Dogme.Nature, Dogme.Symboles}),
+				new Esprits(new Dogme[]{Dogme.Mystique, Dogme.Nature, Dogme.Chaos}),
+				new Martyr(Origine.Jour, new Dogme[]{Dogme.Nature, Dogme.Humain}),
+				new Martyr(Origine.Nuit, new Dogme[]{Dogme.Humain, Dogme.Symboles}),
+				new Martyr(Origine.Neant, new Dogme[]{Dogme.Nature, Dogme.Chaos}),
+				new Clerc(Origine.Jour, new Dogme[]{Dogme.Humain, Dogme.Chaos}),
+				new Clerc(Origine.Nuit, new Dogme[]{Dogme.Nature, Dogme.Symboles}),
+				new Clerc(Origine.Neant, new Dogme[]{Dogme.Nature, Dogme.Humain}),
+				new Clerc(Origine.Jour, new Dogme[]{Dogme.Nature, Dogme.Chaos}),
+				new Clerc(Origine.Nuit, new Dogme[]{Dogme.Mystique, Dogme.Symboles}),
+				new Clerc(Origine.Neant, new Dogme[]{Dogme.Symboles, Dogme.Chaos}),
+				new Clerc(Origine.Jour, new Dogme[]{Dogme.Mystique, Dogme.Chaos}),
+				new Clerc(Origine.Nuit, new Dogme[]{Dogme.Nature, Dogme.Humain}),
+				new ColereDivine(Origine.Jour),
+				new ColereDivine(Origine.Nuit),
+				new Apocalypse(Origine.Jour),
+				new Apocalypse(Origine.Nuit),
+				new Apocalypse(Origine.Neant),
+				new Apocalypse(Origine.Aucune),
+				new Apocalypse(Origine.Aucune));
+		pioche.setPioche(piocheCartes);
 	}
 
+	public void distribuerCartes() {
+		for(int i = 0; i < this.joueurs.size();i++)
+        {
+            this.joueurs.get(i).completerMain();;
+        }
+	}
+	
 	public void finirUnePartie() {
 		int maxCroyants = 0;
 		indexGagnant = 0;
