@@ -2,9 +2,7 @@ package divinae.api.cartes.deuxex;
 
 import divinae.api.cartes.types.Capacite;
 import divinae.api.cartes.types.Carte;
-import divinae.api.cartes.types.Croyant;
 import divinae.api.cartes.types.DeusEx;
-import divinae.api.cartes.types.GuideSpirituel;
 import divinae.api.cartes.types.Origine;
 import divinae.api.joueur.Joueur;
 import divinae.api.partie.Partie;
@@ -18,62 +16,19 @@ public class Transe extends DeusEx {
 	}
 	
 	
-	
-	@Override
-	public void activerCapacite() {
-		Partie partie = this.getJoueurLie().getPartie();
-		Carte cartePosee = partie.getTable(partie.getTable().size()-1);
-	    Classe z = Classe.valueOf(cartePosee.getClass().getSimpleName());
-	    
-	    Joueur joueur = this.getJoueurLie();
-
-	    switch (z) {
-	    case Croyant:
-		    int croyantLiable = 0;
-		    for (int i = 0; i < joueur.getGuides().size(); i++) {
-				for(int j =0; j < joueur.getGuide(i).getCroyantLie().size(); j++){
-						croyantLiable++;
-				} 
-			}
-	    	if (joueur.getNombreCroyant() < croyantLiable) {
-	    		for (int i = 0; i < joueur.getGuides().size(); i++) {
-	    			if (joueur.getGuide(i).getCroyantLie().size() < joueur.getGuide(i).getNombreCroyantLiable()) {
-	    				((Croyant) cartePosee).setGuideLie(joueur.getGuide(i));
-	    			} 
-	    		}
-	    	} else { System.out.println("Pas de place disponible pour lier ce croyant"); }
-	    break;
-	    
-	    case GuideSpirituel:
-	        cartePosee.setJoueurLie(joueur);
-	        ((GuideSpirituel) cartePosee).convertirCroyant(partie);
-	    break;
-	    
-	    case DeusEx:
-	        switch (cartePosee.getNom()){
-	        case "Stase" : 
-	        case "Ordre Celeste" :
-	        case "Diversion" :
-	        case "Concentration" :
-	        case "Trou Noir" :
-	        case "Phoenix" : Capacite.copierCapacite(cartePosee, partie);
-	     	break;
-	    
-	        default : System.out.println("Cette carte n'a aucun effet bénéfique dire pour vous.");
-	       	break;
-	        }
-	    break;
-	    
-	    default : System.out.println("Aucun effet bénéfique pour vous.");
-	    break;
-	    }
-	}
-
-
-	enum Classe {
+	public enum ClasseName {
 	    Croyant,
 	    GuideSpirituel,
 	    DeusEx;
 	}
-		
+	@Override
+	public void activerCapacite() {
+		Partie partie = this.getJoueurLie().getPartie();
+		Carte cartePosee = partie.getTable(partie.getTable().size()-1);
+		Joueur joueur = this.getJoueurLie();
+		Capacite.getActionSuivante().recupererEffetBenef(cartePosee, joueur, partie);
+	}
+
+
+
 }

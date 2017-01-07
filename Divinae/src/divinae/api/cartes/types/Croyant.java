@@ -3,7 +3,7 @@ package divinae.api.cartes.types;
 public abstract class Croyant extends  CarteAction {
 	
 	private Dogme [] dogme;
-	private int nombreCroyant;
+	private int valeurCroyant;
 	private GuideSpirituel guideLie;
 	private boolean rattachable;
 	
@@ -11,7 +11,7 @@ public abstract class Croyant extends  CarteAction {
 		// TODO Auto-generated constructor stub
 		super(nom, origine, capacite);
 	    this.dogme = dogme;
-		this.nombreCroyant = nombreCroyant;
+		this.valeurCroyant = nombreCroyant;
 		this.guideLie = null;
 		this.rattachable = false;
 	}
@@ -19,6 +19,33 @@ public abstract class Croyant extends  CarteAction {
 	@Override
 	public void poserCarteAction() {
 		// TODO Auto-generated method stub
+		switch (joueurCourant.getMain().get(choixCarte).getOrigine()){
+		case Jour :
+			if (joueurCourant.getPointsAction()[Origine.Jour.ordinal()] >= 1) {
+				joueurCourant.getPointsAction()[Origine.Jour.ordinal()]--;
+				joueurCourant.setNombreCroyant(joueurCourant.getNombreCroyant()-((Croyant) joueurCourant.getMain().get(choixCarte)).getValeurCroyant());
+			} else {
+				System.out.println("Pas de point d'origine jour.");
+			}
+			break;
+		case Nuit :
+			if (joueurCourant.getPointsAction()[Origine.Nuit.ordinal()] >= 1) {
+				joueurCourant.getPointsAction()[Origine.Nuit.ordinal()]--;
+				joueurCourant.setNombreCroyant(joueurCourant.getNombreCroyant()-((Croyant) joueurCourant.getMain().get(choixCarte)).getValeurCroyant());
+			} else {
+				System.out.println("Pas de point d'origine Nuit.");
+			}
+			break;
+		case Neant :
+			if (joueurCourant.getPointsAction()[Origine.Neant.ordinal()] >= 1) {
+				joueurCourant.getPointsAction()[Origine.Neant.ordinal()]--;
+				
+			} else {
+				System.out.println("Pas de point d'origine Neant.");
+			}
+			break;
+			default : 
+		}
 		getJoueurLie().getPartie().getTasDeCroyants().add(this);
 		setJoueurLie(null);
 	}
@@ -35,8 +62,8 @@ public abstract class Croyant extends  CarteAction {
 		return dogme;
 	}
 
-	public int getNombreCroyant() {
-		return nombreCroyant;
+	public int getValeurCroyant() {
+		return valeurCroyant;
 	}
 	
 	public boolean isRattachable() {

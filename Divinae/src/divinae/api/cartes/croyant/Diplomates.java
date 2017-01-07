@@ -14,6 +14,6 @@ public  class Diplomates extends Croyant {
 	}
 
 	public void activerCapacite() {
-		Capacite.relancerDe(this.getJoueurLie().getPartie());;
+		Capacite.getActionSuivante().relancerDe(this.getJoueurLie().getPartie());
 	}
 }
