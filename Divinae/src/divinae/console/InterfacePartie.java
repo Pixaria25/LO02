@@ -6,6 +6,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import divinae.api.cartes.types.Carte;
+import divinae.api.cartes.types.CarteAction;
 import divinae.api.cartes.types.Croyant;
 import divinae.api.cartes.types.GuideSpirituel;
 import divinae.api.cartes.types.Origine;
@@ -29,7 +30,7 @@ public class InterfacePartie {
 		int choix = 0;
 		do{
 			try{
-				System.out.println("1-Ajout de joueurs\n2-Retirer un Joueur\n3-Commencer a jouer\n4-Quitter");
+				System.out.println("1-Ajout de joueurs\n2-Retirer un joueur\n3-Commencer a jouer\n4-Quitter");
 				
 				System.out.println("Entrer un nombre valide.");
 				choix = scanner.nextInt();
@@ -56,7 +57,9 @@ public class InterfacePartie {
 					System.out.println("Ce nombre est invalide.");
 				}
 			} catch(InputMismatchException e) {
-					
+					System.out.println("Cette entree est invalide.");
+					choix = 0;
+					scanner.next();
 			}
 		} while(!quitterJeu);
 		scanner.close();
@@ -105,21 +108,27 @@ public class InterfacePartie {
 	}
 	
 	public void supprimerJoueur() {
-		System.out.println("Choisissez le joueur a supprimer.");
-		for(int i = 0; i < partie.getJoueurs().size(); i++) {
-			System.out.println(i+"-"+partie.getJoueurs().get(i).getNom());
+		if(partie.getJoueurs().isEmpty()) {
+			System.out.println("Vous n'avez pas ajoute de joueurs !");
+		} else {
+			System.out.println("Choisissez le joueur a supprimer.");
+			for(int i = 0; i < partie.getJoueurs().size(); i++) {
+				System.out.println(i+"-"+partie.getJoueurs().get(i).getNom());
+			}
+			int indexJoueur = 0;
+			do{
+				System.out.println("Entrer un nombre valide.");
+				indexJoueur = scanner.nextInt();
+			}  while (indexJoueur < 0  || indexJoueur > partie.getJoueurs().size());
+			System.out.println("Le joueur "+partie.getJoueurs().get(indexJoueur)+" a Ã©tÃ© supprimÃ©.");
+			partie.retirerUnJoueur(indexJoueur);
 		}
-		int indexJoueur = 0;
-		do{
-			System.out.println("Entrer un nombre valide.");
-			indexJoueur = scanner.nextInt();
-		}  while (indexJoueur < 0  || indexJoueur > partie.getJoueurs().size());
-		System.out.println("Le joueur "+partie.getJoueurs().get(indexJoueur)+" a été supprimé.");
-		partie.retirerUnJoueur(indexJoueur);
 	}
 	
 	public void jouer() {
 		partie.distribuerLesDivinites();
+		partie.remplirPioche();
+		partie.distribuerCartes();
 		do{
 			jouerUnTour();
 			partie.preparerTourProchain();
@@ -133,19 +142,20 @@ public class InterfacePartie {
 		for(int i = 0; i <  partie.getJoueurs().size(); i++) {
 			Joueur joueurCourant = partie.getJoueurs().get(indexCourant);
 			System.out.println(joueurCourant.getNom()+" joue.");
+			System.out.println(joueurCourant.afficherMain());
 			defausser(joueurCourant);
 			int nombreCartes = 7-joueurCourant.getMain().size();
 			System.out.println("Pioche de "+nombreCartes+" cartes.");
 			joueurCourant.completerMain();
-			
+			System.out.println(joueurCourant.afficherMain());
 			int choixAction = 0;
 			boolean tourJoueurFini = false;
 			do{
 				if(partie.isPartieFinie()) {
 					return;
 				}
-				partie.afficherTable();
-				partie.afficherTasCroyants();
+				System.out.println(partie.afficherTable());
+				System.out.println(partie.afficherTasCroyants());
 				System.out.println("1 - Jouer une carte");
 				System.out.println("2 - Sacrifier un croyant ou un guide spirituel");
 				System.out.println("3 - Activer la capacite de la Divinite");
@@ -171,7 +181,7 @@ public class InterfacePartie {
 							System.out.println("Vous ne pouvez pas sacrifier de cartes.");
 						} else {
 							demanderInterruption();
-							ArrayList<Carte> listeCartesSacrifiables = new ArrayList<Carte>();
+							ArrayList<CarteAction> listeCartesSacrifiables = new ArrayList<CarteAction>();
 							listeCartesSacrifiables.addAll(joueurCourant.getGuides());
 							for(int j = 0; j < joueurCourant.getGuides().size(); j++) {
 								listeCartesSacrifiables.addAll(joueurCourant.getGuide(j).getCroyantLie());
@@ -219,20 +229,23 @@ public class InterfacePartie {
 				}
 			} while(!tourJoueurFini);
 			indexCourant = (indexCourant+1) % partie.getJoueurs().size();
+			partie.setCroyantsRattachables();
 		}
 	}
 	
 	private void defausser(Joueur joueur) {
-		System.out.println("Voulez-vous defausser des cartes ? (1 : y  //  2 : n)");
-		int reponse;
+		System.out.println("Voulez-vous defausser des cartes ? (y/n)");
+		String reponse = "";
+		
 		do{
-			reponse = scanner.nextInt();
-			if(!(reponse == 1 || reponse == 2)) {
+			reponse = scanner.next();
+			if(!(reponse.equals("n") || reponse.equals("y"))) {	
 				System.out.println("Reponse invalide.");
 			}
-		} while(!(reponse == 1 || reponse == 2));
+		} while(!(reponse.equals("n") || reponse.equals("y")));
 		int nombreCartes = 0;
-		if(reponse == 1) {
+		if(reponse.equals("y")) {
+
 			System.out.println("Combien de cartes voulez-vous defausser ?");
 			
 			boolean aDefausse = false;
@@ -244,6 +257,9 @@ public class InterfacePartie {
 					System.out.println("Ce nombre de cartes est invalide.");
 				}
 			} while(!aDefausse);
+			System.out.println("Quelles cartes voulez-vous defausser ?");
+			
+			//Donner toutes les cartes a defausser ? Donner le numero de la carte a defausser ? Donner le nombre de cartes a defausser puis donner lesquels ?
 			joueur.defausser(nombreCartes);
 		}
 	}
@@ -254,13 +270,14 @@ public class InterfacePartie {
 		do{
 			System.out.println("Est-ce qu'un joueur veut intervenir ? (y/n)");
 			interruption = scanner.nextLine();
-			if(interruption == "y") {
+			if(interruption.equals("y")) {
 				interruption();
 			}
-			if(interruption.equals("n") && interruption.equals("y")){
+
+			if(!(interruption.equals("n") && interruption.equals("y"))) {
 				System.out.println("Reponse invalide.");
 			}
-		} while(interruption.equals("n"));
+		} while(!interruption.equals("n"));
 	}
 	
 	public void interruption() {
@@ -310,7 +327,7 @@ public class InterfacePartie {
 					System.out.println("Choisissez la carte que vous voulez jouer.");
 					carteChoisie = scanner.nextInt();
 				} while(!cartesValides.contains(carteChoisie));
-				partie.getTable().add(joueurChoisi.getMain().remove(carteChoisie));
+				joueurChoisi.poserCarteAction(carteChoisie);
 			case 2:
 				joueurChoisi.getDivinite().activerCapacite();
 			default:

@@ -7,7 +7,7 @@ import divinae.api.partie.Partie;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class GuideSpirituel extends Carte implements Action {
+public abstract class GuideSpirituel extends CarteAction {
 
 	private List<Croyant> croyantLie;
 	private Dogme [] dogme;

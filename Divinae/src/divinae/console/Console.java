@@ -6,7 +6,7 @@ public class Console {
 
 	public static void main(String[] args) {
 		System.out.println("Bienvenue dans Divinae !");
-		System.out.println("1-Creer une partie\n2-Quitter");
+		/*System.out.println("1-Creer une partie\n2-Quitter");
 		Scanner scanner = new Scanner(System.in);
 		int choix = 0;
 		do {
@@ -22,7 +22,9 @@ public class Console {
 			System.out.println("Au revoir !");
 		}
 		
-		scanner.close();
+		scanner.close();*/
+		InterfacePartie interfacePartie = new InterfacePartie();
+		interfacePartie.lancerUnePartie();
 	}
 
 }

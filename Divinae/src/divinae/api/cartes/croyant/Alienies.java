@@ -10,7 +10,7 @@ public  class Alienies extends Croyant {
 	private int option;
 
 	public Alienies(String nom, String capacite, Dogme[] dogme, int option) {
-		super(nom, Origine.Neant, capacite, dogme, 2);
+		super("Alienes", Origine.Neant, capacite, dogme, 2);
 		this.option = option;
 		// TODO Auto-generated constructor stub
 	}

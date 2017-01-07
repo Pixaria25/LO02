@@ -1,11 +1,11 @@
 package divinae.api.cartes.types;
 
-public abstract class Croyant extends Carte implements Action {
+public abstract class Croyant extends  CarteAction {
 	
 	private Dogme [] dogme;
 	private int valeurCroyant;
 	private GuideSpirituel guideLie;
-	
+	private boolean rattachable;
 	
 	public Croyant(String nom, Origine origine, String capacite, Dogme[] dogme, int nombreCroyant) {
 		// TODO Auto-generated constructor stub
@@ -13,6 +13,7 @@ public abstract class Croyant extends Carte implements Action {
 	    this.dogme = dogme;
 		this.valeurCroyant = nombreCroyant;
 		this.guideLie = null;
+		this.rattachable = false;
 	}
 
 	@Override
@@ -65,9 +66,17 @@ public abstract class Croyant extends Carte implements Action {
 		return valeurCroyant;
 	}
 	
-	@Override
-	public String toString() {
-		return "Croyant" + getNom() + "\n " + getOrigine() + "\n " + dogme + "\n " + getCapacite();
+	public boolean isRattachable() {
+		return rattachable;
 	}
 
+	public void setRattachable(boolean rattachable) {
+		this.rattachable = rattachable;
+	}
+
+	@Override
+	public String toString() {
+		return "Croyant " + getNom() + "\n " + getOrigine() + "\n " + dogme + "\n " + getCapacite();
+	}
+	
 }

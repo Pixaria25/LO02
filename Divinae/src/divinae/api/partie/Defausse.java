@@ -3,23 +3,23 @@ package divinae.api.partie;
 import java.util.ArrayList;
 import java.util.List;
 
-import divinae.api.cartes.types.Carte;
+import divinae.api.cartes.types.CarteAction;
 
 public class Defausse {
 
-	private List<Carte> defausse;
+	private List<CarteAction> defausse;
 	
 	public Defausse() {
-		defausse = new ArrayList<Carte>();
+		defausse = new ArrayList<CarteAction>();
 	}
 	
-	public void ajoutCarte(Carte carte) {
+	public void ajoutCarte(CarteAction carte) {
 		defausse.add(carte);
 	}
 	
 	public void remettrePioche(Pioche pioche) {
 		java.util.Collections.shuffle(defausse);
 		pioche.setPioche(defausse);
-		defausse = new ArrayList<Carte>();
+		defausse = new ArrayList<CarteAction>();
 	}
 }
