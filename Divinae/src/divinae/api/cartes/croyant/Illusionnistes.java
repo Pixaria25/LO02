@@ -17,13 +17,13 @@ public class Illusionnistes extends Croyant {
 
 	@Override
 	public void activerCapacite() {
-		Partie partie = this.getJoueurLie().getPartie();
+		/*Partie partie = this.getJoueurLie().getPartie();
 		Joueur joueur = Capacite.choisirJoueurCible(partie);
 		if (joueur.getNombreCroyant() == 0) {
 			System.out.println("Ce Joueur n'a pas de croyants.");
 			joueur = Capacite.choisirJoueurCible(partie);
 		}
 		Capacite.copierCapacite(Capacite.choisirCroyant(joueur, partie), partie);
-		Capacite.defausser(this, this.getJoueurLie().getPartie());
+		Capacite.defausser(this, this.getJoueurLie().getPartie());*/
 	}
 }

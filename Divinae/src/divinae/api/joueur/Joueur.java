@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import divinae.api.cartes.types.CarteAction;
 import divinae.api.cartes.types.Carte;
 import divinae.api.cartes.types.Croyant;
 import divinae.api.cartes.types.Divinite;
@@ -15,7 +16,7 @@ public class Joueur {
 
 	private String nom;
 	private Divinite divinite;
-	private List<Carte> main;
+	private List<CarteAction> main;
 	private int nombreCroyant;
 	private int[] pointsAction = {0, 0, 0};
 	private List<GuideSpirituel> guides;
@@ -29,7 +30,7 @@ public class Joueur {
 	public Joueur(String nom, Partie partie) {
 		this.nom = nom;
 		this.divinite = null;
-		this.main = new ArrayList<Carte>();
+		this.main = new ArrayList<CarteAction>();
 		this.nombreCroyant = 0;
 		this.guides = new ArrayList<GuideSpirituel>();
 		this.partie = partie;
@@ -46,7 +47,7 @@ public class Joueur {
 	public String afficherMain() {
 		String retour = "";
 		for(int i = 0; i < main.size(); i++) {
-			retour += i+" - "+main.get(i).getNom()+"\n";
+			retour += i+" - "+main.get(i).getNom()+"	";
 		}
 		return retour;
 	}
@@ -72,7 +73,9 @@ public class Joueur {
 		
 		int nbreCartes = TAILLE_MAIN_MAX-main.size();
 		for(int i = 0; i < nbreCartes; i++) {
-			main.add(partie.getPioche().sortirUneCarte());
+			CarteAction carte = partie.getPioche().sortirUneCarte();
+			carte.setJoueurLie(this);
+			main.add(carte);
 		}
 	}
 	
@@ -108,10 +111,9 @@ public class Joueur {
 		return nom;
 	}
 
-	public List<Carte> getMain() {
+	public List<CarteAction> getMain() {
 		return main;
 	}
-	
 	
 	public List<GuideSpirituel> getGuides() {
 		return guides;
@@ -147,18 +149,19 @@ public class Joueur {
 	}
 
 	
-	public void sacrifierCarte(Carte carte) {
+	public void sacrifierCarte(CarteAction carte) {
 		carte.activerCapacite();
 		tuerCarte(carte);
 	}
 
-	public void tuerCarte(Carte carte) {
+	public void tuerCarte(CarteAction carte) {
 		if(carte instanceof GuideSpirituel) {
 			this.partie.getTasDeCroyants().addAll((((GuideSpirituel) carte).getCroyantLie()));
 			((GuideSpirituel) carte).getCroyantLie().clear();
 		}
 		if(carte instanceof Croyant) {
 			((Croyant) carte).setGuideLie(null);
+			((Croyant) carte).setRattachable(false);
 		}
 		carte.setJoueurLie(null);
 		partie.getDefausse().ajoutCarte(carte);

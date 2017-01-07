@@ -1,6 +1,6 @@
 package divinae.api.cartes.types;
 
-public class Apocalypse extends Carte implements Action {
+public class Apocalypse extends  CarteAction {
 
 	public Apocalypse(Origine origine) {
 		super("Apocalypse", origine, "Lance une apocalypse.");

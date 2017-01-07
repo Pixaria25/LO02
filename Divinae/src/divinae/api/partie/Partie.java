@@ -21,7 +21,7 @@ public class Partie {
 	
 	private int indexJoueur1;
 	private List<Joueur> joueurs;
-	private List<Carte> table;
+	private List<CarteAction> table;
 	private List<Croyant> tasDeCroyants;
 	private int nombreTour;
 	private Pioche pioche;
@@ -33,7 +33,7 @@ public class Partie {
 	public Partie() {
 		this.indexJoueur1 = 0;
 		this.joueurs = new ArrayList<Joueur>();
-		this.table = new ArrayList<Carte>();
+		this.table = new ArrayList<CarteAction>();
 		this.tasDeCroyants = new ArrayList<Croyant>();
 		this.nombreTour = 1;
 		this.pioche = new Pioche();
@@ -93,7 +93,7 @@ public class Partie {
 	}
 	
 	public void remplirPioche() {
-		ArrayList<Carte> piocheCartes = new ArrayList<Carte>();
+		ArrayList<CarteAction> piocheCartes = new ArrayList<CarteAction>();
 		Collections.addAll(piocheCartes, 
 				new Moines(new Dogme[]{Dogme.Humain, Dogme.Nature, Dogme.Mystique}),
 				new Moines((new Dogme[]{Dogme.Mystique, Dogme.Humain, Dogme.Chaos})),
@@ -131,6 +131,7 @@ public class Partie {
 				new Apocalypse(Origine.Neant),
 				new Apocalypse(Origine.Aucune),
 				new Apocalypse(Origine.Aucune));
+		Collections.shuffle(piocheCartes);
 		pioche.setPioche(piocheCartes);
 	}
 
@@ -179,6 +180,18 @@ public class Partie {
 					joueurs.get(i).ajoutPointsAction(1, Origine.Neant);
 				}
 			}
+		}
+	}
+	
+	public void setCroyantsRattachables() {
+		for(int i = 0; i < tasDeCroyants.size(); i ++) {
+			tasDeCroyants.get(i).setRattachable(true);
+		}
+	}
+	
+	public void activerCartes() {
+		for(int i = 0; i < table.size(); i++) {
+			table.get(i).poserCarteAction();
 		}
 	}
 	
@@ -244,7 +257,7 @@ public class Partie {
 		}
 	}
 
-	public List<Carte> getTable() {
+	public List<CarteAction> getTable() {
 		return table;
 	}
 	
