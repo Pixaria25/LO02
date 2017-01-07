@@ -46,12 +46,13 @@ public class Joueur {
 	public String afficherMain() {
 		String retour = "";
 		for(int i = 0; i < main.size(); i++) {
-			retour += i+" - "+main.get(i).getNom();
+			retour += i+" - "+ main.get(i).getNom();
 		}
 		return retour;
 	}
 	
 	public void defausser(int nombreCartes) {
+		
 		System.out.println("Quelles cartes voulez-vous défausser ?");		
 		for(int i = 0; i < nombreCartes; i++) {
 			boolean carteDefaussee = false;
@@ -60,7 +61,7 @@ public class Joueur {
 				if(carte >= nombreCartes) {
 					System.out.println("Choix invalide.");
 				} else {
-					System.out.println("La carte "+main.get(carte).getNom()+" a été retirée.");
+					System.out.println("La carte "+ main.get(carte).getNom()+" a été retirée.");
 					partie.getDefausse().ajoutCarte(main.remove(carte));
 					carteDefaussee = true;
 				}

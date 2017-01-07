@@ -3,6 +3,7 @@ package divinae.api.cartes.divinite;
 import divinae.api.cartes.types.Divinite;
 import divinae.api.cartes.types.Dogme;
 import divinae.api.cartes.types.Origine;
+import divinae.api.partie.Partie;
 
 public class PuiTara extends Divinite {
 
@@ -18,7 +19,14 @@ public class PuiTara extends Divinite {
 	@Override
 	public void activerCapacite() {
 		// TODO Auto-generated method stub
-
+		super.activerCapacite();
+		Partie partie = this.getJoueurLie().getPartie();
+		for (int i=0; i < partie.getTasDeCroyants().size(); i++) {
+			if (partie.getTasDeCroyants(i).getOrigine() == Origine.Jour) {
+				partie.getDefausse().ajoutCarte(partie.getTasDeCroyants(i));
+			}
+		}
+		
 	}
 
 }

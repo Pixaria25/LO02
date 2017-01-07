@@ -1,7 +1,5 @@
 package divinae.api.cartes.croyant;
 
-import java.util.Scanner;
-
 import divinae.api.cartes.types.Capacite;
 import divinae.api.cartes.types.Croyant;
 import divinae.api.cartes.types.Dogme;
@@ -20,28 +18,9 @@ public class Revolutionnaires extends Croyant {
   
   public void activerCapacite() {
 	  boolean stop = false;
-	  boolean valChoix;
 	  do {
-		valChoix = false;  
-	  	Capacite.imposerSacrifice("Croyant", this.getJoueurLie().getPartie());
-	  	System.out.println("Voulez vous cibler une autre Divinité ? "
-	  			+ "\n 1 : Oui "
-	  			+ "\n 2 : Non ");
-	  	while (!valChoix) {
-		  	Scanner sc = new Scanner(System.in);
-			int choix = sc.nextInt();	
-			sc.close();
-		  	
-			switch (choix) {
-			case 1 : stop = false;
-			break;
-			case 2 : stop = true;
-					 valChoix = true;
-			break;
-			default : System.out.println("Choix invalide, veuillez choisir 1 : OUI ou 2 : NON ");
-					  valChoix = false;
-			}
-	  	}
+		Capacite.imposerSacrifice("Croyant", this.getJoueurLie().getPartie());
+	  	stop = Capacite.getActionSuivante().choixMultiples("Divinité");
 	  } while (!stop);
   }
 }

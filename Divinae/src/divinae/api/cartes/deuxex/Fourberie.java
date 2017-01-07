@@ -17,7 +17,7 @@ public class Fourberie extends DeusEx {
 	@Override
 	public void activerCapacite() {
 		Partie partie = this.getJoueurLie().getPartie();
-		Joueur joueur = Capacite.choisirJoueurCible(this.getJoueurLie().getPartie());
+		Joueur joueur = Capacite.getActionSuivante().choisirJoueurCible(this.getJoueurLie().getPartie());
 		int nbCroyantCiblable = 0;
 		for (int i = 0; i < joueur.getGuides().size(); i++) {
 			for(int j =0; j < joueur.getGuide(i).getCroyantLie().size(); j++){
@@ -28,12 +28,11 @@ public class Fourberie extends DeusEx {
 		}
 
 		if (nbCroyantCiblable < 2) {
-			System.out.println("Veuillez choisir un autre joueur, celui-ci n'a pas assez de croyants ciblables.");
-			joueur = Capacite.choisirJoueurCible(this.getJoueurLie().getPartie());
+			joueur = Capacite.getActionSuivante().choisirJoueurCible(this.getJoueurLie().getPartie());
 		}
 		
 		for (int k =0; k < 2; k++) {
-			Capacite.defausser(Capacite.choisirCroyant(joueur, partie), partie);
+			Capacite.defausser(Capacite.getActionSuivante().choisirCroyant(joueur, partie), partie);
 		}
 	}
 

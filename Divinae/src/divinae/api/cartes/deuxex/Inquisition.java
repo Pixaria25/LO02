@@ -4,6 +4,7 @@ import divinae.api.cartes.types.Capacite;
 import divinae.api.cartes.types.DeusEx;
 import divinae.api.cartes.types.GuideSpirituel;
 import divinae.api.cartes.types.Origine;
+import divinae.api.partie.De;
 
 public class Inquisition extends DeusEx {
 
@@ -15,28 +16,23 @@ public class Inquisition extends DeusEx {
 
 	@Override
 	public void activerCapacite() {
-		GuideSpirituel SonGp = Capacite.choisirGsp(this.getJoueurLie().getPartie());
+		GuideSpirituel MonGp = Capacite.getActionSuivante().choisirSonGsp(this.getJoueurLie(),this.getJoueurLie().getPartie());
+		GuideSpirituel SonGp = Capacite.getActionSuivante().choisirGsp(this.getJoueurLie().getPartie());
 		while (SonGp.getJoueurLie()==this.getJoueurLie()){
-			System.out.println("Votre choix n'est pas valide, veuillez choisir un guide spirituel ne vous appartenant pas dans un premier temps");
-			SonGp = Capacite.choisirGsp(this.getJoueurLie().getPartie());
+			SonGp = Capacite.getActionSuivante().choisirGsp(this.getJoueurLie().getPartie());
 		}
-		GuideSpirituel MonGp = Capacite.choisirSonGsp(this.getJoueurLie(), this.getJoueurLie().getPartie());
 		
-		this.getJoueurLie().getPartie().getDe().lancerDe();
-		Origine influence = this.getJoueurLie().getPartie().getDe().getInfluence();
+		De de = this.getJoueurLie().getPartie().getDe();
+		de.lancerDe();
+		Origine influence = de.getInfluence();
 		
 		switch (influence) {
 		case Jour : SonGp.getJoueurLie().sacrifierCarte(SonGp);
-					System.out.println("Le de est sur la face jour.");
-					System.out.println("Sacrifice du guide spirituel adverse.");
 		break;
 		case Nuit : MonGp.getJoueurLie().sacrifierCarte(MonGp);
-					System.out.println("Le de est sur la face nuit.");
-					System.out.println("Sacrifice de votre guide spirituel.");
 		break;
-		default: System.out.println("Le de est sur la face est Néant.");
-				 System.out.println("Rien ne se passe.");
-			break;
+		default: 
+		break;
 		}
 	}
 }
