@@ -6,7 +6,9 @@ import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
+
 import divinae.api.cartes.types.CarteAction;
+
 import divinae.api.cartes.types.Croyant;
 import divinae.api.cartes.types.GuideSpirituel;
 import divinae.api.cartes.types.Origine;
@@ -16,11 +18,11 @@ import divinae.api.partie.TypeStrategie;
 
 public class InterfacePartie {
 
-	private Partie partie;
+	private static Partie partie;
 	private Scanner scanner = new Scanner(System.in);
 	
 	public InterfacePartie() {
-		this.partie = new Partie();
+		partie = new Partie();
 	}
 	
 	public void lancerUnePartie() {
@@ -108,21 +110,47 @@ public class InterfacePartie {
 	}
 	
 	public void supprimerJoueur() {
+
+		System.out.println("Choisissez le joueur a supprimer.");
+		for(int i = 0; i < partie.getJoueurs().size(); i++) {
+			System.out.println(i+" - "+partie.getJoueurs().get(i).getNom());
+		}
+		System.out.println(partie.getJoueurs().size() + " - Annuler");
+		int indexJoueur = 0;
+		do{
+			System.out.println("Entrer un nombre valide.");
+			indexJoueur = scanner.nextInt();
+		}  while (indexJoueur < 0  || indexJoueur > partie.getJoueurs().size());
+		if (indexJoueur==partie.getJoueurs().size()) {
+			System.out.println("Suppression de joueur annuler.");
+		} else {
+			System.out.println("Le joueur "+partie.getJoueurs().get(indexJoueur)+" a �t� supprim�.");
+			partie.retirerUnJoueur(indexJoueur);
+
+		}
+
 		if(partie.getJoueurs().isEmpty()) {
 			System.out.println("Vous n'avez pas ajoute de joueurs !");
 		} else {
-			System.out.println("Choisissez le joueur a supprimer.");
-			for(int i = 0; i < partie.getJoueurs().size(); i++) {
-				System.out.println(i+"-"+partie.getJoueurs().get(i).getNom());
-			}
-			int indexJoueur = 0;
-			do{
-				System.out.println("Entrer un nombre valide.");
-				indexJoueur = scanner.nextInt();
-			}  while (indexJoueur < 0  || indexJoueur > partie.getJoueurs().size());
-			System.out.println("Le joueur "+partie.getJoueurs().get(indexJoueur)+" a été supprimé.");
-			partie.retirerUnJoueur(indexJoueur);
+        System.out.println("Choisissez le joueur a supprimer.");
+      for(int i = 0; i < partie.getJoueurs().size(); i++) {
+        System.out.println(i+" - "+partie.getJoueurs().get(i).getNom());
+      }
+      System.out.println(partie.getJoueurs().size() + " - Annuler");
+      int indexJoueur = 0;
+      do{
+        System.out.println("Entrer un nombre valide.");
+        indexJoueur = scanner.nextInt();
+      }  while (indexJoueur < 0  || indexJoueur >= partie.getJoueurs().size());
+      if (indexJoueur==partie.getJoueurs().size()) {
+        System.out.println("Suppression de joueur annuler.");
+      } else {
+			  System.out.println("Le joueur "+partie.getJoueurs().get(indexJoueur)+" a été supprimé.");
+		    partie.retirerUnJoueur(indexJoueur);
+
+		  }
 		}
+
 	}
 	
 	public void jouer() {
@@ -176,6 +204,17 @@ public class InterfacePartie {
 							System.out.println("Entrez le numero de la carte que vous voulez jouer.");
 							choixCarte = scanner.nextInt();
 						} while(choixCarte < 0 || choixCarte >=joueurCourant.getMain().size());
+        /**
+						Carte cartePose = joueurCourant.getMain().get(choixCarte);
+						joueurCourant.poserCarteAction(choixCarte);
+						Capacite.setCarteInterupt(cartePose);
+						demanderInterruption();
+						if (Capacite.isInteruptionAnnulationCapa()) {
+							System.out.println("Votre capacit� a �t� contr� ! Elle est defausser normalent si elle doit l'�tre");
+							break;
+						}
+						((Action) cartePose).poserCarteAction();
+        **/
 						
 						boolean poserCarte = false;
 						switch (joueurCourant.getMain().get(choixCarte).getOrigine()){
@@ -250,6 +289,12 @@ public class InterfacePartie {
 							if ((joueurCourant.isAutorisationgsp() == false && listeCartesSacrifiables.get(choixSacrifice) instanceof GuideSpirituel) | (joueurCourant.isAutorisationcr() == false && listeCartesSacrifiables.get(choixSacrifice) instanceof Croyant)) {
 								System.out.println("Vous ne pouvez pas sacrifier cette carte ce tour ci. (Utilisation d'une capacite contre vous)");
 							} else {
+										Capacite.setCarteInterupt(listeCartesSacrifiables.get(choixSacrifice));
+										demanderInterruption();
+										if (Capacite.isInteruptionAnnulationCapa()) {
+											System.out.println("Votre capacit� a �t� contr� ! Elle est defausser normalent si elle doit l'�tre");
+											break;
+										}
 								joueurCourant.sacrifierCarte(listeCartesSacrifiables.get(choixSacrifice));
 							}
 						}
@@ -286,6 +331,7 @@ public class InterfacePartie {
 						
 					default:
 						System.out.println("Ce nombre est invalide.");
+						break;
 				}
 			} while(!tourJoueurFini);
 			indexCourant = (indexCourant+1) % partie.getJoueurs().size();
@@ -336,7 +382,7 @@ public class InterfacePartie {
 			if(interruption.equals("y")) {
 				interruption();
 			}
-
+      
 			if(!(interruption.equals("n") || interruption.equals("y"))) {
 				System.out.println("Reponse invalide.");
 			}
@@ -397,4 +443,12 @@ public class InterfacePartie {
 				System.out.println("Choix d'interruption invalide");
 		}
 	}
+
+
+	public static Partie getPartie() {
+		return partie;
+	}
+
+	
+	
 }

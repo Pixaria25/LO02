@@ -10,7 +10,7 @@ public class Apocalypse extends  CarteAction {
 	@Override
 	public void activerCapacite() {
 		// TODO Auto-generated method stub
-		Capacite.lancerApocalypse(this.getJoueurLie().getPartie());
+		Capacite.getActionSuivante().lancerApocalypse(this.getJoueurLie().getPartie());
 		this.getJoueurLie().getPartie().setIndexJoueur1(this.getJoueurLie().getPartie().getJoueurs().indexOf(this.getJoueurLie()));
 	}
 
@@ -18,6 +18,7 @@ public class Apocalypse extends  CarteAction {
 	public void poserCarteAction() {
 		// TODO Auto-generated method stub
 		activerCapacite();
+		this.getJoueurLie().getPartie().getDefausse().ajoutCarte(this);
 	}
 
 	@Override

@@ -17,7 +17,7 @@ public class Martyr extends GuideSpirituel {
 	@Override
 	public void activerCapacite() {
 		// TODO Auto-generated method stub
-		Capacite.lancerApocalypse(this.getJoueurLie().getPartie());
+		Capacite.getActionSuivante().lancerApocalypse(this.getJoueurLie().getPartie());
 		this.getJoueurLie().getPartie().setIndexJoueur1(this.getJoueurLie().getPartie().getJoueurs().indexOf(this.getJoueurLie()));
 	}
 

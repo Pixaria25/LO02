@@ -1,9 +1,5 @@
 package divinae.api.cartes.guide;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-
 import divinae.api.cartes.types.Capacite;
 import divinae.api.cartes.types.Croyant;
 import divinae.api.cartes.types.Divinite;
@@ -25,28 +21,10 @@ public class Ascete extends GuideSpirituel {
 	public void activerCapacite() {
 		Divinite divinite = Capacite.getActionSuivante().choisirDiviniteOuDogme(Dogme.Humain, Dogme.Symboles, this.getJoueurLie().getPartie());
 		
-		int indice = 0;
-		int choix;
-		List<Croyant> croyantCiblable = new ArrayList<Croyant>();
 		for (int nb = 0; nb < 2 ; nb++){
-			System.out.println("Veuillez choisir un croyant à sacrifier : \n");
-			for (int i = 0; i < divinite.getJoueurLie().getGuides().size(); i++) {
-				for (int j = 0; j < divinite.getJoueurLie().getGuide(i).getCroyantLie().size(); j++) {
-					System.out.println(indice + " : " + divinite.getJoueurLie().getGuide(i).getCroyantLie(j).getNom() + "\n");
-					croyantCiblable.add(divinite.getJoueurLie().getGuide(i).getCroyantLie(j));
-					indice++;
-				}
-			}
-			do {
-				System.out.println("(Entrez le nombre compris entre 1 et " + indice + "nombre correspondant à votre choix) ");
-				Scanner sc = new Scanner(System.in);
-				choix = sc.nextInt();	
-				sc.close();
-				
-			} while (choix < 0 || choix > indice);
-			croyantCiblable.get(choix).activerCapacite();
-			Capacite.defausser(croyantCiblable.get(choix), this.getJoueurLie().getPartie());
+			Croyant croyantCible = Capacite.getActionSuivante().choisirCroyant(divinite.getJoueurLie(), this.getJoueurLie().getPartie());
+			croyantCible.activerCapacite();
+			Capacite.defausser(croyantCible, this.getJoueurLie().getPartie());
 		}
-		System.out.println("Les deux croyants choisis ont été sacrifié");
 	}
 }

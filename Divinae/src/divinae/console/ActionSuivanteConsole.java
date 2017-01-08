@@ -21,7 +21,7 @@ public class ActionSuivanteConsole implements ActionSuivante
 	@Override
 	public Joueur choisirJoueurCible(Partie partie)
 	{
-		System.out.println("Veuillez s√©lectionner le Joueur √† cibler par cette comp√©tence :"+ "\n");
+		System.out.println("Veuillez sÈlectionner le Joueur  cibler par cette competence :"+ "\n");
 		int choix = 0;
 		int indice=0;
 		do {
@@ -30,7 +30,7 @@ public class ActionSuivanteConsole implements ActionSuivante
 		} while (indice <=  partie.getJoueurs().size());
 		Scanner sc = new Scanner(System.in);
 		do {
-			System.out.println("(Entrez le nombre compris entre 1 et " + partie.getJoueurs().size() + "nombre correspondant √† votre choix) ");
+			System.out.println("(Entrez le nombre compris entre 1 et " + partie.getJoueurs().size() + "nombre correspondant a† votre choix) ");
 
 			choix = sc.nextInt();
 
@@ -48,50 +48,6 @@ public class ActionSuivanteConsole implements ActionSuivante
 			}
 		}
 		return joueur;
-	}
-
-	@Override
-	public GuideSpirituel choisirGuideSpirituelCible(Joueur joueur, String vise)
-	{
-		System.out.println("Quel " + vise + "voulez vous cibler ?");
-		for (int i = 0; i < joueur.getGuides().size(); i++ ) {
-			System.out.println(i + " : " + joueur.getGuide(i).getNom() + "\n");
-		}
-		int choix;
-		do {
-			System.out.println("Entrez un nombre compris entre 0 et " + (joueur.getGuides().size() - 1) + ", nombre correspondant √† votre choix \n");
-			Scanner sc = new Scanner(System.in);
-			choix = sc.nextInt();
-			sc.close();
-
-		} while (choix < 0 || choix > joueur.getGuides().size());
-
-		return joueur.getGuide(choix);
-	}
-
-	@Override
-	public Croyant choisirCroyantCible(Joueur joueur, String vise)
-	{
-		int compteurCroyants=0;
-		List<Croyant> croyantCiblable = new ArrayList<Croyant>();
-		System.out.println("Quel " + vise + "voulez vous cibler ?");
-		for (int i = 0; i < joueur.getGuides().size(); i++) {
-			for (int j = 0; j < joueur.getGuide(i).getCroyantLie().size(); i++) {
-				System.out.println(i + " : " + joueur.getGuide(i).getCroyantLie(j).getNom() + "\n");
-				croyantCiblable.add(joueur.getGuide(i).getCroyantLie(j));
-				compteurCroyants++;
-			}
-		}
-		int choix;
-		do {
-			System.out.println("Entrez un nombre compris entre 0 et " + compteurCroyants + ", nombre correspondant √† votre choix \n");
-			Scanner sc = new Scanner(System.in);
-			choix = sc.nextInt();
-			sc.close();
-
-		} while (choix < 0 || choix > joueur.getGuides().size());
-
-		return croyantCiblable.get(choix);
 	}
 
 	public void donnerPointAction (int point, Origine origine, Joueur joueur) {
@@ -232,7 +188,7 @@ public class ActionSuivanteConsole implements ActionSuivante
 			}
 		}
 
-		System.out.println("Veuillez sÈlectionner le Guide Spirituel ‡ Èchanger par cette compÈtence :"+ "\n");
+		System.out.println("Veuillez sÈlectionner un Guide Spirituel :"+ "\n");
 		int indice= 0;
 		do {
 			System.out.println(indice +" : " + gspCiblable.get(indice).getNom());
@@ -428,7 +384,7 @@ public class ActionSuivanteConsole implements ActionSuivante
 	    
 	    case GuideSpirituel:
 	        carte.setJoueurLie(joueur);
-	        ((GuideSpirituel) carte).convertirCroyant(partie);
+	        Capacite.getActionSuivante().convertirCroyant(partie, (GuideSpirituel) carte);
 	    break;
 	    
 	    case DeusEx:
@@ -466,5 +422,61 @@ public class ActionSuivanteConsole implements ActionSuivante
 		return choix;
 	}
 	
-	
+	public void convertirCroyant (Partie partie, GuideSpirituel carte) {
+		while (carte.getNombreCroyantLiable()  >  carte.getCroyantLie().size() && partie.getTasDeCroyants().size() > 0) { 
+			
+			System.out.println("Veuillez choisir une carte ‡ prendre du tas.");
+			for (int i=0; i < partie.getTasDeCroyants().size(); i++){
+				System.out.println(i + " : " +  partie.getTasDeCroyants(i).getNom() +"\n");
+			}
+			int choix;
+			Scanner sc = new Scanner(System.in);
+			do { 
+				choix = sc.nextInt();
+				if (choix < 0 || choix >= partie.getTasDeCroyants().size() ) {
+					System.out.println("Choix invalide ! Veuillez rentrer un nombre valide.");
+				}
+			} while (choix < 0 || choix >= partie.getTasDeCroyants().size());
+			
+			carte.getCroyantLie().add(partie.getTasDeCroyants(choix));
+			partie.getTasDeCroyants().remove(choix);
+			sc.close();
+		}
+	}
+
+	public boolean retirerPointAction (Carte  carte, Origine origine) {
+		switch (carte.getOrigine()){
+		case Jour :
+			if (carte.getJoueurLie().getPointsAction()[Origine.Jour.ordinal()] >= 1) {
+				carte.getJoueurLie().getPointsAction()[Origine.Jour.ordinal()]--;
+				carte.getJoueurLie().setNombreCroyant(carte.getJoueurLie().getNombreCroyant()-(((Croyant) carte).getValeurCroyant()));
+				return true;
+			} else {
+				System.out.println("Pas de point d'origine jour.");
+				return false;
+			}
+		case Nuit :
+			if (carte.getJoueurLie().getPointsAction()[Origine.Nuit.ordinal()] >= 1) {
+				carte.getJoueurLie().getPointsAction()[Origine.Nuit.ordinal()]--;
+				carte.getJoueurLie().setNombreCroyant(carte.getJoueurLie().getNombreCroyant()-(((Croyant) carte).getValeurCroyant()));
+				return true;
+			} else {
+				System.out.println("Pas de point d'origine Nuit.");
+				return false;
+			}
+		case Neant :
+			if (carte.getJoueurLie().getPointsAction()[Origine.Neant.ordinal()] >= 1) {
+				carte.getJoueurLie().getPointsAction()[Origine.Neant.ordinal()]--;
+				carte.getJoueurLie().setNombreCroyant(carte.getJoueurLie().getNombreCroyant()-(((Croyant) carte).getValeurCroyant()));
+				return true;
+			} else {
+				System.out.println("Pas de point d'origine Neant.");
+				return false;
+			}
+			default : 
+				return true;
+			}
+	}
+
+
 }

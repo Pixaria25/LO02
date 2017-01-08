@@ -19,6 +19,7 @@ public abstract class GuideSpirituel extends CarteAction {
 		this.nombreCroyantLiable = nombreCroyantLiable;
 	}
 	
+
 	public void convertirCroyant (Partie partie) {
 		while (this.nombreCroyantLiable  >  croyantLie.size() || partie.getTasDeCroyants().size() > 0) { 
 			Croyant croyant = Capacite.getActionSuivante().choisirCroyant(getJoueurLie(), getJoueurLie().getPartie());
@@ -29,7 +30,12 @@ public abstract class GuideSpirituel extends CarteAction {
 	}
 	
 	public void poserCarteAction() {
-		getJoueurLie().getPartie();
+		boolean validite = Capacite.getActionSuivante().retirerPointAction(this, this.getOrigine());
+		if (validite == true) {	
+			int indexCourant = InterfacePartie.getPartie().getIndexJoueur1();
+			setJoueurLie(InterfacePartie.getPartie().getJoueurs().get(indexCourant));
+			Capacite.getActionSuivante().convertirCroyant(InterfacePartie.getPartie(), this);
+		}
 	}
 
 	public List<Croyant> getCroyantLie() {

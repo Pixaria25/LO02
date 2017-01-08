@@ -16,12 +16,11 @@ public abstract class Croyant extends  CarteAction {
 		this.rattachable = false;
 	}
 
-	@Override
 	public void poserCarteAction() {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub		
 		getJoueurLie().getPartie().getTasDeCroyants().add(this);
 		setJoueurLie(null);
+
 	}
 	
 	public GuideSpirituel getGuideLie() {
