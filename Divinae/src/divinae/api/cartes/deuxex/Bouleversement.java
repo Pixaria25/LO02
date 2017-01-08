@@ -14,7 +14,7 @@ public class Bouleversement extends DeusEx {
 
 	@Override
 	public void activerCapacite() {
-		Capacite.relancerDe(this.getJoueurLie().getPartie());
+		Capacite.getActionSuivante().relancerDe(this.getJoueurLie().getPartie());
 
 	}
 

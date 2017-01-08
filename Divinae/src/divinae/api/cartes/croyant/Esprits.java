@@ -13,6 +13,6 @@ public class Esprits extends Croyant {
 	}
   
   public void activerCapacite() {
-		Capacite.donnerPointAction(1, Origine.Neant, this.getJoueurLie());
+		Capacite.getActionSuivante().donnerPointAction(1, Origine.Neant, this.getJoueurLie());
 	}
 }

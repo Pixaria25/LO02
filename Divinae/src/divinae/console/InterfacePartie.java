@@ -69,9 +69,9 @@ public class InterfacePartie {
 		System.out.println("Entrez le nom du joueur :");
 		String nom = scanner.next();
 		System.out.println("Choisissez le type de joueur :\n"
-				+ "	1.Reel\n"
-				+ "	2.Virtuel\n"
-				+ "	3.Annuler");
+				+ "	1 : Reel\n"
+				+ "	2 : Virtuel\n"
+				+ "	3 : Annuler");
 		boolean operationTerminee = false;
 		do {
 			int optionChoisie = scanner.nextInt();
@@ -82,10 +82,10 @@ public class InterfacePartie {
 					break;
 				case 2:
 					System.out.println("Choisissez la strategie du joueur :\n"
-							+ "	0.Offensive\n"
-							+ "	1.Defensive\n"
-							+ "	2.Equiblibree\n"
-							+ "	3.Aleatoire");
+							+ "	0 : Offensive\n"
+							+ "	1 : Defensive\n"
+							+ "	2 : Equiblibree\n"
+							+ "	3 : Aleatoire");
 					int choixStrat = -1;
 					do{
 						choixStrat = scanner.nextInt();
@@ -120,7 +120,7 @@ public class InterfacePartie {
 				System.out.println("Entrer un nombre valide.");
 				indexJoueur = scanner.nextInt();
 			}  while (indexJoueur < 0  || indexJoueur > partie.getJoueurs().size());
-			System.out.println("Le joueur "+partie.getJoueurs().get(indexJoueur)+" a été supprimé.");
+			System.out.println("Le joueur "+partie.getJoueurs().get(indexJoueur)+" a Ã©tÃ© supprimÃ©.");
 			partie.retirerUnJoueur(indexJoueur);
 		}
 	}
@@ -195,7 +195,7 @@ public class InterfacePartie {
 								choixSacrifice = scanner.nextInt();
 							} while(choixSacrifice < 0 || choixSacrifice >= listeCartesSacrifiables.size());
 							if ((joueurCourant.isAutorisationgsp() == false && listeCartesSacrifiables.get(choixSacrifice) instanceof GuideSpirituel) | (joueurCourant.isAutorisationcr() == false && listeCartesSacrifiables.get(choixSacrifice) instanceof Croyant)) {
-								System.out.println("Vous ne pouvez pas sacrifier cette carte ce tour ci. (utilisation d'une capacite contre vous)");
+								System.out.println("Vous ne pouvez pas sacrifier cette carte ce tour ci. (Utilisation d'une capacite contre vous)");
 							} else {
 								joueurCourant.sacrifierCarte(listeCartesSacrifiables.get(choixSacrifice));
 							}
@@ -245,6 +245,7 @@ public class InterfacePartie {
 		} while(!(reponse.equals("n") || reponse.equals("y")));
 		int nombreCartes = 0;
 		if(reponse.equals("y")) {
+
 			System.out.println("Combien de cartes voulez-vous defausser ?");
 			
 			boolean aDefausse = false;
@@ -264,6 +265,7 @@ public class InterfacePartie {
 	}
 	
 	private void demanderInterruption() {
+		
 		String interruption = "";
 		do{
 			System.out.println("Est-ce qu'un joueur veut intervenir ? (y/n)");
@@ -271,6 +273,7 @@ public class InterfacePartie {
 			if(interruption.equals("y")) {
 				interruption();
 			}
+
 			if(!(interruption.equals("n") && interruption.equals("y"))) {
 				System.out.println("Reponse invalide.");
 			}
