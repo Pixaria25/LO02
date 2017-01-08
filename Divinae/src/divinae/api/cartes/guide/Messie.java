@@ -18,7 +18,7 @@ public class Messie extends GuideSpirituel {
 	@Override
 	public void activerCapacite() {
 		// TODO Auto-generated method stub
-		Capacite.choisirFaceDe(this, this.getJoueurLie().getPartie());
+		Capacite.getActionSuivante().choisirFaceDe(this, this.getJoueurLie().getPartie());
 	}
 
 }

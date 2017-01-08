@@ -9,11 +9,7 @@ public interface ActionSuivante
 {
 	Joueur choisirJoueurCible (Partie partie);
 
-	GuideSpirituel choisirGuideSpirituelCible (Joueur joueur, String vise);
-
 	GuideSpirituel choisirGsp (Partie partie);
-	
-	Croyant choisirCroyantCible (Joueur joueur, String vise);
 	
 	void donnerPointAction (int point, Origine origine, Joueur joueur);
 	
@@ -42,5 +38,9 @@ public interface ActionSuivante
 	void recupererUnGsp (Carte carte);
 	
 	void recupererEffetBenef (Carte carte, Joueur joueur, Partie partie);
+	
+	void convertirCroyant (Partie partie, GuideSpirituel carte);
+	
+	boolean retirerPointAction (Carte carte, Origine origine);
 	
 }

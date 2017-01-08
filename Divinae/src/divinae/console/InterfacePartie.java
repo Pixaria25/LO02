@@ -5,6 +5,8 @@ import java.util.HashSet;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import divinae.api.cartes.types.Action;
+import divinae.api.cartes.types.Capacite;
 import divinae.api.cartes.types.Carte;
 import divinae.api.cartes.types.Croyant;
 import divinae.api.cartes.types.GuideSpirituel;
@@ -15,11 +17,11 @@ import divinae.api.partie.TypeStrategie;
 
 public class InterfacePartie {
 
-	private Partie partie;
+	private static Partie partie;
 	private Scanner scanner = new Scanner(System.in);
 	
 	public InterfacePartie() {
-		this.partie = new Partie();
+		partie = new Partie();
 	}
 	
 	public void lancerUnePartie() {
@@ -107,15 +109,21 @@ public class InterfacePartie {
 	public void supprimerJoueur() {
 		System.out.println("Choisissez le joueur a supprimer.");
 		for(int i = 0; i < partie.getJoueurs().size(); i++) {
-			System.out.println(i+"-"+partie.getJoueurs().get(i).getNom());
+			System.out.println(i+" - "+partie.getJoueurs().get(i).getNom());
 		}
+		System.out.println(partie.getJoueurs().size() + " - Annuler");
 		int indexJoueur = 0;
 		do{
 			System.out.println("Entrer un nombre valide.");
 			indexJoueur = scanner.nextInt();
 		}  while (indexJoueur < 0  || indexJoueur > partie.getJoueurs().size());
-		System.out.println("Le joueur "+partie.getJoueurs().get(indexJoueur)+" a été supprimé.");
-		partie.retirerUnJoueur(indexJoueur);
+		if (indexJoueur==partie.getJoueurs().size()) {
+			System.out.println("Suppression de joueur annuler.");
+		} else {
+			System.out.println("Le joueur "+partie.getJoueurs().get(indexJoueur)+" a été supprimé.");
+			partie.retirerUnJoueur(indexJoueur);
+
+		}
 	}
 	
 	public void jouer() {
@@ -163,14 +171,20 @@ public class InterfacePartie {
 							System.out.println("Entrez le numero de la carte que vous voulez jouer.");
 							choixCarte = scanner.nextInt();
 						} while(choixCarte < 0 || choixCarte >=joueurCourant.getMain().size());
+						Carte cartePose = joueurCourant.getMain().get(choixCarte);
 						joueurCourant.poserCarteAction(choixCarte);
+						Capacite.setCarteInterupt(cartePose);
 						demanderInterruption();
+						if (Capacite.isInteruptionAnnulationCapa()) {
+							System.out.println("Votre capacité a été contré ! Elle est defausser normalent si elle doit l'être");
+							break;
+						}
+						((Action) cartePose).poserCarteAction();
 						break;
 					case 2:
 						if(joueurCourant.isAutorisationcr() && joueurCourant.isAutorisationgsp()) {
 							System.out.println("Vous ne pouvez pas sacrifier de cartes.");
 						} else {
-							demanderInterruption();
 							ArrayList<Carte> listeCartesSacrifiables = new ArrayList<Carte>();
 							listeCartesSacrifiables.addAll(joueurCourant.getGuides());
 							for(int j = 0; j < joueurCourant.getGuides().size(); j++) {
@@ -187,6 +201,12 @@ public class InterfacePartie {
 							if ((joueurCourant.isAutorisationgsp() == false && listeCartesSacrifiables.get(choixSacrifice) instanceof GuideSpirituel) | (joueurCourant.isAutorisationcr() == false && listeCartesSacrifiables.get(choixSacrifice) instanceof Croyant)) {
 								System.out.println("Vous ne pouvez pas sacrifier cette carte ce tour ci. (Utilisation d'une capacite contre vous)");
 							} else {
+										Capacite.setCarteInterupt(listeCartesSacrifiables.get(choixSacrifice));
+										demanderInterruption();
+										if (Capacite.isInteruptionAnnulationCapa()) {
+											System.out.println("Votre capacité a été contré ! Elle est defausser normalent si elle doit l'être");
+											break;
+										}
 								joueurCourant.sacrifierCarte(listeCartesSacrifiables.get(choixSacrifice));
 							}
 						}
@@ -216,6 +236,7 @@ public class InterfacePartie {
 						break;
 					default:
 						System.out.println("Ce nombre est invalide.");
+						break;
 				}
 			} while(!tourJoueurFini);
 			indexCourant = (indexCourant+1) % partie.getJoueurs().size();
@@ -257,7 +278,7 @@ public class InterfacePartie {
 			if(interruption == "y") {
 				interruption();
 			}
-			if(interruption.equals("n") && interruption.equals("y")){
+			if(interruption.equals("n") || interruption.equals("y")){
 				System.out.println("Reponse invalide.");
 			}
 		} while(interruption.equals("n"));
@@ -317,4 +338,12 @@ public class InterfacePartie {
 				System.out.println("Choix d'interruption invalide");
 		}
 	}
+
+
+	public static Partie getPartie() {
+		return partie;
+	}
+
+	
+	
 }

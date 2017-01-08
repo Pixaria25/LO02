@@ -11,5 +11,6 @@ public abstract class DeusEx extends Carte implements Action {
 	public void poserCarteAction() {
 		// TODO Auto-generated method stub
 		activerCapacite();
+		this.getJoueurLie().getPartie().getDefausse().ajoutCarte(this);
 	}
 }

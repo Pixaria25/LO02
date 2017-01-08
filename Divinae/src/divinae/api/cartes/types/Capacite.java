@@ -11,6 +11,8 @@ public class Capacite {
 	private static boolean autorisationApocalypse = true;
 	private static ActionSuivante actionSuivante = null;
 	private static boolean annulationEffetCapa = false;
+	static boolean interuptionAnnulationCapa = false;
+	static Carte carteInterupt;
 
 
 	public static void setActionSuivante (ActionSuivante action)
@@ -125,14 +127,14 @@ public class Capacite {
 
 		switch (vise) {
 			case "GuideSpirituel" :
-				GuideSpirituel guideSpirituel = actionSuivante.choisirGuideSpirituelCible(joueur, vise);
+				GuideSpirituel guideSpirituel = actionSuivante.choisirSonGsp(joueur, partie);
 				joueur.activerCapaciteCarte(guideSpirituel);
 				partie.getTasDeCroyants().addAll(guideSpirituel.getCroyantLie());
 				partie.getDefausse().ajoutCarte(guideSpirituel);
 			break;
 
 			case "Croyant" :
-				Croyant croyant = actionSuivante.choisirCroyantCible(joueur, vise);
+				Croyant croyant = actionSuivante.choisirCroyant(joueur, partie);
 				joueur.activerCapaciteCarte(croyant);
 				GuideSpirituel GpLie = croyant.getGuideLie();
 				partie.getDefausse().ajoutCarte(croyant);
@@ -148,7 +150,7 @@ public class Capacite {
 		Joueur joueur = divinite.getJoueurLie();
 		switch (vise) {
 			case "GuideSpirituel" :
-						GuideSpirituel guideSpirituel = actionSuivante.choisirGuideSpirituelCible(joueur, vise);
+						GuideSpirituel guideSpirituel = actionSuivante.choisirSonGsp(joueur, partie);
 						joueur.activerCapaciteCarte(guideSpirituel);
 						partie.getTasDeCroyants().addAll(guideSpirituel.getCroyantLie());
 						partie.getDefausse().ajoutCarte(guideSpirituel);
@@ -249,6 +251,16 @@ public class Capacite {
 		setAutorisationPointAction(true);
 	}
 
+	public static void annulerEffetCarte (Origine origine, Origine [] origineCible, Partie partie) {
+		int max = origineCible.length;
+		for (int i=0; i < max; i++ ){
+			if (origine == origineCible[i]) {
+				Carte derniereCarte = partie.getTable().get(partie.getTable().lastIndexOf(partie.getTable()));
+				partie.getDefausse().ajoutCarte(derniereCarte);
+				break;
+			}
+		}
+	}
 
 	
 	public static void setAutorisationPointAction(boolean autorisationPointAction) {
@@ -271,19 +283,32 @@ public class Capacite {
 		return actionSuivante;
 	}
 
-
-
 	public static boolean isAnnulationEffetCapa() {
 		return annulationEffetCapa;
 	}
-
-
 
 	public static void setAnnulationEffetCapa(boolean annulationEffetCapa) {
 		Capacite.annulationEffetCapa = annulationEffetCapa;
 	}
 	
+	public static boolean isInteruptionAnnulationCapa() {
+		return interuptionAnnulationCapa;
+	}
 
+	public static void setInteruptionAnnulationCapa(boolean AnnulationCapa) {
+		interuptionAnnulationCapa = AnnulationCapa;
+	}
+
+	public static Carte getCarteInterupt() {
+		return carteInterupt;
+	}
+
+
+
+	public static void setCarteInterupt(Carte carteInterupt) {
+		Capacite.carteInterupt = carteInterupt;
+	}
+	
 	
 
 
