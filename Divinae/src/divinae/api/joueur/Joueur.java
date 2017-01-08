@@ -37,7 +37,9 @@ public class Joueur {
 	public void poserCarteAction(int choixCarte) {
 		CarteAction carteAction = main.remove(choixCarte);
 		partie.getTable().add(carteAction);
-		pointsAction[carteAction.getOrigine().ordinal()]--;
+		if(carteAction.getOrigine() != Origine.Aucune) {
+			pointsAction[carteAction.getOrigine().ordinal()]--;
+		}
 	}
 	 
 	public void activerCapaciteCarte(Carte carte) {

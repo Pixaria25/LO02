@@ -255,7 +255,7 @@ public class Capacite {
 		int max = origineCible.length;
 		for (int i=0; i < max; i++ ){
 			if (origine == origineCible[i]) {
-				Carte derniereCarte = partie.getTable().get(partie.getTable().lastIndexOf(partie.getTable()));
+				CarteAction derniereCarte = partie.getTable().get(partie.getTable().lastIndexOf(partie.getTable()));
 				partie.getDefausse().ajoutCarte(derniereCarte);
 				break;
 			}

@@ -6,7 +6,7 @@ import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
-
+import divinae.api.cartes.types.Capacite;
 import divinae.api.cartes.types.CarteAction;
 
 import divinae.api.cartes.types.Croyant;
@@ -111,40 +111,22 @@ public class InterfacePartie {
 	
 	public void supprimerJoueur() {
 
-		System.out.println("Choisissez le joueur a supprimer.");
-		for(int i = 0; i < partie.getJoueurs().size(); i++) {
-			System.out.println(i+" - "+partie.getJoueurs().get(i).getNom());
-		}
-		System.out.println(partie.getJoueurs().size() + " - Annuler");
-		int indexJoueur = 0;
-		do{
-			System.out.println("Entrer un nombre valide.");
-			indexJoueur = scanner.nextInt();
-		}  while (indexJoueur < 0  || indexJoueur > partie.getJoueurs().size());
-		if (indexJoueur==partie.getJoueurs().size()) {
-			System.out.println("Suppression de joueur annuler.");
-		} else {
-			System.out.println("Le joueur "+partie.getJoueurs().get(indexJoueur)+" a �t� supprim�.");
-			partie.retirerUnJoueur(indexJoueur);
-
-		}
-
 		if(partie.getJoueurs().isEmpty()) {
 			System.out.println("Vous n'avez pas ajoute de joueurs !");
 		} else {
-        System.out.println("Choisissez le joueur a supprimer.");
-      for(int i = 0; i < partie.getJoueurs().size(); i++) {
-        System.out.println(i+" - "+partie.getJoueurs().get(i).getNom());
-      }
-      System.out.println(partie.getJoueurs().size() + " - Annuler");
-      int indexJoueur = 0;
-      do{
-        System.out.println("Entrer un nombre valide.");
-        indexJoueur = scanner.nextInt();
-      }  while (indexJoueur < 0  || indexJoueur >= partie.getJoueurs().size());
-      if (indexJoueur==partie.getJoueurs().size()) {
-        System.out.println("Suppression de joueur annuler.");
-      } else {
+			System.out.println("Choisissez le joueur a supprimer.");
+			for(int i = 0; i < partie.getJoueurs().size(); i++) {
+				System.out.println(i+" - "+partie.getJoueurs().get(i).getNom());
+			}
+			System.out.println(partie.getJoueurs().size() + " - Annuler");
+			int indexJoueur = 0;
+			do{
+				System.out.println("Entrer un nombre valide.");
+				indexJoueur = scanner.nextInt();
+			}  while (indexJoueur < 0  || indexJoueur >= partie.getJoueurs().size());
+			if (indexJoueur==partie.getJoueurs().size()) {
+				System.out.println("Suppression de joueur annuler.");
+			} else {
 			  System.out.println("Le joueur "+partie.getJoueurs().get(indexJoueur)+" a été supprimé.");
 		    partie.retirerUnJoueur(indexJoueur);
 

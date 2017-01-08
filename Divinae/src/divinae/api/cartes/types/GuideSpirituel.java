@@ -32,9 +32,9 @@ public abstract class GuideSpirituel extends CarteAction {
 	public void poserCarteAction() {
 		boolean validite = Capacite.getActionSuivante().retirerPointAction(this, this.getOrigine());
 		if (validite == true) {	
-			int indexCourant = InterfacePartie.getPartie().getIndexJoueur1();
-			setJoueurLie(InterfacePartie.getPartie().getJoueurs().get(indexCourant));
-			Capacite.getActionSuivante().convertirCroyant(InterfacePartie.getPartie(), this);
+			int indexCourant = getJoueurLie().getPartie().getIndexJoueur1();
+			setJoueurLie(getJoueurLie().getPartie().getJoueurs().get(indexCourant));
+			Capacite.getActionSuivante().convertirCroyant(getJoueurLie().getPartie(), this);
 		}
 	}
 
