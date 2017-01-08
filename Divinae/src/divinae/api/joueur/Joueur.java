@@ -47,7 +47,6 @@ public class Joueur {
 	public String afficherMain() {
 		String retour = "";
 		for(int i = 0; i < main.size(); i++) {
-
 			retour += i+" - "+main.get(i).getNom()+"	";
 		}
 		return retour;
