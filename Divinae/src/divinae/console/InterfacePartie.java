@@ -3,9 +3,9 @@ package divinae.console;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
-import divinae.api.cartes.types.Carte;
 import divinae.api.cartes.types.CarteAction;
 import divinae.api.cartes.types.Croyant;
 import divinae.api.cartes.types.GuideSpirituel;
@@ -147,15 +147,18 @@ public class InterfacePartie {
 			int nombreCartes = 7-joueurCourant.getMain().size();
 			System.out.println("Pioche de "+nombreCartes+" cartes.");
 			joueurCourant.completerMain();
-			System.out.println(joueurCourant.afficherMain());
+			
 			int choixAction = 0;
 			boolean tourJoueurFini = false;
 			do{
 				if(partie.isPartieFinie()) {
 					return;
 				}
+				
 				System.out.println(partie.afficherTable());
 				System.out.println(partie.afficherTasCroyants());
+				System.out.println(joueurCourant.afficherMain());
+				System.out.println(joueurCourant.afficherPoints());
 				System.out.println("1 - Jouer une carte");
 				System.out.println("2 - Sacrifier un croyant ou un guide spirituel");
 				System.out.println("3 - Activer la capacite de la Divinite");
@@ -173,15 +176,65 @@ public class InterfacePartie {
 							System.out.println("Entrez le numero de la carte que vous voulez jouer.");
 							choixCarte = scanner.nextInt();
 						} while(choixCarte < 0 || choixCarte >=joueurCourant.getMain().size());
-						joueurCourant.poserCarteAction(choixCarte);
-						demanderInterruption();
+						
+						boolean poserCarte = false;
+						switch (joueurCourant.getMain().get(choixCarte).getOrigine()){
+							
+							case Jour :
+								if (joueurCourant.getPointsAction()[Origine.Jour.ordinal()] >= 1) {
+									joueurCourant.getPointsAction()[Origine.Jour.ordinal()]--;
+									joueurCourant.setNombreCroyant(joueurCourant.getNombreCroyant()-((Croyant) joueurCourant.getMain().get(choixCarte)).getValeurCroyant());
+									poserCarte = true;
+								} else {
+									System.out.println("Pas de point d'origine jour.");
+								}
+								break;
+								
+							case Nuit :
+								if (joueurCourant.getPointsAction()[Origine.Nuit.ordinal()] >= 1) {
+									joueurCourant.getPointsAction()[Origine.Nuit.ordinal()]--;
+									joueurCourant.setNombreCroyant(joueurCourant.getNombreCroyant()-((Croyant) joueurCourant.getMain().get(choixCarte)).getValeurCroyant());
+									poserCarte = true;
+								} else {
+									System.out.println("Pas de point d'origine Nuit.");
+								}
+								break;
+								
+							case Neant :
+								if (joueurCourant.getPointsAction()[Origine.Neant.ordinal()] >= 1) {
+									joueurCourant.getPointsAction()[Origine.Neant.ordinal()]--;
+									poserCarte = true;
+								} else {
+									System.out.println("Pas de point d'origine Neant.");
+								}
+								break;
+								
+							case Aube:
+								
+							case Crepuscule:
+								
+							case Aucune:
+								poserCarte = true;
+								
+							default:
+						}
+						if(poserCarte) {
+							joueurCourant.poserCarteAction(choixCarte);
+							demanderInterruption();
+							partie.activerCartes();
+						} else {
+							System.out.println("Vous ne pouvez pas jouer cette carte.");
+						}
 						break;
+							
+						
+					
 					case 2:
 						if(joueurCourant.isAutorisationcr() && joueurCourant.isAutorisationgsp()) {
 							System.out.println("Vous ne pouvez pas sacrifier de cartes.");
 						} else {
 							demanderInterruption();
-							ArrayList<CarteAction> listeCartesSacrifiables = new ArrayList<CarteAction>();
+							List<CarteAction> listeCartesSacrifiables = new ArrayList<CarteAction>();
 							listeCartesSacrifiables.addAll(joueurCourant.getGuides());
 							for(int j = 0; j < joueurCourant.getGuides().size(); j++) {
 								listeCartesSacrifiables.addAll(joueurCourant.getGuide(j).getCroyantLie());
@@ -201,6 +254,7 @@ public class InterfacePartie {
 							}
 						}
 						break;
+						
 					case 3:
 						if(!joueurCourant.getDivinite().capaciteActivee()) {
 							System.out.println(joueurCourant.getNom()+" active la capacite de "+joueurCourant.getDivinite().getNom());
@@ -209,21 +263,27 @@ public class InterfacePartie {
 							System.out.println("Vous ne pouvez pas activer la capacite de votre divinite.");
 						}
 						break;
+						
 					case 4:
 						System.out.println(joueurCourant.afficherMain());
 						break;
+						
 					case 5:
 						partie.afficherDetailsTable();
 						break;
+						
 					case 6:
 						partie.afficherDetailsTasCroyants();
 						break;
+						
 					case 7:
 						System.out.println(joueurCourant.getDivinite());
 						break;
+						
 					case 8:
 						tourJoueurFini = true;
 						break;
+						
 					default:
 						System.out.println("Ce nombre est invalide.");
 				}
@@ -243,24 +303,27 @@ public class InterfacePartie {
 				System.out.println("Reponse invalide.");
 			}
 		} while(!(reponse.equals("n") || reponse.equals("y")));
-		int nombreCartes = 0;
 		if(reponse.equals("y")) {
 
-			System.out.println("Combien de cartes voulez-vous defausser ?");
-			
-			boolean aDefausse = false;
+			System.out.println(joueur.afficherMain());
+			System.out.println(joueur.getMain().size() + " - Terminer la selection.");
+			System.out.println("Quelles cartes voulez-vous defausser ? (Entrer le numero. Choisissez une carte une deuxieme fois pour annuler la defausse.");
+			int choixDefausse = -1;
+			ArrayList<CarteAction> carteADefausser = new ArrayList<CarteAction>();
 			do{
-				nombreCartes = scanner.nextInt();
-				if(nombreCartes >= 0 || nombreCartes <= joueur.getMain().size()) {
-					aDefausse = true;
-				} else {
-					System.out.println("Ce nombre de cartes est invalide.");
+				choixDefausse = scanner.nextInt();
+				if(choixDefausse < 0 || choixDefausse > joueur.getMain().size()) {
+					System.out.println("Ce nombre est invalide.");
+				} else if(choixDefausse < joueur.getMain().size()){
+					if(carteADefausser.contains(joueur.getMain().get(choixDefausse))) {
+						carteADefausser.remove(joueur.getMain().get(choixDefausse));
+					} else {
+						carteADefausser.add(joueur.getMain().get(choixDefausse));
+					}
 				}
-			} while(!aDefausse);
-			System.out.println("Quelles cartes voulez-vous defausser ?");
-			
+			} while(choixDefausse != joueur.getMain().size() || joueur.getMain().size() == 0);
 			//Donner toutes les cartes a defausser ? Donner le numero de la carte a defausser ? Donner le nombre de cartes a defausser puis donner lesquels ?
-			joueur.defausser(nombreCartes);
+			joueur.defausser(carteADefausser);
 		}
 	}
 	
@@ -269,12 +332,12 @@ public class InterfacePartie {
 		String interruption = "";
 		do{
 			System.out.println("Est-ce qu'un joueur veut intervenir ? (y/n)");
-			interruption = scanner.nextLine();
+			interruption = scanner.next();
 			if(interruption.equals("y")) {
 				interruption();
 			}
 
-			if(!(interruption.equals("n") && interruption.equals("y"))) {
+			if(!(interruption.equals("n") || interruption.equals("y"))) {
 				System.out.println("Reponse invalide.");
 			}
 		} while(!interruption.equals("n"));

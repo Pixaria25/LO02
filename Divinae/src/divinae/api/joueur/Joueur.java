@@ -2,7 +2,6 @@ package divinae.api.joueur;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 import divinae.api.cartes.types.CarteAction;
 import divinae.api.cartes.types.Carte;
@@ -23,7 +22,6 @@ public class Joueur {
 	private boolean autorisationgsp = true;
 	private boolean autorisationcr = true;
 	private Partie partie;
-	private Scanner sc = new Scanner(System.in);
 	
 	public static final int TAILLE_MAIN_MAX = 7;
 	
@@ -37,7 +35,9 @@ public class Joueur {
 	}
 	
 	public void poserCarteAction(int choixCarte) {
-		partie.getTable().add(main.remove(choixCarte));
+		CarteAction carteAction = main.remove(choixCarte);
+		partie.getTable().add(carteAction);
+		pointsAction[carteAction.getOrigine().ordinal()]--;
 	}
 	 
 	public void activerCapaciteCarte(Carte carte) {
@@ -47,27 +47,29 @@ public class Joueur {
 	public String afficherMain() {
 		String retour = "";
 		for(int i = 0; i < main.size(); i++) {
-
 			retour += i+" - "+main.get(i).getNom()+"	";
 		}
 		return retour;
 	}
 	
-	public void defausser(int nombreCartes) {
-		for(int i = 0; i < nombreCartes; i++) {
-			boolean carteDefaussee = false;
-			do{
-				System.out.println(afficherMain());
-				int carte = sc.nextInt();
-				if(carte >= main.size()) {
-					System.out.println("Choix invalide.");
-				} else {
-					System.out.println("La carte "+main.get(carte).getNom()+" a ete retiree.");
-					partie.getDefausse().ajoutCarte(main.remove(carte));
-					carteDefaussee = true;
-				}
-			} while(!carteDefaussee);
+	public List<Carte> lireCartes() {
+		List<Carte> cartes = new ArrayList<Carte>();
+		for(int i = 0; i < main.size(); i++) {
+			cartes.add(main.get(i));
 		}
+		return cartes;
+	}
+	
+	public String afficherPoints() {
+		String retour = "Points :	";
+		for(int i = 0; i < pointsAction.length; i++) {
+			retour += Origine.values()[i]+": "+pointsAction[i]+",	"; 
+		}
+		return retour;
+	}
+	
+	public void defausser(List<CarteAction> carteADefausser) {
+		main.removeAll(carteADefausser);
 	}
 		
 	public void completerMain() {

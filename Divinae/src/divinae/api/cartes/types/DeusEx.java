@@ -11,5 +11,6 @@ public abstract class DeusEx extends CarteAction {
 	public void poserCarteAction() {
 		// TODO Auto-generated method stub
 		activerCapacite();
+		
 	}
 }

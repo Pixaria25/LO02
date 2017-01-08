@@ -19,33 +19,7 @@ public abstract class Croyant extends  CarteAction {
 	@Override
 	public void poserCarteAction() {
 		// TODO Auto-generated method stub
-		switch (joueurCourant.getMain().get(choixCarte).getOrigine()){
-		case Jour :
-			if (joueurCourant.getPointsAction()[Origine.Jour.ordinal()] >= 1) {
-				joueurCourant.getPointsAction()[Origine.Jour.ordinal()]--;
-				joueurCourant.setNombreCroyant(joueurCourant.getNombreCroyant()-((Croyant) joueurCourant.getMain().get(choixCarte)).getValeurCroyant());
-			} else {
-				System.out.println("Pas de point d'origine jour.");
-			}
-			break;
-		case Nuit :
-			if (joueurCourant.getPointsAction()[Origine.Nuit.ordinal()] >= 1) {
-				joueurCourant.getPointsAction()[Origine.Nuit.ordinal()]--;
-				joueurCourant.setNombreCroyant(joueurCourant.getNombreCroyant()-((Croyant) joueurCourant.getMain().get(choixCarte)).getValeurCroyant());
-			} else {
-				System.out.println("Pas de point d'origine Nuit.");
-			}
-			break;
-		case Neant :
-			if (joueurCourant.getPointsAction()[Origine.Neant.ordinal()] >= 1) {
-				joueurCourant.getPointsAction()[Origine.Neant.ordinal()]--;
-				
-			} else {
-				System.out.println("Pas de point d'origine Neant.");
-			}
-			break;
-			default : 
-		}
+		
 		getJoueurLie().getPartie().getTasDeCroyants().add(this);
 		setJoueurLie(null);
 	}

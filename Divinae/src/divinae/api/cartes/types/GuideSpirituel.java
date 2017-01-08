@@ -1,7 +1,5 @@
 package divinae.api.cartes.types;
 
-import java.util.Scanner;
-
 import divinae.api.partie.Partie;
 
 import java.util.ArrayList;
@@ -22,18 +20,11 @@ public abstract class GuideSpirituel extends CarteAction {
 	}
 	
 	public void convertirCroyant (Partie partie) {
-		//A modifier !
 		while (this.nombreCroyantLiable  >  croyantLie.size() || partie.getTasDeCroyants().size() > 0) { 
-			System.out.println("Veuillez choisir une carte à prendre du tas (écrire le nom)");
-			Scanner sc = new Scanner(System.in);
-			String nom = sc.next();
-			int i = 0;
-			do { 
-				i++;
-			} while (!(((partie.getTasDeCroyants(i).getNom())) == nom));
-			
-			croyantLie.add(partie.getTasDeCroyants(i));
-			sc.close();
+			Croyant croyant = Capacite.getActionSuivante().choisirCroyant(getJoueurLie(), getJoueurLie().getPartie());
+			croyant.setGuideLie(this);
+			croyant.setJoueurLie(getJoueurLie());
+			croyantLie.add(croyant);
 		}
 	}
 	
