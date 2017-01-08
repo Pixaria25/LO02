@@ -14,6 +14,6 @@ public class Revenant extends Croyant {
 	}
 
 	 public void activerCapacite() {
-		  	Capacite.getActionSuivante().relancerDe(this.getJoueurLie().getPartie());
+		  	Capacite.relancerDe(this.getJoueurLie().getPartie());
 	  }
 }

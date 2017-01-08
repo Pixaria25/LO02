@@ -15,6 +15,6 @@ public class Lycanthropes extends Croyant {
 	}
 
 	 public void activerCapacite() {
-		  	Capacite.retirerTousCroyantLies(this.getJoueurLie().getPartie());
+		  	Capacite.retirerCroyant(this.getJoueurLie().getPartie());
 	  }
 }

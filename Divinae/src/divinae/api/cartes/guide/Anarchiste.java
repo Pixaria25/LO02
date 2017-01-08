@@ -16,7 +16,7 @@ public class Anarchiste extends GuideSpirituel {
 
 
 	public void activerCapacite() {
-		GuideSpirituel Gsp = Capacite.getActionSuivante().choisirDiviniteOuGspNonDogme(Dogme.Chaos, this.getJoueurLie().getPartie());
+		GuideSpirituel Gsp = Capacite.choisirDiviniteOuGspNonDogme(Dogme.Chaos, this.getJoueurLie().getPartie());
 		Gsp.activerCapacite();
 		Capacite.defausser(Gsp, this.getJoueurLie().getPartie());
 	}

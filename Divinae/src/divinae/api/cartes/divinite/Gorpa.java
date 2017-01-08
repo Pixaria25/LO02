@@ -1,10 +1,8 @@
 package divinae.api.cartes.divinite;
 
-import divinae.api.cartes.types.Capacite;
 import divinae.api.cartes.types.Divinite;
 import divinae.api.cartes.types.Dogme;
 import divinae.api.cartes.types.Origine;
-import divinae.api.joueur.Joueur;
 
 public class Gorpa extends Divinite {
 
@@ -20,15 +18,7 @@ public class Gorpa extends Divinite {
 	@Override
 	public void activerCapacite() {
 		// TODO Auto-generated method stub
-		super.activerCapacite();
-		Joueur joueurCible = Capacite.getActionSuivante().choisirJoueurCible(this.getJoueurLie().getPartie());
-		this.getJoueurLie().ajoutPointsAction(joueurCible.getPointsAction()[Origine.Jour.ordinal()],Origine.Jour);
-		this.getJoueurLie().ajoutPointsAction(joueurCible.getPointsAction()[Origine.Nuit.ordinal()],Origine.Nuit );
-		this.getJoueurLie().ajoutPointsAction(joueurCible.getPointsAction()[Origine.Neant.ordinal()],Origine.Neant);
 
-		joueurCible.soustrPointsAction(joueurCible.getPointsAction()[Origine.Jour.ordinal()],Origine.Jour);
-		joueurCible.soustrPointsAction(joueurCible.getPointsAction()[Origine.Nuit.ordinal()],Origine.Nuit);
-		joueurCible.soustrPointsAction(joueurCible.getPointsAction()[Origine.Neant.ordinal()],Origine.Neant);
 	}
 
 }

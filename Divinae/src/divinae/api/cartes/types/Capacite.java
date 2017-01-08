@@ -2,6 +2,8 @@ package divinae.api.cartes.types;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
+
 import divinae.api.joueur.Joueur;
 import divinae.api.partie.Partie;
 
@@ -10,15 +12,40 @@ public class Capacite {
 	private static boolean autorisationPointAction = true;
 	private static boolean autorisationApocalypse = true;
 	private static ActionSuivante actionSuivante = null;
-	private static boolean annulationEffetCapa = false;
-
 
 	public static void setActionSuivante (ActionSuivante action)
 	{
 		actionSuivante = action;
 	}
 
+	public static Divinite choisirDiviniteOuDogme (Dogme dogme1, Dogme dogme2, Partie partie) {
+		int choixDivinite = 0;
+		List <Divinite> diviniteCiblable = new ArrayList<Divinite>();
+		int choix = 0;
 
+		while (choixDivinite < partie.getJoueurs().size()) {
+			if (Capacite.comparerDogme(partie.getJoueurs().get(choixDivinite).getDivinite().getDogme(), dogme1, partie) || Capacite.comparerDogme(partie.getJoueurs().get(choixDivinite).getDivinite().getDogme(), dogme2, partie)) {
+				diviniteCiblable.add(partie.getJoueurs().get(choixDivinite).getDivinite());
+			}
+			choixDivinite++;
+		}
+		System.out.println("Veuillez sélectionner la divinité à cibler par cette compétence :"+ "\n");
+		int indice=0;
+		do {
+			System.out.println(indice +" : " + diviniteCiblable.get(indice).getNom());
+			indice++;
+		} while (indice < diviniteCiblable.size());
+		do {
+			System.out.println("(Entrez le nombre compris entre 1 et " + diviniteCiblable.size() + "nombre correspondant à votre choix) ");
+			Scanner sc = new Scanner(System.in);
+			choix = sc.nextInt();
+			sc.close();
+
+		} while (choix < 0 || choix > diviniteCiblable.size());
+
+		System.out.println("Vous avez ciblé " + diviniteCiblable.get(choix).getNom() + "appartenant à "+ diviniteCiblable.get(choix).getJoueurLie().getNom());
+		return diviniteCiblable.get(choix);
+	}
 
 	public static List <GuideSpirituel> choisirDiviniteEtDogme (Dogme dogme1, Dogme dogme2, Partie partie) {
 		int choixDivinite = 0;
@@ -66,6 +93,169 @@ public class Capacite {
 
 	}
 
+	public static GuideSpirituel choisirGsp (Partie partie) {
+		List <GuideSpirituel> gspCiblable = new ArrayList<GuideSpirituel>();
+		int indexGsp = 0;
+		int indexJoueur = 0;
+		int choix;
+		while (indexJoueur < partie.getJoueurs().size()) {
+			while (indexGsp < partie.getJoueurs().get(indexJoueur).getGuides().size()) {
+				gspCiblable.add(partie.getJoueurs().get(indexJoueur).getGuide(indexGsp));
+				indexGsp++;
+			}
+			indexGsp = 0;
+			indexJoueur++;
+		}
+
+		for (int i = 0; i < gspCiblable.size(); i++) {
+			if (gspCiblable.get(i).isProtectionCiblage()) {
+				gspCiblable.remove(i);
+			}
+		}
+
+		System.out.println("Veuillez sélectionner le Guide Spirituel à cibler par cette compétence :"+ "\n");
+		int indice= 0;
+		do {
+				System.out.println(indice +" : " + gspCiblable.get(indice).getNom());
+				indice++;
+		} while (indice < gspCiblable.size());
+		do {
+			System.out.println("(Entrez le nombre compris entre 1 et " + gspCiblable.size() + ",nombre correspondant à votre choix) ");
+			Scanner sc = new Scanner(System.in);
+			choix = sc.nextInt();
+			sc.close();
+
+		} while (choix < 0 || choix > gspCiblable.size());
+		System.out.println("Vous avez ciblé " + gspCiblable.get(choix).getNom() + "appartenant à "+ gspCiblable.get(choix).getJoueurLie().getNom());
+		return gspCiblable.get(choix);
+
+	}
+
+	public static GuideSpirituel choisirSonGsp (Joueur joueur, Partie partie) {
+		List <GuideSpirituel> gspCiblable = new ArrayList<GuideSpirituel>();
+		int indexJoueur = partie.getJoueurs().indexOf(joueur);
+		int choix;
+
+		for (int i =0; i < partie.getJoueurs().get(indexJoueur).getGuides().size(); i++ ) {
+			gspCiblable.add(partie.getJoueurs().get(indexJoueur).getGuide(i));
+		}
+
+		for (int i = 0; i < gspCiblable.size(); i++) {
+			if (gspCiblable.get(i).isProtectionCiblage()) {
+				gspCiblable.remove(i);
+			}
+		}
+
+		System.out.println("Veuillez sélectionner le Guide Spirituel à échanger par cette compétence :"+ "\n");
+		int indice= 0;
+		do {
+			System.out.println(indice +" : " + gspCiblable.get(indice).getNom());
+			indice++;
+		} while (indice < gspCiblable.size());
+		do {
+			System.out.println("(Entrez le nombre compris entre 1 et " + gspCiblable.size() + ",nombre correspondant à votre choix) ");
+			Scanner sc = new Scanner(System.in);
+			choix = sc.nextInt();
+			sc.close();
+
+		} while (choix < 0 || choix > gspCiblable.size());
+		System.out.println("Vous avez ciblé " + gspCiblable.get(choix).getNom());
+		return gspCiblable.get(choix);
+
+	}
+
+	public static Croyant choisirCroyant (Joueur joueur, Partie partie) {
+		int choix = 0;
+		int indice=0;
+		List <Croyant> croyantCiblable = new ArrayList <Croyant> ();
+		System.out.println("Choisissez un croyant à cibler.");
+		for (int i = 0; i < joueur.getGuides().size(); i++) {
+			for(int j =0; j < joueur.getGuide(i).getCroyantLie().size(); j++){
+					System.out.println(indice + " : " + joueur.getGuide(i).getCroyantLie(j).getNom());
+					croyantCiblable.add(joueur.getGuide(i).getCroyantLie(j));
+					indice++;
+			}
+		}
+		Scanner sc = new Scanner(System.in);
+		do {
+			System.out.println("(Entrez le nombre compris entre 1 et " + partie.getJoueurs().size() + "nombre correspondant à votre choix) ");
+			choix = sc.nextInt();
+		} while (choix < 0 | choix >= joueur.getNombreCroyant());
+		sc.close();
+		return croyantCiblable.get(choix);
+	}
+
+	public static Origine choisirOrigine (){
+		Origine origine = null;
+		boolean choixValide = false;
+		System.out.println("Veuillez choisir l'origine des point d'action à gagner : "
+					+ "\n 1 : Jour"
+					+ "\n 2 : Nuit"
+					+ "\n 3 : Neant");
+		do {
+			Scanner sc = new Scanner(System.in);
+			int choix = sc.nextInt();
+			sc.close();
+			switch (choix) {
+			case 1 : origine = Origine.Jour;
+					 choixValide = true;
+			break;
+			case 2 : origine = Origine.Nuit;
+				  	 choixValide = true;
+			break;
+			case 3 : origine = Origine.Neant;
+					 choixValide = true;
+			break;
+			default : System.out.println("Vous devez choisir soit 1 pour Jour, 2 pour Nuit et 3 pour Neant");
+			break;
+			}
+		} while (!choixValide);
+		return origine;
+	}
+
+	public static GuideSpirituel choisirDiviniteOuGspNonDogme (Dogme dogme, Partie partie){
+		int choixDivinite = 0;
+		List <GuideSpirituel> gspCiblable = new ArrayList<GuideSpirituel>();
+		int choix = 0;
+
+		while (choixDivinite < partie.getJoueurs().size()) {
+			if (!(Capacite.comparerDogme(partie.getJoueurs().get(choixDivinite).getDivinite().getDogme(), dogme, partie))){
+					gspCiblable.addAll(partie.getJoueurs().get(choixDivinite).getGuides());
+			} else {
+				for (int choixGuide = 0; choixGuide < partie.getJoueurs().get(choixDivinite).getGuides().size(); choixGuide++){
+					if (!(Capacite.comparerDogme(partie.getJoueurs().get(choixDivinite).getDivinite().getDogme(), dogme, partie))) {
+						gspCiblable.add(partie.getJoueurs().get(choixDivinite).getGuide(choixGuide));
+					}
+				}
+			}
+			choixDivinite++;
+		}
+
+		for (int i = 0; i < gspCiblable.size(); i++) {
+			if (gspCiblable.get(i).isProtectionCiblage()) {
+				gspCiblable.remove(i);
+			}
+		}
+
+		System.out.println("Veuillez sélectionner le Guide Spirituel à cibler par cette compétence :"+ "\n");
+		int indice=0;
+		do {
+			System.out.println(indice +" : " + gspCiblable.get(indice).getNom());
+			indice++;
+		} while (indice < gspCiblable.size());
+		do {
+			System.out.println("(Entrez le nombre compris entre 1 et " + gspCiblable.size() + "nombre correspondant à votre choix) ");
+			Scanner sc = new Scanner(System.in);
+			choix = sc.nextInt();
+			sc.close();
+
+		} while (choix < 0 || choix > gspCiblable.size());
+
+		System.out.println("Vous avez ciblé " + gspCiblable.get(choix).getNom() + "appartenant à "+ gspCiblable.get(choix).getJoueurLie().getNom());
+		return gspCiblable.get(choix);
+
+	}
+
 	public static List<Croyant> trierCroyantDogme (Origine origine1, Origine origine2, Dogme dogme, Partie partie){
 		List <Croyant> croyantCiblable = new ArrayList <Croyant> ();
 		for (int i = 0; i < partie.getTasDeCroyants().size(); i++) {
@@ -94,6 +284,33 @@ public class Capacite {
 
 	}
 
+	public static void choisirFaceDe (Carte carte,Partie partie) {
+		int choix;
+		System.out.println("Quel choix de face ? "
+				+ "1 : Jour \n"
+				+ "2 : Nuit \n"
+				+ "3 : Neant\n");
+		System.out.println("(Entrez le nombre compris entre 1 et 3 correspondant à votre choix) ");
+		do {
+			System.out.println("(Entrez le nombre compris entre 1 et 3 correspondant à votre choix) ");
+			Scanner sc = new Scanner(System.in);
+			choix = sc.nextInt();
+			sc.close();
+
+		} while (choix < 1 || choix > 3);
+		switch (choix) {
+		case 1 : partie.getDe().setInfluence(Origine.Jour);
+		break;
+		case 2 : partie.getDe().setInfluence(Origine.Nuit);
+		break;
+		case 3 : partie.getDe().setInfluence(Origine.Neant);
+		break;
+		}
+		partie.setIndexJoueur1(carte.getJoueurLie().getPartie().getJoueurs().indexOf(carte.getJoueurLie()));
+		System.out.println("La nouvelle influence est " + partie.getDe().getInfluence());
+	}
+
+
 
 
 
@@ -101,16 +318,43 @@ public class Capacite {
 		partie.getDefausse().ajoutCarte(carte);
 	}
 
+	public static void donnerPointAction (int point, Origine origine, Joueur joueur) {
+		if (autorisationPointAction == true) {
+			joueur.ajoutPointsAction(point, origine);
+		} else {
+			System.out.println("On ne peut pas gagner de point d'action jusqu'à la fin du tour (competence nihilistes)");
+		}
+	}
+
 	public static void renvoyerGsp (Partie partie) {
-		GuideSpirituel gsp = actionSuivante.choisirGsp(partie);
+		GuideSpirituel gsp = Capacite.choisirGsp(partie);
 		partie.getTasDeCroyants().addAll(gsp.getCroyantLie ());
 		gsp.getJoueurLie().getMain().add(gsp);
+	}
+
+	public static void renvoyerGsp (List <GuideSpirituel> gspCiblable, Partie partie) {
+		System.out.println("Veuillez choisir le Guide Spirituel a supprimer :\n");
+		int choix;
+		for (int i = 0; i < gspCiblable.size(); i++ ) {
+			System.out.println(i + " : " + gspCiblable.get(i).getNom());
+		}
+		do {
+			System.out.println("(Entrez un nombre compris entre 0 et " + gspCiblable.size() + ", nombre correspondant à votre choix) ");
+			Scanner sc = new Scanner(System.in);
+			choix = sc.nextInt();
+			sc.close();
+
+		} while (choix < 0 || choix > gspCiblable.size());
+		for (int j =0 ; j < gspCiblable.get(choix).getCroyantLie().size(); j++) {
+			Capacite.defausser(gspCiblable.get(choix).getCroyantLie(j), partie);
+		}
+		gspCiblable.get(choix).getJoueurLie().getMain().add(gspCiblable.get(choix));
 	}
 
 	public static void empecherSacrifice ( Dogme dogme1, Dogme dogme2, String vise, Partie partie) {
 		int tourFixe = partie.getNombreTour();
 		int jtourActuel = tourFixe;
-		Divinite divinite = actionSuivante.choisirDiviniteOuDogme (dogme1, dogme2, partie);
+		Divinite divinite = Capacite.choisirDiviniteOuDogme (dogme1, dogme2, partie);
 
 		while (jtourActuel==tourFixe) {
 			jtourActuel = partie.getNombreTour();
@@ -146,19 +390,39 @@ public class Capacite {
 
 	public static void imposerSacrifice (Divinite divinite, String vise, Partie partie) {
 		Joueur joueur = divinite.getJoueurLie();
+		int indice;
 		switch (vise) {
 			case "GuideSpirituel" :
-						GuideSpirituel guideSpirituel = actionSuivante.choisirGuideSpirituelCible(joueur, vise);
-						joueur.activerCapaciteCarte(guideSpirituel);
-						partie.getTasDeCroyants().addAll(guideSpirituel.getCroyantLie());
-						partie.getDefausse().ajoutCarte(guideSpirituel);
+				System.out.println("Veuillez choisir le guide à supprimer : \n");
+				for (int i = 0; i < joueur.getGuides().size(); i++) {
+					System.out.println("1 : " + joueur.getGuide(i).getNom());
+				}
+				do {
+					System.out.println("Veuillez entrer l'indice valable compris entre 0 " + (joueur.getGuides().size()-1));
+					Scanner choix = new Scanner (System.in);
+					indice = choix.nextInt();
+					choix.close();
+				} while (indice < joueur.getGuides().size());
+						joueur.activerCapaciteCarte(joueur.getGuide(indice));
+						partie.getTasDeCroyants().addAll(joueur.getGuide(indice).getCroyantLie());
+						partie.getDefausse().ajoutCarte(joueur.getGuide(indice));
 				break;
 		}
 
 	  }
 
+	public static void relancerDe (Partie partie) {
+		partie.getDe().lancerDe();
+		partie.getDe().getValeur();
+		System.out.println("La nouvelle influence est " + partie.getDe().getInfluence());
+	}
+
+	public static void retirerCroyant(Partie partie) {
+
+	}
+
 	public static void retirerTousCroyantLies (Partie partie) {
-		GuideSpirituel gsp = actionSuivante.choisirGsp(partie);
+		GuideSpirituel gsp = Capacite.choisirGsp(partie);
 		partie.getTasDeCroyants().addAll(gsp.getCroyantLie());
 		partie.getDefausse().ajoutCarte(gsp);
 	}
@@ -168,6 +432,8 @@ public class Capacite {
 		carte.setJoueurLie(carte.getJoueurLie());
 		carte.activerCapacite();
 		carte.setJoueurLie(joueurOriginal);
+
+
 	}
 
 	public static void recupererPointAction (Carte carte, Partie partie){
@@ -249,42 +515,33 @@ public class Capacite {
 		setAutorisationPointAction(true);
 	}
 
+	public static void lancerApocalypse (Partie partie) {
+		if (autorisationApocalypse == true) {
+			partie.finirUnePartie();
+			int tourFixe = partie.getNombreTour();
+			int tourActuel = tourFixe;
 
-	
+			for (int i=0; i < partie.getTable().size(); i++) {
+				if (partie.getTable(i).isProtectionCiblage()) {
+					partie.getTable(i).setProtectionCiblage(false);
+				}
+			}
+
+			while (tourFixe == tourActuel) {
+				autorisationApocalypse = false;
+			}
+			autorisationApocalypse = true;
+		} else {
+			System.out.println("Impossible de lancer une Apocalyspe ce tour-ci veuillez attendre le tour prochain");
+		}
+	}
+
 	public static void setAutorisationPointAction(boolean autorisationPointAction) {
 		Capacite.autorisationPointAction = autorisationPointAction;
 	}
 
-	public static boolean isAutorisationApocalypse() {
-		return autorisationApocalypse;
-	}
-
-	public static void setAutorisationApocalypse(boolean autorisationApocalypse) {
-		Capacite.autorisationApocalypse = autorisationApocalypse;
-	}
-
-	public static boolean isAutorisationPointAction() {
-		return autorisationPointAction;
-	}
-
-	public static ActionSuivante getActionSuivante() {
-		return actionSuivante;
-	}
 
 
-
-	public static boolean isAnnulationEffetCapa() {
-		return annulationEffetCapa;
-	}
-
-
-
-	public static void setAnnulationEffetCapa(boolean annulationEffetCapa) {
-		Capacite.annulationEffetCapa = annulationEffetCapa;
-	}
-	
-
-	
 
 
 

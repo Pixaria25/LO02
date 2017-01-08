@@ -1,8 +1,11 @@
 package divinae.api.cartes.divinite;
 
+import java.util.List;
+
 import divinae.api.cartes.types.Capacite;
 import divinae.api.cartes.types.Divinite;
 import divinae.api.cartes.types.Dogme;
+import divinae.api.cartes.types.GuideSpirituel;
 import divinae.api.cartes.types.Origine;
 
 public class Shingua extends Divinite {
@@ -18,8 +21,8 @@ public class Shingua extends Divinite {
 	@Override
 	public void activerCapacite() {
 		// TODO Auto-generated method stub
-		super.activerCapacite();
-		Capacite.getActionSuivante().donnerPointAction(this.getJoueurLie().getGuides().size()-1, Origine.Neant, this.getJoueurLie());	
+		List<GuideSpirituel> guidesCiblable = Capacite.choisirDiviniteEtDogme(Dogme.Mystique, Dogme.Nature, getJoueurLie().getPartie());
+		
 	}
 
 }

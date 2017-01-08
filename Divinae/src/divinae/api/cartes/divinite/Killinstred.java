@@ -16,7 +16,7 @@ public class Killinstred extends Divinite {
 	@Override
 	public void activerCapacite() {
 		// TODO Auto-generated method stub
-		super.activerCapacite();
+
 	}
 
 }

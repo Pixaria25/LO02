@@ -14,7 +14,7 @@ public class Moines extends Croyant {
 
 
 	public void activerCapacite() {
-		Capacite.getActionSuivante().donnerPointAction(1, Origine.Jour, this.getJoueurLie());
+		Capacite.donnerPointAction(1, Origine.Jour, this.getJoueurLie());
 	}
 	
 	

@@ -1,6 +1,5 @@
 package divinae.api.cartes.divinite;
 
-import divinae.api.cartes.types.Capacite;
 import divinae.api.cartes.types.Divinite;
 import divinae.api.cartes.types.Dogme;
 import divinae.api.cartes.types.Origine;
@@ -20,8 +19,7 @@ public class Brewalen extends Divinite {
 	public void activerCapacite() {
 		// TODO Auto-generated method stub
 		super.activerCapacite();
-		Capacite.setAutorisationApocalypse(false);
-	
+		
 	}
 
 }
