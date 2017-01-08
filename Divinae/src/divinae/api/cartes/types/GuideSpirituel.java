@@ -1,11 +1,11 @@
 package divinae.api.cartes.types;
 
+import divinae.api.partie.Partie;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import divinae.console.InterfacePartie;
-
-public abstract class GuideSpirituel extends Carte implements Action {
+public abstract class GuideSpirituel extends CarteAction {
 
 	private List<Croyant> croyantLie;
 	private Dogme [] dogme;
@@ -19,7 +19,16 @@ public abstract class GuideSpirituel extends Carte implements Action {
 		this.nombreCroyantLiable = nombreCroyantLiable;
 	}
 	
-   /// A voir
+
+	public void convertirCroyant (Partie partie) {
+		while (this.nombreCroyantLiable  >  croyantLie.size() || partie.getTasDeCroyants().size() > 0) { 
+			Croyant croyant = Capacite.getActionSuivante().choisirCroyant(getJoueurLie(), getJoueurLie().getPartie());
+			croyant.setGuideLie(this);
+			croyant.setJoueurLie(getJoueurLie());
+			croyantLie.add(croyant);
+		}
+	}
+	
 	public void poserCarteAction() {
 		boolean validite = Capacite.getActionSuivante().retirerPointAction(this, this.getOrigine());
 		if (validite == true) {	

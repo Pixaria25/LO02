@@ -19,7 +19,7 @@ public class Shingua extends Divinite {
 	public void activerCapacite() {
 		// TODO Auto-generated method stub
 		super.activerCapacite();
-		Capacite.getActionSuivante().donnerPointAction(this.getJoueurLie().getGuides().size()-1, Origine.Neant, this.getJoueurLie());	
+		Capacite.getActionSuivante().donnerPointAction(this.getJoueurLie().getGuides().size(), Origine.Neant, this.getJoueurLie());	
 	}
 
 }

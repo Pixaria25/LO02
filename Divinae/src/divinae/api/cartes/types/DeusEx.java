@@ -1,6 +1,6 @@
 package divinae.api.cartes.types;
 
-public abstract class DeusEx extends Carte implements Action {
+public abstract class DeusEx extends CarteAction {
 
 	public DeusEx(String nom, Origine origine, String capacite) {
 		super(nom, origine, capacite);
@@ -12,5 +12,6 @@ public abstract class DeusEx extends Carte implements Action {
 		// TODO Auto-generated method stub
 		activerCapacite();
 		this.getJoueurLie().getPartie().getDefausse().ajoutCarte(this);
+
 	}
 }

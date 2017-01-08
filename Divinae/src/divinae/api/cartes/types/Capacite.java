@@ -99,7 +99,7 @@ public class Capacite {
 
 
 
-	public static  void defausser (Carte carte, Partie partie) {
+	public static  void defausser (CarteAction carte, Partie partie) {
 		partie.getDefausse().ajoutCarte(carte);
 	}
 
