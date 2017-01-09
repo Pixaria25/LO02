@@ -99,7 +99,7 @@ public class Capacite {
 
 
 //TEST 
-	public static Joueur choisirJoueurCible(Partie partie)
+	public static Joueur choisirJoueurCible(Partie partie) 
 	{
 		actionSuivante.commentaireMethode("Veuillez sélectionner le Joueur  cibler par cette competence :"+ "\n");
 		int choix = 0;
