@@ -13,6 +13,6 @@ public  class Demons extends Croyant {
 	}
   
   public void activerCapacite() {
-		Capacite.getActionSuivante().donnerPointAction(1, Origine.Nuit, this.getJoueurLie());
+		Capacite.donnerPointAction(1, Origine.Nuit, this.getJoueurLie());
 	}
 }

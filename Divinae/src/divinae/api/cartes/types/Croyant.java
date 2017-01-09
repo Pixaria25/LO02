@@ -19,7 +19,7 @@ public abstract class Croyant extends Carte implements Action {
 
 	public void poserCarteAction() {
 		// TODO Auto-generated method stub
-		boolean validite = Capacite.getActionSuivante().retirerPointAction(this, this.getOrigine());
+		boolean validite = Capacite.retirerPointAction(this, this.getOrigine());
 		if (validite == true) {	
 			InterfacePartie.getPartie().getTasDeCroyants().add(this);
 			setJoueurLie(null);

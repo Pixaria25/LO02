@@ -19,9 +19,9 @@ public abstract class GuideSpirituel extends Carte implements Action {
 		this.nombreCroyantLiable = nombreCroyantLiable;
 	}
 	
-   /// A voir
+
 	public void poserCarteAction() {
-		boolean validite = Capacite.getActionSuivante().retirerPointAction(this, this.getOrigine());
+		boolean validite = Capacite.retirerPointAction(this, this.getOrigine());
 		if (validite == true) {	
 			int indexCourant = InterfacePartie.getPartie().getIndexJoueur1();
 			setJoueurLie(InterfacePartie.getPartie().getJoueurs().get(indexCourant));

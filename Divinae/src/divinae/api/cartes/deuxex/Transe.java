@@ -26,7 +26,7 @@ public class Transe extends DeusEx {
 		Partie partie = this.getJoueurLie().getPartie();
 		Carte cartePosee = partie.getTable(partie.getTable().size()-1);
 		Joueur joueur = this.getJoueurLie();
-		Capacite.getActionSuivante().recupererEffetBenef(cartePosee, joueur, partie);
+		Capacite.recupererEffetBenef(cartePosee, joueur, partie);
 	}
 
 
