@@ -20,7 +20,7 @@ public abstract class Croyant extends  CarteAction {
 
     boolean validite = Capacite.retirerPointAction(this, this.getOrigine());
 		if (validite == true) {	
-			InterfacePartie.getPartie().getTasDeCroyants().add(this);
+			getJoueurLie().getPartie().getTasDeCroyants().add(this);
 			setJoueurLie(null);
 		}
     

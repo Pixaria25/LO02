@@ -98,50 +98,56 @@ public class Capacite {
 	}
 
 
-//TEST 
+//TEST A modif
 	public static Joueur choisirJoueurCible(Partie partie) 
 	{
-		actionSuivante.commentaireMethode("Veuillez sélectionner le Joueur  cibler par cette competence :"+ "\n");
+		int indexCarteJouee = partie.getTable().size()-1;
+		Joueur joueurCourant = partie.getTable(indexCarteJouee).getJoueurLie();
+		actionSuivante.messageListe(joueurCourant,"Veuillez sélectionner le Joueur  cibler par cette competence :"+ "\n");
 		int choix = 0;
 		int indice=0;
 		do {
-			actionSuivante.commentaireMethode(indice +" : " + partie.getJoueurs().get(indice).getNom());
+			actionSuivante.messageListe(joueurCourant, indice +" : " + partie.getJoueurs().get(indice).getNom());
 			indice++;
-		} while (indice <=  partie.getJoueurs().size());
+		} while (indice <  partie.getJoueurs().size());
 		
 		do {
-			actionSuivante.commentaireMethode("Entrez le nombre compris entre 1 et " + partie.getJoueurs().size() + "nombre correspondant a  votre choix");
+			actionSuivante.messageListe(joueurCourant, "Entrez le nombre compris entre 0 et " + (partie.getJoueurs().size()-1) + "nombre correspondant a  votre choix");
 
-			choix = actionSuivante.entreeUser();
+			choix = actionSuivante.entreeUser(joueurCourant, partie.getJoueurs().size()-1);
 
 		} while (choix < 0 | choix >  partie.getJoueurs().size());
 		
 
 		Joueur joueur = partie.getJoueurs().get(choix);
-		actionSuivante.commentaireMethode("Vous avez ciblÃ© " + joueur.getNom());
+		actionSuivante.messageRecap(joueur.getNom() + " a été ciblé. ");
 
 		while (joueur == null) {
 			joueur = choisirJoueurCible(partie);
 			if(joueur.getGuides().isEmpty()) {
-				actionSuivante.commentaireMethode("Veuillez choisir un autre joueur, celui-ci n'a pas de Guides Spirituels");
+				actionSuivante.messageListe(joueurCourant, "Veuillez choisir un autre joueur, celui-ci n'a pas de Guides Spirituels");
 				joueur = null;
 			}
 		}
 		return joueur;
 	}
+
 	
 	public static void donnerPointAction (int point, Origine origine, Joueur joueur) {
 		if (Capacite.isAutorisationApocalypse()==true) {
 			joueur.ajoutPointsAction(point, origine);
 		} else {
-			actionSuivante.commentaireMethode("On ne peut pas gagner de point d'action jusqu'à la fin du tour (competence nihilistes)");
+			actionSuivante.messageListe(joueur,"On ne peut pas gagner de point d'action jusqu'à la fin du tour (competence nihilistes)");
 		}
 	}
 	
 	public static void relancerDe (Partie partie) {
 		partie.getDe().lancerDe();
 		partie.getDe().getValeur();
-		actionSuivante.commentaireMethode("La nouvelle influence est " + partie.getDe().getInfluence());
+		
+		int indexCarteJouee = partie.getTable().size()-1;
+		Joueur joueurCourant = partie.getTable(indexCarteJouee).getJoueurLie();
+		actionSuivante.messageListe(joueurCourant, "La nouvelle influence est " + partie.getDe().getInfluence());
 	}
 
 	public static void lancerApocalypse (Partie partie) {
@@ -162,18 +168,22 @@ public class Capacite {
 			}
 			Capacite.setAutorisationApocalypse (true);
 		} else {
-			actionSuivante.commentaireMethode("Impossible de lancer une Apocalyspe ce tour-ci veuillez attendre le tour prochain");
+			int indexCarteJouee = partie.getTable().size()-1;
+			Joueur joueurCourant = partie.getTable(indexCarteJouee).getJoueurLie();
+			actionSuivante.messageListe(joueurCourant, "Impossible de lancer une Apocalyspe ce tour-ci veuillez attendre le tour prochain");
 		}
 	}
 
 	public static void recupererUnGsp (Carte carte) {
+		int indexCarteJouee = carte.getJoueurLie().getPartie().getTable().size()-1;
+		Joueur joueurCourant = carte.getJoueurLie().getPartie().getTable(indexCarteJouee).getJoueurLie();
 		GuideSpirituel GpCible = Capacite.getActionSuivante().choisirGsp(carte.getJoueurLie().getPartie());
 		while (GpCible.getJoueurLie() == carte.getJoueurLie()) {
-			actionSuivante.commentaireMethode("Ce guide spirituel vous appartient déjà, choisissez en un autre !");
+			actionSuivante.messageListe(joueurCourant, "Ce guide spirituel vous appartient déjà, choisissez en un autre !");
 			GpCible = Capacite.getActionSuivante().choisirGsp(carte.getJoueurLie().getPartie());
 		}
 		GpCible.setJoueurLie(carte.getJoueurLie());
-		actionSuivante.commentaireMethode("Vous avez récupérer le guide spirituel suivant : " + GpCible.getNom());
+		actionSuivante.messageRecap(GpCible.getJoueurLie().getNom() + " récupère le guide spirituel suivant : " + GpCible.getNom());
 	}
 
 	public static boolean retirerPointAction (Carte  carte, Origine origine) {
@@ -184,7 +194,7 @@ public class Capacite {
 				carte.getJoueurLie().setNombreCroyant(carte.getJoueurLie().getNombreCroyant()-(((Croyant) carte).getValeurCroyant()));
 				return true;
 			} else {
-				actionSuivante.commentaireMethode("Pas de point d'origine jour.");
+				actionSuivante.messageListe(carte.getJoueurLie(), "Pas de point d'origine jour.");
 				return false;
 			}
 		case Nuit :
@@ -193,7 +203,7 @@ public class Capacite {
 				carte.getJoueurLie().setNombreCroyant(carte.getJoueurLie().getNombreCroyant()-(((Croyant) carte).getValeurCroyant()));
 				return true;
 			} else {
-				actionSuivante.commentaireMethode("Pas de point d'origine Nuit.");
+				actionSuivante.messageListe(carte.getJoueurLie(), "Pas de point d'origine Nuit.");
 				return false;
 			}
 		case Neant :
@@ -202,7 +212,7 @@ public class Capacite {
 				carte.getJoueurLie().setNombreCroyant(carte.getJoueurLie().getNombreCroyant()-(((Croyant) carte).getValeurCroyant()));
 				return true;
 			} else {
-				actionSuivante.commentaireMethode("Pas de point d'origine Neant.");
+				actionSuivante.messageListe(carte.getJoueurLie(), "Pas de point d'origine Neant.");
 				return false;
 			}
 			default : 
@@ -225,7 +235,7 @@ public class Capacite {
 	    				((Croyant) carte).setGuideLie(joueur.getGuide(i));
 	    			} 
 	    		}
-	    	} else { actionSuivante.commentaireMethode("Pas de place disponible pour lier ce croyant"); }
+	    	} else { actionSuivante.messageListe(joueur, "Pas de place disponible pour lier ce croyant"); }
 	    break;
 	    
 	    case GuideSpirituel:
@@ -243,12 +253,12 @@ public class Capacite {
 	        case "Phoenix" : Capacite.copierCapacite(carte, partie);
 	     	break;
 	    
-	        default : actionSuivante.commentaireMethode("Cette carte n'a aucun effet bénéfique dire pour vous.");
+	        default : actionSuivante.messageListe(joueur, "Cette carte n'a aucun effet bénéfique dire pour vous.");
 	       	break;
 	        }
 	    break;
 	    
-	    default : actionSuivante.commentaireMethode("Aucun effet bénéfique pour vous.");
+	    default : actionSuivante.messageListe(joueur, "Aucun effet bénéfique pour vous.");
 	    break;
 	    }
 	    
@@ -460,8 +470,6 @@ public class Capacite {
 	public static Carte getCarteInterupt() {
 		return carteInterupt;
 	}
-
-
 
 	public static void setCarteInterupt(Carte carteInterupt) {
 		Capacite.carteInterupt = carteInterupt;

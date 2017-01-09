@@ -26,4 +26,10 @@ public class JoueurVirtuel extends Joueur {
 	public void finirTour() {
 		strategie.finirTour();
 	}
+
+	public Strategie getStrategie() {
+		return strategie;
+	}
+	
+	
 }

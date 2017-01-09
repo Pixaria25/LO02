@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import divinae.api.cartes.deuxex.InfluenceJour.ClasseName;
 import divinae.api.cartes.types.ActionSuivante;
 import divinae.api.cartes.types.Capacite;
 import divinae.api.cartes.types.Carte;
@@ -13,6 +14,7 @@ import divinae.api.cartes.types.Dogme;
 import divinae.api.cartes.types.GuideSpirituel;
 import divinae.api.cartes.types.Origine;
 import divinae.api.joueur.Joueur;
+import divinae.api.joueur.JoueurVirtuel;
 import divinae.api.partie.Partie;
 
 public class ActionSuivanteConsole implements ActionSuivante
@@ -322,14 +324,40 @@ public class ActionSuivanteConsole implements ActionSuivante
 	}
 
 	
-	public int entreeUser () {
+	public int entreeUser (Joueur joueur, int max) {
 		int choixUser = 0;
-		Scanner sc = new Scanner(System.in);
-		choixUser = sc.nextInt();
-		sc.close();
+		if (joueur instanceof JoueurVirtuel) {
+			switch (((JoueurVirtuel) joueur).getStrategie().toString()) {
+			case "StrategieDefensive" :
+				// Methode test carte la plus defensive pouvant être jouer
+				break;
+			case "StrategieOffensive" :
+				// Methode test carte la plus offensive pouvant être jouer
+				break;
+			case "StrategieEquilibre" :
+				// Methode test carte la plus equilibre pouvant être jouer
+				break;
+			case "StrategieAleatoire" :
+				choixUser = (int)(Math.random()*max);
+			}
+		} else {
+			Scanner sc = new Scanner(System.in);
+			choixUser = sc.nextInt();
+				}
 		return choixUser;
 	}
-	public void commentaireMethode (String message) {
+	
+	public void messageListe (Joueur joueur, String message) {
+		if (joueur instanceof JoueurVirtuel) {
+
+		} else {
+			System.out.println(message);
+		}
+	}
+	
+	public void messageRecap (String message) {
 		System.out.println(message);
 	}
+
+
 }

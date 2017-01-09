@@ -230,10 +230,6 @@ public class InterfacePartie {
 								}
 								break;
 								
-							case Aube:
-								
-							case Crepuscule:
-								
 							case Aucune:
 								poserCarte = true;
 								
