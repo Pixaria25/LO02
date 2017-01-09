@@ -18,7 +18,8 @@ public class Fourberie extends DeusEx {
 	public void activerCapacite() {
 
 		Partie partie = this.getJoueurLie().getPartie();
-		Joueur joueur = Capacite.getActionSuivante().choisirJoueurCible(this.getJoueurLie().getPartie());
+    
+		Joueur joueur = Capacite.choisirJoueurCible(this.getJoueurLie().getPartie());
 
 		int nbCroyantCiblable = 0;
 		for (int i = 0; i < joueur.getGuides().size(); i++) {
@@ -30,7 +31,7 @@ public class Fourberie extends DeusEx {
 		}
 
 		if (nbCroyantCiblable < 2) {
-			joueur = Capacite.getActionSuivante().choisirJoueurCible(this.getJoueurLie().getPartie());
+			joueur = Capacite.choisirJoueurCible(this.getJoueurLie().getPartie());
 		}
 		
 		for (int k =0; k < 2; k++) {

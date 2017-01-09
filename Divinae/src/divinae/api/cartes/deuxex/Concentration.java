@@ -14,6 +14,6 @@ public class Concentration extends DeusEx {
 
 	@Override
 	public void activerCapacite() {
-		Capacite.getActionSuivante().recupererUnGsp(this);
+		Capacite.recupererUnGsp(this);
 	}
 }
