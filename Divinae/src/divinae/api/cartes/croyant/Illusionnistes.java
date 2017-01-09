@@ -10,19 +10,23 @@ import divinae.api.partie.Partie;
 public class Illusionnistes extends Croyant {
 
 	public Illusionnistes() {
-		super("Illusionnistes", Origine.Nuit, "Vous bénéficiez de la capacité spéciale de sacrifice d'une carte de Croyant "
-				+ "appartenant à une autre Divinité. La carte en question reste en jeu.", new Dogme [] {Dogme.Chaos, Dogme.Humain, Dogme.Symboles}, 4);
+		super("Illusionnistes", Origine.Nuit, "Vous bÃ©nÃ©ficiez de la capacitÃ© spÃ©ciale de sacrifice d'une carte de Croyant "
+				+ "appartenant Ã  une autre DivinitÃ©. La carte en question reste en jeu.", new Dogme [] {Dogme.Chaos, Dogme.Humain, Dogme.Symboles}, 4);
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void activerCapacite() {
+
 		Partie partie = this.getJoueurLie().getPartie();
+
 		Joueur joueur = Capacite.choisirJoueurCible(partie);
+
 		if (joueur.getNombreCroyant() == 0) {
 			joueur = Capacite.choisirJoueurCible(partie);
 		}
 		Capacite.copierCapacite(Capacite.getActionSuivante().choisirCroyant(joueur, partie), partie);
 		Capacite.defausser(this, this.getJoueurLie().getPartie());
+
 	}
 }

@@ -7,8 +7,8 @@ import divinae.api.cartes.types.Origine;
 
 public class Moines extends Croyant {
   
-  public Moines (String nom, Dogme [] dogme) {
-	 	super(nom, Origine.Jour, "Donne un point d'action d'Origine jour", dogme, 2);
+  public Moines (Dogme [] dogme) {
+	 	super("Moines", Origine.Jour, "Donne un point d'action d'Origine jour", dogme, 2);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -17,5 +17,5 @@ public class Moines extends Croyant {
 		Capacite.donnerPointAction(1, Origine.Jour, this.getJoueurLie());
 	}
 	
-	  
+	
 }
