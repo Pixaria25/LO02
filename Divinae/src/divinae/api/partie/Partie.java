@@ -12,12 +12,16 @@ import divinae.api.joueur.JoueurVirtuel;
 import divinae.api.joueur.StrategieDefensive;
 import divinae.api.joueur.StrategieEquilibre;
 import divinae.api.joueur.StrategieOffensive;
+import divinae.api.cartes.croyant.*;
+import divinae.api.cartes.deuxex.*;
+import divinae.api.cartes.guide.*;
+
 
 public class Partie {
 	
 	private int indexJoueur1;
 	private List<Joueur> joueurs;
-	private List<Carte> table;
+	private List<CarteAction> table;
 	private List<Croyant> tasDeCroyants;
 	private int nombreTour;
 	private Pioche pioche;
@@ -29,7 +33,8 @@ public class Partie {
 	public Partie() {
 		this.indexJoueur1 = 0;
 		this.joueurs = new ArrayList<Joueur>();
-		this.table = new ArrayList<Carte>();
+		this.table = new ArrayList<CarteAction>();
+		this.tasDeCroyants = new ArrayList<Croyant>();
 		this.nombreTour = 1;
 		this.pioche = new Pioche();
 		this.defausse = new Defausse();
@@ -88,9 +93,55 @@ public class Partie {
 	}
 	
 	public void remplirPioche() {
-		
+		ArrayList<CarteAction> piocheCartes = new ArrayList<CarteAction>();
+		Collections.addAll(piocheCartes, 
+				new Moines(new Dogme[]{Dogme.Humain, Dogme.Nature, Dogme.Mystique}),
+				new Moines((new Dogme[]{Dogme.Mystique, Dogme.Humain, Dogme.Chaos})),
+				new Moines((new Dogme[]{Dogme.Symboles, Dogme.Mystique, Dogme.Chaos})),
+				new Moines((new Dogme[]{Dogme.Mystique, Dogme.Nature, Dogme.Symboles})),
+				new Moines((new Dogme[]{Dogme.Mystique, Dogme.Nature, Dogme.Chaos})),
+				new Travailleurs(new Dogme[]{Dogme.Symboles, Dogme.Humain, Dogme.Chaos}, 1),
+				new Travailleurs(new Dogme[]{Dogme.Humain, Dogme.Nature, Dogme.Symboles}, 2),
+				new Travailleurs(new Dogme[]{Dogme.Mystique, Dogme.Humain, Dogme.Chaos}, 3),
+				new Demons(new Dogme[]{Dogme.Humain, Dogme.Nature, Dogme.Mystique}),
+				new Demons(new Dogme[]{Dogme.Mystique, Dogme.Humain, Dogme.Chaos}),
+				new Demons(new Dogme[]{Dogme.Symboles, Dogme.Mystique, Dogme.Chaos}),
+				new Demons(new Dogme[]{Dogme.Mystique, Dogme.Nature, Dogme.Symboles}),
+				new Demons(new Dogme[]{Dogme.Mystique, Dogme.Nature, Dogme.Chaos}),
+				new Esprits(new Dogme[]{Dogme.Humain, Dogme.Nature, Dogme.Mystique}),
+				new Esprits(new Dogme[]{Dogme.Mystique, Dogme.Humain, Dogme.Chaos}),
+				new Esprits(new Dogme[]{Dogme.Symboles, Dogme.Mystique, Dogme.Chaos}),
+				new Esprits(new Dogme[]{Dogme.Mystique, Dogme.Nature, Dogme.Symboles}),
+				new Esprits(new Dogme[]{Dogme.Mystique, Dogme.Nature, Dogme.Chaos}),
+				new Martyr(Origine.Jour, new Dogme[]{Dogme.Nature, Dogme.Humain}),
+				new Martyr(Origine.Nuit, new Dogme[]{Dogme.Humain, Dogme.Symboles}),
+				new Martyr(Origine.Neant, new Dogme[]{Dogme.Nature, Dogme.Chaos}),
+				new Clerc(Origine.Jour, new Dogme[]{Dogme.Humain, Dogme.Chaos}),
+				new Clerc(Origine.Nuit, new Dogme[]{Dogme.Nature, Dogme.Symboles}),
+				new Clerc(Origine.Neant, new Dogme[]{Dogme.Nature, Dogme.Humain}),
+				new Clerc(Origine.Jour, new Dogme[]{Dogme.Nature, Dogme.Chaos}),
+				new Clerc(Origine.Nuit, new Dogme[]{Dogme.Mystique, Dogme.Symboles}),
+				new Clerc(Origine.Neant, new Dogme[]{Dogme.Symboles, Dogme.Chaos}),
+				new Clerc(Origine.Jour, new Dogme[]{Dogme.Mystique, Dogme.Chaos}),
+				new Clerc(Origine.Nuit, new Dogme[]{Dogme.Nature, Dogme.Humain}),
+				new ColereDivine(Origine.Jour),
+				new ColereDivine(Origine.Nuit),
+				new Apocalypse(Origine.Jour),
+				new Apocalypse(Origine.Nuit),
+				new Apocalypse(Origine.Neant),
+				new Apocalypse(Origine.Aucune),
+				new Apocalypse(Origine.Aucune));
+		Collections.shuffle(piocheCartes);
+		pioche.setPioche(piocheCartes);
 	}
 
+	public void distribuerCartes() {
+		for(int i = 0; i < this.joueurs.size();i++)
+        {
+            this.joueurs.get(i).completerMain();;
+        }
+	}
+	
 	public void finirUnePartie() {
 		int maxCroyants = 0;
 		indexGagnant = 0;
@@ -129,6 +180,18 @@ public class Partie {
 					joueurs.get(i).ajoutPointsAction(1, Origine.Neant);
 				}
 			}
+		}
+	}
+	
+	public void setCroyantsRattachables() {
+		for(int i = 0; i < tasDeCroyants.size(); i ++) {
+			tasDeCroyants.get(i).setRattachable(true);
+		}
+	}
+	
+	public void activerCartes() {
+		for(int i = 0; i < table.size(); i++) {
+			table.get(i).poserCarteAction();
 		}
 	}
 	
@@ -194,7 +257,7 @@ public class Partie {
 		}
 	}
 
-	public List<Carte> getTable() {
+	public List<CarteAction> getTable() {
 		return table;
 	}
 	

@@ -10,14 +10,17 @@ public class Fourberie extends DeusEx {
 
 	public Fourberie() {
 		super("Fouberie", Origine.Nuit, "Sacrifiez 2 cartes Croyants "
-				+ "d'une autre Divinité. Les capacités spéciales ne sont pas jouées.");
+				+ "d'une autre DivinitÃ©. Les capacitÃ©s spÃ©ciales ne sont pas jouÃ©es.");
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void activerCapacite() {
+
 		Partie partie = this.getJoueurLie().getPartie();
+    
 		Joueur joueur = Capacite.choisirJoueurCible(this.getJoueurLie().getPartie());
+
 		int nbCroyantCiblable = 0;
 		for (int i = 0; i < joueur.getGuides().size(); i++) {
 			for(int j =0; j < joueur.getGuide(i).getCroyantLie().size(); j++){
@@ -32,8 +35,11 @@ public class Fourberie extends DeusEx {
 		}
 		
 		for (int k =0; k < 2; k++) {
+
 			Capacite.defausser(Capacite.getActionSuivante().choisirCroyant(joueur, partie), partie);
 		}
+
+		
 	}
 
 }
