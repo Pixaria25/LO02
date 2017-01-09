@@ -21,7 +21,7 @@ public class Gorpa extends Divinite {
 	public void activerCapacite() {
 		// TODO Auto-generated method stub
 		super.activerCapacite();
-		Joueur joueurCible = Capacite.getActionSuivante().choisirJoueurCible(this.getJoueurLie().getPartie());
+		Joueur joueurCible = Capacite.choisirJoueurCible(this.getJoueurLie().getPartie());
 		this.getJoueurLie().ajoutPointsAction(joueurCible.getPointsAction()[Origine.Jour.ordinal()],Origine.Jour);
 		this.getJoueurLie().ajoutPointsAction(joueurCible.getPointsAction()[Origine.Nuit.ordinal()],Origine.Nuit );
 		this.getJoueurLie().ajoutPointsAction(joueurCible.getPointsAction()[Origine.Neant.ordinal()],Origine.Neant);

@@ -17,10 +17,13 @@ public abstract class Croyant extends  CarteAction {
 	}
 
 	public void poserCarteAction() {
-		// TODO Auto-generated method stub		
-		getJoueurLie().getPartie().getTasDeCroyants().add(this);
-		setJoueurLie(null);
 
+    boolean validite = Capacite.retirerPointAction(this, this.getOrigine());
+		if (validite == true) {	
+			InterfacePartie.getPartie().getTasDeCroyants().add(this);
+			setJoueurLie(null);
+		}
+    
 	}
 	
 	public GuideSpirituel getGuideLie() {
