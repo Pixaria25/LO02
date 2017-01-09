@@ -11,7 +11,7 @@ public class Yarstur extends Divinite {
 		super("Yarstur", Origine.Jour, "Peut détruire toutes les cartes de Croyants "
 				+ "au centre de la table d'Origine Néant.", 
 				new Dogme[]{Dogme.Chaos, Dogme.Symboles, Dogme.Mystique}, 
-				"Dernier pur du jour, Yarstur combat le Néant sous toutes ses formes.");
+				"Dernier pur du jour, Yarstur combat le Néant sous toutes ses formes.", 83);
 		// TODO Auto-generated constructor stub
 	}
 

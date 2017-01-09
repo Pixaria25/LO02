@@ -11,7 +11,7 @@ public class Gwenghelen extends Divinite {
 				+ "d'Origine Néant que le nombre de Guides Spirituels que la Divinité possède.", 
 				new Dogme[]{Dogme.Humain, Dogme.Mystique, Dogme.Symboles}, 
 				"Première Divinité à recevoir l'influence du Néant, "
-				+ "Gwenghelen est celle qui en a reçu le plus de puissance.");
+				+ "Gwenghelen est celle qui en a reçu le plus de puissance.", 87);
 		// TODO Auto-generated constructor stub
 	}
 

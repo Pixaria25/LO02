@@ -9,8 +9,8 @@ public  class Alchimistes extends Croyant {
 		
 	private int option;
 
-	public Alchimistes( String capacite, Dogme [] dogme, int option) {
-		super("Alchimistes", Origine.Nuit, capacite, dogme, 2);
+	public Alchimistes( String capacite, Dogme [] dogme, int option, int id) {
+		super("Alchimistes", Origine.Nuit, capacite, dogme, 2, id);
 		this.option = option;
 		// TODO Auto-generated constructor stub
 	}

@@ -41,6 +41,10 @@ public class Joueur {
 			pointsAction[carteAction.getOrigine().ordinal()]--;
 		}
 	}
+	
+	public void jouer() {
+		
+	}
 	 
 	public void activerCapaciteCarte(Carte carte) {
 		carte.activerCapacite();

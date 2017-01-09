@@ -10,6 +10,11 @@ public class JoueurVirtuel extends Joueur {
 		super(nom, partie);
 		this.strategie = strategie;
 	}
+	
+	@Override
+	public void jouer() {
+		
+	}
 
 	public void poserCarteAction() {
 		strategie.poserCarteAction();

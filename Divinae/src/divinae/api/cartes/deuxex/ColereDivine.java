@@ -5,8 +5,8 @@ import divinae.api.cartes.types.Origine;
 
 public class ColereDivine extends DeusEx {
 
-	public ColereDivine(Origine origine) {
-		super("Colère Divine", origine, "");
+	public ColereDivine(Origine origine, int id) {
+		super("Colère Divine", origine, "", id);
 		String capacite = "Détruit une carte Guide Spirituel d'Origine ";
 		if(origine == Origine.Jour) {
 			capacite += "Nuit";

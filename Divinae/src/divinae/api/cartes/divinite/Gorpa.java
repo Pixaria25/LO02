@@ -13,7 +13,7 @@ public class Gorpa extends Divinite {
 				+ "L'autre Divinité ne reçoit aucun point d'Action ce tour-ci.", 
 				new Dogme[]{Dogme.Humain, Dogme.Symboles, Dogme.Chaos}, 
 				"Divinité joueuse et espiègle, "
-				+ "Gorpa aime gêner ses consœurs dans leur recherche de puissance.");
+				+ "Gorpa aime gêner ses consœurs dans leur recherche de puissance.", 89);
 		// TODO Auto-generated constructor stub
 	}
 

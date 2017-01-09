@@ -9,7 +9,7 @@ public class Revenant extends Croyant {
 
 	public Revenant() {
 		super("Revenant", Origine.Neant, "Lancez le dé de Cosmogonie. Le tour se finit normalement, mais "
-				+ "sous cette nouvelle influence.", new Dogme [] {Dogme.Mystique, Dogme.Humain, Dogme.Nature}, 1);
+				+ "sous cette nouvelle influence.", new Dogme [] {Dogme.Mystique, Dogme.Humain, Dogme.Nature}, 1, 35);
 		// TODO Auto-generated constructor stub
 	}
 

@@ -12,7 +12,7 @@ public class Brewalen extends Divinite {
 				+ "La carte est défaussée.", 
 				new Dogme[]{Dogme.Nature, Dogme.Humain, Dogme.Mystique}, 
 				"Premier enfant du Jour, Brewalen cherche à représenter une certaine image de l'harmonie, "
-				+ "et tente de mettre en place un statu quo entre les Divinités.");
+				+ "et tente de mettre en place un statu quo entre les Divinités.", 81);
 		// TODO Auto-generated constructor stub
 	}
 
