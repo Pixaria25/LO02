@@ -13,6 +13,7 @@ import divinae.api.cartes.types.Croyant;
 import divinae.api.cartes.types.GuideSpirituel;
 import divinae.api.cartes.types.Origine;
 import divinae.api.joueur.Joueur;
+import divinae.api.joueur.JoueurVirtuel;
 import divinae.api.partie.Partie;
 import divinae.api.partie.TypeStrategie;
 
@@ -152,6 +153,12 @@ public class InterfacePartie {
 		for(int i = 0; i <  partie.getJoueurs().size(); i++) {
 			Joueur joueurCourant = partie.getJoueurs().get(indexCourant);
 			System.out.println(joueurCourant.getNom()+" joue.");
+			
+			if(joueurCourant instanceof JoueurVirtuel) {
+				//Joueur virtuel
+			}
+			
+			//Joueur reel
 			System.out.println(joueurCourant.afficherMain());
 			defausser(joueurCourant);
 			int nombreCartes = 7-joueurCourant.getMain().size();
@@ -186,59 +193,10 @@ public class InterfacePartie {
 							System.out.println("Entrez le numero de la carte que vous voulez jouer.");
 							choixCarte = scanner.nextInt();
 						} while(choixCarte < 0 || choixCarte >=joueurCourant.getMain().size());
-        /**
-						Carte cartePose = joueurCourant.getMain().get(choixCarte);
-						joueurCourant.poserCarteAction(choixCarte);
-						Capacite.setCarteInterupt(cartePose);
-						demanderInterruption();
-						if (Capacite.isInteruptionAnnulationCapa()) {
-							System.out.println("Votre capacit� a �t� contr� ! Elle est defausser normalent si elle doit l'�tre");
-							break;
-						}
-						((Action) cartePose).poserCarteAction();
-        **/
+    
 						
-						boolean poserCarte = false;
-						switch (joueurCourant.getMain().get(choixCarte).getOrigine()){
-							
-							case Jour :
-								if (joueurCourant.getPointsAction()[Origine.Jour.ordinal()] >= 1) {
-									joueurCourant.getPointsAction()[Origine.Jour.ordinal()]--;
-									joueurCourant.setNombreCroyant(joueurCourant.getNombreCroyant()-((Croyant) joueurCourant.getMain().get(choixCarte)).getValeurCroyant());
-									poserCarte = true;
-								} else {
-									System.out.println("Pas de point d'origine jour.");
-								}
-								break;
-								
-							case Nuit :
-								if (joueurCourant.getPointsAction()[Origine.Nuit.ordinal()] >= 1) {
-									joueurCourant.getPointsAction()[Origine.Nuit.ordinal()]--;
-									joueurCourant.setNombreCroyant(joueurCourant.getNombreCroyant()-((Croyant) joueurCourant.getMain().get(choixCarte)).getValeurCroyant());
-									poserCarte = true;
-								} else {
-									System.out.println("Pas de point d'origine Nuit.");
-								}
-								break;
-								
-							case Neant :
-								if (joueurCourant.getPointsAction()[Origine.Neant.ordinal()] >= 1) {
-									joueurCourant.getPointsAction()[Origine.Neant.ordinal()]--;
-									poserCarte = true;
-								} else {
-									System.out.println("Pas de point d'origine Neant.");
-								}
-								break;
-								
-							case Aube:
-								
-							case Crepuscule:
-								
-							case Aucune:
-								poserCarte = true;
-								
-							default:
-						}
+						boolean poserCarte = carteJouable(choixCarte, joueurCourant);
+						
 						if(poserCarte) {
 							joueurCourant.poserCarteAction(choixCarte);
 							demanderInterruption();
@@ -319,6 +277,47 @@ public class InterfacePartie {
 			indexCourant = (indexCourant+1) % partie.getJoueurs().size();
 			partie.setCroyantsRattachables();
 		}
+	}
+	
+	private boolean carteJouable(int choixCarte, Joueur joueur) {
+
+		boolean poserCarte = false;
+		switch (joueur.getMain().get(choixCarte).getOrigine()){
+			
+			case Jour :
+				if (joueur.getPointsAction()[Origine.Jour.ordinal()] >= 1) {
+					poserCarte = true;
+				} else {
+					System.out.println("Pas de point d'origine jour.");
+				}
+				break;
+				
+			case Nuit :
+				if (joueur.getPointsAction()[Origine.Nuit.ordinal()] >= 1) {
+					poserCarte = true;
+				} else {
+					System.out.println("Pas de point d'origine Nuit.");
+				}
+				break;
+				
+			case Neant :
+				if (joueur.getPointsAction()[Origine.Neant.ordinal()] >= 1) {
+					poserCarte = true;
+				} else {
+					System.out.println("Pas de point d'origine Neant.");
+				}
+				break;
+				
+			case Aube:
+				
+			case Crepuscule:
+				
+			case Aucune:
+				poserCarte = true;
+				
+			default:
+		}
+		return poserCarte;
 	}
 	
 	private void defausser(Joueur joueur) {
