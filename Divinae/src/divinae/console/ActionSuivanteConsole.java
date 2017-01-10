@@ -91,7 +91,7 @@ public class ActionSuivanteConsole implements ActionSuivante
 
 	}
 
-	public void renvoyerGsp (List <GuideSpirituel> gspCiblable, Partie partie) {
+	public GuideSpirituel choisirGspRenvoye (List <GuideSpirituel> gspCiblable) {
 		System.out.println("Veuillez choisir le Guide Spirituel a supprimer :\n");
 		int choix;
 		for (int i = 0; i < gspCiblable.size(); i++ ) {
@@ -104,10 +104,8 @@ public class ActionSuivanteConsole implements ActionSuivante
 			sc.close();
 
 		} while (choix < 0 || choix > gspCiblable.size());
-		for (int j =0 ; j < gspCiblable.get(choix).getCroyantLie().size(); j++) {
-			Capacite.defausser(gspCiblable.get(choix).getCroyantLie(j), partie);
-		}
-		gspCiblable.get(choix).getJoueurLie().getMain().add(gspCiblable.get(choix));
+		return gspCiblable.get(choix);
+
 	}
 
 	public Divinite choisirDiviniteOuDogme (Dogme dogme1, Dogme dogme2, Partie partie) {

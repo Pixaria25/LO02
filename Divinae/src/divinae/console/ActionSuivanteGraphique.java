@@ -27,7 +27,7 @@ public class ActionSuivanteGraphique implements ActionSuivante
 	}
 
 	@Override
-	public void renvoyerGsp(List<GuideSpirituel> gspCiblable, Partie partie) {
+	public void ciblerGspRenvoye(List<GuideSpirituel> gspCiblable, Partie partie) {
 		// TODO Auto-generated method stub
 		
 	}

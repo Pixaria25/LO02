@@ -232,10 +232,10 @@ public class Capacite {
 		partie.getDefausse().ajoutCarte(carte);
 	}
 
-	public static void renvoyerGsp (Partie partie) {
-		GuideSpirituel gsp = actionSuivante.choisirGsp(partie);
+	public static void renvoyerGsp (List<GuideSpirituel> gspCiblable, Partie partie) {
+		GuideSpirituel gsp = actionSuivante.choisirGspRenvoye(gspCiblable);
 		partie.getTasDeCroyants().addAll(gsp.getCroyantLie ());
-		gsp.getJoueurLie().getMain().add(gsp);
+		gsp.getJoueurLie().tuerCarte(gsp);
 	}
 
 	public static void empecherSacrifice ( Dogme dogme1, Dogme dogme2, String vise, Partie partie) {
@@ -275,16 +275,14 @@ public class Capacite {
 
 	  }
 
-	public static void imposerSacrifice (Divinite divinite, String vise, Partie partie) {
+	public static void imposerSacrificeGuideSpirituel (Divinite divinite, Partie partie) {
 		Joueur joueur = divinite.getJoueurLie();
-		switch (vise) {
-			case "GuideSpirituel" :
-						GuideSpirituel guideSpirituel = actionSuivante.choisirSonGsp(joueur, partie);
-						joueur.activerCapaciteCarte(guideSpirituel);
-						partie.getTasDeCroyants().addAll(guideSpirituel.getCroyantLie());
-						partie.getDefausse().ajoutCarte(guideSpirituel);
-				break;
-		}
+
+		GuideSpirituel guideSpirituel = actionSuivante.choisirSonGsp(joueur, partie);
+		joueur.activerCapaciteCarte(guideSpirituel);
+		partie.getTasDeCroyants().addAll(guideSpirituel.getCroyantLie());
+		partie.getDefausse().ajoutCarte(guideSpirituel);
+
 
 	  }
 
@@ -380,12 +378,12 @@ public class Capacite {
 		setAutorisationPointAction(true);
 	}
 
-	public static void annulerEffetCarte (Origine origine, Origine [] origineCible, Partie partie) {
+	public static void annulerEffetCarte (Origine origineCarteCible, Origine [] origineCible, Partie partie) {
 		int max = origineCible.length;
 		for (int i=0; i < max; i++ ){
-			if (origine == origineCible[i]) {
+			if (origineCarteCible == origineCible[i]) {
 				CarteAction derniereCarte = partie.getTable().get(partie.getTable().lastIndexOf(partie.getTable()));
-				partie.getDefausse().ajoutCarte(derniereCarte);
+				derniereCarte.setCapaciteBloqué(true);
 				break;
 			}
 		}
