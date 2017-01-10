@@ -15,6 +15,12 @@ public class ActionSuivanteGraphique implements ActionSuivante
 {
 
 	@Override
+	public Joueur choisirJoueurCible(Partie partie) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
 	public GuideSpirituel choisirGsp(Partie partie) {
 		// TODO Auto-generated method stub
 		return null;
@@ -75,12 +81,6 @@ public class ActionSuivanteGraphique implements ActionSuivante
 	}
 
 	@Override
-	public void convertirCroyant(Partie partie, GuideSpirituel carte) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public void messageListe(Joueur joueur, String message) {
 		// TODO Auto-generated method stub
 		
@@ -93,9 +93,11 @@ public class ActionSuivanteGraphique implements ActionSuivante
 	}
 
 	@Override
-	public int entreeUser(Joueur joueur, int max) {
+	public Croyant choisirTasCroyant(Joueur joueur, Partie partie) {
 		// TODO Auto-generated method stub
-		return 0;
+		return null;
 	}
+
+
 
 }

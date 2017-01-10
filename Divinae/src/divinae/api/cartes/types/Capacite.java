@@ -204,7 +204,7 @@ public class Capacite {
 	    
 	    case GuideSpirituel:
 	        carte.setJoueurLie(joueur);
-	        Capacite.getActionSuivante().convertirCroyant(partie, (GuideSpirituel) carte);
+	        ((GuideSpirituel) carte).convertirCroyant(partie);
 	    break;
 	    
 	    case DeusEx:

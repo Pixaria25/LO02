@@ -15,7 +15,7 @@ public class Stase extends DeusEx {
 
 	@Override
 	public void activerCapacite() {
-		GuideSpirituel Gp = Capacite.getActionSuivante().choisirGsp(this.getJoueurLie().getPartie());
+		GuideSpirituel Gp = getJoueurLie().choisirGsp();
 		Gp.setProtectionCiblage(true);
 		for (int i = 0; i < Gp.getCroyantLie().size(); i++) {
 			Gp.getCroyantLie(i).setProtectionCiblage(true);

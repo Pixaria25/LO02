@@ -12,7 +12,7 @@ public class Exorciste extends GuideSpirituel {
   public Exorciste () {
 	 	super("Exorciste", Origine.Jour, "Une Divinité d'Origine Nuit ou ayant les Dogmes Mystique et Chaos "
 	 			+ "reprend dans sa main l'un de ses Guides Spirituels. Les Croyants qui y étaient attachés sont défaussés.",
-	 			new Dogme [] {Dogme.Chaos,Dogme.Mystique}, 1);
+	 			new Dogme [] {Dogme.Chaos,Dogme.Mystique}, 1, 54);
 		
 		// TODO Auto-generated constructor stub
 	}
@@ -21,7 +21,7 @@ public class Exorciste extends GuideSpirituel {
 	public void activerCapacite() {
 		List <GuideSpirituel> gspCiblable = Capacite.choisirDiviniteOrigine(Origine.Nuit, this.getJoueurLie().getPartie());
 		gspCiblable.addAll(Capacite.choisirDiviniteEtDogme(Dogme.Mystique, Dogme.Chaos, this.getJoueurLie().getPartie()));
-		Capacite.getActionSuivante().renvoyerGsp(gspCiblable, this.getJoueurLie().getPartie());
+		getJoueurLie().renvoyerGsp(gspCiblable, this.getJoueurLie().getPartie());
 	}
 	
 	  

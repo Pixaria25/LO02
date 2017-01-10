@@ -218,9 +218,8 @@ public class InterfacePartie {
 							System.out.println("Votre capacit� a �t� contr� ! Elle est defausser normalent si elle doit l'�tre");
 							break;
 						}
-						((Action) cartePose).poserCarteAction();
+						((CarteAction) cartePose).poserCarteAction();
         **/
-						
 						boolean poserCarte = false;
 						switch (joueurCourant.getMain().get(choixCarte).getOrigine()){
 							

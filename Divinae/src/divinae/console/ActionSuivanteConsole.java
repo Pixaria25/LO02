@@ -332,29 +332,6 @@ public class ActionSuivanteConsole implements ActionSuivante
 		return choix;
 	}
 	
-	public void convertirCroyant (Partie partie, GuideSpirituel carte) {
-		while (carte.getNombreCroyantLiable()  >  carte.getCroyantLie().size() && partie.getTasDeCroyants().size() > 0) { 
-			
-			System.out.println("Veuillez choisir une carte à prendre du tas.");
-			for (int i=0; i < partie.getTasDeCroyants().size(); i++){
-				System.out.println(i + " : " +  partie.getTasDeCroyants(i).getNom() +"\n");
-			}
-			int choix;
-			Scanner sc = new Scanner(System.in);
-			do { 
-				choix = sc.nextInt();
-				if (choix < 0 || choix >= partie.getTasDeCroyants().size() ) {
-					System.out.println("Choix invalide ! Veuillez rentrer un nombre valide.");
-				}
-			} while (choix < 0 || choix >= partie.getTasDeCroyants().size());
-			
-			carte.getCroyantLie().add(partie.getTasDeCroyants(choix));
-			partie.getTasDeCroyants().remove(choix);
-			sc.close();
-		}
-	}
-
-
 	public int entreeUser (Joueur joueur, int max) {
 		int choixUser = 0;
 		if (joueur instanceof JoueurVirtuel) {
@@ -391,5 +368,25 @@ public class ActionSuivanteConsole implements ActionSuivante
 		System.out.println(message);
 	}
 
+	@Override
+	public Croyant choisirTasCroyant(Joueur joueur, Partie partie) {
+		int choix = 0;
+		int indice=0;
+		System.out.println("Choisissez un croyant à prendre.");
+		for (int i = 0; i < joueur.getGuides().size(); i++) {
+			System.out.println(indice + " : " + partie.getTasDeCroyants(i).getNom());
+			indice++;
+		}
+		Scanner sc = new Scanner(System.in);
+		do {
+			System.out.println("(Entrez le nombre compris entre 1 et " + partie.getJoueurs().size() + "nombre correspondant à votre choix) ");
+			choix = sc.nextInt();
+		} while (choix < 0 | choix >= joueur.getNombreCroyant());
+		sc.close();
+		return partie.getTasDeCroyants(choix);
+	}
 
 }
+
+
+
