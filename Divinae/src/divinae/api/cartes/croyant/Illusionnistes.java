@@ -11,7 +11,7 @@ public class Illusionnistes extends Croyant {
 
 	public Illusionnistes() {
 		super("Illusionnistes", Origine.Nuit, "Vous bénéficiez de la capacité spéciale de sacrifice d'une carte de Croyant "
-				+ "appartenant à une autre Divinité. La carte en question reste en jeu.", new Dogme [] {Dogme.Chaos, Dogme.Humain, Dogme.Symboles}, 4);
+				+ "appartenant à une autre Divinité. La carte en question reste en jeu.", new Dogme [] {Dogme.Chaos, Dogme.Humain, Dogme.Symboles}, 4, 26);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -20,10 +20,10 @@ public class Illusionnistes extends Croyant {
 
 		Partie partie = this.getJoueurLie().getPartie();
 
-		Joueur joueur = Capacite.choisirJoueurCible(partie);
+		Joueur joueur = Capacite.getActionSuivante().choisirJoueurCible(partie);
 
 		if (joueur.getNombreCroyant() == 0) {
-			joueur = Capacite.choisirJoueurCible(partie);
+			joueur = Capacite.getActionSuivante().choisirJoueurCible(partie);
 		}
 		Capacite.copierCapacite(Capacite.getActionSuivante().choisirCroyant(joueur, partie), partie);
 		Capacite.defausser(this, this.getJoueurLie().getPartie());

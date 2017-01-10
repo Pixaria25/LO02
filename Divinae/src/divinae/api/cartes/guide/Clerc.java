@@ -7,9 +7,9 @@ import divinae.api.cartes.types.Origine;
 
 public class Clerc extends GuideSpirituel {
   
-  public Clerc (Origine origine, Dogme[] dogme) {
+  public Clerc (Origine origine, Dogme[] dogme, int id) {
 	 	super("Clerc", origine, "Fait gagner un nombre de points d'Action égal au nombre de cartes de Croyants rattachées."
-	 			+ " L'Origine des points d'Action est au choix du joueur.", dogme, 2);
+	 			+ " L'Origine des points d'Action est au choix du joueur.", dogme, 2, id);
 		
 		// TODO Auto-generated constructor stub
 	}

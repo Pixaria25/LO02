@@ -19,8 +19,40 @@ import divinae.api.partie.Partie;
 
 public class ActionSuivanteConsole implements ActionSuivante
 {
-	@Override
 	
+	@Override
+	public Joueur choisirJoueurCible(Partie partie)
+	{
+		System.out.println("Veuillez s√©lectionner le Joueur √† cibler par cette comp√©tence :"+ "\n");
+		int choix = 0;
+		int indice=0;
+		do {
+			System.out.println(indice +" : " + partie.getJoueurs().get(indice).getNom());
+			indice++;
+		} while (indice <=  partie.getJoueurs().size());
+		Scanner sc = new Scanner(System.in);
+		do {
+			System.out.println("(Entrez le nombre compris entre 1 et " + partie.getJoueurs().size() + "nombre correspondant √† votre choix) ");
+
+			choix = sc.nextInt();
+
+		} while (choix < 0 | choix >  partie.getJoueurs().size());
+		sc.close();
+
+		Joueur joueur = partie.getJoueurs().get(choix);
+		System.out.println("Vous avez cibl√© " + joueur.getNom());
+
+		while (joueur == null) {
+			joueur = choisirJoueurCible(partie);
+			if(joueur.getGuides().isEmpty()) {
+				System.out.println("Veuillez choisir un autre joueur, celui-ci n'a pas de Guides Spirituels");
+				joueur = null;
+			}
+		}
+		return joueur;
+	}
+	
+	@Override
 	public GuideSpirituel choisirGsp (Partie partie) {
 		List <GuideSpirituel> gspCiblable = new ArrayList<GuideSpirituel>();
 		int indexGsp = 0;
@@ -41,21 +73,21 @@ public class ActionSuivanteConsole implements ActionSuivante
 			}
 		}
 
-		System.out.println("Veuillez sÈlectionner le Guide Spirituel ‡ cibler par cette compÈtence :"+ "\n");
+		System.out.println("Veuillez s√©lectionner le Guide Spirituel √† cibler par cette comp√©tence :"+ "\n");
 		int indice= 0;
 		do {
 				System.out.println(indice +" : " + gspCiblable.get(indice).getNom());
 				indice++;
 		} while (indice < gspCiblable.size());
 		do {
-			System.out.println("(Entrez le nombre compris entre 1 et " + gspCiblable.size() + ",nombre correspondant ‡ votre choix) ");
+			System.out.println("(Entrez le nombre compris entre 1 et " + gspCiblable.size() + ",nombre correspondant √† votre choix) ");
 			Scanner sc = new Scanner(System.in);
 			choix = sc.nextInt();
 			sc.close();
 
 		} while (choix < 0 || choix > gspCiblable.size());
-		System.out.println("Vous avez ciblÈ " + gspCiblable.get(choix).getNom() + "appartenant ‡ "+ gspCiblable.get(choix).getJoueurLie().getNom() + "/n"
-				+"Ps: Certaines compÈtences ne peuvent pas cibler ses propres guides.");
+		System.out.println("Vous avez cibl√© " + gspCiblable.get(choix).getNom() + "appartenant √† "+ gspCiblable.get(choix).getJoueurLie().getNom() + "/n"
+				+"Ps: Certaines comp√©tences ne peuvent pas cibler ses propres guides.");
 		return gspCiblable.get(choix);
 
 	}
@@ -67,7 +99,7 @@ public class ActionSuivanteConsole implements ActionSuivante
 			System.out.println(i + " : " + gspCiblable.get(i).getNom());
 		}
 		do {
-			System.out.println("(Entrez un nombre compris entre 0 et " + gspCiblable.size() + ", nombre correspondant ‡ votre choix) ");
+			System.out.println("(Entrez un nombre compris entre 0 et " + gspCiblable.size() + ", nombre correspondant √† votre choix) ");
 			Scanner sc = new Scanner(System.in);
 			choix = sc.nextInt();
 			sc.close();
@@ -90,21 +122,21 @@ public class ActionSuivanteConsole implements ActionSuivante
 			}
 			choixDivinite++;
 		}
-		System.out.println("Veuillez sÈlectionner la divinitÈ ‡ cibler par cette compÈtence :"+ "\n");
+		System.out.println("Veuillez s√©lectionner la divinit√© √† cibler par cette comp√©tence :"+ "\n");
 		int indice=0;
 		do {
 			System.out.println(indice +" : " + diviniteCiblable.get(indice).getNom());
 			indice++;
 		} while (indice < diviniteCiblable.size());
 		do {
-			System.out.println("(Entrez le nombre compris entre 1 et " + diviniteCiblable.size() + "nombre correspondant ‡ votre choix) ");
+			System.out.println("(Entrez le nombre compris entre 1 et " + diviniteCiblable.size() + "nombre correspondant √† votre choix) ");
 			Scanner sc = new Scanner(System.in);
 			choix = sc.nextInt();
 			sc.close();
 
 		} while (choix < 0 || choix > diviniteCiblable.size());
 
-		System.out.println("Vous avez ciblÈ " + diviniteCiblable.get(choix).getNom() + "appartenant ‡ "+ diviniteCiblable.get(choix).getJoueurLie().getNom());
+		System.out.println("Vous avez cibl√© " + diviniteCiblable.get(choix).getNom() + "appartenant √† "+ diviniteCiblable.get(choix).getJoueurLie().getNom());
 		return diviniteCiblable.get(choix);
 	}
 	
@@ -123,20 +155,20 @@ public class ActionSuivanteConsole implements ActionSuivante
 			}
 		}
 
-		System.out.println("Veuillez sÈlectionner un Guide Spirituel :"+ "\n");
+		System.out.println("Veuillez s√©lectionner un Guide Spirituel :"+ "\n");
 		int indice= 0;
 		do {
 			System.out.println(indice +" : " + gspCiblable.get(indice).getNom());
 			indice++;
 		} while (indice < gspCiblable.size());
 		do {
-			System.out.println("(Entrez le nombre compris entre 1 et " + gspCiblable.size() + ",nombre correspondant ‡ votre choix) ");
+			System.out.println("(Entrez le nombre compris entre 1 et " + gspCiblable.size() + ",nombre correspondant √† votre choix) ");
 			Scanner sc = new Scanner(System.in);
 			choix = sc.nextInt();
 			sc.close();
 
 		} while (choix < 0 || choix > gspCiblable.size());
-		System.out.println("Vous avez ciblÈ " + gspCiblable.get(choix).getNom());
+		System.out.println("Vous avez cibl√© " + gspCiblable.get(choix).getNom());
 		return gspCiblable.get(choix);
 
 	}
@@ -145,7 +177,7 @@ public class ActionSuivanteConsole implements ActionSuivante
 		int choix = 0;
 		int indice=0;
 		List <Croyant> croyantCiblable = new ArrayList <Croyant> ();
-		System.out.println("Choisissez un croyant ‡ cibler.");
+		System.out.println("Choisissez un croyant √† cibler.");
 		for (int i = 0; i < joueur.getGuides().size(); i++) {
 			for(int j =0; j < joueur.getGuide(i).getCroyantLie().size(); j++){
 					System.out.println(indice + " : " + joueur.getGuide(i).getCroyantLie(j).getNom());
@@ -155,7 +187,7 @@ public class ActionSuivanteConsole implements ActionSuivante
 		}
 		Scanner sc = new Scanner(System.in);
 		do {
-			System.out.println("(Entrez le nombre compris entre 1 et " + partie.getJoueurs().size() + "nombre correspondant ‡ votre choix) ");
+			System.out.println("(Entrez le nombre compris entre 1 et " + partie.getJoueurs().size() + "nombre correspondant √† votre choix) ");
 			choix = sc.nextInt();
 		} while (choix < 0 | choix >= joueur.getNombreCroyant());
 		sc.close();
@@ -165,7 +197,7 @@ public class ActionSuivanteConsole implements ActionSuivante
 	public Origine choisirOrigine () {
 		Origine origine = null;
 		boolean choixValide = false;
-		System.out.println("Veuillez choisir l'origine des point d'action ‡ gagner : "
+		System.out.println("Veuillez choisir l'origine des point d'action √† gagner : "
 					+ "\n 1 : Jour"
 					+ "\n 2 : Nuit"
 					+ "\n 3 : Neant");
@@ -214,21 +246,21 @@ public class ActionSuivanteConsole implements ActionSuivante
 			}
 		}
 
-		System.out.println("Veuillez sÈlectionner le Guide Spirituel ‡ cibler par cette compÈtence :"+ "\n");
+		System.out.println("Veuillez s√©lectionner le Guide Spirituel √† cibler par cette comp√©tence :"+ "\n");
 		int indice=0;
 		do {
 			System.out.println(indice +" : " + gspCiblable.get(indice).getNom());
 			indice++;
 		} while (indice < gspCiblable.size());
 		do {
-			System.out.println("(Entrez le nombre compris entre 1 et " + gspCiblable.size() + "nombre correspondant ‡ votre choix) ");
+			System.out.println("(Entrez le nombre compris entre 1 et " + gspCiblable.size() + "nombre correspondant √† votre choix) ");
 			Scanner sc = new Scanner(System.in);
 			choix = sc.nextInt();
 			sc.close();
 
 		} while (choix < 0 || choix > gspCiblable.size());
 
-		System.out.println("Vous avez ciblÈ " + gspCiblable.get(choix).getNom() + "appartenant ‡ "+ gspCiblable.get(choix).getJoueurLie().getNom());
+		System.out.println("Vous avez cibl√© " + gspCiblable.get(choix).getNom() + "appartenant √† "+ gspCiblable.get(choix).getJoueurLie().getNom());
 		return gspCiblable.get(choix);
 
 	}
@@ -239,9 +271,9 @@ public class ActionSuivanteConsole implements ActionSuivante
 				+ "1 : Jour \n"
 				+ "2 : Nuit \n"
 				+ "3 : Neant\n");
-		System.out.println("(Entrez le nombre compris entre 1 et 3 correspondant ‡ votre choix) ");
+		System.out.println("(Entrez le nombre compris entre 1 et 3 correspondant √† votre choix) ");
 		do {
-			System.out.println("(Entrez le nombre compris entre 1 et 3 correspondant ‡ votre choix) ");
+			System.out.println("(Entrez le nombre compris entre 1 et 3 correspondant √† votre choix) ");
 			Scanner sc = new Scanner(System.in);
 			choix = sc.nextInt();
 			sc.close();
@@ -288,7 +320,7 @@ public class ActionSuivanteConsole implements ActionSuivante
 	}
 
 	public int gspOuCroyant () {
-		System.out.println("Utiliser la capacitÈ d'un croyant ou d'un guide ? \n"
+		System.out.println("Utiliser la capacit√© d'un croyant ou d'un guide ? \n"
 				+ "1 : croyant \n"
 				+ "2 : guide spirituel \n");
 		int choix = 0;
@@ -304,7 +336,7 @@ public class ActionSuivanteConsole implements ActionSuivante
 	public void convertirCroyant (Partie partie, GuideSpirituel carte) {
 		while (carte.getNombreCroyantLiable()  >  carte.getCroyantLie().size() && partie.getTasDeCroyants().size() > 0) { 
 			
-			System.out.println("Veuillez choisir une carte ‡ prendre du tas.");
+			System.out.println("Veuillez choisir une carte √† prendre du tas.");
 			for (int i=0; i < partie.getTasDeCroyants().size(); i++){
 				System.out.println(i + " : " +  partie.getTasDeCroyants(i).getNom() +"\n");
 			}
@@ -323,19 +355,19 @@ public class ActionSuivanteConsole implements ActionSuivante
 		}
 	}
 
-	
+
 	public int entreeUser (Joueur joueur, int max) {
 		int choixUser = 0;
 		if (joueur instanceof JoueurVirtuel) {
 			switch (((JoueurVirtuel) joueur).getStrategie().toString()) {
 			case "StrategieDefensive" :
-				// Methode test carte la plus defensive pouvant Ítre jouer
+				// Methode test carte la plus defensive pouvant √™tre jouer
 				break;
 			case "StrategieOffensive" :
-				// Methode test carte la plus offensive pouvant Ítre jouer
+				// Methode test carte la plus offensive pouvant √™tre jouer
 				break;
 			case "StrategieEquilibre" :
-				// Methode test carte la plus equilibre pouvant Ítre jouer
+				// Methode test carte la plus equilibre pouvant √™tre jouer
 				break;
 			case "StrategieAleatoire" :
 				choixUser = (int)(Math.random()*max);
@@ -356,6 +388,7 @@ public class ActionSuivanteConsole implements ActionSuivante
 	}
 	
 	public void messageRecap (String message) {
+
 		System.out.println(message);
 	}
 

@@ -2,8 +2,8 @@ package divinae.api.cartes.types;
 
 public abstract class DeusEx extends CarteAction {
 
-	public DeusEx(String nom, Origine origine, String capacite) {
-		super(nom, origine, capacite);
+	public DeusEx(String nom, Origine origine, String capacite, int id) {
+		super(nom, origine, capacite, id);
 		// TODO Auto-generated constructor stub
 	}
 

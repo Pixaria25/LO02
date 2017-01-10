@@ -9,7 +9,7 @@ public class Integristes extends Croyant {
 	
   public Integristes () {
 	  super("Intégriste",Origine.Jour, "Impose le sacrifice d'un Guide Spirituel d'un autre joueur, qui choisit"
-				+ " la carte. La capacite spéciale du sacrifice est jouée.", new Dogme[]{Dogme.Humain,Dogme.Nature,Dogme.Chaos} , 1);
+				+ " la carte. La capacite spéciale du sacrifice est jouée.", new Dogme[]{Dogme.Humain,Dogme.Nature,Dogme.Chaos} , 1, 11);
 		// TODO Auto-generated constructor stub
 	}
   

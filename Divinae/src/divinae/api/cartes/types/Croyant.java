@@ -7,9 +7,9 @@ public abstract class Croyant extends  CarteAction {
 	private GuideSpirituel guideLie;
 	private boolean rattachable;
 	
-	public Croyant(String nom, Origine origine, String capacite, Dogme[] dogme, int nombreCroyant) {
+	public Croyant(String nom, Origine origine, String capacite, Dogme[] dogme, int nombreCroyant, int id) {
 		// TODO Auto-generated constructor stub
-		super(nom, origine, capacite);
+		super(nom, origine, capacite, id);
 	    this.dogme = dogme;
 		this.valeurCroyant = nombreCroyant;
 		this.guideLie = null;

@@ -97,47 +97,11 @@ public class Capacite {
 
 	}
 
-
-//TEST A modif
-	public static Joueur choisirJoueurCible(Partie partie) 
-	{
-		int indexCarteJouee = partie.getTable().size()-1;
-		Joueur joueurCourant = partie.getTable(indexCarteJouee).getJoueurLie();
-		actionSuivante.messageListe(joueurCourant,"Veuillez sélectionner le Joueur  cibler par cette competence :"+ "\n");
-		int choix = 0;
-		int indice=0;
-		do {
-			actionSuivante.messageListe(joueurCourant, indice +" : " + partie.getJoueurs().get(indice).getNom());
-			indice++;
-		} while (indice <  partie.getJoueurs().size());
-		
-		do {
-			actionSuivante.messageListe(joueurCourant, "Entrez le nombre compris entre 0 et " + (partie.getJoueurs().size()-1) + "nombre correspondant a  votre choix");
-
-			choix = actionSuivante.entreeUser(joueurCourant, partie.getJoueurs().size()-1);
-
-		} while (choix < 0 | choix >  partie.getJoueurs().size());
-		
-
-		Joueur joueur = partie.getJoueurs().get(choix);
-		actionSuivante.messageRecap(joueur.getNom() + " a été ciblé. ");
-
-		while (joueur == null) {
-			joueur = choisirJoueurCible(partie);
-			if(joueur.getGuides().isEmpty()) {
-				actionSuivante.messageListe(joueurCourant, "Veuillez choisir un autre joueur, celui-ci n'a pas de Guides Spirituels");
-				joueur = null;
-			}
-		}
-		return joueur;
-	}
-
-	
 	public static void donnerPointAction (int point, Origine origine, Joueur joueur) {
 		if (Capacite.isAutorisationApocalypse()==true) {
 			joueur.ajoutPointsAction(point, origine);
 		} else {
-			actionSuivante.messageListe(joueur,"On ne peut pas gagner de point d'action jusqu'à la fin du tour (competence nihilistes)");
+			actionSuivante.messageListe(joueur,"On ne peut pas gagner de point d'action jusqu'Ã  la fin du tour (competence nihilistes)");
 		}
 	}
 	
@@ -179,11 +143,11 @@ public class Capacite {
 		Joueur joueurCourant = carte.getJoueurLie().getPartie().getTable(indexCarteJouee).getJoueurLie();
 		GuideSpirituel GpCible = Capacite.getActionSuivante().choisirGsp(carte.getJoueurLie().getPartie());
 		while (GpCible.getJoueurLie() == carte.getJoueurLie()) {
-			actionSuivante.messageListe(joueurCourant, "Ce guide spirituel vous appartient déjà, choisissez en un autre !");
+			actionSuivante.messageListe(joueurCourant, "Ce guide spirituel vous appartient dÃ©jÃ , choisissez en un autre !");
 			GpCible = Capacite.getActionSuivante().choisirGsp(carte.getJoueurLie().getPartie());
 		}
 		GpCible.setJoueurLie(carte.getJoueurLie());
-		actionSuivante.messageRecap(GpCible.getJoueurLie().getNom() + " récupère le guide spirituel suivant : " + GpCible.getNom());
+		actionSuivante.messageRecap(GpCible.getJoueurLie().getNom() + " rÃ©cupÃ¨re le guide spirituel suivant : " + GpCible.getNom());
 	}
 
 	public static boolean retirerPointAction (Carte  carte, Origine origine) {
@@ -253,18 +217,18 @@ public class Capacite {
 	        case "Phoenix" : Capacite.copierCapacite(carte, partie);
 	     	break;
 	    
-	        default : actionSuivante.messageListe(joueur, "Cette carte n'a aucun effet bénéfique dire pour vous.");
+	        default : actionSuivante.messageListe(joueur, "Cette carte n'a aucun effet bÃ©nÃ©fique dire pour vous.");
 	       	break;
 	        }
 	    break;
 	    
-	    default : actionSuivante.messageListe(joueur, "Aucun effet bénéfique pour vous.");
+	    default : actionSuivante.messageListe(joueur, "Aucun effet bÃ©nÃ©fique pour vous.");
 	    break;
 	    }
 	    
 	}
 
-	public static  void defausser (CarteAction carte, Partie partie) {
+	public static void defausser (CarteAction carte, Partie partie) {
 		partie.getDefausse().ajoutCarte(carte);
 	}
 
@@ -288,7 +252,7 @@ public class Capacite {
 	}
 
 	public static void imposerSacrifice (String vise, Partie partie) {
-		Joueur joueur = choisirJoueurCible(partie);
+		Joueur joueur = actionSuivante.choisirJoueurCible(partie);
 
 		switch (vise) {
 			case "GuideSpirituel" :
@@ -395,7 +359,7 @@ public class Capacite {
 	public static void prendreCartes (Carte carte, int nbCarte, Partie partie) {
 		int nbCartesPrises = 0;
 		int choixHasard = 0 ;
-		Joueur joueur = choisirJoueurCible (partie);
+		Joueur joueur = actionSuivante.choisirJoueurCible (partie);
 		while (nbCartesPrises < nbCarte | !joueur.getMain().isEmpty()) {
 			choixHasard = (int)Math.random()*(joueur.getMain().size()-1);
 			carte.getJoueurLie().getMain().add(joueur.getMain().get(choixHasard));

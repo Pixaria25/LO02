@@ -1,12 +1,16 @@
 package divinae.api.joueur;
 
-public interface Strategie {
+import java.util.List;
 
-	public abstract void poserCarteAction();
+import divinae.api.cartes.types.CarteAction;
+
+public interface Strategie {
 	
-	public abstract void activerCapacite();
+	public abstract int jouer();
 	
-	public abstract void defausser();
+	public abstract List<CarteAction> defausser(List<CarteAction> main);
+
+	public abstract int choixCarteAction(List<CarteAction> main);
 	
-	public abstract void finirTour();
+	public abstract CarteAction choixSacrifice(List<CarteAction> cartesValides);
 }

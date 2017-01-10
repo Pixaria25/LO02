@@ -10,7 +10,7 @@ public  class Pillards extends Croyant {
   public Pillards () {
 	 	super("Pillards", Origine.Nuit, "Récupérez les points d'Action d'une Divinité n'ayant pas encore joué durant "
 	 			+ "ce tour. Les points d'Action dardents leur Origine. La Divinité perd ses points.", 
-	 			new Dogme [] {Dogme.Symboles, Dogme.Nature, Dogme.Mystique}, 4);
+	 			new Dogme [] {Dogme.Symboles, Dogme.Nature, Dogme.Mystique}, 4, 25);
 		// TODO Auto-generated constructor stub
 	}
   
