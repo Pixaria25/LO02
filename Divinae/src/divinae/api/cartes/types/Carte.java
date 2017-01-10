@@ -9,12 +9,14 @@ public abstract class Carte {
 	private String nom;
 	private Joueur joueurLie;
 	private boolean protectionCiblage = false;
+	private int id;
 		
-	public Carte(String nom, Origine origine, String capacite) {
+	public Carte(String nom, Origine origine, String capacite, int id) {
 		// TODO Auto-generated constructor stub
 		this.nom = nom;
 		this.origine = origine;
 		this.capacite = capacite;
+		this.id = id;
 	}
 	
 	public Origine getOrigine() {
@@ -53,6 +55,10 @@ public abstract class Carte {
 
 	public void setProtectionCiblage(boolean protectionCiblagle) {
 		this.protectionCiblage = protectionCiblagle;
+	}
+
+	public int getId() {
+		return id;
 	}
 
 	public abstract void activerCapacite ();

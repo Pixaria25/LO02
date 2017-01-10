@@ -10,9 +10,9 @@ public abstract class Divinite extends Carte {
 	private Joueur joueurLie;
 	private boolean capaciteActivee;
 	
-	public Divinite (String nom, Origine origine, String capacite,Dogme[] dogme, String description) {
+	public Divinite (String nom, Origine origine, String capacite,Dogme[] dogme, String description, int id) {
 		// TODO Auto-generated constructor stub
-		super(nom, origine, capacite);
+		super(nom, origine, capacite, id);
 		this.dogme = dogme;
 		this.description = description;
 		this.capaciteActivee = false;

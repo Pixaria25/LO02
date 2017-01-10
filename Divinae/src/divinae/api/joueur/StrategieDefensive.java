@@ -1,29 +1,33 @@
 package divinae.api.joueur;
 
+import java.util.List;
+
+import divinae.api.cartes.types.CarteAction;
+
 public class StrategieDefensive implements Strategie {
 
 	@Override
-	public void poserCarteAction() {
+	public int jouer() {
 		// TODO Auto-generated method stub
-
+		return 0;
 	}
 
 	@Override
-	public void activerCapacite() {
+	public List<CarteAction> defausser(List<CarteAction> main) {
 		// TODO Auto-generated method stub
-
+		return null;
 	}
 
 	@Override
-	public void defausser() {
+	public int choixCarteAction(List<CarteAction> main) {
 		// TODO Auto-generated method stub
-
+		return 0;
 	}
 
 	@Override
-	public void finirTour() {
+	public CarteAction choixSacrifice(List<CarteAction> cartesValides) {
 		// TODO Auto-generated method stub
-
+		return null;
 	}
 
 }

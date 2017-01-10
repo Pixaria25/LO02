@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import divinae.api.cartes.types.CarteAction;
+import divinae.api.cartes.types.Capacite;
 import divinae.api.cartes.types.Carte;
 import divinae.api.cartes.types.Croyant;
 import divinae.api.cartes.types.Divinite;
+import divinae.api.cartes.types.Dogme;
 import divinae.api.cartes.types.GuideSpirituel;
 import divinae.api.cartes.types.Origine;
 import divinae.api.partie.Partie;
@@ -40,6 +42,10 @@ public class Joueur {
 		if(carteAction.getOrigine() != Origine.Aucune) {
 			pointsAction[carteAction.getOrigine().ordinal()]--;
 		}
+	}
+	
+	public void jouer() {
+		
 	}
 	 
 	public void activerCapaciteCarte(Carte carte) {
@@ -84,6 +90,80 @@ public class Joueur {
 		}
 	}
 	
+	public List<CarteAction> recupererCartesSacrifiables() {
+		List<CarteAction> listeCartesSacrifiables = new ArrayList<CarteAction>();
+		listeCartesSacrifiables.addAll(getGuides());
+		for(int j = 0; j < getGuides().size(); j++) {
+			listeCartesSacrifiables.addAll(getGuide(j).getCroyantLie());
+		}
+		return listeCartesSacrifiables;
+	}
+	
+	public void sacrifierCarte(CarteAction carte) {
+		carte.activerCapacite();
+		tuerCarte(carte);
+	}
+
+	public void tuerCarte(CarteAction carte) {
+		if(carte instanceof GuideSpirituel) {
+			this.partie.getTasDeCroyants().addAll((((GuideSpirituel) carte).getCroyantLie()));
+			((GuideSpirituel) carte).getCroyantLie().clear();
+		}
+		if(carte instanceof Croyant) {
+			((Croyant) carte).setGuideLie(null);
+			((Croyant) carte).setRattachable(false);
+		}
+		carte.setJoueurLie(null);
+		partie.getDefausse().ajoutCarte(carte);
+	}
+	
+	//Appel des methodes de ActionSuivante
+	public Joueur choisirJoueurCible() {
+		return Capacite.getActionSuivante().choisirJoueurCible(getPartie());
+	}
+	
+	public GuideSpirituel choisirGsp() {
+		return Capacite.getActionSuivante().choisirGsp(getPartie());
+	}
+	
+	public void renvoyerGsp (List <GuideSpirituel> gspCiblable, Partie partie) {
+		
+	}
+	
+	public Divinite choisirDiviniteOuDogme (Dogme dogme1, Dogme dogme2, Partie partie) {
+		return Capacite.getActionSuivante().choisirDiviniteOuDogme(dogme1, dogme2, partie);
+	}
+	
+	public GuideSpirituel choisirSonGsp () {
+		return Capacite.getActionSuivante().choisirSonGsp(this, getPartie());
+	}
+	
+	public Croyant choisirCroyant () {
+		return Capacite.getActionSuivante().choisirCroyant(this, getPartie());
+	}
+	
+	public Origine choisirOrigine () {
+		return Capacite.getActionSuivante().choisirOrigine();
+	}
+	
+	public GuideSpirituel choisirDiviniteOuGspNonDogme (Dogme dogme) {
+		return Capacite.getActionSuivante().choisirDiviniteOuGspNonDogme(dogme, getPartie());
+	}
+	
+	public void choisirFaceDe (Carte carte,Partie partie) {
+		Capacite.getActionSuivante().choisirFaceDe(carte, partie);
+	}
+	
+	public boolean choixMultiples (String cible) {
+		return Capacite.getActionSuivante().choixMultiples(cible);
+	}
+	
+	public int gspOuCroyant () {
+		return Capacite.getActionSuivante().gspOuCroyant();
+	}
+	
+	
+	//Getters et setters
 	public Divinite getDivinite() {
 		return divinite;
 	}
@@ -153,24 +233,6 @@ public class Joueur {
 		return partie;
 	}
 
-	
-	public void sacrifierCarte(CarteAction carte) {
-		carte.activerCapacite();
-		tuerCarte(carte);
-	}
-
-	public void tuerCarte(CarteAction carte) {
-		if(carte instanceof GuideSpirituel) {
-			this.partie.getTasDeCroyants().addAll((((GuideSpirituel) carte).getCroyantLie()));
-			((GuideSpirituel) carte).getCroyantLie().clear();
-		}
-		if(carte instanceof Croyant) {
-			((Croyant) carte).setGuideLie(null);
-			((Croyant) carte).setRattachable(false);
-		}
-		carte.setJoueurLie(null);
-		partie.getDefausse().ajoutCarte(carte);
-	}
 
 
 	public boolean aDesCartesSansOrigine() {

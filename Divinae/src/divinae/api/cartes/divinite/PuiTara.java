@@ -12,7 +12,7 @@ public class PuiTara extends Divinite {
 				+ "au centre de la table d'Origine Jour.",
 				new Dogme[]{Dogme.Nature, Dogme.Mystique, Dogme.Symboles}, 
 				"Pui-Tara est la Divinité "
-				+ "sur laquelle l'influence de la Nuit s'est faite la plus forte.");
+				+ "sur laquelle l'influence de la Nuit s'est faite la plus forte.", 86);
 		// TODO Auto-generated constructor stub
 	}
 

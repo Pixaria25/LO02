@@ -7,6 +7,8 @@ import divinae.api.partie.Partie;
 
 public interface ActionSuivante
 {
+	Joueur choisirJoueurCible(Partie partie);
+	
 	GuideSpirituel choisirGsp (Partie partie);
 	
 	void renvoyerGsp (List <GuideSpirituel> gspCiblable, Partie partie);
@@ -28,12 +30,9 @@ public interface ActionSuivante
 	int gspOuCroyant ();
 	
 	void convertirCroyant (Partie partie, GuideSpirituel carte);
-
 	
 	void messageListe (Joueur joueur, String message);
 	
 	void messageRecap (String message);
-
-	int entreeUser (Joueur joueur, int max);
 	
 }
