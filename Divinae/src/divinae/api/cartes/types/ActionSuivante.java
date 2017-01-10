@@ -11,7 +11,7 @@ public interface ActionSuivante
 	
 	GuideSpirituel choisirGsp (Partie partie);
 	
-	void renvoyerGsp (List <GuideSpirituel> gspCiblable, Partie partie);
+	void ciblerGspRenvoye (List <GuideSpirituel> gspCiblable, Partie partie);
 	
 	Divinite choisirDiviniteOuDogme (Dogme dogme1, Dogme dogme2, Partie partie);
 	
@@ -34,5 +34,7 @@ public interface ActionSuivante
 	void messageRecap (String message);
 
 	Croyant choisirTasCroyant(Joueur joueur, Partie partie);
+	
+	GuideSpirituel choisirGspRenvoye (List <GuideSpirituel> gspCiblable);
 	
 }
