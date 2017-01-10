@@ -17,8 +17,40 @@ import divinae.api.partie.Partie;
 
 public class ActionSuivanteConsole implements ActionSuivante
 {
-	@Override
 	
+	@Override
+	public Joueur choisirJoueurCible(Partie partie)
+	{
+		System.out.println("Veuillez sélectionner le Joueur à cibler par cette compétence :"+ "\n");
+		int choix = 0;
+		int indice=0;
+		do {
+			System.out.println(indice +" : " + partie.getJoueurs().get(indice).getNom());
+			indice++;
+		} while (indice <=  partie.getJoueurs().size());
+		Scanner sc = new Scanner(System.in);
+		do {
+			System.out.println("(Entrez le nombre compris entre 1 et " + partie.getJoueurs().size() + "nombre correspondant à votre choix) ");
+
+			choix = sc.nextInt();
+
+		} while (choix < 0 | choix >  partie.getJoueurs().size());
+		sc.close();
+
+		Joueur joueur = partie.getJoueurs().get(choix);
+		System.out.println("Vous avez ciblé " + joueur.getNom());
+
+		while (joueur == null) {
+			joueur = choisirJoueurCible(partie);
+			if(joueur.getGuides().isEmpty()) {
+				System.out.println("Veuillez choisir un autre joueur, celui-ci n'a pas de Guides Spirituels");
+				joueur = null;
+			}
+		}
+		return joueur;
+	}
+	
+	@Override
 	public GuideSpirituel choisirGsp (Partie partie) {
 		List <GuideSpirituel> gspCiblable = new ArrayList<GuideSpirituel>();
 		int indexGsp = 0;
@@ -322,13 +354,6 @@ public class ActionSuivanteConsole implements ActionSuivante
 	}
 
 	
-	public int entreeUser () {
-		int choixUser = 0;
-		Scanner sc = new Scanner(System.in);
-		choixUser = sc.nextInt();
-		sc.close();
-		return choixUser;
-	}
 	public void commentaireMethode (String message) {
 		System.out.println(message);
 	}

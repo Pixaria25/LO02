@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.InputMismatchException;
 import java.util.List;
-import java.util.Random;
 import java.util.Scanner;
 
 import divinae.api.cartes.types.Capacite;
@@ -157,7 +156,7 @@ public class InterfacePartie {
 			
 			if(joueurCourant instanceof JoueurVirtuel) {
 				//Joueur virtuel
-				jouerTourJoueurVirtuel((JoueurVirtuel)joueurCourant);
+				joueurCourant.jouer();
 			} else {
 				jouerTourJoueurReel(joueurCourant);
 			}
@@ -169,7 +168,7 @@ public class InterfacePartie {
 	
 	private void jouerTourJoueurReel(Joueur joueurCourant) {
 		System.out.println(joueurCourant.afficherMain());
-		defausser(joueurCourant);
+		phaseDefausse(joueurCourant);
 		int nombreCartes = 7-joueurCourant.getMain().size();
 		System.out.println("Pioche de "+nombreCartes+" cartes.");
 		joueurCourant.completerMain();
@@ -222,11 +221,7 @@ public class InterfacePartie {
 						System.out.println("Vous ne pouvez pas sacrifier de cartes.");
 					} else {
 						demanderInterruption();
-						List<CarteAction> listeCartesSacrifiables = new ArrayList<CarteAction>();
-						listeCartesSacrifiables.addAll(joueurCourant.getGuides());
-						for(int j = 0; j < joueurCourant.getGuides().size(); j++) {
-							listeCartesSacrifiables.addAll(joueurCourant.getGuide(j).getCroyantLie());
-						}
+						List<CarteAction> listeCartesSacrifiables = joueurCourant.recupererCartesSacrifiables();
 						System.out.println("Quelle carte voulez-vous sacrifier ?");
 						for(int j = 0; j < listeCartesSacrifiables.size(); j++) {
 							System.out.println(j+" - "+listeCartesSacrifiables.get(j).getNom());
@@ -285,11 +280,6 @@ public class InterfacePartie {
 		} while(!tourJoueurFini);
 	}
 	
-	private void jouerTourJoueurVirtuel(JoueurVirtuel joueurCourant) {
-		Random random = new Random();
-		int choix = random.nextInt(3);
-	}
-	
 	private boolean carteJouable(int choixCarte, Joueur joueur) {
 
 		boolean poserCarte = false;
@@ -331,7 +321,7 @@ public class InterfacePartie {
 		return poserCarte;
 	}
 	
-	private void defausser(Joueur joueur) {
+	private void phaseDefausse(Joueur joueur) {
 		System.out.println("Voulez-vous defausser des cartes ? (y/n)");
 		String reponse = "";
 		
@@ -365,7 +355,7 @@ public class InterfacePartie {
 		}
 	}
 	
-	private void demanderInterruption() {
+	public void demanderInterruption() {
 		
 		String interruption = "";
 		do{

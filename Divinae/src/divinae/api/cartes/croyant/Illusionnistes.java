@@ -20,10 +20,10 @@ public class Illusionnistes extends Croyant {
 
 		Partie partie = this.getJoueurLie().getPartie();
 
-		Joueur joueur = Capacite.choisirJoueurCible(partie);
+		Joueur joueur = Capacite.getActionSuivante().choisirJoueurCible(partie);
 
 		if (joueur.getNombreCroyant() == 0) {
-			joueur = Capacite.choisirJoueurCible(partie);
+			joueur = Capacite.getActionSuivante().choisirJoueurCible(partie);
 		}
 		Capacite.copierCapacite(Capacite.getActionSuivante().choisirCroyant(joueur, partie), partie);
 		Capacite.defausser(this, this.getJoueurLie().getPartie());

@@ -98,37 +98,6 @@ public class Capacite {
 	}
 
 
-//TEST 
-	public static Joueur choisirJoueurCible(Partie partie)
-	{
-		actionSuivante.commentaireMethode("Veuillez sélectionner le Joueur  cibler par cette competence :"+ "\n");
-		int choix = 0;
-		int indice=0;
-		do {
-			actionSuivante.commentaireMethode(indice +" : " + partie.getJoueurs().get(indice).getNom());
-			indice++;
-		} while (indice <=  partie.getJoueurs().size());
-		
-		do {
-			actionSuivante.commentaireMethode("Entrez le nombre compris entre 1 et " + partie.getJoueurs().size() + "nombre correspondant a  votre choix");
-
-			choix = actionSuivante.entreeUser();
-
-		} while (choix < 0 | choix >  partie.getJoueurs().size());
-		
-
-		Joueur joueur = partie.getJoueurs().get(choix);
-		actionSuivante.commentaireMethode("Vous avez ciblÃ© " + joueur.getNom());
-
-		while (joueur == null) {
-			joueur = choisirJoueurCible(partie);
-			if(joueur.getGuides().isEmpty()) {
-				actionSuivante.commentaireMethode("Veuillez choisir un autre joueur, celui-ci n'a pas de Guides Spirituels");
-				joueur = null;
-			}
-		}
-		return joueur;
-	}
 	
 	public static void donnerPointAction (int point, Origine origine, Joueur joueur) {
 		if (Capacite.isAutorisationApocalypse()==true) {
@@ -254,7 +223,7 @@ public class Capacite {
 	    
 	}
 
-	public static  void defausser (CarteAction carte, Partie partie) {
+	public static void defausser (CarteAction carte, Partie partie) {
 		partie.getDefausse().ajoutCarte(carte);
 	}
 
@@ -278,7 +247,7 @@ public class Capacite {
 	}
 
 	public static void imposerSacrifice (String vise, Partie partie) {
-		Joueur joueur = choisirJoueurCible(partie);
+		Joueur joueur = actionSuivante.choisirJoueurCible(partie);
 
 		switch (vise) {
 			case "GuideSpirituel" :
@@ -385,7 +354,7 @@ public class Capacite {
 	public static void prendreCartes (Carte carte, int nbCarte, Partie partie) {
 		int nbCartesPrises = 0;
 		int choixHasard = 0 ;
-		Joueur joueur = choisirJoueurCible (partie);
+		Joueur joueur = actionSuivante.choisirJoueurCible (partie);
 		while (nbCartesPrises < nbCarte | !joueur.getMain().isEmpty()) {
 			choixHasard = (int)Math.random()*(joueur.getMain().size()-1);
 			carte.getJoueurLie().getMain().add(joueur.getMain().get(choixHasard));
