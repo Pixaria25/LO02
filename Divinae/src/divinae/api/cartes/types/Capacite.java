@@ -279,10 +279,10 @@ public class Capacite {
 		Joueur joueur = divinite.getJoueurLie();
 		switch (vise) {
 			case "GuideSpirituel" :
-						GuideSpirituel guideSpirituel = actionSuivante.choisirSonGsp(joueur, partie);
-						joueur.activerCapaciteCarte(guideSpirituel);
-						partie.getTasDeCroyants().addAll(guideSpirituel.getCroyantLie());
-						partie.getDefausse().ajoutCarte(guideSpirituel);
+					GuideSpirituel guideSpirituel = actionSuivante.choisirSonGsp(joueur, partie);
+					joueur.activerCapaciteCarte(guideSpirituel);
+					partie.getTasDeCroyants().addAll(guideSpirituel.getCroyantLie());
+					partie.getDefausse().ajoutCarte(guideSpirituel);
 				break;
 		}
 
@@ -365,7 +365,6 @@ public class Capacite {
 			carte.getJoueurLie().getMain().add(joueur.getMain().get(choixHasard));
 			nbCartesPrises++;
 		}
-
 	}
 
 	public static void bloquerPointAction (Partie partie) {
