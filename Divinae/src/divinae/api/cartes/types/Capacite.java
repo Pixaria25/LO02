@@ -278,13 +278,12 @@ public class Capacite {
 	public static void imposerSacrificeGuideSpirituel (Divinite divinite, Partie partie) {
 		Joueur joueur = divinite.getJoueurLie();
 
+
 		GuideSpirituel guideSpirituel = actionSuivante.choisirSonGsp(joueur, partie);
 		joueur.activerCapaciteCarte(guideSpirituel);
 		partie.getTasDeCroyants().addAll(guideSpirituel.getCroyantLie());
 		partie.getDefausse().ajoutCarte(guideSpirituel);
-
-
-	  }
+	}
 
 	public static void retirerTousCroyantLies (Partie partie) {
 		GuideSpirituel gsp = actionSuivante.choisirGsp(partie);
@@ -363,7 +362,6 @@ public class Capacite {
 			carte.getJoueurLie().getMain().add(joueur.getMain().get(choixHasard));
 			nbCartesPrises++;
 		}
-
 	}
 
 	public static void bloquerPointAction (Partie partie) {

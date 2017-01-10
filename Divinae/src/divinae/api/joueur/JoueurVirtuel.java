@@ -16,7 +16,7 @@ import divinae.api.partie.Partie;
 public class JoueurVirtuel extends Joueur {
 
 	private Strategie strategie;
-	private Random random = new Random();
+	
 	
 	public JoueurVirtuel(String nom, Partie partie,Strategie strategie) {
 		super(nom, partie);
@@ -59,12 +59,12 @@ public class JoueurVirtuel extends Joueur {
 	
 	//Appel des methodes de ActionSuivante
 	public Joueur choisirJoueurCible() {
-		int choixJoueur = random.nextInt(getPartie().getJoueurs().size());
+		int choixJoueur = 0;
 		return getPartie().getJoueurs().get(choixJoueur);
 	}
 	
 	public GuideSpirituel choisirGsp() {
-		int choixJoueur = random.nextInt(getPartie().getJoueurs().size());
+		int choixJoueur = 0;
 		return Capacite.getActionSuivante().choisirGsp(getPartie());
 	}
 	
