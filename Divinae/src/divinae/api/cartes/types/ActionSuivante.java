@@ -29,9 +29,10 @@ public interface ActionSuivante
 	
 	int gspOuCroyant ();
 	
-	void convertirCroyant (Partie partie, GuideSpirituel carte);
+	void messageListe (Joueur joueur, String message);
 	
-	void commentaireMethode (String message);
+	void messageRecap (String message);
 
+	Croyant choisirTasCroyant(Joueur joueur, Partie partie);
 	
 }

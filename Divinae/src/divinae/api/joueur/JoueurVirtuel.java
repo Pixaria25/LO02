@@ -55,7 +55,7 @@ public class JoueurVirtuel extends Joueur {
 		List<CarteAction> cartesSacrifiables = recupererCartesSacrifiables();
 		strategie.choixSacrifice(cartesSacrifiables);
 	}
-	
+
 	
 	//Appel des methodes de ActionSuivante
 	public Joueur choisirJoueurCible() {
@@ -103,5 +103,12 @@ public class JoueurVirtuel extends Joueur {
 	public int gspOuCroyant () {
 		return Capacite.getActionSuivante().gspOuCroyant();
 	}
+
+
+
+	public Strategie getStrategie() {
+		return strategie;
+	}
+	
 
 }

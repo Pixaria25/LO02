@@ -21,8 +21,8 @@ public class Sorcier extends GuideSpirituel {
 	@Override
 	public void activerCapacite() {
 		// TODO Auto-generated method stub
-		Carte carte1 = Capacite.getActionSuivante().choisirSonGsp(this.getJoueurLie(), this.getJoueurLie().getPartie());
-		Carte carte2 = Capacite.getActionSuivante().choisirGsp(this.getJoueurLie().getPartie());
+		Carte carte1 = getJoueurLie().choisirSonGsp();
+		Carte carte2 = getJoueurLie().choisirGsp();
 		Joueur joueur1 = carte1.getJoueurLie();
 		carte1.setJoueurLie(carte2.getJoueurLie());
 		carte2.setJoueurLie(joueur1);

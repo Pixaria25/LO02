@@ -97,20 +97,21 @@ public class Capacite {
 
 	}
 
-
-	
 	public static void donnerPointAction (int point, Origine origine, Joueur joueur) {
 		if (Capacite.isAutorisationApocalypse()==true) {
 			joueur.ajoutPointsAction(point, origine);
 		} else {
-			actionSuivante.commentaireMethode("On ne peut pas gagner de point d'action jusqu'‡ la fin du tour (competence nihilistes)");
+			actionSuivante.messageListe(joueur,"On ne peut pas gagner de point d'action jusqu'√† la fin du tour (competence nihilistes)");
 		}
 	}
 	
 	public static void relancerDe (Partie partie) {
 		partie.getDe().lancerDe();
 		partie.getDe().getValeur();
-		actionSuivante.commentaireMethode("La nouvelle influence est " + partie.getDe().getInfluence());
+		
+		int indexCarteJouee = partie.getTable().size()-1;
+		Joueur joueurCourant = partie.getTable(indexCarteJouee).getJoueurLie();
+		actionSuivante.messageListe(joueurCourant, "La nouvelle influence est " + partie.getDe().getInfluence());
 	}
 
 	public static void lancerApocalypse (Partie partie) {
@@ -131,18 +132,22 @@ public class Capacite {
 			}
 			Capacite.setAutorisationApocalypse (true);
 		} else {
-			actionSuivante.commentaireMethode("Impossible de lancer une Apocalyspe ce tour-ci veuillez attendre le tour prochain");
+			int indexCarteJouee = partie.getTable().size()-1;
+			Joueur joueurCourant = partie.getTable(indexCarteJouee).getJoueurLie();
+			actionSuivante.messageListe(joueurCourant, "Impossible de lancer une Apocalyspe ce tour-ci veuillez attendre le tour prochain");
 		}
 	}
 
 	public static void recupererUnGsp (Carte carte) {
+		int indexCarteJouee = carte.getJoueurLie().getPartie().getTable().size()-1;
+		Joueur joueurCourant = carte.getJoueurLie().getPartie().getTable(indexCarteJouee).getJoueurLie();
 		GuideSpirituel GpCible = Capacite.getActionSuivante().choisirGsp(carte.getJoueurLie().getPartie());
 		while (GpCible.getJoueurLie() == carte.getJoueurLie()) {
-			actionSuivante.commentaireMethode("Ce guide spirituel vous appartient dÈj‡, choisissez en un autre !");
+			actionSuivante.messageListe(joueurCourant, "Ce guide spirituel vous appartient d√©j√†, choisissez en un autre !");
 			GpCible = Capacite.getActionSuivante().choisirGsp(carte.getJoueurLie().getPartie());
 		}
 		GpCible.setJoueurLie(carte.getJoueurLie());
-		actionSuivante.commentaireMethode("Vous avez rÈcupÈrer le guide spirituel suivant : " + GpCible.getNom());
+		actionSuivante.messageRecap(GpCible.getJoueurLie().getNom() + " r√©cup√®re le guide spirituel suivant : " + GpCible.getNom());
 	}
 
 	public static boolean retirerPointAction (Carte  carte, Origine origine) {
@@ -153,7 +158,7 @@ public class Capacite {
 				carte.getJoueurLie().setNombreCroyant(carte.getJoueurLie().getNombreCroyant()-(((Croyant) carte).getValeurCroyant()));
 				return true;
 			} else {
-				actionSuivante.commentaireMethode("Pas de point d'origine jour.");
+				actionSuivante.messageListe(carte.getJoueurLie(), "Pas de point d'origine jour.");
 				return false;
 			}
 		case Nuit :
@@ -162,7 +167,7 @@ public class Capacite {
 				carte.getJoueurLie().setNombreCroyant(carte.getJoueurLie().getNombreCroyant()-(((Croyant) carte).getValeurCroyant()));
 				return true;
 			} else {
-				actionSuivante.commentaireMethode("Pas de point d'origine Nuit.");
+				actionSuivante.messageListe(carte.getJoueurLie(), "Pas de point d'origine Nuit.");
 				return false;
 			}
 		case Neant :
@@ -171,7 +176,7 @@ public class Capacite {
 				carte.getJoueurLie().setNombreCroyant(carte.getJoueurLie().getNombreCroyant()-(((Croyant) carte).getValeurCroyant()));
 				return true;
 			} else {
-				actionSuivante.commentaireMethode("Pas de point d'origine Neant.");
+				actionSuivante.messageListe(carte.getJoueurLie(), "Pas de point d'origine Neant.");
 				return false;
 			}
 			default : 
@@ -194,12 +199,12 @@ public class Capacite {
 	    				((Croyant) carte).setGuideLie(joueur.getGuide(i));
 	    			} 
 	    		}
-	    	} else { actionSuivante.commentaireMethode("Pas de place disponible pour lier ce croyant"); }
+	    	} else { actionSuivante.messageListe(joueur, "Pas de place disponible pour lier ce croyant"); }
 	    break;
 	    
 	    case GuideSpirituel:
 	        carte.setJoueurLie(joueur);
-	        Capacite.getActionSuivante().convertirCroyant(partie, (GuideSpirituel) carte);
+	        ((GuideSpirituel) carte).convertirCroyant(partie);
 	    break;
 	    
 	    case DeusEx:
@@ -212,12 +217,12 @@ public class Capacite {
 	        case "Phoenix" : Capacite.copierCapacite(carte, partie);
 	     	break;
 	    
-	        default : actionSuivante.commentaireMethode("Cette carte n'a aucun effet bÈnÈfique dire pour vous.");
+	        default : actionSuivante.messageListe(joueur, "Cette carte n'a aucun effet b√©n√©fique dire pour vous.");
 	       	break;
 	        }
 	    break;
 	    
-	    default : actionSuivante.commentaireMethode("Aucun effet bÈnÈfique pour vous.");
+	    default : actionSuivante.messageListe(joueur, "Aucun effet b√©n√©fique pour vous.");
 	    break;
 	    }
 	    
@@ -429,8 +434,6 @@ public class Capacite {
 	public static Carte getCarteInterupt() {
 		return carteInterupt;
 	}
-
-
 
 	public static void setCarteInterupt(Carte carteInterupt) {
 		Capacite.carteInterupt = carteInterupt;
