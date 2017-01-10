@@ -31,7 +31,8 @@ public interface ActionSuivante
 	
 	void convertirCroyant (Partie partie, GuideSpirituel carte);
 	
-	void commentaireMethode (String message);
-
+	void messageListe (Joueur joueur, String message);
+	
+	void messageRecap (String message);
 	
 }

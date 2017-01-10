@@ -46,4 +46,10 @@ public class JoueurVirtuel extends Joueur {
 		List<CarteAction> cartesSacrifiables = recupererCartesSacrifiables();
 		strategie.choixSacrifice(cartesSacrifiables);
 	}
+
+	public Strategie getStrategie() {
+		return strategie;
+	}
+	
+	
 }

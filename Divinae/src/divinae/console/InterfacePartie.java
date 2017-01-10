@@ -208,13 +208,66 @@ public class InterfacePartie {
 					if(poserCarte) {
 						joueurCourant.poserCarteAction(choixCarte);
 						demanderInterruption();
+
 						partie.activerCartes();
 					} else {
 						System.out.println("Vous ne pouvez pas jouer cette carte.");
 					}
 					break;
+		if (Capacite.isInteruptionAnnulationCapa()) {
+							System.out.println("Votre capacit� a �t� contr� ! Elle est defausser normalent si elle doit l'�tre");
+							break;
+						}
+						((Action) cartePose).poserCarteAction();
+        **/
 						
-					
+						boolean poserCarte = false;
+						switch (joueurCourant.getMain().get(choixCarte).getOrigine()){
+							
+							case Jour :
+								if (joueurCourant.getPointsAction()[Origine.Jour.ordinal()] >= 1) {
+									joueurCourant.getPointsAction()[Origine.Jour.ordinal()]--;
+									joueurCourant.setNombreCroyant(joueurCourant.getNombreCroyant()-((Croyant) joueurCourant.getMain().get(choixCarte)).getValeurCroyant());
+									poserCarte = true;
+								} else {
+									System.out.println("Pas de point d'origine jour.");
+								}
+								break;
+								
+							case Nuit :
+								if (joueurCourant.getPointsAction()[Origine.Nuit.ordinal()] >= 1) {
+									joueurCourant.getPointsAction()[Origine.Nuit.ordinal()]--;
+									joueurCourant.setNombreCroyant(joueurCourant.getNombreCroyant()-((Croyant) joueurCourant.getMain().get(choixCarte)).getValeurCroyant());
+									poserCarte = true;
+								} else {
+									System.out.println("Pas de point d'origine Nuit.");
+								}
+								break;
+								
+							case Neant :
+								if (joueurCourant.getPointsAction()[Origine.Neant.ordinal()] >= 1) {
+									joueurCourant.getPointsAction()[Origine.Neant.ordinal()]--;
+									poserCarte = true;
+								} else {
+									System.out.println("Pas de point d'origine Neant.");
+								}
+								break;
+								
+							case Aucune:
+								poserCarte = true;
+								
+							default:
+						}
+						if(poserCarte) {
+							joueurCourant.poserCarteAction(choixCarte);
+							demanderInterruption();
+							partie.activerCartes();
+						} else {
+							System.out.println("Vous ne pouvez pas jouer cette carte.");
+						}
+						break;
+							
+
 				
 				case 2:
 					if(joueurCourant.isAutorisationcr() && joueurCourant.isAutorisationgsp()) {
