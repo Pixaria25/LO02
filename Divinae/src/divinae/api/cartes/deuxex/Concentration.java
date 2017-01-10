@@ -7,8 +7,8 @@ import divinae.api.cartes.types.Origine;
 public class Concentration extends DeusEx {
 
 	public Concentration() {
-		super("Concentration", Origine.Neant, "Vous récupérez un des Guides Spirituels posés devant une autre Divinité "
-				+ "et le placez devant vous avec les Croyants qui y sont attachés.");
+		super("Concentration", Origine.Neant, "Vous rï¿½cupï¿½rez un des Guides Spirituels posï¿½s devant une autre Divinitï¿½ "
+				+ "et le placez devant vous avec les Croyants qui y sont attachï¿½s.", 64);
 		// TODO Auto-generated constructor stub
 	}
 

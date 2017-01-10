@@ -10,8 +10,8 @@ import divinae.api.partie.Partie;
 public class Phoenix extends DeusEx {
 
 	public Phoenix() {
-		super("Phoenix", Origine.Neant, "Permet de bénéficier de la capacité spéciale "
-				+ "de l'un de vos Croyants ou Guides Spirituels sans sacrifier la carte.");
+		super("Phoenix", Origine.Neant, "Permet de bï¿½nï¿½ficier de la capacitï¿½ spï¿½ciale "
+				+ "de l'un de vos Croyants ou Guides Spirituels sans sacrifier la carte.", 66);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -26,7 +26,7 @@ public class Phoenix extends DeusEx {
 			GuideSpirituel GpCapa =  getJoueurLie().choisirSonGsp();
 			Capacite.copierCapacite(GpCapa, partie);
 		}
-		
+
 		Capacite.defausser(this, partie);
 	}
 

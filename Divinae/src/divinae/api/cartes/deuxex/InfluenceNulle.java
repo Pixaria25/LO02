@@ -9,7 +9,7 @@ import divinae.api.cartes.types.Origine;
 public class InfluenceNulle extends DeusEx {
 
 	public InfluenceNulle() {
-		super("Influence Nulle", Origine.Aucune, "Annule la capacité spéciale d'une autre carte d'Action.");
+		super("Influence Nulle", Origine.Aucune, "Annule la capacitï¿½ spï¿½ciale d'une autre carte d'Action.", 70);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -19,14 +19,14 @@ public class InfluenceNulle extends DeusEx {
 		ClasseName z = ClasseName.valueOf(carte.getClass().getSimpleName());
 		Origine [] origineCible = {Origine.Nuit,Origine.Neant,Origine.Jour,Origine.Aube, Origine.Aucune,Origine.Crepuscule};
 	    switch (z) {
-	    case Croyant: 
+	    case Croyant:
 	    case GuideSpirituel :
 	    case DeusEx :
-	    case Apocalypse : 
+	    case Apocalypse :
 	    	Capacite.annulerEffetCarte(carte.getOrigine(), origineCible, this.getJoueurLie().getPartie());
 	    	break;
 	    }
-	    
+
 	}
 
 }

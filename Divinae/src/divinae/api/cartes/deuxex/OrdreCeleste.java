@@ -8,8 +8,8 @@ import divinae.api.cartes.types.Origine;
 public class OrdreCeleste extends DeusEx {
 
 	public OrdreCeleste() {
-		super("Ordre Celeste", Origine.Jour, "Vous récupérez un des Guides Spirituels posés devant "
-				+ "une autre Divinité et le placez devant vous avec les Croyants qui y sont attachés.");
+		super("Ordre Celeste", Origine.Jour, "Vous rï¿½cupï¿½rez un des Guides Spirituels posï¿½s devant "
+				+ "une autre Divinitï¿½ et le placez devant vous avec les Croyants qui y sont attachï¿½s.", 61);
 		// TODO Auto-generated constructor stub
 	}
 

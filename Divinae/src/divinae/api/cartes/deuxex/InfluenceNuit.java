@@ -9,7 +9,7 @@ import divinae.api.cartes.types.Origine;
 public class InfluenceNuit extends DeusEx {
 
 	public InfluenceNuit(String nom, Origine origine, String capacite) {
-		super("Influence Nuit", Origine.Nuit, "Annule la capacité spéciale d'une carte d'Action d'Origine Jour ou Néant.");
+		super("Influence Nuit", Origine.Nuit, "Annule la capacitï¿½ spï¿½ciale d'une carte d'Action d'Origine Jour ou Nï¿½ant.", 68);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -19,10 +19,10 @@ public class InfluenceNuit extends DeusEx {
 		ClasseName z = ClasseName.valueOf(carte.getClass().getSimpleName());
 		Origine [] origineCible = {Origine.Jour,Origine.Neant};
 	    switch (z) {
-	    case Croyant : 
+	    case Croyant :
 	    case GuideSpirituel :
 	    case DeusEx :
-	    case Apocalypse : 
+	    case Apocalypse :
 	    	Capacite.annulerEffetCarte(carte.getOrigine(), origineCible, this.getJoueurLie().getPartie());
 	    	break;
 	    }
