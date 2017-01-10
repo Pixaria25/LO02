@@ -18,12 +18,12 @@ public class Phoenix extends DeusEx {
 	@Override
 	public void activerCapacite() {
 		Partie partie = this.getJoueurLie().getPartie();
-		int choix = Capacite.getActionSuivante().gspOuCroyant();
+		int choix =  getJoueurLie().gspOuCroyant();
 		if (choix == 1) {
-			Croyant croyantCapa = Capacite.getActionSuivante().choisirCroyant(this.getJoueurLie(), partie);
+			Croyant croyantCapa =  getJoueurLie().choisirCroyant();
 			Capacite.copierCapacite(croyantCapa, partie);
 		} else {
-			GuideSpirituel GpCapa = Capacite.getActionSuivante().choisirSonGsp(this.getJoueurLie(), partie);
+			GuideSpirituel GpCapa =  getJoueurLie().choisirSonGsp();
 			Capacite.copierCapacite(GpCapa, partie);
 		}
 

@@ -11,8 +11,8 @@ import divinae.api.cartes.types.Origine;
 public class Paladin extends GuideSpirituel {
 
   public Paladin () {
-	 	super("Paladin", Origine.Jour, "Tous les Croyants, d'Origine Nuit ou N�ant et ayant le Dogme Nature, actuellement"
-	 			+ " sur la table sont d�fauss�s. Les capacit�s sp�ciales ne sont pas jou�es.",
+	 	super("Paladin", Origine.Jour, "Tous les Croyants, d'Origine Nuit ou Nï¿½ant et ayant le Dogme Nature, actuellement"
+	 			+ " sur la table sont dï¿½faussï¿½s. Les capacitï¿½s spï¿½ciales ne sont pas jouï¿½es.",
 	 			new Dogme [] {Dogme.Humain,Dogme.Symboles}, 3, 51);
 
 		// TODO Auto-generated constructor stub

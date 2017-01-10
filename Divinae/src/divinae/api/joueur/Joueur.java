@@ -125,13 +125,13 @@ public class Joueur {
 	public GuideSpirituel choisirGsp() {
 		return Capacite.getActionSuivante().choisirGsp(getPartie());
 	}
-	
+	// A completer
 	public void renvoyerGsp (List <GuideSpirituel> gspCiblable, Partie partie) {
 		
 	}
 	
-	public Divinite choisirDiviniteOuDogme (Dogme dogme1, Dogme dogme2, Partie partie) {
-		return Capacite.getActionSuivante().choisirDiviniteOuDogme(dogme1, dogme2, partie);
+	public Divinite choisirDiviniteOuDogme (Dogme dogme1, Dogme dogme2) {
+		return Capacite.getActionSuivante().choisirDiviniteOuDogme(dogme1, dogme2, getPartie());
 	}
 	
 	public GuideSpirituel choisirSonGsp () {
@@ -150,8 +150,8 @@ public class Joueur {
 		return Capacite.getActionSuivante().choisirDiviniteOuGspNonDogme(dogme, getPartie());
 	}
 	
-	public void choisirFaceDe (Carte carte,Partie partie) {
-		Capacite.getActionSuivante().choisirFaceDe(carte, partie);
+	public void choisirFaceDe (Carte carte) {
+		Capacite.getActionSuivante().choisirFaceDe(carte, getPartie());
 	}
 	
 	public boolean choixMultiples (String cible) {
@@ -162,6 +162,10 @@ public class Joueur {
 		return Capacite.getActionSuivante().gspOuCroyant();
 	}
 	
+	public Croyant choisirTasCroyant() {
+		return Capacite.getActionSuivante().choisirTasCroyant(this, getPartie());
+	}
+
 	
 	//Getters et setters
 	public Divinite getDivinite() {
@@ -244,6 +248,7 @@ public class Joueur {
 		}
 		return retour;
 	}
+
 
 	
 }

@@ -9,7 +9,7 @@ import divinae.api.cartes.types.Origine;
 public class Devin extends GuideSpirituel {
 
   public Devin () {
-	 	super("Devin", Origine.Neant, "Oblige une Divinit� ayant le Dogme Nature ou Mystique � sacrifier"
+	 	super("Devin", Origine.Neant, "Oblige une Divinitï¿½ ayant le Dogme Nature ou Mystique ï¿½ sacrifier"
 	 			+ " l'un de ses Guides Spirituels.", new Dogme [] {Dogme.Nature,Dogme.Mystique}, 1, 53);
 
 		// TODO Auto-generated constructor stub
@@ -17,7 +17,7 @@ public class Devin extends GuideSpirituel {
 
 
 	public void activerCapacite() {
-		Divinite divinite = Capacite.getActionSuivante().choisirDiviniteOuDogme(Dogme.Nature, Dogme.Mystique, this.getJoueurLie().getPartie());
+		Divinite divinite = getJoueurLie().choisirDiviniteOuDogme(Dogme.Nature, Dogme.Mystique);
 		Capacite.imposerSacrifice(divinite,"GuideSpirituel", this.getJoueurLie().getPartie());
 	}
 
