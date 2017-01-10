@@ -8,13 +8,13 @@ public class Diversion extends DeusEx {
 
 	public Diversion() {
 		super("Diversion", Origine.Nuit, "Prenez 3 cartes dans la main d'un autre joueur "
-				+ "et incluez-les à votre main");
+				+ "et incluez-les ï¿½ votre main", 63);
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void activerCapacite() {
-		Capacite.prendreCartes(this, 3, this.getJoueurLie().getPartie());		
+		Capacite.prendreCartes(this, 3, this.getJoueurLie().getPartie());
 	}
 
 }

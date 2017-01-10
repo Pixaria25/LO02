@@ -10,12 +10,12 @@ import divinae.api.partie.Partie;
 public class Transe extends DeusEx {
 
 	public Transe() {
-		super("Transe", Origine.Aucune, "Permet de récupérer les effets bénéfiques d'une carte d'Action posée par une autre Divinité. "
-				+ "S'il s'agit d'une carte Croyant ou Guide Spirituel, vous posez la carte devant vous.");
+		super("Transe", Origine.Aucune, "Permet de rï¿½cupï¿½rer les effets bï¿½nï¿½fiques d'une carte d'Action posï¿½e par une autre Divinitï¿½. "
+				+ "S'il s'agit d'une carte Croyant ou Guide Spirituel, vous posez la carte devant vous.", 72);
 		// TODO Auto-generated constructor stub
 	}
-	
-	
+
+
 	public enum ClasseName {
 	    Croyant,
 	    GuideSpirituel,

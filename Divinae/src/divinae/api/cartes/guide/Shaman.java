@@ -7,10 +7,10 @@ import divinae.api.cartes.types.GuideSpirituel;
 import divinae.api.cartes.types.Origine;
 
 public class Shaman extends GuideSpirituel {
-  
+
   public Shaman () {
-	 	super("Shaman", Origine.Nuit, "Sacrifie tous les Croyants d'Origine Néant d'une Divinité ayant le Dogme Humain."
-	 			+ "Les capacités spéciales sont jouées normalement.", new Dogme [] {Dogme.Nature,Dogme.Symboles}, 3);
+	 	super("Shaman", Origine.Nuit, "Sacrifie tous les Croyants d'Origine Nï¿½ant d'une Divinitï¿½ ayant le Dogme Humain."
+	 			+ "Les capacitï¿½s spï¿½ciales sont jouï¿½es normalement.", new Dogme [] {Dogme.Nature,Dogme.Symboles}, 3, 49);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -26,6 +26,6 @@ public class Shaman extends GuideSpirituel {
 			}
 		}
 	}
-	
-	  
+
+
 }

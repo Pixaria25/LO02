@@ -9,12 +9,12 @@ import divinae.api.joueur.Joueur;
 
 public class Sorcier extends GuideSpirituel {
 
-	
+
 
 	public Sorcier() {
-		super("Sorcier", Origine.Nuit, "Echangez l'un de vos Guides Spirituels avec un d'une autre Divinité. "
-				+ "Vous choisissez les deus Guides Spirituels en question. Les Croyants restent attachés aux mêmes cartes.",
-				new Dogme [] {Dogme.Mystique,Dogme.Symboles}, 3);
+		super("Sorcier", Origine.Nuit, "Echangez l'un de vos Guides Spirituels avec un d'une autre Divinitï¿½. "
+				+ "Vous choisissez les deus Guides Spirituels en question. Les Croyants restent attachï¿½s aux mï¿½mes cartes.",
+				new Dogme [] {Dogme.Mystique,Dogme.Symboles}, 3, 55);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -27,6 +27,6 @@ public class Sorcier extends GuideSpirituel {
 		carte1.setJoueurLie(carte2.getJoueurLie());
 		carte2.setJoueurLie(joueur1);
 	}
-	
+
 }
 

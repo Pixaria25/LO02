@@ -8,7 +8,8 @@ import divinae.api.cartes.types.Origine;
 public class Stase extends DeusEx {
 
 	public Stase() {
-		super("Stase", Origine.Jour, "Protège un Guide Spirituel et ses Croyants jusqu'à ce que cette carte soit annulée ou jusqu'à la prochaine tentative d'Apocalypse.");
+		super("Stase", Origine.Jour, "Protï¿½ge un Guide Spirituel et ses Croyants jusqu'ï¿½ ce que cette carte soit annulï¿½e ou jusqu'ï¿½ la prochaine "
+										 + "tentative d'Apocalypse.", 60);
 		// TODO Auto-generated constructor stub
 	}
 

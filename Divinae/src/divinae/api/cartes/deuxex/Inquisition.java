@@ -10,7 +10,8 @@ public class Inquisition extends DeusEx {
 
 	public Inquisition() {
 		super("Inquisition", Origine.Aucune, "Choisissez un des Guides Spirituels d'un autre joueur, et l'un des votres. "
-				+ "Lancez le dé de Cosmogonie. Sur Jour, le Guide adverse est sacrifié, sur Nuit le votre est sacrifié, sur Néant rien ne se passe.");
+				+ "Lancez le dï¿½ de Cosmogonie. Sur Jour, le Guide adverse est sacrifiï¿½, sur Nuit le votre est sacrifiï¿½, sur Nï¿½ant rien ne se passe"
+												 + ".", 75);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -21,17 +22,17 @@ public class Inquisition extends DeusEx {
 		while (SonGp.getJoueurLie()==this.getJoueurLie()){
 			SonGp = Capacite.getActionSuivante().choisirGsp(this.getJoueurLie().getPartie());
 		}
-		
+
 		De de = this.getJoueurLie().getPartie().getDe();
 		de.lancerDe();
 		Origine influence = de.getInfluence();
-		
+
 		switch (influence) {
 		case Jour : SonGp.getJoueurLie().sacrifierCarte(SonGp);
 		break;
 		case Nuit : MonGp.getJoueurLie().sacrifierCarte(MonGp);
 		break;
-		default: 
+		default:
 		break;
 		}
 	}
