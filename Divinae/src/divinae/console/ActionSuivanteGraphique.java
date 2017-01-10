@@ -1,12 +1,7 @@
 package divinae.console;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
-
-import divinae.api.cartes.deuxex.InfluenceJour.ClasseName;
 import divinae.api.cartes.types.ActionSuivante;
-import divinae.api.cartes.types.Capacite;
 import divinae.api.cartes.types.Carte;
 import divinae.api.cartes.types.Croyant;
 import divinae.api.cartes.types.Divinite;
@@ -14,7 +9,6 @@ import divinae.api.cartes.types.Dogme;
 import divinae.api.cartes.types.GuideSpirituel;
 import divinae.api.cartes.types.Origine;
 import divinae.api.joueur.Joueur;
-import divinae.api.joueur.JoueurVirtuel;
 import divinae.api.partie.Partie;
 
 public class ActionSuivanteGraphique implements ActionSuivante
