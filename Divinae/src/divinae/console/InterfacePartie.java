@@ -97,7 +97,7 @@ public class InterfacePartie {
 						}
 						
 					} while(choixStrat < 0 || choixStrat > 3);
-					partie.ajouterUnJoueurVirtuel(nom, TypeStrategie.values()[choixStrat]);
+					partie.ajouterUnJoueurVirtuel(nom, TypeStrategie.values()[3]);
 					operationTerminee = true;
 					break;
 				case 3:

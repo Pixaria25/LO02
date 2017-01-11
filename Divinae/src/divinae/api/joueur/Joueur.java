@@ -125,10 +125,6 @@ public class Joueur {
 	public GuideSpirituel choisirGsp() {
 		return Capacite.getActionSuivante().choisirGsp(getPartie());
 	}
-	// A completer
-	public void renvoyerGsp (List <GuideSpirituel> gspCiblable, Partie partie) {
-		
-	}
 	
 	public Divinite choisirDiviniteOuDogme (Dogme dogme1, Dogme dogme2) {
 		return Capacite.getActionSuivante().choisirDiviniteOuDogme(dogme1, dogme2, getPartie());
@@ -166,6 +162,10 @@ public class Joueur {
 		return Capacite.getActionSuivante().choisirTasCroyant(this, getPartie());
 	}
 
+	public GuideSpirituel choisirGspRenvoye (List <GuideSpirituel> gspCiblable) {
+		return Capacite.getActionSuivante().choisirGspRenvoye(gspCiblable);
+	}
+	
 	
 	//Getters et setters
 	public Divinite getDivinite() {

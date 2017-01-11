@@ -9,9 +9,7 @@ import divinae.api.cartes.divinite.*;
 import divinae.api.cartes.types.*;
 import divinae.api.joueur.Joueur;
 import divinae.api.joueur.JoueurVirtuel;
-import divinae.api.joueur.StrategieDefensive;
-import divinae.api.joueur.StrategieEquilibre;
-import divinae.api.joueur.StrategieOffensive;
+import divinae.api.joueur.StrategieAleatoire;
 import divinae.api.cartes.croyant.*;
 import divinae.api.cartes.deuxex.*;
 import divinae.api.cartes.guide.*;
@@ -61,16 +59,8 @@ public class Partie {
 			typeStrategieEffectif = TypeStrategie.values()[choixStrat];
 		}
 		switch (typeStrategieEffectif) {
-		case OFFENSIVE:
-			joueurs.add(new JoueurVirtuel(nom, this, new StrategieOffensive()));
-			break;
-
-		case DEFENSIVE:
-			joueurs.add(new JoueurVirtuel(nom, this, new StrategieDefensive()));
-			break;
-			
-		case EQUILIBRE:
-			joueurs.add(new JoueurVirtuel(nom, this, new StrategieEquilibre()));
+		case ALEATOIRE:
+			joueurs.add(new JoueurVirtuel(nom, this, new StrategieAleatoire()));
 			break;
 
 		default: 
