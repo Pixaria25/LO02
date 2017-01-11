@@ -170,7 +170,10 @@ public class Joueur {
 		return Capacite.getActionSuivante().choisirGspRenvoye(gspCiblable);
 	}
 
-
+	public void messageListe (String message) {
+			System.out.println(message);
+	}
+	
 	
 	//Getters et setters
 	public Divinite getDivinite() {

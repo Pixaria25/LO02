@@ -331,14 +331,6 @@ public class ActionSuivanteConsole implements ActionSuivante
 	}
 	
 
-	public void messageListe (Joueur joueur, String message) {
-		if (joueur instanceof JoueurVirtuel) {
-
-		} else {
-			System.out.println(message);
-		}
-	}
-	
 	public void messageRecap (String message) {
 
 		System.out.println(message);

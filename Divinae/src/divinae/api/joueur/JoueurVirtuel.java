@@ -112,7 +112,10 @@ public class JoueurVirtuel extends Joueur {
 		return Capacite.getActionSuivante().choisirGspRenvoye(gspCiblable);
 	}
 
-
+	public void messageListe (String message) {
+		System.out.println(message);
+	}
+	
 	public Strategie getStrategie() {
 		return strategie;
 	}

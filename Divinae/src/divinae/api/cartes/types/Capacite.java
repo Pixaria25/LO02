@@ -100,7 +100,7 @@ public class Capacite {
 		if (Capacite.isAutorisationApocalypse()==true) {
 			joueur.ajoutPointsAction(point, origine);
 		} else {
-			actionSuivante.messageListe(joueur,"On ne peut pas gagner de point d'action jusqu'à la fin du tour (competence nihilistes)");
+			joueur.messageListe("On ne peut pas gagner de point d'action jusqu'à la fin du tour (competence nihilistes)");
 		}
 	}
 	
@@ -110,7 +110,7 @@ public class Capacite {
 		
 		int indexCarteJouee = partie.getTable().size()-1;
 		Joueur joueurCourant = partie.getTable(indexCarteJouee).getJoueurLie();
-		actionSuivante.messageListe(joueurCourant, "La nouvelle influence est " + partie.getDe().getInfluence());
+		joueurCourant.messageListe("La nouvelle influence est " + partie.getDe().getInfluence());
 	}
 
 	public static void lancerApocalypse (Partie partie) {
@@ -133,17 +133,17 @@ public class Capacite {
 		} else {
 			int indexCarteJouee = partie.getTable().size()-1;
 			Joueur joueurCourant = partie.getTable(indexCarteJouee).getJoueurLie();
-			actionSuivante.messageListe(joueurCourant, "Impossible de lancer une Apocalyspe ce tour-ci veuillez attendre le tour prochain");
+			joueurCourant.messageListe("Impossible de lancer une Apocalyspe ce tour-ci veuillez attendre le tour prochain");
 		}
 	}
 
 	public static void recupererUnGsp (Carte carte) {
 		int indexCarteJouee = carte.getJoueurLie().getPartie().getTable().size()-1;
 		Joueur joueurCourant = carte.getJoueurLie().getPartie().getTable(indexCarteJouee).getJoueurLie();
-		GuideSpirituel GpCible = Capacite.getActionSuivante().choisirGsp(carte.getJoueurLie().getPartie());
+		GuideSpirituel GpCible = carte.getJoueurLie().choisirGsp();
 		while (GpCible.getJoueurLie() == carte.getJoueurLie()) {
-			actionSuivante.messageListe(joueurCourant, "Ce guide spirituel vous appartient déjà, choisissez en un autre !");
-			GpCible = Capacite.getActionSuivante().choisirGsp(carte.getJoueurLie().getPartie());
+			joueurCourant.messageListe("Ce guide spirituel vous appartient déjà, choisissez en un autre !");
+			GpCible = carte.getJoueurLie().choisirGsp();
 		}
 		GpCible.setJoueurLie(carte.getJoueurLie());
 		actionSuivante.messageRecap(GpCible.getJoueurLie().getNom() + " récupère le guide spirituel suivant : " + GpCible.getNom());
@@ -157,7 +157,7 @@ public class Capacite {
 				carte.getJoueurLie().setNombreCroyant(carte.getJoueurLie().getNombreCroyant()-(((Croyant) carte).getValeurCroyant()));
 				return true;
 			} else {
-				actionSuivante.messageListe(carte.getJoueurLie(), "Pas de point d'origine jour.");
+				carte.getJoueurLie().messageListe("Pas de point d'origine jour.");
 				return false;
 			}
 		case Nuit :
@@ -166,7 +166,7 @@ public class Capacite {
 				carte.getJoueurLie().setNombreCroyant(carte.getJoueurLie().getNombreCroyant()-(((Croyant) carte).getValeurCroyant()));
 				return true;
 			} else {
-				actionSuivante.messageListe(carte.getJoueurLie(), "Pas de point d'origine Nuit.");
+				carte.getJoueurLie().messageListe("Pas de point d'origine Nuit.");
 				return false;
 			}
 		case Neant :
@@ -175,7 +175,7 @@ public class Capacite {
 				carte.getJoueurLie().setNombreCroyant(carte.getJoueurLie().getNombreCroyant()-(((Croyant) carte).getValeurCroyant()));
 				return true;
 			} else {
-				actionSuivante.messageListe(carte.getJoueurLie(), "Pas de point d'origine Neant.");
+				carte.getJoueurLie().messageListe("Pas de point d'origine Neant.");
 				return false;
 			}
 			default : 
@@ -198,7 +198,7 @@ public class Capacite {
 	    				((Croyant) carte).setGuideLie(joueur.getGuide(i));
 	    			} 
 	    		}
-	    	} else { actionSuivante.messageListe(joueur, "Pas de place disponible pour lier ce croyant"); }
+	    	} else { carte.getJoueurLie().messageListe("Pas de place disponible pour lier ce croyant"); }
 	    break;
 	    
 	    case GuideSpirituel:
@@ -216,12 +216,12 @@ public class Capacite {
 	        case "Phoenix" : Capacite.copierCapacite(carte, partie);
 	     	break;
 	    
-	        default : actionSuivante.messageListe(joueur, "Cette carte n'a aucun effet bénéfique dire pour vous.");
+	        default : carte.getJoueurLie().messageListe("Cette carte n'a aucun effet bénéfique dire pour vous.");
 	       	break;
 	        }
 	    break;
 	    
-	    default : actionSuivante.messageListe(joueur, "Aucun effet bénéfique pour vous.");
+	    default : carte.getJoueurLie().messageListe("Aucun effet bénéfique pour vous.");
 	    break;
 	    }
 	    

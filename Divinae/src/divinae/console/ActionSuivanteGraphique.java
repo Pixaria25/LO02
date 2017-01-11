@@ -74,12 +74,14 @@ public class ActionSuivanteGraphique implements ActionSuivante
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
+	
+/**
 	@Override
-	public void messageListe(Joueur joueur, String message) {
+	public void messageListe(String message) {
 		// TODO Auto-generated method stub
-		
 	}
+**/		
+	
 
 	@Override
 	public void messageRecap(String message) {

@@ -27,8 +27,6 @@ public interface ActionSuivante
 	
 	int gspOuCroyant ();
 	
-	void messageListe (Joueur joueur, String message);
-	
 	void messageRecap (String message);
 
 	Croyant choisirTasCroyant(Joueur joueur, Partie partie);
