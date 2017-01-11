@@ -330,29 +330,7 @@ public class ActionSuivanteConsole implements ActionSuivante
 		return choix;
 	}
 	
-	public int entreeUser (Joueur joueur, int max) {
-		int choixUser = 0;
-		if (joueur instanceof JoueurVirtuel) {
-			switch (((JoueurVirtuel) joueur).getStrategie().toString()) {
-			case "StrategieDefensive" :
-				// Methode test carte la plus defensive pouvant être jouer
-				break;
-			case "StrategieOffensive" :
-				// Methode test carte la plus offensive pouvant être jouer
-				break;
-			case "StrategieEquilibre" :
-				// Methode test carte la plus equilibre pouvant être jouer
-				break;
-			case "StrategieAleatoire" :
-				choixUser = (int)(Math.random()*max);
-			}
-		} else {
-			Scanner sc = new Scanner(System.in);
-			choixUser = sc.nextInt();
-				}
-		return choixUser;
-	}
-	
+
 	public void messageListe (Joueur joueur, String message) {
 		if (joueur instanceof JoueurVirtuel) {
 

@@ -18,7 +18,7 @@ public class Devin extends GuideSpirituel {
 
 	public void activerCapacite() {
 		Divinite divinite = getJoueurLie().choisirDiviniteOuDogme(Dogme.Nature, Dogme.Mystique);
-		Capacite.imposerSacrifice(divinite,"GuideSpirituel", this.getJoueurLie().getPartie());
+		Capacite.imposerSacrificeGuideSpirituel(divinite, this, this.getJoueurLie().getPartie());
 	}
 
 }

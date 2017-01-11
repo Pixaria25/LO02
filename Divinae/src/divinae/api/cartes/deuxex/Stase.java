@@ -1,6 +1,5 @@
 package divinae.api.cartes.deuxex;
 
-import divinae.api.cartes.types.Capacite;
 import divinae.api.cartes.types.DeusEx;
 import divinae.api.cartes.types.GuideSpirituel;
 import divinae.api.cartes.types.Origine;

@@ -31,9 +31,6 @@ public class StrategieAleatoire implements Strategie {
 		}
 		return cartesADefausser;
 
-		// TODO Auto-generated method stub
-		return null;
-
 	}
 
 	@Override

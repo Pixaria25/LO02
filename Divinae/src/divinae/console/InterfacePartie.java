@@ -208,66 +208,20 @@ public class InterfacePartie {
 					if(poserCarte) {
 						joueurCourant.poserCarteAction(choixCarte);
 						demanderInterruption();
-
-						partie.activerCartes();
+						// Solution ?
+						Capacite.setCarteInterupt(joueurCourant.getMain().get(choixCarte));
+						CarteAction cartePosee = Capacite.getCarteInterupt();
+						if (cartePosee.isCapaciteBloqué() && ( !(cartePosee instanceof Croyant) ||  !(cartePosee instanceof GuideSpirituel) )) {
+							System.out.println(cartePosee.getNom() + " a été bloqué !");
+						} else {
+							partie.activerCartes();
+						}
+					
 					} else {
 						System.out.println("Vous ne pouvez pas jouer cette carte.");
 					}
 					break;
-		if (Capacite.isInteruptionAnnulationCapa()) {
-							System.out.println("Votre capacit� a �t� contr� ! Elle est defausser normalent si elle doit l'�tre");
-							break;
-						}
-						((CarteAction) cartePose).poserCarteAction();
-        **/
-						boolean poserCarte = false;
-						switch (joueurCourant.getMain().get(choixCarte).getOrigine()){
-							
-							case Jour :
-								if (joueurCourant.getPointsAction()[Origine.Jour.ordinal()] >= 1) {
-									joueurCourant.getPointsAction()[Origine.Jour.ordinal()]--;
-									joueurCourant.setNombreCroyant(joueurCourant.getNombreCroyant()-((Croyant) joueurCourant.getMain().get(choixCarte)).getValeurCroyant());
-									poserCarte = true;
-								} else {
-									System.out.println("Pas de point d'origine jour.");
-								}
-								break;
-								
-							case Nuit :
-								if (joueurCourant.getPointsAction()[Origine.Nuit.ordinal()] >= 1) {
-									joueurCourant.getPointsAction()[Origine.Nuit.ordinal()]--;
-									joueurCourant.setNombreCroyant(joueurCourant.getNombreCroyant()-((Croyant) joueurCourant.getMain().get(choixCarte)).getValeurCroyant());
-									poserCarte = true;
-								} else {
-									System.out.println("Pas de point d'origine Nuit.");
-								}
-								break;
-								
-							case Neant :
-								if (joueurCourant.getPointsAction()[Origine.Neant.ordinal()] >= 1) {
-									joueurCourant.getPointsAction()[Origine.Neant.ordinal()]--;
-									poserCarte = true;
-								} else {
-									System.out.println("Pas de point d'origine Neant.");
-								}
-								break;
-								
-							case Aucune:
-								poserCarte = true;
-								
-							default:
-						}
-						if(poserCarte) {
-							joueurCourant.poserCarteAction(choixCarte);
-							demanderInterruption();
-							partie.activerCartes();
-						} else {
-							System.out.println("Vous ne pouvez pas jouer cette carte.");
-						}
-						break;
-							
-
-				
+	
 				case 2:
 					if(joueurCourant.isAutorisationcr() && joueurCourant.isAutorisationgsp()) {
 						System.out.println("Vous ne pouvez pas sacrifier de cartes.");
@@ -287,11 +241,14 @@ public class InterfacePartie {
 						} else {
 									Capacite.setCarteInterupt(listeCartesSacrifiables.get(choixSacrifice));
 									demanderInterruption();
-									if (Capacite.isInteruptionAnnulationCapa()) {
-										System.out.println("Votre capacit� a �t� contr� ! Elle est defausser normalent si elle doit l'�tre");
+									if (listeCartesSacrifiables.get(choixSacrifice).isCapaciteBloqué()) {
+										System.out.println(joueurCourant.getMain().get(choixSacrifice).getNom() + " a été bloqué !");
+									} else {
+										joueurCourant.sacrifierCarte(listeCartesSacrifiables.get(choixSacrifice));
+										
 										break;
 									}
-							joueurCourant.sacrifierCarte(listeCartesSacrifiables.get(choixSacrifice));
+									joueurCourant.tuerCarte(listeCartesSacrifiables.get(choixSacrifice));
 						}
 					}
 					break;

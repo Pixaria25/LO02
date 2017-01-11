@@ -26,12 +26,7 @@ public class ActionSuivanteGraphique implements ActionSuivante
 		return null;
 	}
 
-	@Override
-	public void ciblerGspRenvoye(List<GuideSpirituel> gspCiblable, Partie partie) {
-		// TODO Auto-generated method stub
-		
-	}
-
+	
 	@Override
 	public Divinite choisirDiviniteOuDogme(Dogme dogme1, Dogme dogme2, Partie partie) {
 		// TODO Auto-generated method stub
@@ -94,6 +89,12 @@ public class ActionSuivanteGraphique implements ActionSuivante
 
 	@Override
 	public Croyant choisirTasCroyant(Joueur joueur, Partie partie) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public GuideSpirituel choisirGspRenvoye(List<GuideSpirituel> gspCiblable) {
 		// TODO Auto-generated method stub
 		return null;
 	}

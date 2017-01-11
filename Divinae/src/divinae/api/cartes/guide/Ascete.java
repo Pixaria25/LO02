@@ -21,8 +21,6 @@ public class Ascete extends GuideSpirituel {
 
 	public void activerCapacite() {
     
-		Divinite divinite = Capacite.getActionSuivante().choisirDiviniteOuDogme(Dogme.Humain, Dogme.Symboles, this.getJoueurLie().getPartie());
-
 		Divinite divinite = getJoueurLie().choisirDiviniteOuDogme(Dogme.Humain, Dogme.Symboles);
 		
 

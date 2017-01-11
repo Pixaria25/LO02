@@ -104,6 +104,13 @@ public class JoueurVirtuel extends Joueur {
 		return Capacite.getActionSuivante().gspOuCroyant();
 	}
 
+	public Croyant choisirTasCroyant() {
+		return Capacite.getActionSuivante().choisirTasCroyant(this, getPartie());
+	}
+	
+	public GuideSpirituel choisirGspRenvoye(List<GuideSpirituel> gspCiblable) {
+		return Capacite.getActionSuivante().choisirGspRenvoye(gspCiblable);
+	}
 
 
 	public Strategie getStrategie() {

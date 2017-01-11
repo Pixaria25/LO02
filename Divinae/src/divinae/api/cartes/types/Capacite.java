@@ -12,8 +12,7 @@ public class Capacite {
 	private static boolean autorisationApocalypse = true;
 	private static ActionSuivante actionSuivante = null;
 	private static boolean annulationEffetCapa = false;
-	static boolean interuptionAnnulationCapa = false;
-	static Carte carteInterupt;
+	static CarteAction carteInterupt;
 
 
 	public static void setActionSuivante (ActionSuivante action)
@@ -232,16 +231,16 @@ public class Capacite {
 		partie.getDefausse().ajoutCarte(carte);
 	}
 
-	public static void renvoyerGsp (List<GuideSpirituel> gspCiblable, Partie partie) {
-		GuideSpirituel gsp = actionSuivante.choisirGspRenvoye(gspCiblable);
+	public static void renvoyerGsp (List<GuideSpirituel> gspCiblable, Carte cartePosee, Partie partie) {
+		GuideSpirituel gsp = cartePosee.getJoueurLie().choisirGspRenvoye(gspCiblable);
 		partie.getTasDeCroyants().addAll(gsp.getCroyantLie ());
 		gsp.getJoueurLie().tuerCarte(gsp);
 	}
 
-	public static void empecherSacrifice ( Dogme dogme1, Dogme dogme2, String vise, Partie partie) {
+	public static void empecherSacrifice ( Dogme dogme1, Dogme dogme2, String vise, Carte cartePosee, Partie partie) {
 		int tourFixe = partie.getNombreTour();
 		int jtourActuel = tourFixe;
-		Divinite divinite = actionSuivante.choisirDiviniteOuDogme (dogme1, dogme2, partie);
+		Divinite divinite = cartePosee.getJoueurLie().choisirDiviniteOuDogme (dogme1, dogme2);
 
 		while (jtourActuel==tourFixe) {
 			jtourActuel = partie.getNombreTour();
@@ -251,19 +250,19 @@ public class Capacite {
 		divinite.getJoueurLie().setAutorisation(null);
 	}
 
-	public static void imposerSacrifice (String vise, Partie partie) {
-		Joueur joueur = actionSuivante.choisirJoueurCible(partie);
+	public static void imposerSacrifice (String vise, Carte cartePosee, Partie partie) {
+		Joueur joueur = cartePosee.getJoueurLie().choisirJoueurCible();
 
 		switch (vise) {
 			case "GuideSpirituel" :
-				GuideSpirituel guideSpirituel = actionSuivante.choisirSonGsp(joueur, partie);
+				GuideSpirituel guideSpirituel =  cartePosee.getJoueurLie().choisirSonGsp();
 				joueur.activerCapaciteCarte(guideSpirituel);
 				partie.getTasDeCroyants().addAll(guideSpirituel.getCroyantLie());
 				partie.getDefausse().ajoutCarte(guideSpirituel);
 			break;
 
 			case "Croyant" :
-				Croyant croyant = actionSuivante.choisirCroyant(joueur, partie);
+				Croyant croyant =  cartePosee.getJoueurLie().choisirCroyant();
 				joueur.activerCapaciteCarte(croyant);
 				GuideSpirituel GpLie = croyant.getGuideLie();
 				partie.getDefausse().ajoutCarte(croyant);
@@ -275,10 +274,10 @@ public class Capacite {
 
 	  }
 
-	public static void imposerSacrificeGuideSpirituel (Divinite divinite, Partie partie) {
+	public static void imposerSacrificeGuideSpirituel (Divinite divinite, Carte cartePosee, Partie partie) {
 		Joueur joueur = divinite.getJoueurLie();
 
-		GuideSpirituel guideSpirituel = actionSuivante.choisirSonGsp(joueur, partie);
+		GuideSpirituel guideSpirituel = cartePosee.getJoueurLie().choisirSonGsp();
 		joueur.activerCapaciteCarte(guideSpirituel);
 		partie.getTasDeCroyants().addAll(guideSpirituel.getCroyantLie());
 		partie.getDefausse().ajoutCarte(guideSpirituel);
@@ -286,8 +285,8 @@ public class Capacite {
 
 	  }
 
-	public static void retirerTousCroyantLies (Partie partie) {
-		GuideSpirituel gsp = actionSuivante.choisirGsp(partie);
+	public static void retirerTousCroyantLies (Carte carteJouee, Partie partie) {
+		GuideSpirituel gsp = carteJouee.getJoueurLie().choisirGsp();
 		partie.getTasDeCroyants().addAll(gsp.getCroyantLie());
 		partie.getDefausse().ajoutCarte(gsp);
 	}
@@ -357,7 +356,7 @@ public class Capacite {
 	public static void prendreCartes (Carte carte, int nbCarte, Partie partie) {
 		int nbCartesPrises = 0;
 		int choixHasard = 0 ;
-		Joueur joueur = actionSuivante.choisirJoueurCible (partie);
+		Joueur joueur = carte.getJoueurLie().choisirJoueurCible();
 		while (nbCartesPrises < nbCarte | !joueur.getMain().isEmpty()) {
 			choixHasard = (int)Math.random()*(joueur.getMain().size()-1);
 			carte.getJoueurLie().getMain().add(joueur.getMain().get(choixHasard));
@@ -378,12 +377,11 @@ public class Capacite {
 		setAutorisationPointAction(true);
 	}
 
-	public static void annulerEffetCarte (Origine origineCarteCible, Origine [] origineCible, Partie partie) {
+	public static void annulerEffetCarte (CarteAction carteCible, Origine [] origineCible, Partie partie) {
 		int max = origineCible.length;
 		for (int i=0; i < max; i++ ){
-			if (origineCarteCible == origineCible[i]) {
-				CarteAction derniereCarte = partie.getTable().get(partie.getTable().lastIndexOf(partie.getTable()));
-				derniereCarte.setCapaciteBloqué(true);
+			if (carteCible.getOrigine() == origineCible[i]) {
+				carteCible.setCapaciteBloqué(true);
 				break;
 			}
 		}
@@ -421,19 +419,12 @@ public class Capacite {
 		Capacite.annulationEffetCapa = annulationEffetCapa;
 	}
 	
-	public static boolean isInteruptionAnnulationCapa() {
-		return interuptionAnnulationCapa;
-	}
 
-	public static void setInteruptionAnnulationCapa(boolean AnnulationCapa) {
-		interuptionAnnulationCapa = AnnulationCapa;
-	}
-
-	public static Carte getCarteInterupt() {
+	public static CarteAction getCarteInterupt() {
 		return carteInterupt;
 	}
 
-	public static void setCarteInterupt(Carte carteInterupt) {
+	public static void setCarteInterupt(CarteAction carteInterupt) {
 		Capacite.carteInterupt = carteInterupt;
 	}
 	

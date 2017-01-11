@@ -9,8 +9,8 @@ public class Revolutionnaires extends Croyant {
 
  
   public Revolutionnaires () {
-		super("Révolutionnaires", Origine.Neant, "Imposez le sacrifice d'une carte de Croyants à autant de Divinités"
-				+ " que vous le voulez. Chaque Divinité choisit la carte à sacrifier. Les capacités spéciales sont jouées.",
+		super("Rï¿½volutionnaires", Origine.Neant, "Imposez le sacrifice d'une carte de Croyants ï¿½ autant de Divinitï¿½s"
+				+ " que vous le voulez. Chaque Divinitï¿½ choisit la carte ï¿½ sacrifier. Les capacitï¿½s spï¿½ciales sont jouï¿½es.",
 				new Dogme [] {Dogme.Symboles, Dogme.Humain, Dogme.Chaos}, 2, 36);
 
 		// TODO Auto-generated constructor stub
@@ -19,8 +19,8 @@ public class Revolutionnaires extends Croyant {
   public void activerCapacite() {
 	  boolean stop = false;
 	  do {
-		Capacite.imposerSacrifice("Croyant", this.getJoueurLie().getPartie());
-	  	stop =  getJoueurLie().choixMultiples("Divinité");
+		Capacite.imposerSacrifice("Croyant", this,  this.getJoueurLie().getPartie());
+	  	stop =  getJoueurLie().choixMultiples("Divinitï¿½");
 	  } while (!stop);
   }
 }

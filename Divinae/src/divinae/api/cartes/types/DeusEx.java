@@ -9,9 +9,7 @@ public abstract class DeusEx extends CarteAction {
 
 	@Override
 	public void poserCarteAction() {
-		// TODO Auto-generated method stub
 		activerCapacite();
-		this.getJoueurLie().getPartie().getDefausse().ajoutCarte(this);
-
+		getJoueurLie().tuerCarte(this);
 	}
 }

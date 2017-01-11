@@ -11,8 +11,6 @@ public interface ActionSuivante
 	
 	GuideSpirituel choisirGsp (Partie partie);
 	
-	void ciblerGspRenvoye (List <GuideSpirituel> gspCiblable, Partie partie);
-	
 	Divinite choisirDiviniteOuDogme (Dogme dogme1, Dogme dogme2, Partie partie);
 	
 	GuideSpirituel choisirSonGsp (Joueur joueur, Partie partie);

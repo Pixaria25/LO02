@@ -1,6 +1,5 @@
 package divinae.api.cartes.guide;
 
-import divinae.api.cartes.types.Capacite;
 import divinae.api.cartes.types.Dogme;
 import divinae.api.cartes.types.GuideSpirituel;
 import divinae.api.cartes.types.Origine;
