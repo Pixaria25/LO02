@@ -279,9 +279,7 @@ public class Capacite {
 		joueur.activerCapaciteCarte(guideSpirituel);
 		partie.getTasDeCroyants().addAll(guideSpirituel.getCroyantLie());
 		partie.getDefausse().ajoutCarte(guideSpirituel);
-
-
-	  }
+	}
 
 	public static void retirerTousCroyantLies (Carte carteJouee, Partie partie) {
 		GuideSpirituel gsp = carteJouee.getJoueurLie().choisirGsp();
@@ -360,7 +358,6 @@ public class Capacite {
 			carte.getJoueurLie().getMain().add(joueur.getMain().get(choixHasard));
 			nbCartesPrises++;
 		}
-
 	}
 
 	public static void bloquerPointAction (Partie partie) {

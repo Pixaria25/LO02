@@ -97,7 +97,7 @@ public class InterfacePartie {
 						}
 						
 					} while(choixStrat < 0 || choixStrat > 3);
-					partie.ajouterUnJoueurVirtuel(nom, TypeStrategie.values()[choixStrat]);
+					partie.ajouterUnJoueurVirtuel(nom, TypeStrategie.values()[3]);
 					operationTerminee = true;
 					break;
 				case 3:
@@ -216,12 +216,12 @@ public class InterfacePartie {
 						} else {
 							partie.activerCartes();
 						}
-					
+
 					} else {
 						System.out.println("Vous ne pouvez pas jouer cette carte.");
 					}
 					break;
-	
+
 				case 2:
 					if(joueurCourant.isAutorisationcr() && joueurCourant.isAutorisationgsp()) {
 						System.out.println("Vous ne pouvez pas sacrifier de cartes.");
