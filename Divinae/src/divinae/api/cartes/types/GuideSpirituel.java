@@ -32,7 +32,7 @@ public abstract class GuideSpirituel extends CarteAction {
 
 	public void poserCarteAction() {
 		boolean validite = Capacite.retirerPointAction(this, this.getOrigine());
-		if (validite == true) {	
+		if (validite) {	
 			int indexCourant = getJoueurLie().getPartie().getIndexJoueur1();
 			setJoueurLie(getJoueurLie().getPartie().getJoueurs().get(indexCourant));
 			convertirCroyant(getJoueurLie().getPartie());

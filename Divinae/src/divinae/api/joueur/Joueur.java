@@ -39,9 +39,6 @@ public class Joueur {
 	public void poserCarteAction(int choixCarte) {
 		CarteAction carteAction = main.remove(choixCarte);
 		partie.getTable().add(carteAction);
-		if(carteAction.getOrigine() != Origine.Aucune) {
-			pointsAction[carteAction.getOrigine().ordinal()]--;
-		}
 	}
 	
 	public void jouer() {

@@ -180,7 +180,7 @@ public class Partie {
 	}
 	
 	public void activerCartes() {
-		for(int i = 0; i < table.size(); i++) {
+		for(int i = table.size(); i > 0; i++) {
 			table.get(i).poserCarteAction();
 		}
 	}
