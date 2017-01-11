@@ -107,16 +107,21 @@ public class JoueurVirtuel extends Joueur {
 		return strategie.gspOuCroyant();
 	}
 
-	@Override
+
+  @Override
 	public Croyant choisirTasCroyant() {
-		return strategie.choisirTasCroyant(this, getPartie());
+		return Capacite.getActionSuivante().choisirTasCroyant(this, getPartie());
+	}
+	
+  @Override
+	public GuideSpirituel choisirGspRenvoye(List<GuideSpirituel> gspCiblable) {
+		return Capacite.getActionSuivante().choisirGspRenvoye(gspCiblable);
 	}
 
-	@Override
-	public GuideSpirituel choisirGspRenvoye (List <GuideSpirituel> gspCiblable) {
-		return strategie.choisirGspRenvoye(gspCiblable);
-	}
+	public void messageListe (String message) {
 
+	}
+	
 	public Strategie getStrategie() {
 		return strategie;
 	}

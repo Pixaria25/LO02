@@ -131,8 +131,8 @@ public class Joueur {
 		return Capacite.getActionSuivante().choisirSonGsp(this, getPartie());
 	}
 	
-	public Croyant choisirCroyant () {
-		return Capacite.getActionSuivante().choisirCroyant(this, getPartie());
+	public Croyant choisirCroyant (Joueur joueur) {
+		return Capacite.getActionSuivante().choisirCroyant(joueur, getPartie());
 	}
 	
 	public Origine choisirOrigine () {
@@ -158,9 +158,14 @@ public class Joueur {
 	public Croyant choisirTasCroyant() {
 		return Capacite.getActionSuivante().choisirTasCroyant(this, getPartie());
 	}
-
-	public GuideSpirituel choisirGspRenvoye (List <GuideSpirituel> gspCiblable) {
+	
+	public GuideSpirituel choisirGspRenvoye(List<GuideSpirituel> gspCiblable) {
 		return Capacite.getActionSuivante().choisirGspRenvoye(gspCiblable);
+	}
+
+
+	public void messageListe (String message) {
+			System.out.println(message);
 	}
 	
 	
@@ -246,6 +251,7 @@ public class Joueur {
 		return retour;
 	}
 
+	
 
 	
 }

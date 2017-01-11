@@ -9,11 +9,12 @@ public abstract class DeusEx extends CarteAction {
 
 	@Override
 	public void poserCarteAction() {
+
 		// TODO Auto-generated method stub
 		boolean validite = Capacite.retirerPointAction(this, this.getOrigine());
 		if(validite) {
 			activerCapacite();
-			this.getJoueurLie().getPartie().getDefausse().ajoutCarte(this);
+			getJoueurLie().tuerCarte(this);
 		}
 	}
 }

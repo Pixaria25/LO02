@@ -330,7 +330,6 @@ public class ActionSuivanteConsole implements ActionSuivante {
 	}
 
 	public void messageRecap(String message) {
-
 		System.out.println(message);
 	}
 
