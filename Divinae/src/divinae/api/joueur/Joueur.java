@@ -138,8 +138,8 @@ public class Joueur {
 		return Capacite.getActionSuivante().choisirSonGsp(this, getPartie());
 	}
 	
-	public Croyant choisirCroyant () {
-		return Capacite.getActionSuivante().choisirCroyant(this, getPartie());
+	public Croyant choisirCroyant (Joueur joueur) {
+		return Capacite.getActionSuivante().choisirCroyant(joueur, getPartie());
 	}
 	
 	public Origine choisirOrigine () {

@@ -39,7 +39,7 @@ public class Fourberie extends DeusEx {
 
 		for (int k =0; k < 2; k++) {
 
-			Capacite.defausser( getJoueurLie().choisirCroyant(), partie);
+			Capacite.defausser( getJoueurLie().choisirCroyant(joueur), partie);
 		}
 
 

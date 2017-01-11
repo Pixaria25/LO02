@@ -349,7 +349,7 @@ public class ActionSuivanteConsole implements ActionSuivante
 		int choix = 0;
 		int indice=0;
 		System.out.println("Choisissez un croyant à prendre.");
-		for (int i = 0; i < joueur.getGuides().size(); i++) {
+		for (int i = 0; i < partie.getTasDeCroyants().size(); i++) {
 			System.out.println(indice + " : " + partie.getTasDeCroyants(i).getNom());
 			indice++;
 		}

@@ -262,7 +262,7 @@ public class Capacite {
 			break;
 
 			case "Croyant" :
-				Croyant croyant =  cartePosee.getJoueurLie().choisirCroyant();
+				Croyant croyant =  cartePosee.getJoueurLie().choisirCroyant(joueur);
 				joueur.activerCapaciteCarte(croyant);
 				GuideSpirituel GpLie = croyant.getGuideLie();
 				partie.getDefausse().ajoutCarte(croyant);

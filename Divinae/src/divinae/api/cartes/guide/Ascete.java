@@ -23,9 +23,9 @@ public class Ascete extends GuideSpirituel {
     
 		Divinite divinite = getJoueurLie().choisirDiviniteOuDogme(Dogme.Humain, Dogme.Symboles);
 		
-
 		for (int nb = 0; nb < 2 ; nb++){
-			Croyant croyantCible = getJoueurLie().choisirCroyant();
+			
+			Croyant croyantCible = getJoueurLie().choisirCroyant(divinite.getJoueurLie());
 			croyantCible.activerCapacite();
 			Capacite.defausser(croyantCible, this.getJoueurLie().getPartie());
 		}
