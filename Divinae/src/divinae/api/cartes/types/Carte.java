@@ -16,6 +16,7 @@ public abstract class Carte {
 		this.nom = nom;
 		this.origine = origine;
 		this.capacite = capacite;
+		this.joueurLie = null;
 		this.id = id;
 	}
 	
@@ -61,6 +62,17 @@ public abstract class Carte {
 		return id;
 	}
 
+	public static String dogmeToString(Dogme[] dogmes) {
+		String retour = "";
+		for(int i = 0; i < dogmes.length; i++) {
+			retour += dogmes[i]+", ";
+		}
+		return retour;
+	}
+	
 	public abstract void activerCapacite ();
 	
+	public String toString() {
+		return nom+"\n Origine: "+origine+"\n Capacite: "+capacite;
+	}
 }

@@ -25,6 +25,6 @@ public class Apocalypse extends  CarteAction {
 
 	@Override
 	public String toString() {
-		return "Carte " + getNom() + "\n " + getOrigine() + "\n " + getCapacite();
+		return "Apocalypse " + super.toString();
 	}
 }

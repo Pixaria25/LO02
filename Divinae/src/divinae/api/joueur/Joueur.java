@@ -57,6 +57,14 @@ public class Joueur {
 		return retour;
 	}
 	
+	public String afficherMainDetails() {
+		String retour = "";
+		for(int i = 0; i < main.size(); i++) {
+			retour += i+" - "+main.get(i)+"\n";
+		}
+		return retour;
+	}
+	
 	public List<Carte> lireCartes() {
 		List<Carte> cartes = new ArrayList<Carte>();
 		for(int i = 0; i < main.size(); i++) {
@@ -163,9 +171,8 @@ public class Joueur {
 		return Capacite.getActionSuivante().choisirGspRenvoye(gspCiblable);
 	}
 
-
 	public void messageListe (String message) {
-			System.out.println(message);
+			Capacite.getActionSuivante().messageRecap(message);
 	}
 	
 	
@@ -238,8 +245,6 @@ public class Joueur {
 	public Partie getPartie() {
 		return partie;
 	}
-
-
 
 	public boolean aDesCartesSansOrigine() {
 		boolean retour = false;

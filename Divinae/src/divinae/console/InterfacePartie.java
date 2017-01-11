@@ -24,6 +24,7 @@ public class InterfacePartie {
 	
 	public InterfacePartie() {
 		partie = new Partie();
+		Capacite.setActionSuivante(new ActionSuivanteConsole());
 	}
 	
 	public void lancerUnePartie() {
@@ -149,6 +150,7 @@ public class InterfacePartie {
 	
 	public void jouerUnTour() {
 		partie.debuterUnTour();
+		System.out.println("De de Cosmogonie : "+partie.getDe().getInfluence());
 		int indexCourant = partie.getIndexJoueur1();
 		for(int i = 0; i <  partie.getJoueurs().size(); i++) {
 			Joueur joueurCourant = partie.getJoueurs().get(indexCourant);
@@ -160,7 +162,7 @@ public class InterfacePartie {
 			} else {
 				jouerTourJoueurReel(joueurCourant);
 			}
-			
+			System.out.println(joueurCourant.getNom()+" a fini son tour.");
 			indexCourant = (indexCourant+1) % partie.getJoueurs().size();
 			partie.setCroyantsRattachables();
 		}
@@ -180,7 +182,7 @@ public class InterfacePartie {
 				return;
 			}
 			
-			System.out.println(partie.afficherTable());
+			
 			System.out.println(partie.afficherTasCroyants());
 			System.out.println(joueurCourant.afficherMain());
 			System.out.println(joueurCourant.afficherPoints());
@@ -188,7 +190,7 @@ public class InterfacePartie {
 			System.out.println("2 - Sacrifier un croyant ou un guide spirituel");
 			System.out.println("3 - Activer la capacite de la Divinite");
 			System.out.println("4 - Voir les cartes de sa main en detail");
-			System.out.println("5 - Voir les cartes sur la table en detail");
+			System.out.println("5 - Voir les guides et croyants lies d'un joueur en detail");
 			System.out.println("6 - Voir les cartes du tas de croyants en detail");
 			System.out.println("7 - Voir les details de sa divinite");
 			System.out.println("8 - Finir le tour");
@@ -263,11 +265,19 @@ public class InterfacePartie {
 					break;
 					
 				case 4:
-					System.out.println(joueurCourant.afficherMain());
+					System.out.println(joueurCourant.afficherMainDetails());
 					break;
 					
 				case 5:
-					partie.afficherDetailsTable();
+					for(int i = 0; i < partie.getJoueurs().size(); i++) {
+						System.out.println(i+" - "+partie.getJoueurs().get(i).getNom());
+					}
+					int choixJoueur = -1;
+					do {
+						System.out.println("Choisissez un nom.");
+						choixJoueur = scanner.nextInt();
+					} while(choixJoueur < 0 || choixJoueur > partie.getJoueurs().size());
+					partie.afficherDetailsGuidesCroyants(partie.getJoueurs().get(choixJoueur));
 					break;
 					
 				case 6:
@@ -368,6 +378,7 @@ public class InterfacePartie {
 		
 		String interruption = "";
 		do{
+			System.out.println(partie.afficherTable());
 			System.out.println("Est-ce qu'un joueur veut intervenir ? (y/n)");
 			interruption = scanner.next();
 			if(interruption.equals("y")) {

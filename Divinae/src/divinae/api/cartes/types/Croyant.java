@@ -52,7 +52,7 @@ public abstract class Croyant extends  CarteAction {
 
 	@Override
 	public String toString() {
-		return "Croyant " + getNom() + "\n " + getOrigine() + "\n " + dogme + "\n " + getCapacite();
+		return "Croyant " +super.toString()+ "\n Dogme: " + dogmeToString(dogme) + "\n Prieres: "+valeurCroyant;
 	}
 	
 }

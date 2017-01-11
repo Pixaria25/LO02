@@ -26,22 +26,27 @@ public class JoueurVirtuel extends Joueur {
 		defausser(strategie.defausser(getMain()));
 		boolean tourJoueurFini = false;
 		do{
-			int choix = strategie.jouer();
-			switch(choix) {
-				case 0:
-					poserCarteAction();
-					break;
-				case 1:
-					sacrifier();
-					break;
-				case 2:
-					getDivinite().activerCapacite();
-					break;
-				case 3:
-					tourJoueurFini = true;
-					break;
-				default:
+			try{
+				int choix = strategie.jouer();
+				switch(choix) {
+					case 0:
+						poserCarteAction();
+						break;
+					case 1:
+						sacrifier();
+						break;
+					case 2:
+						getDivinite().activerCapacite();
+						break;
+					case 3:
+						tourJoueurFini = true;
+						break;
+					default:
+				} 
+			}catch(IllegalArgumentException e) {
+					
 			}
+			
 		} while(!tourJoueurFini);
 	}
 
@@ -78,8 +83,8 @@ public class JoueurVirtuel extends Joueur {
 	}
 
 	@Override
-	public Croyant choisirCroyant () {
-		return strategie.choisirCroyant(this, getPartie());
+	public Croyant choisirCroyant (Joueur joueur) {
+		return strategie.choisirCroyant(joueur, getPartie());
 	}
 
 	@Override
@@ -110,12 +115,12 @@ public class JoueurVirtuel extends Joueur {
 
   @Override
 	public Croyant choisirTasCroyant() {
-		return Capacite.getActionSuivante().choisirTasCroyant(this, getPartie());
+		return strategie.choisirTasCroyant(this, getPartie());
 	}
 	
   @Override
 	public GuideSpirituel choisirGspRenvoye(List<GuideSpirituel> gspCiblable) {
-		return Capacite.getActionSuivante().choisirGspRenvoye(gspCiblable);
+		return strategie.choisirGspRenvoye(gspCiblable);
 	}
 
 	public void messageListe (String message) {

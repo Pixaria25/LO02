@@ -40,7 +40,7 @@ public class StrategieAleatoire implements Strategie {
 
 	@Override
 	public int choixCarteAction(List<CarteAction> main) {
-		int numCarte = random.nextInt(main.size());
+		int numCarte = random.nextInt(main.size()+1);
 		return numCarte;
 		// TODO Auto-generated method stub
 
@@ -54,7 +54,7 @@ public class StrategieAleatoire implements Strategie {
 	}
 
 	public Joueur choisirJoueurCible(Partie partie) {
-		int choix = random.nextInt(partie.getJoueurs().size());
+		int choix = random.nextInt(partie.getJoueurs().size()+1);
 		return partie.getJoueurs().get(choix);
 	}
 	
@@ -77,7 +77,7 @@ public class StrategieAleatoire implements Strategie {
 			}
 		}
 		
-		int choix = random.nextInt(gspCiblable.size());
+		int choix = random.nextInt(gspCiblable.size()+1);
 		return gspCiblable.get(choix);
 	}
 	
@@ -92,7 +92,7 @@ public class StrategieAleatoire implements Strategie {
 			}
 			choixDivinite++;
 		}
-		int choix = random.nextInt(diviniteCiblable.size());
+		int choix = random.nextInt(diviniteCiblable.size()+1);
 		return diviniteCiblable.get(choix);
 	}
 	
@@ -109,7 +109,7 @@ public class StrategieAleatoire implements Strategie {
 				gspCiblable.remove(i);
 			}
 		}
-		int choix = random.nextInt(gspCiblable.size());
+		int choix = random.nextInt(gspCiblable.size()+1);
 		return gspCiblable.get(choix);
 	}
 	
@@ -120,7 +120,7 @@ public class StrategieAleatoire implements Strategie {
 				croyantCiblable.add(joueur.getGuide(i).getCroyantLie(j));
 			}
 		}
-		int choix = random.nextInt(croyantCiblable.size());
+		int choix = random.nextInt(croyantCiblable.size()+1);
 		return croyantCiblable.get(choix);
 	}
 	
@@ -154,7 +154,7 @@ public class StrategieAleatoire implements Strategie {
 				gspCiblable.remove(i);
 			}
 		}
-		int choix = random.nextInt(gspCiblable.size());
+		int choix = random.nextInt(gspCiblable.size()+1);
 		return gspCiblable.get(choix);
 	}
 	
@@ -178,12 +178,12 @@ public class StrategieAleatoire implements Strategie {
 	}
 
 	public Croyant choisirTasCroyant(Joueur joueur, Partie partie){
-		int choix = random.nextInt(partie.getTasDeCroyants().size());
+		int choix = random.nextInt(partie.getTasDeCroyants().size()+1);
 		return partie.getTasDeCroyants(choix);
 	}
 	
 	public GuideSpirituel choisirGspRenvoye (List <GuideSpirituel> gspCiblable){
-		int choix = random.nextInt(gspCiblable.size());
+		int choix = random.nextInt(gspCiblable.size()+1);
 		return gspCiblable.get(choix);
 	}
 }

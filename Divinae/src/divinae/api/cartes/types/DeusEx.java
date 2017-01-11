@@ -17,4 +17,8 @@ public abstract class DeusEx extends CarteAction {
 			getJoueurLie().tuerCarte(this);
 		}
 	}
+	
+	public String toString() {
+		return "Deus Ex"+super.toString();
+	}
 }

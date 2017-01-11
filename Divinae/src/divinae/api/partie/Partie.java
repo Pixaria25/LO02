@@ -38,6 +38,10 @@ public class Partie {
 		this.defausse = new Defausse();
 		this.de = new De();
 		this.partieFinie = false;
+		//Joueurs par defaut
+		joueurs.add(new Joueur("Thomas", this));
+		joueurs.add(new JoueurVirtuel("Alex", this, new StrategieAleatoire()));
+		joueurs.add(new JoueurVirtuel("Fabrice", this, new StrategieAleatoire()));
 	}
 	
 	
@@ -51,7 +55,7 @@ public class Partie {
 	}
 	
 	public void ajouterUnJoueurVirtuel(String nom, TypeStrategie typeStrategie) {
-		TypeStrategie typeStrategieEffectif = typeStrategie;
+		/*TypeStrategie typeStrategieEffectif = typeStrategie;
 		if(typeStrategie == TypeStrategie.ALEATOIRE) {
 			Random random = new Random();
 			int choixStrat = 0;
@@ -65,7 +69,8 @@ public class Partie {
 
 		default: 
 			throw new RuntimeException("Type de strategie "+typeStrategie+" non prevu.");
-		}
+		}*/
+		joueurs.add(new JoueurVirtuel(nom, this, new StrategieAleatoire()));
 	}
 	
 	public void retirerUnJoueur(int indexJoueur) {
@@ -76,9 +81,12 @@ public class Partie {
 		ArrayList<Divinite> piocheDivinite = new ArrayList<Divinite>();
 		Collections.addAll(piocheDivinite, new Brewalen(), new Drinded(), new Gorpa(), new Gwenghelen(), 
 				new Killinstred(), new Llewella(), new PuiTara(), new Romtec(), new Shingua(), new Yarstur());
+		Collections.shuffle(piocheDivinite);
 		Random rd=new Random();
         for(int i=0;i<this.joueurs.size();i++) {
-            this.joueurs.get(i).setDivinite(piocheDivinite.remove(rd.nextInt(piocheDivinite.size())));
+        	Divinite div = (piocheDivinite.remove(rd.nextInt(piocheDivinite.size())));
+        	div.setJoueurLie(this.joueurs.get(i));
+            this.joueurs.get(i).setDivinite(div);
         }
 	}
 	
@@ -180,8 +188,9 @@ public class Partie {
 	}
 	
 	public void activerCartes() {
-		for(int i = table.size(); i > 0; i++) {
+		for(int i = table.size()-1; i > 0; i++) {
 			table.get(i).poserCarteAction();
+			table.remove(i);
 		}
 	}
 	
@@ -201,12 +210,24 @@ public class Partie {
 		return retour;
 	}
 	
-	public void afficherDetailsTable() {
-		
+	public String afficherDetailsGuidesCroyants(Joueur joueur) {
+		String retour = "Joueur "+joueur.getNom()+"\n \n";
+		for(int i = 0; i < joueur.getGuides().size(); i++) {
+			retour += joueur.getGuide(i)+"\n \n";
+			for(int j = 0; j < joueur.getGuide(i).getCroyantLie().size(); j++) {
+				retour += joueur.getGuide(i).getCroyantLie(j)+"\n";
+			}
+			retour += "\n";
+		}
+		return retour;
 	}
 	
-	public void afficherDetailsTasCroyants() {
-		
+	public String afficherDetailsTasCroyants() {
+		String retour = "";
+		for(int i = 0; i < tasDeCroyants.size(); i++) {
+			retour += tasDeCroyants.get(i)+"\n";
+		}
+		return retour;
 	}
 	
 	public List<Croyant> getTasDeCroyants() {
