@@ -11,7 +11,7 @@ public class Capacite {
 	private static boolean autorisationPointAction = true;
 	private static boolean autorisationApocalypse = true;
 	private static ActionSuivante actionSuivante = null;
-	private static boolean annulationEffetCapa = false;
+
 	static CarteAction carteInterupt;
 
 
@@ -23,81 +23,93 @@ public class Capacite {
 
 
 	public static List <GuideSpirituel> choisirDiviniteEtDogme (Dogme dogme1, Dogme dogme2, Partie partie) {
-		int choixDivinite = 0;
-		List <GuideSpirituel> gspCiblable = new ArrayList<GuideSpirituel>();
-		while (choixDivinite < partie.getJoueurs().size()) {
-			if (Capacite.comparerDogme(partie.getJoueurs().get(choixDivinite).getDivinite().getDogme(), dogme1, partie) && Capacite.comparerDogme(partie.getJoueurs().get(choixDivinite).getDivinite().getDogme(), dogme2, partie)) {
+		List <GuideSpirituel> gspCiblable = new ArrayList<GuideSpirituel>(); // tableau des guides que l'on peut cibler par cette capacitée
+		
+		for (int choixDivinite = 0; choixDivinite < partie.getJoueurs().size(); choixDivinite++) { // on parcours le tableau des joueurs 
+			Dogme[] dogmeDivinite = partie.getJoueurs().get(choixDivinite).getDivinite().getDogme(); // tableau des dogmes de la divinitée ciblée
+			if (Capacite.comparerDogme(dogmeDivinite, dogme1, partie) && Capacite.comparerDogme(dogmeDivinite, dogme2, partie)) { // les dogmes correspondent on ajoute tout les guides à la liste
 				gspCiblable.addAll(partie.getJoueurs().get(choixDivinite).getGuides());
+				
+				if (gspCiblable.get(choixDivinite).isProtectionCiblage()) { // le guide est protégé on l'enlève de la liste
+					gspCiblable.remove(choixDivinite);
+					choixDivinite--;
+				}
 			}
-			choixDivinite++;
 		}
-		for (int i = 0; i < gspCiblable.size(); i++) {
-			if (gspCiblable.get(i).isProtectionCiblage()) {
-				gspCiblable.remove(i);
-			}
-		}
+		
 		return gspCiblable;
 	}
 
 	public static List<GuideSpirituel> choisirDiviniteOrigine (Origine origine, Partie partie) {
-		int choixDivinite = 0;
-		List<GuideSpirituel> gspCiblable = new ArrayList<GuideSpirituel>();
-		while (choixDivinite < partie.getJoueurs().size()) {
-			if (partie.getJoueurs().get(choixDivinite).getDivinite().getOrigine()== (origine)) {
+		List <GuideSpirituel> gspCiblable = new ArrayList<GuideSpirituel>(); // tableau des guides que l'on peut cibler par cette capacitée
+		
+		for (int choixDivinite = 0; choixDivinite < partie.getJoueurs().size(); choixDivinite++) { // on parcours le tableau des joueurs 
+						
+			if (partie.getJoueurs().get(choixDivinite).getDivinite().getOrigine()== (origine)) { // les origines correspondent on ajoute tout les guides à la liste
 				gspCiblable.addAll(partie.getJoueurs().get(choixDivinite).getGuides());
-
+				
+				if (gspCiblable.get(choixDivinite).isProtectionCiblage()) { // le guide est protégé on l'enlève de la liste
+					gspCiblable.remove(choixDivinite);
+					choixDivinite--;
 				}
-			choixDivinite++;
-		}
-		for (int i = 0; i < gspCiblable.size(); i++) {
-			if (gspCiblable.get(i).isProtectionCiblage()) {
-				gspCiblable.remove(i);
 			}
 		}
+		
 		return gspCiblable;
 	}
 
 	public static boolean comparerDogme (Dogme[] dogme1, Dogme dogme2, Partie partie) {
-		boolean egal = false;
-		for (int i =0; i < dogme1.length; i++) {
-			if (dogme1 [i] == dogme2) {
+		boolean egal = false; 
+		
+		for (int i =0; i < dogme1.length; i++) { // on parcours le tableau de dogme
+			
+			if (dogme1 [i] == dogme2) { // un des dogme correspond on renvoit VRAI sinon FAUX
 				egal = true;
 			} else { egal = false; }
 		}
+		
 		return egal;
-
 	}
 
 	public static List<Croyant> trierCroyantDogme (Origine origine1, Origine origine2, Dogme dogme, Partie partie){
-		List <Croyant> croyantCiblable = new ArrayList <Croyant> ();
-		for (int i = 0; i < partie.getTasDeCroyants().size(); i++) {
-			if ((partie.getTasDeCroyants(i).getOrigine()==(origine1) || (partie.getTasDeCroyants(i).getOrigine()==(origine2)))&& Capacite.comparerDogme(partie.getTasDeCroyants(i).getDogme(), dogme, partie)) {
+		List <Croyant> croyantCiblable = new ArrayList <Croyant> (); // tableau des croyants que l'on peut cibler par cette capacitée
+		
+		for (int i = 0; i < partie.getTasDeCroyants().size(); i++) { // on parcours le tas de croyants
+			Origine origineCroyantTas = partie.getTasDeCroyants(i).getOrigine(); 
+			Dogme [] dogmeCroyant = partie.getTasDeCroyants(i).getDogme();
+			
+			if ((origineCroyantTas==(origine1) || (origineCroyantTas==(origine2))) && Capacite.comparerDogme(dogmeCroyant, dogme, partie)) { // le dogme et au moins une des deux origines correspondent le croyant est ajouté à la liste
 				croyantCiblable.add(partie.getTasDeCroyants(i));
 			}
 		}
 
-		for (int j = 0; j < partie.getJoueurs().size(); j++){
-			for (int k = 0; k < partie.getJoueurs().get(j).getGuides().size(); k++) {
-				for (int l = 0; l < partie.getJoueurs().get(j).getGuide(k).getCroyantLie().size(); l++){
-					if ((partie.getJoueurs().get(j).getGuide(k).getCroyantLie(l).getOrigine()==(origine1) || (partie.getJoueurs().get(j).getGuide(k).getCroyantLie(l).getOrigine()==(origine2))&& (Capacite.comparerDogme(partie.getJoueurs().get(j).getGuide(k).getCroyantLie(l).getDogme(), dogme, partie)))) {
-						croyantCiblable.add(partie.getJoueurs().get(j).getGuide(k).getCroyantLie(l));
+		for (int indiceJoueur = 0; indiceJoueur < partie.getJoueurs().size(); indiceJoueur++){
+			
+			for (int indiceGuide = 0; indiceGuide < partie.getJoueurs().get(indiceJoueur).getGuides().size(); indiceGuide++) {
+				
+				for (int indiceCroyant = 0; indiceCroyant < partie.getJoueurs().get(indiceJoueur).getGuide(indiceGuide).getCroyantLie().size(); indiceCroyant++){ // on parcours les croyant lies de tout les joueurs
+					Origine origineCroyantLie = partie.getJoueurs().get(indiceJoueur).getGuide(indiceGuide).getCroyantLie(indiceCroyant).getOrigine();
+					Dogme [] dogmeCroyantLie = partie.getJoueurs().get(indiceJoueur).getGuide(indiceGuide).getCroyantLie(indiceCroyant).getDogme();
+					
+					if ((origineCroyantLie==(origine1) || (origineCroyantLie==(origine2))&& (Capacite.comparerDogme(dogmeCroyantLie, dogme, partie)))) { // le dogme et au moins une des deux origines correspondent le croyant est ajouté à la liste
+						croyantCiblable.add(partie.getJoueurs().get(indiceJoueur).getGuide(indiceGuide).getCroyantLie(indiceCroyant));
+						
+						if (croyantCiblable.get(croyantCiblable.size()-1).isProtectionCiblage()) {
+							croyantCiblable.remove(croyantCiblable.size()-1);
+							indiceCroyant--;
+						}
 					}
 
 				}
 			}
 		}
 
-		for (int i = 0; i < croyantCiblable.size(); i++) {
-			if (croyantCiblable.get(i).isProtectionCiblage()) {
-				croyantCiblable.remove(i);
-			}
-		}
 		return croyantCiblable;
-
 	}
 
 	public static void donnerPointAction (int point, Origine origine, Joueur joueur) {
-		if (Capacite.isAutorisationApocalypse()==true) {
+		
+		if (Capacite.isAutorisationPointAction()) { // l'autorisation de modifier les points d'action est vérifié, on ajoute les points sinon c'est bloqué
 			joueur.ajoutPointsAction(point, origine);
 		} else {
 			joueur.messageListe("On ne peut pas gagner de point d'action jusqu'à la fin du tour (competence nihilistes)");
@@ -109,38 +121,44 @@ public class Capacite {
 		partie.getDe().getValeur();
 		
 		int indexCarteJouee = partie.getTable().size()-1;
-		Joueur joueurCourant = partie.getTable(indexCarteJouee).getJoueurLie();
+		Joueur joueurCourant = partie.getTable(indexCarteJouee).getJoueurLie(); 
 		joueurCourant.messageListe("La nouvelle influence est " + partie.getDe().getInfluence());
 	}
 
 	public static void lancerApocalypse (Partie partie) {
-		if (Capacite.isAutorisationApocalypse()== true) {
+		
+		if (Capacite.isAutorisationApocalypse()== true) { // l'autorisation de lancer une Apocalypse est valide on lance l'apocalypse sinon
+			
+			Capacite.resetAutorisations (partie);
+			Capacite.setAutorisationApocalypse (false);
 			partie.finirUnePartie();
-			int tourFixe = partie.getNombreTour();
-			int tourActuel = tourFixe;
-
-			for (int i=0; i < partie.getTable().size(); i++) {
-				if (partie.getTable(i).isProtectionCiblage()) {
-					partie.getTable(i).setProtectionCiblage(false);
-				}
-			}
-
-			while (tourFixe == tourActuel) {
-				Capacite.setAutorisationApocalypse (false);
-				tourActuel = partie.getNombreTour();
-			}
-			Capacite.setAutorisationApocalypse (true);
+			
 		} else {
 			int indexCarteJouee = partie.getTable().size()-1;
 			Joueur joueurCourant = partie.getTable(indexCarteJouee).getJoueurLie();
 			joueurCourant.messageListe("Impossible de lancer une Apocalyspe ce tour-ci veuillez attendre le tour prochain");
 		}
 	}
-
+	
+	// A faire en fin de tour 
+	public static void resetAutorisations (Partie partie) {
+		
+		for (int i=0; i < partie.getTable().size(); i++) {
+			
+			if (partie.getTable(i).isProtectionCiblage()) {
+				partie.getTable(i).setProtectionCiblage(false);
+				partie.getTable(i).setAutorisationSacrifice(true);
+				Capacite.setAutorisationApocalypse(true);
+				Capacite.setAutorisationPointAction(true);
+			}
+		}
+	}
+	
 	public static void recupererUnGsp (Carte carte) {
 		int indexCarteJouee = carte.getJoueurLie().getPartie().getTable().size()-1;
 		Joueur joueurCourant = carte.getJoueurLie().getPartie().getTable(indexCarteJouee).getJoueurLie();
 		GuideSpirituel GpCible = carte.getJoueurLie().choisirGsp();
+		
 		while (GpCible.getJoueurLie() == carte.getJoueurLie()) {
 			joueurCourant.messageListe("Ce guide spirituel vous appartient déjà, choisissez en un autre !");
 			GpCible = carte.getJoueurLie().choisirGsp();
@@ -150,11 +168,14 @@ public class Capacite {
 	}
 
 	public static boolean retirerPointAction (Carte  carte, Origine origine) {
+		int nbCroyantAvant = carte.getJoueurLie().getNombreCroyant();
+		int nbCroyantDeduit = (((Croyant) carte).getValeurCroyant());
+		
 		switch (carte.getOrigine()){
 		case Jour :
 			if (carte.getJoueurLie().getPointsAction()[Origine.Jour.ordinal()] >= 1) {
 				carte.getJoueurLie().getPointsAction()[Origine.Jour.ordinal()]--;
-				carte.getJoueurLie().setNombreCroyant(carte.getJoueurLie().getNombreCroyant()-(((Croyant) carte).getValeurCroyant()));
+				carte.getJoueurLie().setNombreCroyant(nbCroyantAvant-nbCroyantDeduit);
 				return true;
 			} else {
 				carte.getJoueurLie().messageListe("Pas de point d'origine jour.");
@@ -163,7 +184,7 @@ public class Capacite {
 		case Nuit :
 			if (carte.getJoueurLie().getPointsAction()[Origine.Nuit.ordinal()] >= 1) {
 				carte.getJoueurLie().getPointsAction()[Origine.Nuit.ordinal()]--;
-				carte.getJoueurLie().setNombreCroyant(carte.getJoueurLie().getNombreCroyant()-(((Croyant) carte).getValeurCroyant()));
+				carte.getJoueurLie().setNombreCroyant(nbCroyantAvant-nbCroyantDeduit);
 				return true;
 			} else {
 				carte.getJoueurLie().messageListe("Pas de point d'origine Nuit.");
@@ -172,7 +193,7 @@ public class Capacite {
 		case Neant :
 			if (carte.getJoueurLie().getPointsAction()[Origine.Neant.ordinal()] >= 1) {
 				carte.getJoueurLie().getPointsAction()[Origine.Neant.ordinal()]--;
-				carte.getJoueurLie().setNombreCroyant(carte.getJoueurLie().getNombreCroyant()-(((Croyant) carte).getValeurCroyant()));
+				carte.getJoueurLie().setNombreCroyant(nbCroyantAvant-nbCroyantDeduit);
 				return true;
 			} else {
 				carte.getJoueurLie().messageListe("Pas de point d'origine Neant.");
@@ -213,7 +234,7 @@ public class Capacite {
 	        case "Diversion" :
 	        case "Concentration" :
 	        case "Trou Noir" :
-	        case "Phoenix" : Capacite.copierCapacite(carte, partie);
+	        case "Phoenix" : Capacite.copierCapacite(null, carte, partie);
 	     	break;
 	    
 	        default : carte.getJoueurLie().messageListe("Cette carte n'a aucun effet bénéfique dire pour vous.");
@@ -238,16 +259,16 @@ public class Capacite {
 	}
 
 	public static void empecherSacrifice ( Dogme dogme1, Dogme dogme2, String vise, Carte cartePosee, Partie partie) {
-		int tourFixe = partie.getNombreTour();
-		int jtourActuel = tourFixe;
 		Divinite divinite = cartePosee.getJoueurLie().choisirDiviniteOuDogme (dogme1, dogme2);
-
-		while (jtourActuel==tourFixe) {
-			jtourActuel = partie.getNombreTour();
-			divinite.getJoueurLie().setAutorisation(vise);
+		CarteAction carteCible = null;
+		
+		if (vise == "Croyant") {
+			carteCible = divinite.getJoueurLie().choisirCroyant(divinite.getJoueurLie());
+		} else if (vise == "GuideSpirituel") {
+			carteCible = divinite.getJoueurLie().choisirSonGsp();
 		}
-
-		divinite.getJoueurLie().setAutorisation(null);
+		
+		carteCible.setAutorisationSacrifice(false);
 	}
 
 	public static void imposerSacrifice (String vise, Joueur joueurVise, Partie partie) {
@@ -289,30 +310,31 @@ public class Capacite {
 		partie.getDefausse().ajoutCarte(gsp);
 	}
 
-	public static void copierCapacite (Carte carte, Partie partie) {
-		Joueur joueurOriginal = carte.getJoueurLie();
-		carte.setJoueurLie(carte.getJoueurLie());
-		carte.activerCapacite();
-		carte.setJoueurLie(joueurOriginal);
+	public static void copierCapacite (Joueur joueurCourant, Carte carteCible, Partie partie) {
+		Joueur joueurOriginal = carteCible.getJoueurLie();
+		carteCible.setJoueurLie(joueurCourant);
+		carteCible.activerCapacite();
+		carteCible.setJoueurLie(joueurOriginal);
 	}
 
-	public static void recupererPointAction (Carte carte, Partie partie){
+	public static void recupererPointAction (Joueur joueurCourant, Partie partie){
 		int indexJoueur1 = partie.getIndexJoueur1();
-		int indexJoueurCourant = carte.getJoueurLie().getPartie().getJoueurs().indexOf(carte.getJoueurLie());
+		int indexJoueurCourant = partie.getJoueurs().indexOf(joueurCourant);
+		
 		if (indexJoueur1 < indexJoueurCourant){
 			for (int i = indexJoueurCourant+1; i < partie.getJoueurs().size();i++){
-				carte.getJoueurLie().ajoutPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Jour.ordinal()],Origine.Jour);
-				carte.getJoueurLie().ajoutPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Nuit.ordinal()],Origine.Nuit );
-				carte.getJoueurLie().ajoutPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Neant.ordinal()],Origine.Neant);
+				joueurCourant.ajoutPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Jour.ordinal()],Origine.Jour);
+				joueurCourant.ajoutPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Nuit.ordinal()],Origine.Nuit );
+				joueurCourant.ajoutPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Neant.ordinal()],Origine.Neant);
 
 				partie.getJoueurs().get(i).soustrPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Jour.ordinal()],Origine.Jour);
 				partie.getJoueurs().get(i).soustrPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Nuit.ordinal()],Origine.Nuit);
 				partie.getJoueurs().get(i).soustrPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Neant.ordinal()],Origine.Neant);
 			}
 			for (int i = indexJoueur1-1; i > -1 ;i--){
-				carte.getJoueurLie().ajoutPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Jour.ordinal()],Origine.Jour);
-				carte.getJoueurLie().ajoutPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Nuit.ordinal()],Origine.Nuit );
-				carte.getJoueurLie().ajoutPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Neant.ordinal()],Origine.Neant);
+				joueurCourant.ajoutPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Jour.ordinal()],Origine.Jour);
+				joueurCourant.ajoutPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Nuit.ordinal()],Origine.Nuit );
+				joueurCourant.ajoutPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Neant.ordinal()],Origine.Neant);
 
 				partie.getJoueurs().get(i).soustrPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Jour.ordinal()],Origine.Jour);
 				partie.getJoueurs().get(i).soustrPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Nuit.ordinal()],Origine.Nuit);
@@ -320,9 +342,9 @@ public class Capacite {
 			}
 		} else if (indexJoueur1 > indexJoueurCourant){
 				for (int i = indexJoueurCourant+1; i < indexJoueur1;i++){
-					carte.getJoueurLie().ajoutPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Jour.ordinal()],Origine.Jour);
-					carte.getJoueurLie().ajoutPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Nuit.ordinal()],Origine.Nuit );
-					carte.getJoueurLie().ajoutPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Neant.ordinal()],Origine.Neant);
+					joueurCourant.ajoutPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Jour.ordinal()],Origine.Jour);
+					joueurCourant.ajoutPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Nuit.ordinal()],Origine.Nuit );
+					joueurCourant.ajoutPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Neant.ordinal()],Origine.Neant);
 
 					partie.getJoueurs().get(i).soustrPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Jour.ordinal()],Origine.Jour);
 					partie.getJoueurs().get(i).soustrPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Nuit.ordinal()],Origine.Nuit);
@@ -330,18 +352,18 @@ public class Capacite {
 				}
 			} else {
 				for (int i = indexJoueurCourant+1; i < partie.getJoueurs().size();i++){
-					carte.getJoueurLie().ajoutPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Jour.ordinal()],Origine.Jour);
-					carte.getJoueurLie().ajoutPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Nuit.ordinal()],Origine.Nuit );
-					carte.getJoueurLie().ajoutPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Neant.ordinal()],Origine.Neant);
+					joueurCourant.ajoutPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Jour.ordinal()],Origine.Jour);
+					joueurCourant.ajoutPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Nuit.ordinal()],Origine.Nuit );
+					joueurCourant.ajoutPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Neant.ordinal()],Origine.Neant);
 
 					partie.getJoueurs().get(i).soustrPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Jour.ordinal()],Origine.Jour);
 					partie.getJoueurs().get(i).soustrPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Nuit.ordinal()],Origine.Nuit);
 					partie.getJoueurs().get(i).soustrPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Neant.ordinal()],Origine.Neant);
 				}
 				for (int i = indexJoueur1-1; i > -1 ;i--){
-					carte.getJoueurLie().ajoutPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Jour.ordinal()],Origine.Jour);
-					carte.getJoueurLie().ajoutPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Nuit.ordinal()],Origine.Nuit );
-					carte.getJoueurLie().ajoutPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Neant.ordinal()],Origine.Neant);
+					joueurCourant.ajoutPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Jour.ordinal()],Origine.Jour);
+					joueurCourant.ajoutPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Nuit.ordinal()],Origine.Nuit );
+					joueurCourant.ajoutPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Neant.ordinal()],Origine.Neant);
 
 					partie.getJoueurs().get(i).soustrPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Jour.ordinal()],Origine.Jour);
 					partie.getJoueurs().get(i).soustrPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Nuit.ordinal()],Origine.Nuit);
@@ -364,20 +386,15 @@ public class Capacite {
 	}
 
 	public static void bloquerPointAction (Partie partie) {
-		int tourFixe = partie.getNombreTour();
-		int tourActuel = tourFixe;
-
-		while (tourFixe == tourActuel) {
-			setAutorisationPointAction(false);
-			tourActuel = partie.getNombreTour();
-		}
 
 		setAutorisationPointAction(true);
 	}
 
 	public static void annulerEffetCarte (CarteAction carteCible, Origine [] origineCible, Partie partie) {
 		int max = origineCible.length;
+		
 		for (int i=0; i < max; i++ ){
+			
 			if (carteCible.getOrigine() == origineCible[i]) {
 				carteCible.setCapaciteBloqué(true);
 				break;
@@ -409,14 +426,6 @@ public class Capacite {
 		return actionSuivante;
 	}
 
-	public static boolean isAnnulationEffetCapa() {
-		return annulationEffetCapa;
-	}
-
-	public static void setAnnulationEffetCapa(boolean annulationEffetCapa) {
-		Capacite.annulationEffetCapa = annulationEffetCapa;
-	}
-	
 
 	public static CarteAction getCarteInterupt() {
 		return carteInterupt;

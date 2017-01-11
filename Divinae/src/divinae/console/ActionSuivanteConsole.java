@@ -13,7 +13,6 @@ import divinae.api.cartes.types.Dogme;
 import divinae.api.cartes.types.GuideSpirituel;
 import divinae.api.cartes.types.Origine;
 import divinae.api.joueur.Joueur;
-import divinae.api.joueur.JoueurVirtuel;
 import divinae.api.partie.Partie;
 
 public class ActionSuivanteConsole implements ActionSuivante

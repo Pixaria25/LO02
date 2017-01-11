@@ -9,6 +9,7 @@ public abstract class Carte {
 	private String nom;
 	private Joueur joueurLie;
 	private boolean protectionCiblage = false;
+	private boolean autorisationSacrifice = true;
 	private int id;
 		
 	public Carte(String nom, Origine origine, String capacite, int id) {
@@ -60,7 +61,15 @@ public abstract class Carte {
 	public int getId() {
 		return id;
 	}
-
+	
+	public boolean isAutorisationSacrifice () {
+		return autorisationSacrifice;
+	}
+	
+	public void setAutorisationSacrifice(boolean b) {
+		autorisationSacrifice = b;
+	}
+	
 	public abstract void activerCapacite ();
 	
 }
