@@ -250,20 +250,18 @@ public class Capacite {
 		divinite.getJoueurLie().setAutorisation(null);
 	}
 
-	public static void imposerSacrifice (String vise, Carte cartePosee, Partie partie) {
-		Joueur joueur = cartePosee.getJoueurLie().choisirJoueurCible();
-
+	public static void imposerSacrifice (String vise, Joueur joueurVise, Partie partie) {
 		switch (vise) {
 			case "GuideSpirituel" :
-				GuideSpirituel guideSpirituel =  cartePosee.getJoueurLie().choisirSonGsp();
-				joueur.activerCapaciteCarte(guideSpirituel);
+				GuideSpirituel guideSpirituel =  joueurVise.choisirSonGsp();
+				joueurVise.activerCapaciteCarte(guideSpirituel);
 				partie.getTasDeCroyants().addAll(guideSpirituel.getCroyantLie());
 				partie.getDefausse().ajoutCarte(guideSpirituel);
 			break;
 
 			case "Croyant" :
-				Croyant croyant =  cartePosee.getJoueurLie().choisirCroyant(joueur);
-				joueur.activerCapaciteCarte(croyant);
+				Croyant croyant =  joueurVise.choisirCroyant(joueurVise);
+				joueurVise.activerCapaciteCarte(croyant);
 				GuideSpirituel GpLie = croyant.getGuideLie();
 				partie.getDefausse().ajoutCarte(croyant);
 				if (GpLie.getCroyantLie().isEmpty()) {
@@ -274,10 +272,10 @@ public class Capacite {
 
 	  }
 
-	public static void imposerSacrificeGuideSpirituel (Divinite divinite, Carte cartePosee, Partie partie) {
+	public static void imposerSacrificeGuideSpirituel (Divinite divinite, Partie partie) {
 		Joueur joueur = divinite.getJoueurLie();
 
-		GuideSpirituel guideSpirituel = cartePosee.getJoueurLie().choisirSonGsp();
+		GuideSpirituel guideSpirituel = joueur.choisirSonGsp();
 		joueur.activerCapaciteCarte(guideSpirituel);
 		partie.getTasDeCroyants().addAll(guideSpirituel.getCroyantLie());
 		partie.getDefausse().ajoutCarte(guideSpirituel);

@@ -19,7 +19,7 @@ public class Revolutionnaires extends Croyant {
   public void activerCapacite() {
 	  boolean stop = false;
 	  do {
-		Capacite.imposerSacrifice("Croyant", this,  this.getJoueurLie().getPartie());
+		Capacite.imposerSacrifice("Croyant",  getJoueurLie(),  getJoueurLie().getPartie());
 	  	stop =  getJoueurLie().choixMultiples("Divinit�");
 	  } while (!stop);
   }

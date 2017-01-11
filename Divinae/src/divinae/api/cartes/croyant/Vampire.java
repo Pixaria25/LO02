@@ -16,6 +16,6 @@ public class Vampire extends Croyant {
 	}
   
   public void activerCapacite() {
-	  	Capacite.imposerSacrifice("Croyant", this, this.getJoueurLie().getPartie());
+	  	Capacite.imposerSacrifice("Croyant", getJoueurLie(), getJoueurLie().getPartie());
   } 
 }
