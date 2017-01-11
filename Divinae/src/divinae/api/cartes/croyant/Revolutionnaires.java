@@ -1,7 +1,5 @@
 package divinae.api.cartes.croyant;
 
-import java.util.Scanner;
-
 import divinae.api.cartes.types.Capacite;
 import divinae.api.cartes.types.Croyant;
 import divinae.api.cartes.types.Dogme;
@@ -11,37 +9,18 @@ public class Revolutionnaires extends Croyant {
 
  
   public Revolutionnaires () {
-		super("Révolutionnaires", Origine.Neant, "Imposez le sacrifice d'une carte de Croyants à autant de Divinités"
-				+ " que vous le voulez. Chaque Divinité choisit la carte à sacrifier. Les capacités spéciales sont jouées.",
-				new Dogme [] {Dogme.Symboles, Dogme.Humain, Dogme.Chaos}, 2);
+		super("Rï¿½volutionnaires", Origine.Neant, "Imposez le sacrifice d'une carte de Croyants ï¿½ autant de Divinitï¿½s"
+				+ " que vous le voulez. Chaque Divinitï¿½ choisit la carte ï¿½ sacrifier. Les capacitï¿½s spï¿½ciales sont jouï¿½es.",
+				new Dogme [] {Dogme.Symboles, Dogme.Humain, Dogme.Chaos}, 2, 36);
 
 		// TODO Auto-generated constructor stub
 	}
   
   public void activerCapacite() {
 	  boolean stop = false;
-	  boolean valChoix;
 	  do {
-		valChoix = false;  
-	  	Capacite.imposerSacrifice("Croyant", this.getJoueurLie().getPartie());
-	  	System.out.println("Voulez vous cibler une autre Divinité ? "
-	  			+ "\n 1 : Oui "
-	  			+ "\n 2 : Non ");
-	  	while (!valChoix) {
-		  	Scanner sc = new Scanner(System.in);
-			int choix = sc.nextInt();	
-			sc.close();
-		  	
-			switch (choix) {
-			case 1 : stop = false;
-			break;
-			case 2 : stop = true;
-					 valChoix = true;
-			break;
-			default : System.out.println("Choix invalide, veuillez choisir 1 : OUI ou 2 : NON ");
-					  valChoix = false;
-			}
-	  	}
+		Capacite.imposerSacrifice("Croyant",  getJoueurLie(),  getJoueurLie().getPartie());
+	  	stop =  getJoueurLie().choixMultiples("Divinitï¿½");
 	  } while (!stop);
   }
 }

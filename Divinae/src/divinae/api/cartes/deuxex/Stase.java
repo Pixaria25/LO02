@@ -1,6 +1,5 @@
 package divinae.api.cartes.deuxex;
 
-import divinae.api.cartes.types.Capacite;
 import divinae.api.cartes.types.DeusEx;
 import divinae.api.cartes.types.GuideSpirituel;
 import divinae.api.cartes.types.Origine;
@@ -8,14 +7,15 @@ import divinae.api.cartes.types.Origine;
 public class Stase extends DeusEx {
 
 	public Stase() {
-		super("Stase", Origine.Jour, "Protège un Guide Spirituel et ses Croyants jusqu'à ce que cette carte soit annulée ou jusqu'à la prochaine tentative d'Apocalypse.");
+		super("Stase", Origine.Jour, "Protï¿½ge un Guide Spirituel et ses Croyants jusqu'ï¿½ ce que cette carte soit annulï¿½e ou jusqu'ï¿½ la prochaine "
+										 + "tentative d'Apocalypse.", 60);
 		// TODO Auto-generated constructor stub
 	}
 
 
 	@Override
 	public void activerCapacite() {
-		GuideSpirituel Gp = Capacite.choisirGsp(this.getJoueurLie().getPartie());
+		GuideSpirituel Gp = getJoueurLie().choisirGsp();
 		Gp.setProtectionCiblage(true);
 		for (int i = 0; i < Gp.getCroyantLie().size(); i++) {
 			Gp.getCroyantLie(i).setProtectionCiblage(true);

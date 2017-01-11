@@ -9,8 +9,8 @@ public  class Alienies extends Croyant {
 
 	private int option;
 
-	public Alienies(String nom, String capacite, Dogme[] dogme, int option) {
-		super("Alienes", Origine.Neant, capacite, dogme, 2);
+	public Alienies(String nom, String capacite, Dogme[] dogme, int option, int id) {
+		super("Alienes", Origine.Neant, capacite, dogme, 2, id);
 		this.option = option;
 		// TODO Auto-generated constructor stub
 	}
@@ -18,16 +18,16 @@ public  class Alienies extends Croyant {
 	public void activerCapacite() {
 		switch (option) {
 		case 1 : 
-			Capacite.empecherSacrifice(Dogme.Nature, Dogme.Mystique, "Croyant" , this.getJoueurLie().getPartie());
+			Capacite.empecherSacrifice(Dogme.Nature, Dogme.Mystique, "Croyant" , this, this.getJoueurLie().getPartie());
 			break;
 		case 2 : 
-			Capacite.empecherSacrifice(Dogme.Chaos, Dogme.Mystique, "GuideSpirituel" , this.getJoueurLie().getPartie());
+			Capacite.empecherSacrifice(Dogme.Chaos, Dogme.Mystique, "GuideSpirituel", this, this.getJoueurLie().getPartie());
 			break;
 		case 3 : 
 			Capacite.prendreCartes(this, 2, this.getJoueurLie().getPartie());
 			break;
 		default : 
-			throw new RuntimeException("Problème ! Cette option de capacité n'est pas prise en compte dans le code");
+			throw new RuntimeException("Problï¿½me ! Cette option de capacitï¿½ n'est pas prise en compte dans le code");
 		}
 	
 	}

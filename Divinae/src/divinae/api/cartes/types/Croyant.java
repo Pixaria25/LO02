@@ -1,25 +1,29 @@
 package divinae.api.cartes.types;
 
-public abstract class Croyant extends Carte implements Action {
+public abstract class Croyant extends  CarteAction {
 	
 	private Dogme [] dogme;
-	private int nombreCroyant;
+	private int valeurCroyant;
 	private GuideSpirituel guideLie;
+	private boolean rattachable;
 	
-	
-	public Croyant(String nom, Origine origine, String capacite, Dogme[] dogme, int nombreCroyant) {
+	public Croyant(String nom, Origine origine, String capacite, Dogme[] dogme, int nombreCroyant, int id) {
 		// TODO Auto-generated constructor stub
-		super(nom, origine, capacite);
+		super(nom, origine, capacite, id);
 	    this.dogme = dogme;
-		this.nombreCroyant = nombreCroyant;
+		this.valeurCroyant = nombreCroyant;
 		this.guideLie = null;
+		this.rattachable = false;
 	}
 
-	@Override
 	public void poserCarteAction() {
-		// TODO Auto-generated method stub
-		getJoueurLie().getPartie().getTasDeCroyants().add(this);
-		setJoueurLie(null);
+
+		boolean validite = Capacite.retirerPointAction(this, this.getOrigine());
+		if (validite) {	
+			getJoueurLie().getPartie().getTasDeCroyants().add(this);
+			setJoueurLie(null);
+		}
+    
 	}
 	
 	public GuideSpirituel getGuideLie() {
@@ -34,13 +38,21 @@ public abstract class Croyant extends Carte implements Action {
 		return dogme;
 	}
 
-	public int getNombreCroyant() {
-		return nombreCroyant;
+	public int getValeurCroyant() {
+		return valeurCroyant;
 	}
 	
-	@Override
-	public String toString() {
-		return "Croyant" + getNom() + "\n " + getOrigine() + "\n " + dogme + "\n " + getCapacite();
+	public boolean isRattachable() {
+		return rattachable;
 	}
 
+	public void setRattachable(boolean rattachable) {
+		this.rattachable = rattachable;
+	}
+
+	@Override
+	public String toString() {
+		return "Croyant " + getNom() + "\n " + getOrigine() + "\n " + dogme + "\n " + getCapacite();
+	}
+	
 }

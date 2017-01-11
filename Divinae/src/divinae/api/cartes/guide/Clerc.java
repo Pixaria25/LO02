@@ -7,18 +7,18 @@ import divinae.api.cartes.types.Origine;
 
 public class Clerc extends GuideSpirituel {
   
-  public Clerc (Origine origine, Dogme[] dogme) {
-	 	super("Clerc", origine, "Fait gagner un nombre de points d'Action égal au nombre de cartes de Croyants rattachées."
-	 			+ " L'Origine des points d'Action est au choix du joueur.", dogme, 2);
+  public Clerc (Origine origine, Dogme[] dogme, int id) {
+	 	super("Clerc", origine, "Fait gagner un nombre de points d'Action Ã©gal au nombre de cartes de Croyants rattachÃ©es."
+	 			+ " L'Origine des points d'Action est au choix du joueur.", dogme, 2, id);
 		
 		// TODO Auto-generated constructor stub
 	}
 
 
 	public void activerCapacite() {
-		Origine origine = Capacite.choisirOrigine();
-		Capacite.donnerPointAction(this.getCroyantLie().size(), origine, this.getJoueurLie());
+		Origine origine = getJoueurLie().choisirOrigine();
+
+    Capacite.donnerPointAction(this.getCroyantLie().size(), origine, this.getJoueurLie());
+
 	}
-	
-	  
 }

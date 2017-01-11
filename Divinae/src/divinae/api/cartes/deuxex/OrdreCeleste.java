@@ -1,6 +1,5 @@
 package divinae.api.cartes.deuxex;
 
-import divinae.api.cartes.types.Capacite;
 import divinae.api.cartes.types.DeusEx;
 import divinae.api.cartes.types.GuideSpirituel;
 import divinae.api.cartes.types.Origine;
@@ -8,17 +7,16 @@ import divinae.api.cartes.types.Origine;
 public class OrdreCeleste extends DeusEx {
 
 	public OrdreCeleste() {
-		super("Ordre Celeste", Origine.Jour, "Vous récupérez un des Guides Spirituels posés devant "
-				+ "une autre Divinité et le placez devant vous avec les Croyants qui y sont attachés.");
+		super("Ordre Celeste", Origine.Jour, "Vous rï¿½cupï¿½rez un des Guides Spirituels posï¿½s devant "
+				+ "une autre Divinitï¿½ et le placez devant vous avec les Croyants qui y sont attachï¿½s.", 61);
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void activerCapacite() {
-		GuideSpirituel GpVole = Capacite.choisirGsp(this.getJoueurLie().getPartie());
+		GuideSpirituel GpVole =  getJoueurLie().choisirGsp();
 		while (GpVole.getCroyantLie() == this.getJoueurLie()){
-			System.out.println("Veuillez choisir un autre guide spirituel que l'un des votre pour cette effet.");
-			GpVole = Capacite.choisirGsp(this.getJoueurLie().getPartie());
+			GpVole =  getJoueurLie().choisirGsp();
 		}
 		GpVole.setJoueurLie(this.getJoueurLie());
 	}
