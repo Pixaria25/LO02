@@ -330,7 +330,6 @@ public class ActionSuivanteConsole implements ActionSuivante {
 	}
 
 	public void messageRecap(String message) {
-
 		System.out.println(message);
 	}
 
@@ -338,9 +337,11 @@ public class ActionSuivanteConsole implements ActionSuivante {
 	public Croyant choisirTasCroyant(Joueur joueur, Partie partie) {
 		int choix = 0;
 		System.out.println("Choisissez un croyant à prendre.");
+
 		for (int i = 0; i < joueur.getGuides().size(); i++) {
 			System.out.println(i + " : " + partie.getTasDeCroyants(i).getNom());
 		}
+    
 		Scanner sc = new Scanner(System.in);
 		do {
 			System.out.println("(Entrez le nombre compris entre 1 et " + partie.getJoueurs().size()

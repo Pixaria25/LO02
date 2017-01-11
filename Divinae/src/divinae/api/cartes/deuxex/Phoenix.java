@@ -20,7 +20,7 @@ public class Phoenix extends DeusEx {
 		Partie partie = this.getJoueurLie().getPartie();
 		int choix =  getJoueurLie().gspOuCroyant();
 		if (choix == 1) {
-			Croyant croyantCapa =  getJoueurLie().choisirCroyant();
+			Croyant croyantCapa =  getJoueurLie().choisirCroyant(getJoueurLie());
 			Capacite.copierCapacite(croyantCapa, partie);
 		} else {
 			GuideSpirituel GpCapa =  getJoueurLie().choisirSonGsp();

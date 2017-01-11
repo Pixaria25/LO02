@@ -208,14 +208,19 @@ public class InterfacePartie {
 					if(poserCarte) {
 						joueurCourant.poserCarteAction(choixCarte);
 						demanderInterruption();
-						partie.activerCartes();
+						// Solution ?
+						Capacite.setCarteInterupt(joueurCourant.getMain().get(choixCarte));
+						CarteAction cartePosee = Capacite.getCarteInterupt();
+						if (cartePosee.isCapaciteBloqué() && ( !(cartePosee instanceof Croyant) ||  !(cartePosee instanceof GuideSpirituel) )) {
+							System.out.println(cartePosee.getNom() + " a été bloqué !");
+						} else {
+							partie.activerCartes();
+						}
 					} else {
 						System.out.println("Vous ne pouvez pas jouer cette carte.");
 					}
 					break;
-							
 
-				
 				case 2:
 					if(joueurCourant.isAutorisationcr() && joueurCourant.isAutorisationgsp()) {
 						System.out.println("Vous ne pouvez pas sacrifier de cartes.");
@@ -235,11 +240,14 @@ public class InterfacePartie {
 						} else {
 									Capacite.setCarteInterupt(listeCartesSacrifiables.get(choixSacrifice));
 									demanderInterruption();
-									if (Capacite.isInteruptionAnnulationCapa()) {
-										System.out.println("Votre capacit� a �t� contr� ! Elle est defausser normalent si elle doit l'�tre");
+									if (listeCartesSacrifiables.get(choixSacrifice).isCapaciteBloqué()) {
+										System.out.println(joueurCourant.getMain().get(choixSacrifice).getNom() + " a été bloqué !");
+									} else {
+										joueurCourant.sacrifierCarte(listeCartesSacrifiables.get(choixSacrifice));
+										
 										break;
 									}
-							joueurCourant.sacrifierCarte(listeCartesSacrifiables.get(choixSacrifice));
+									joueurCourant.tuerCarte(listeCartesSacrifiables.get(choixSacrifice));
 						}
 					}
 					break;

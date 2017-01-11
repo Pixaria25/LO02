@@ -10,12 +10,12 @@ public class Vampire extends Croyant {
  
   public Vampire (String nom, Dogme[] dogme, int id) {
 		super(nom, Origine.Nuit, "Impose le sacrifice d'un Croyant d'un autre joueur. Celui-ci choisit le "
-				+ "sacrifié. La capacité spéciale du sacrifice est jouée.", dogme, 1, id);
+				+ "sacrifiï¿½. La capacitï¿½ spï¿½ciale du sacrifice est jouï¿½e.", dogme, 1, id);
 
 		// TODO Auto-generated constructor stub
 	}
   
   public void activerCapacite() {
-	  	Capacite.imposerSacrifice("Croyant", this.getJoueurLie().getPartie());
+	  	Capacite.imposerSacrifice("Croyant", getJoueurLie(), getJoueurLie().getPartie());
   } 
 }

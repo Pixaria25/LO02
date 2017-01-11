@@ -107,6 +107,7 @@ public class JoueurVirtuel extends Joueur {
 		return strategie.gspOuCroyant();
 	}
 
+
 	@Override
 	public Croyant choisirTasCroyant() {
 		return strategie.choisirTasCroyant(this, getPartie());
@@ -117,6 +118,10 @@ public class JoueurVirtuel extends Joueur {
 		return strategie.choisirGspRenvoye(gspCiblable);
 	}
 
+	public void messageListe (String message) {
+		
+	}
+	
 	public Strategie getStrategie() {
 		return strategie;
 	}

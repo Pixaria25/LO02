@@ -14,6 +14,7 @@ public class Integristes extends Croyant {
 	}
   
   public void activerCapacite() {
-	  	Capacite.imposerSacrifice("Guide Spirituel", this.getJoueurLie().getPartie());
+
+	  	Capacite.imposerSacrifice("GuideSpirituel", getJoueurLie(), getJoueurLie().getPartie());
   }
 }

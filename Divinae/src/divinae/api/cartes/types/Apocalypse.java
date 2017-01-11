@@ -16,9 +16,8 @@ public class Apocalypse extends  CarteAction {
 
 	@Override
 	public void poserCarteAction() {
-		// TODO Auto-generated method stub
 		activerCapacite();
-		this.getJoueurLie().getPartie().getDefausse().ajoutCarte(this);
+		getJoueurLie().tuerCarte(this);
 	}
 
 	@Override

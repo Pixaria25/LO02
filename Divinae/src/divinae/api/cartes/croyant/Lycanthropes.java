@@ -8,13 +8,13 @@ import divinae.api.cartes.types.Origine;
 public class Lycanthropes extends Croyant {
 
 	public Lycanthropes() {
-		super("Lycanthropes", Origine.Nuit, "Retirez tous les Croyants attachés à l'un des Guides Spirituels d'une autre Divinité. "
-				+ "Les Croyants reviennent au milieu de la table, le Guide Spirituel est défaussé.",
+		super("Lycanthropes", Origine.Nuit, "Retirez tous les Croyants attachï¿½s ï¿½ l'un des Guides Spirituels d'une autre Divinitï¿½. "
+				+ "Les Croyants reviennent au milieu de la table, le Guide Spirituel est dï¿½faussï¿½.",
 				new Dogme [] {Dogme.Humain, Dogme.Nature, Dogme.Chaos}, 4, 24);
 		// TODO Auto-generated constructor stub
 	}
 
 	 public void activerCapacite() {
-		  	Capacite.retirerTousCroyantLies(this.getJoueurLie().getPartie());
+		  	Capacite.retirerTousCroyantLies(this, this.getJoueurLie().getPartie());
 	  }
 }

@@ -21,13 +21,11 @@ public class Ascete extends GuideSpirituel {
 
 	public void activerCapacite() {
     
-		Divinite divinite = Capacite.getActionSuivante().choisirDiviniteOuDogme(Dogme.Humain, Dogme.Symboles, this.getJoueurLie().getPartie());
-
 		Divinite divinite = getJoueurLie().choisirDiviniteOuDogme(Dogme.Humain, Dogme.Symboles);
 		
-
 		for (int nb = 0; nb < 2 ; nb++){
-			Croyant croyantCible = getJoueurLie().choisirCroyant();
+			
+			Croyant croyantCible = getJoueurLie().choisirCroyant(divinite.getJoueurLie());
 			croyantCible.activerCapacite();
 			Capacite.defausser(croyantCible, this.getJoueurLie().getPartie());
 		}
