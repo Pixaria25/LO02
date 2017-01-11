@@ -18,8 +18,8 @@ public abstract class Croyant extends  CarteAction {
 
 	public void poserCarteAction() {
 
-    boolean validite = Capacite.retirerPointAction(this, this.getOrigine());
-		if (validite == true) {	
+		boolean validite = Capacite.retirerPointAction(this, this.getOrigine());
+		if (validite) {	
 			getJoueurLie().getPartie().getTasDeCroyants().add(this);
 			setJoueurLie(null);
 		}
@@ -52,7 +52,7 @@ public abstract class Croyant extends  CarteAction {
 
 	@Override
 	public String toString() {
-		return "Croyant " + getNom() + "\n " + getOrigine() + "\n " + dogme + "\n " + getCapacite();
+		return "Croyant " +super.toString()+ "\n Dogme: " + dogmeToString(dogme) + "\n Prieres: "+valeurCroyant;
 	}
 	
 }

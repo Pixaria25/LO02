@@ -1,13 +1,9 @@
 package divinae.api.cartes.types;
 
-
-import divinae.api.joueur.Joueur;
-
 public abstract class Divinite extends Carte {
 
 	private Dogme[] dogme;
 	private String description;
-	private Joueur joueurLie;
 	private boolean capaciteActivee;
 	
 	public Divinite (String nom, Origine origine, String capacite,Dogme[] dogme, String description, int id) {
@@ -23,10 +19,6 @@ public abstract class Divinite extends Carte {
 		return dogme;
 	}
 
-	public Joueur getJoueurLie() {
-		return joueurLie;
-	}
-
 	public boolean capaciteActivee() {
 		return capaciteActivee;
 	}
@@ -40,6 +32,6 @@ public abstract class Divinite extends Carte {
 	
 	@Override
 	public String toString() {
-		return "Divinite " + getNom() + "\n " + description + "\n " + getOrigine() + "\n " + dogme + "\n " + getCapacite();
+		return"Divinite "+super.toString()+ "\n Dogme: " + dogmeToString(dogme) +"\n Description: " + description;
 	}
 }

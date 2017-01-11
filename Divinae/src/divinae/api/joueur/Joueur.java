@@ -39,9 +39,6 @@ public class Joueur {
 	public void poserCarteAction(int choixCarte) {
 		CarteAction carteAction = main.remove(choixCarte);
 		partie.getTable().add(carteAction);
-		if(carteAction.getOrigine() != Origine.Aucune) {
-			pointsAction[carteAction.getOrigine().ordinal()]--;
-		}
 	}
 	
 	public void jouer() {
@@ -56,6 +53,14 @@ public class Joueur {
 		String retour = "";
 		for(int i = 0; i < main.size(); i++) {
 			retour += i+" - "+main.get(i).getNom()+"	";
+		}
+		return retour;
+	}
+	
+	public String afficherMainDetails() {
+		String retour = "";
+		for(int i = 0; i < main.size(); i++) {
+			retour += i+" - "+main.get(i)+"\n";
 		}
 		return retour;
 	}
@@ -129,10 +134,6 @@ public class Joueur {
 	public GuideSpirituel choisirGsp() {
 		return Capacite.getActionSuivante().choisirGsp(getPartie());
 	}
-	// A completer
-	public void renvoyerGsp (List <GuideSpirituel> gspCiblable, Partie partie) {
-		
-	}
 	
 	public Divinite choisirDiviniteOuDogme (Dogme dogme1, Dogme dogme2) {
 		return Capacite.getActionSuivante().choisirDiviniteOuDogme(dogme1, dogme2, getPartie());
@@ -175,7 +176,7 @@ public class Joueur {
 	}
 
 	public void messageListe (String message) {
-			System.out.println(message);
+			Capacite.getActionSuivante().messageRecap(message);
 	}
 	
 	
@@ -248,8 +249,6 @@ public class Joueur {
 	public Partie getPartie() {
 		return partie;
 	}
-
-
 
 	public boolean aDesCartesSansOrigine() {
 		boolean retour = false;

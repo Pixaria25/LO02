@@ -9,7 +9,16 @@ public abstract class DeusEx extends CarteAction {
 
 	@Override
 	public void poserCarteAction() {
-		activerCapacite();
-		getJoueurLie().tuerCarte(this);
+
+		// TODO Auto-generated method stub
+		boolean validite = Capacite.retirerPointAction(this, this.getOrigine());
+		if(validite) {
+			activerCapacite();
+			getJoueurLie().tuerCarte(this);
+		}
+	}
+	
+	public String toString() {
+		return "Deus Ex"+super.toString();
 	}
 }

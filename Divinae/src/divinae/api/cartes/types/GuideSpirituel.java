@@ -58,6 +58,6 @@ public abstract class GuideSpirituel extends CarteAction {
 	
 	@Override
 	public String toString() {
-		return "Guide Spirituel " + getNom() + "\n " + getOrigine() + "\n " + dogme + "\n " + getCapacite();
+		return "Guide Spirituel " +super.toString()+ "\n Dogme: " + dogmeToString(dogme) + "\n Nombre de croyants: "+nombreCroyantLiable;
 	}
 }

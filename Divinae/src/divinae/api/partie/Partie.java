@@ -9,9 +9,7 @@ import divinae.api.cartes.divinite.*;
 import divinae.api.cartes.types.*;
 import divinae.api.joueur.Joueur;
 import divinae.api.joueur.JoueurVirtuel;
-import divinae.api.joueur.StrategieDefensive;
-import divinae.api.joueur.StrategieEquilibre;
-import divinae.api.joueur.StrategieOffensive;
+import divinae.api.joueur.StrategieAleatoire;
 import divinae.api.cartes.croyant.*;
 import divinae.api.cartes.deuxex.*;
 import divinae.api.cartes.guide.*;
@@ -40,6 +38,10 @@ public class Partie {
 		this.defausse = new Defausse();
 		this.de = new De();
 		this.partieFinie = false;
+		//Joueurs par defaut
+		joueurs.add(new Joueur("Thomas", this));
+		joueurs.add(new JoueurVirtuel("Alex", this, new StrategieAleatoire()));
+		joueurs.add(new JoueurVirtuel("Fabrice", this, new StrategieAleatoire()));
 	}
 	
 	
@@ -53,7 +55,7 @@ public class Partie {
 	}
 	
 	public void ajouterUnJoueurVirtuel(String nom, TypeStrategie typeStrategie) {
-		TypeStrategie typeStrategieEffectif = typeStrategie;
+		/*TypeStrategie typeStrategieEffectif = typeStrategie;
 		if(typeStrategie == TypeStrategie.ALEATOIRE) {
 			Random random = new Random();
 			int choixStrat = 0;
@@ -61,21 +63,14 @@ public class Partie {
 			typeStrategieEffectif = TypeStrategie.values()[choixStrat];
 		}
 		switch (typeStrategieEffectif) {
-		case OFFENSIVE:
-			joueurs.add(new JoueurVirtuel(nom, this, new StrategieOffensive()));
-			break;
-
-		case DEFENSIVE:
-			joueurs.add(new JoueurVirtuel(nom, this, new StrategieDefensive()));
-			break;
-			
-		case EQUILIBRE:
-			joueurs.add(new JoueurVirtuel(nom, this, new StrategieEquilibre()));
+		case ALEATOIRE:
+			joueurs.add(new JoueurVirtuel(nom, this, new StrategieAleatoire()));
 			break;
 
 		default: 
 			throw new RuntimeException("Type de strategie "+typeStrategie+" non prevu.");
-		}
+		}*/
+		joueurs.add(new JoueurVirtuel(nom, this, new StrategieAleatoire()));
 	}
 	
 	public void retirerUnJoueur(int indexJoueur) {
@@ -86,9 +81,12 @@ public class Partie {
 		ArrayList<Divinite> piocheDivinite = new ArrayList<Divinite>();
 		Collections.addAll(piocheDivinite, new Brewalen(), new Drinded(), new Gorpa(), new Gwenghelen(), 
 				new Killinstred(), new Llewella(), new PuiTara(), new Romtec(), new Shingua(), new Yarstur());
+		Collections.shuffle(piocheDivinite);
 		Random rd=new Random();
         for(int i=0;i<this.joueurs.size();i++) {
-            this.joueurs.get(i).setDivinite(piocheDivinite.remove(rd.nextInt(piocheDivinite.size())));
+        	Divinite div = (piocheDivinite.remove(rd.nextInt(piocheDivinite.size())));
+        	div.setJoueurLie(this.joueurs.get(i));
+            this.joueurs.get(i).setDivinite(div);
         }
 	}
 	
@@ -191,8 +189,9 @@ public class Partie {
 	}
 	
 	public void activerCartes() {
-		for(int i = 0; i < table.size(); i++) {
+		for(int i = table.size()-1; i > 0; i++) {
 			table.get(i).poserCarteAction();
+			table.remove(i);
 		}
 	}
 	
@@ -212,12 +211,24 @@ public class Partie {
 		return retour;
 	}
 	
-	public void afficherDetailsTable() {
-		
+	public String afficherDetailsGuidesCroyants(Joueur joueur) {
+		String retour = "Joueur "+joueur.getNom()+"\n \n";
+		for(int i = 0; i < joueur.getGuides().size(); i++) {
+			retour += joueur.getGuide(i)+"\n \n";
+			for(int j = 0; j < joueur.getGuide(i).getCroyantLie().size(); j++) {
+				retour += joueur.getGuide(i).getCroyantLie(j)+"\n";
+			}
+			retour += "\n";
+		}
+		return retour;
 	}
 	
-	public void afficherDetailsTasCroyants() {
-		
+	public String afficherDetailsTasCroyants() {
+		String retour = "";
+		for(int i = 0; i < tasDeCroyants.size(); i++) {
+			retour += tasDeCroyants.get(i)+"\n";
+		}
+		return retour;
 	}
 	
 	public List<Croyant> getTasDeCroyants() {

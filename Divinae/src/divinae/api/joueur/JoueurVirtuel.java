@@ -1,9 +1,7 @@
 package divinae.api.joueur;
 
 import java.util.List;
-import java.util.Random;
 
-import divinae.api.cartes.types.Capacite;
 import divinae.api.cartes.types.Carte;
 import divinae.api.cartes.types.CarteAction;
 import divinae.api.cartes.types.Croyant;
@@ -16,7 +14,7 @@ import divinae.api.partie.Partie;
 public class JoueurVirtuel extends Joueur {
 
 	private Strategie strategie;
-	private Random random = new Random();
+	
 	
 	public JoueurVirtuel(String nom, Partie partie,Strategie strategie) {
 		super(nom, partie);
@@ -28,22 +26,27 @@ public class JoueurVirtuel extends Joueur {
 		defausser(strategie.defausser(getMain()));
 		boolean tourJoueurFini = false;
 		do{
-			int choix = strategie.jouer();
-			switch(choix) {
-				case 0:
-					poserCarteAction();
-					break;
-				case 1:
-					sacrifier();
-					break;
-				case 2:
-					getDivinite().activerCapacite();
-					break;
-				case 3:
-					tourJoueurFini = true;
-					break;
-				default:
+			try{
+				int choix = strategie.jouer();
+				switch(choix) {
+					case 0:
+						poserCarteAction();
+						break;
+					case 1:
+						sacrifier();
+						break;
+					case 2:
+						getDivinite().activerCapacite();
+						break;
+					case 3:
+						tourJoueurFini = true;
+						break;
+					default:
+				} 
+			}catch(IllegalArgumentException e) {
+					
 			}
+			
 		} while(!tourJoueurFini);
 	}
 
@@ -58,58 +61,66 @@ public class JoueurVirtuel extends Joueur {
 
 	
 	//Appel des methodes de ActionSuivante
+
+	@Override
 	public Joueur choisirJoueurCible() {
-		int choixJoueur = random.nextInt(getPartie().getJoueurs().size());
-		return getPartie().getJoueurs().get(choixJoueur);
-	}
-	
-	public GuideSpirituel choisirGsp() {
-		int choixJoueur = random.nextInt(getPartie().getJoueurs().size());
-		return Capacite.getActionSuivante().choisirGsp(getPartie());
-	}
-	
-	public void renvoyerGsp (List <GuideSpirituel> gspCiblable, Partie partie) {
-		
-	}
-	
-	public Divinite choisirDiviniteOuDogme (Dogme dogme1, Dogme dogme2, Partie partie) {
-		return Capacite.getActionSuivante().choisirDiviniteOuDogme(dogme1, dogme2, partie);
-	}
-	
-	public GuideSpirituel choisirSonGsp () {
-		return Capacite.getActionSuivante().choisirSonGsp(this, getPartie());
-	}
-	
-	public Croyant choisirCroyant () {
-		return Capacite.getActionSuivante().choisirCroyant(this, getPartie());
-	}
-	
-	public Origine choisirOrigine () {
-		return Capacite.getActionSuivante().choisirOrigine();
-	}
-	
-	public GuideSpirituel choisirDiviniteOuGspNonDogme (Dogme dogme) {
-		return Capacite.getActionSuivante().choisirDiviniteOuGspNonDogme(dogme, getPartie());
-	}
-	
-	public void choisirFaceDe (Carte carte,Partie partie) {
-		Capacite.getActionSuivante().choisirFaceDe(carte, partie);
-	}
-	
-	public boolean choixMultiples (String cible) {
-		return Capacite.getActionSuivante().choixMultiples(cible);
-	}
-	
-	public int gspOuCroyant () {
-		return Capacite.getActionSuivante().gspOuCroyant();
+		return strategie.choisirJoueurCible(getPartie());
 	}
 
-	public Croyant choisirTasCroyant() {
-		return Capacite.getActionSuivante().choisirTasCroyant(this, getPartie());
+	@Override
+	public GuideSpirituel choisirGsp() {
+		return strategie.choisirGsp(getPartie());
+	}
+
+	@Override
+	public Divinite choisirDiviniteOuDogme (Dogme dogme1, Dogme dogme2) {
+		return strategie.choisirDiviniteOuDogme(dogme1, dogme2, getPartie());
+	}
+
+	@Override
+	public GuideSpirituel choisirSonGsp () {
+		return strategie.choisirSonGsp(this, getPartie());
+	}
+
+	@Override
+	public Croyant choisirCroyant (Joueur joueur) {
+		return strategie.choisirCroyant(joueur, getPartie());
+	}
+
+	@Override
+	public Origine choisirOrigine () {
+		return strategie.choisirOrigine();
+	}
+
+	@Override
+	public GuideSpirituel choisirDiviniteOuGspNonDogme (Dogme dogme) {
+		return strategie.choisirDiviniteOuGspNonDogme(dogme, getPartie());
 	}
 	
+	@Override
+	public void choisirFaceDe (Carte carte) {
+		strategie.choisirFaceDe(carte, getPartie());;
+	}
+
+	@Override
+	public boolean choixMultiples (String cible) {
+		return strategie.choixMultiples(cible);
+	}
+
+	@Override
+	public int gspOuCroyant () {
+		return strategie.gspOuCroyant();
+	}
+
+
+  @Override
+	public Croyant choisirTasCroyant() {
+		return strategie.choisirTasCroyant(this, getPartie());
+	}
+	
+  @Override
 	public GuideSpirituel choisirGspRenvoye(List<GuideSpirituel> gspCiblable) {
-		return Capacite.getActionSuivante().choisirGspRenvoye(gspCiblable);
+		return strategie.choisirGspRenvoye(gspCiblable);
 	}
 
 	public void messageListe (String message) {
