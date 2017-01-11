@@ -113,7 +113,7 @@ public class JoueurVirtuel extends Joueur {
 	}
 
 	public void messageListe (String message) {
-		System.out.println(message);
+
 	}
 	
 	public Strategie getStrategie() {
