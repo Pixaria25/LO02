@@ -158,6 +158,7 @@ public class Partie {
 	
 	public void preparerTourProchain() {
 		indexJoueur1 = (indexJoueur1 + 1) % joueurs.size();
+		Capacite.resetAutorisations(this);
 	}
 	
 	//Ajout des points aux joueurs selon le type de leur divinite et selon la valeur du de de Cosmogonie
