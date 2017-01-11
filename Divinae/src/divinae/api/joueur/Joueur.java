@@ -105,8 +105,12 @@ public class Joueur {
 	}
 	
 	public void sacrifierCarte(CarteAction carte) {
-		carte.activerCapacite();
-		tuerCarte(carte);
+		if (carte.isAutorisationSacrifice()) {
+			carte.activerCapacite();
+			tuerCarte(carte);
+		} else { 
+			Capacite.getActionSuivante().messageRecap(carte.getNom() + " est protegée contre le sacrifice");
+		}
 	}
 
 	public void tuerCarte(CarteAction carte) {

@@ -8,10 +8,10 @@ import divinae.api.partie.Partie;
 public class Yarstur extends Divinite {
 
 	public Yarstur() {
-		super("Yarstur", Origine.Jour, "Peut détruire toutes les cartes de Croyants "
-				+ "au centre de la table d'Origine Néant.", 
+		super("Yarstur", Origine.Jour, "Peut dï¿½truire toutes les cartes de Croyants "
+				+ "au centre de la table d'Origine Nï¿½ant.", 
 				new Dogme[]{Dogme.Chaos, Dogme.Symboles, Dogme.Mystique}, 
-				"Dernier pur du jour, Yarstur combat le Néant sous toutes ses formes.", 83);
+				"Dernier pur du jour, Yarstur combat le Nï¿½ant sous toutes ses formes.", 83);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -22,7 +22,7 @@ public class Yarstur extends Divinite {
 		Partie partie = this.getJoueurLie().getPartie();
 		for (int i=0; i < partie.getTasDeCroyants().size(); i++) {
 			if (partie.getTasDeCroyants(i).getOrigine() == Origine.Neant) {
-				partie.getDefausse().ajoutCarte(partie.getTasDeCroyants(i));
+				partie.getTasDeCroyants(i).getJoueurLie().tuerCarte(partie.getTasDeCroyants(i));
 			}
 		}
 		

@@ -8,13 +8,13 @@ import divinae.api.cartes.types.Origine;
 public  class Pillards extends Croyant {
   
   public Pillards () {
-	 	super("Pillards", Origine.Nuit, "Récupérez les points d'Action d'une Divinité n'ayant pas encore joué durant "
-	 			+ "ce tour. Les points d'Action dardents leur Origine. La Divinité perd ses points.", 
+	 	super("Pillards", Origine.Nuit, "Rï¿½cupï¿½rez les points d'Action d'une Divinitï¿½ n'ayant pas encore jouï¿½ durant "
+	 			+ "ce tour. Les points d'Action dardents leur Origine. La Divinitï¿½ perd ses points.", 
 	 			new Dogme [] {Dogme.Symboles, Dogme.Nature, Dogme.Mystique}, 4, 25);
 		// TODO Auto-generated constructor stub
 	}
   
   public void activerCapacite() {
-		Capacite.recupererPointAction(this, this.getJoueurLie().getPartie());;
+		Capacite.recupererPointAction(getJoueurLie(), this.getJoueurLie().getPartie());;
 	}
 }
