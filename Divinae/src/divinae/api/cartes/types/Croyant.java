@@ -8,8 +8,7 @@ public abstract class Croyant extends  CarteAction {
 	private boolean rattachable;
 	
 	public Croyant(String nom, Origine origine, String capacite, Dogme[] dogme, int nombreCroyant, int id) {
-		// TODO Auto-generated constructor stub
-		super(nom, origine, capacite, id);
+		super(nom, "Croyant", origine, capacite, id);
 	    this.dogme = dogme;
 		this.valeurCroyant = nombreCroyant;
 		this.guideLie = null;
@@ -17,13 +16,8 @@ public abstract class Croyant extends  CarteAction {
 	}
 
 	public void poserCarteAction() {
-
-		boolean validite = Capacite.retirerPointAction(this, this.getOrigine());
-		if (validite) {	
-			getJoueurLie().getPartie().getTasDeCroyants().add(this);
-			setJoueurLie(null);
-		}
-    
+		getJoueurLie().getPartie().getTasDeCroyants().add(this);
+		setJoueurLie(null);
 	}
 	
 	public GuideSpirituel getGuideLie() {

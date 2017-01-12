@@ -18,6 +18,7 @@ import divinae.api.partie.Partie;
 public class ActionSuivanteConsole implements ActionSuivante {
 
 	@Override
+
 	public Joueur choisirJoueurCible(List<Joueur> liste) {
 		afficherListeJoueur(liste);
 		Joueur joueur = selectionnerElementListeJoueur(liste);

@@ -13,7 +13,7 @@ public abstract class GuideSpirituel extends CarteAction {
 	
 	
 	public GuideSpirituel (String nom, Origine origine, String capacite, Dogme[] dogme, int nombreCroyantLiable, int id) {
-		super(nom, origine, capacite, id);
+		super(nom, "Guide Spirituel", origine, capacite, id);
 		this.croyantLie = new ArrayList<Croyant>();
 		this.dogme = dogme;
 		this.nombreCroyantLiable = nombreCroyantLiable;

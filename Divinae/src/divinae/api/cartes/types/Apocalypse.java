@@ -3,7 +3,7 @@ package divinae.api.cartes.types;
 public class Apocalypse extends  CarteAction {
 
 	public Apocalypse(Origine origine, int id) {
-		super("Apocalypse", origine, "Lance une apocalypse.", id);
+		super("Apocalypse", "",origine, "Lance une apocalypse.", id);
 		// TODO Auto-generated constructor stub
 	}
 
