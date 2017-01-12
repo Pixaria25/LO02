@@ -38,7 +38,7 @@ public class ActionSuivanteConsole implements ActionSuivante {
 
 		Joueur joueur = partie.getJoueurs().get(choix);
 		System.out.println("Vous avez ciblé " + joueur.getNom());
-
+		
 		while (joueur == null) {
 			joueur = choisirJoueurCible(partie);
 			if (joueur.getGuides().isEmpty()) {

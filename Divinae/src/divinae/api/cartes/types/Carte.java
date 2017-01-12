@@ -10,10 +10,11 @@ public abstract class Carte {
 	private Joueur joueurLie;
 	private boolean protectionCiblage = false;
 	private int id;
+	private String categorie;
 		
-	public Carte(String nom, Origine origine, String capacite, int id) {
-		// TODO Auto-generated constructor stub
+	public Carte(String nom, String categorie, Origine origine, String capacite, int id) {
 		this.nom = nom;
+		this.categorie = categorie;
 		this.origine = origine;
 		this.capacite = capacite;
 		this.joueurLie = null;
@@ -62,6 +63,10 @@ public abstract class Carte {
 		return id;
 	}
 
+	public String getCategorieEtNom() {
+		return categorie+":"+nom;
+	}
+	
 	public static String dogmeToString(Dogme[] dogmes) {
 		String retour = "";
 		for(int i = 0; i < dogmes.length; i++) {

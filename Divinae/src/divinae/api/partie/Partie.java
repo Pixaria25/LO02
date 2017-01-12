@@ -195,15 +195,15 @@ public class Partie {
 	}
 	
 	public String afficherTable() {
-		String retour = "";
+		String retour = "Table: ";
 		for(int i = 0; i < table.size(); i++) {
-			retour += table.get(i).getNom()+"\n";
+			retour += table.get(i).getCategorieEtNom()+"\n";
 		}
 		return retour;
 	}
 	
 	public String afficherTasCroyants() {
-		String retour = "";
+		String retour = "Tas des croyants: ";
 		for(int i = 0; i < tasDeCroyants.size(); i++) {
 			retour += tasDeCroyants.get(i).getNom()+"\n";
 		}
