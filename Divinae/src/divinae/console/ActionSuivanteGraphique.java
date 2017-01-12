@@ -15,13 +15,13 @@ public class ActionSuivanteGraphique implements ActionSuivante
 {
 
 	@Override
-	public Joueur choisirJoueurCible(Partie partie) {
+	public Joueur choisirJoueurCible(List<Joueur> liste) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public GuideSpirituel choisirGsp(Partie partie) {
+	public GuideSpirituel choisirGsp(Joueur joueur, Partie partie) {
 		// TODO Auto-generated method stub
 		return null;
 	}

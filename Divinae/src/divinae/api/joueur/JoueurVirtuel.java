@@ -63,8 +63,8 @@ public class JoueurVirtuel extends Joueur {
 	//Appel des methodes de ActionSuivante
 
 	@Override
-	public Joueur choisirJoueurCible() {
-		return strategie.choisirJoueurCible(getPartie());
+	public Joueur choisirJoueurCible(List<Joueur> liste) {
+		return strategie.choisirJoueurCible(liste);
 	}
 
 	@Override

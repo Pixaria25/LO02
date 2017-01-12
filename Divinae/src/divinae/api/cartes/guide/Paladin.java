@@ -20,9 +20,10 @@ public class Paladin extends GuideSpirituel {
 
 
 	public void activerCapacite() {
-		List<Croyant> croyantASuppr = Capacite.trierCroyantDogme(Origine.Nuit, Origine.Neant, Dogme.Nature, this.getJoueurLie().getPartie());
+		List<Croyant> croyantASuppr = Capacite.trierCroyantDogme(Origine.Nuit, Origine.Neant, Dogme.Nature, getJoueurLie().getPartie());
+		
 		for(int i=0; i < croyantASuppr.size(); i++){
-			Capacite.defausser(croyantASuppr.get(i), this.getJoueurLie().getPartie());
+			Capacite.defausser(croyantASuppr.get(i), getJoueurLie().getPartie());
 		}
 	}
 

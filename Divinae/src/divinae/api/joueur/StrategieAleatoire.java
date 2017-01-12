@@ -53,9 +53,9 @@ public class StrategieAleatoire implements Strategie {
 
 	}
 
-	public Joueur choisirJoueurCible(Partie partie) {
-		int choix = random.nextInt(partie.getJoueurs().size()+1);
-		return partie.getJoueurs().get(choix);
+	public Joueur choisirJoueurCible(List<Joueur> liste) {
+		int choix = random.nextInt(liste.size()+1);
+		return liste.get(choix);
 	}
 	
 	public GuideSpirituel choisirGsp (Partie partie){

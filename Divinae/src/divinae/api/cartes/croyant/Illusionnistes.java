@@ -1,5 +1,7 @@
 package divinae.api.cartes.croyant;
 
+import java.util.List;
+
 import divinae.api.cartes.types.Capacite;
 import divinae.api.cartes.types.Croyant;
 import divinae.api.cartes.types.Dogme;
@@ -17,14 +19,14 @@ public class Illusionnistes extends Croyant {
 
 	@Override
 	public void activerCapacite() {
-
 		Partie partie = this.getJoueurLie().getPartie();
-
-		Joueur joueur = getJoueurLie().choisirJoueurCible();
+		List<Joueur> liste = Capacite.extraireListeJoueurRestrainte (partie, getJoueurLie());
+		Joueur joueur = getJoueurLie().choisirJoueurCible(liste);
 
 		if (joueur.getNombreCroyant() == 0) {
-			joueur = getJoueurLie().choisirJoueurCible();
+			joueur = getJoueurLie().choisirJoueurCible(liste);
 		}
+		
 		Capacite.copierCapacite(getJoueurLie(), getJoueurLie().choisirCroyant(joueur), partie);
 		Capacite.defausser(this, this.getJoueurLie().getPartie());
 

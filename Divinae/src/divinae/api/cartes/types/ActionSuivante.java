@@ -7,9 +7,9 @@ import divinae.api.partie.Partie;
 
 public interface ActionSuivante
 {
-	Joueur choisirJoueurCible(Partie partie);
+	Joueur choisirJoueurCible(List<Joueur> liste);
 	
-	GuideSpirituel choisirGsp (Partie partie);
+	GuideSpirituel choisirGsp (Joueur joueur, Partie partie);
 	
 	Divinite choisirDiviniteOuDogme (Dogme dogme1, Dogme dogme2, Partie partie);
 	

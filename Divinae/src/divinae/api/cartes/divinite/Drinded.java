@@ -1,5 +1,6 @@
 package divinae.api.cartes.divinite;
 
+import divinae.api.cartes.types.Capacite;
 import divinae.api.cartes.types.Divinite;
 import divinae.api.cartes.types.Dogme;
 import divinae.api.cartes.types.Origine;
@@ -7,9 +8,9 @@ import divinae.api.cartes.types.Origine;
 public class Drinded extends Divinite {
 
 	public Drinded() {
-		super("Drinded", Origine.Jour, "Peut empêcher le sacrifice d'un des Guides Spirituels de n'importe quel joueur.", 
+		super("Drinded", Origine.Jour, "Peut empï¿½cher le sacrifice d'un des Guides Spirituels de n'importe quel joueur.", 
 				new Dogme[]{Dogme.Nature, Dogme.Humain, Dogme.Symboles}, 
-				"Défenseur des hommes, quelles que soient leurs croyances, Drinded protège les chefs religieux", 82);
+				"Dï¿½fenseur des hommes, quelles que soient leurs croyances, Drinded protï¿½ge les chefs religieux", 82);
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -17,6 +18,7 @@ public class Drinded extends Divinite {
 	public void activerCapacite() {
 		// TODO Auto-generated method stub
 		super.activerCapacite();
+		Capacite.empecherSacrifice(null, null, "GuideSpirituel", this, getJoueurLie().getPartie());
 	}
 
 }

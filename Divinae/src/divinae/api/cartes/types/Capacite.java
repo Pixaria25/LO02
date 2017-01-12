@@ -40,7 +40,7 @@ public class Capacite {
 		return gspCiblable;
 	}
 
-	public static List<GuideSpirituel> choisirDiviniteOrigine (Origine origine, Partie partie) {
+	public static List<GuideSpirituel> choisirGuideLieADiviniteOrigine (Origine origine, Partie partie) {
 		List <GuideSpirituel> gspCiblable = new ArrayList<GuideSpirituel>(); // tableau des guides que l'on peut cibler par cette capacitée
 		
 		for (int choixDivinite = 0; choixDivinite < partie.getJoueurs().size(); choixDivinite++) { // on parcours le tableau des joueurs 
@@ -374,14 +374,22 @@ public class Capacite {
 	public static void prendreCartes (Carte carte, int nbCarte, Partie partie) {
 		int nbCartesPrises = 0;
 		int choixHasard = 0 ;
-		Joueur joueur = carte.getJoueurLie().choisirJoueurCible();
+		List<Joueur> liste = extraireListeJoueurRestrainte (partie, carte.getJoueurLie());
+		Joueur joueur = carte.getJoueurLie().choisirJoueurCible(liste);
 		while (nbCartesPrises < nbCarte | !joueur.getMain().isEmpty()) {
 			choixHasard = (int)Math.random()*(joueur.getMain().size()-1);
 			carte.getJoueurLie().getMain().add(joueur.getMain().get(choixHasard));
 			nbCartesPrises++;
 		}
 	}
+	
+	public static List<Joueur> extraireListeJoueurRestrainte (Partie partie, Joueur joueur) {
+		List<Joueur> liste = partie.getJoueurs();
+		liste.remove(liste.indexOf(joueur));
 
+		return liste;
+	}
+	
 	public static void bloquerPointAction (Partie partie) {
 
 		setAutorisationPointAction(true);
@@ -433,7 +441,6 @@ public class Capacite {
 	}
 	
 	
-
 
 
 

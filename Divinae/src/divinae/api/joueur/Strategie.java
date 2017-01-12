@@ -21,7 +21,7 @@ public interface Strategie {
 	
 	public abstract CarteAction choixSacrifice(List<CarteAction> cartesValides);
 	
-	public abstract Joueur choisirJoueurCible(Partie partie);
+	public abstract Joueur choisirJoueurCible(List<Joueur> liste);
 	
 	public abstract GuideSpirituel choisirGsp (Partie partie);
 	
