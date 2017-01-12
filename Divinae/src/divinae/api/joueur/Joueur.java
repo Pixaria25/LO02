@@ -36,9 +36,29 @@ public class Joueur {
 		this.partie = partie;
 	}
 	
-	public void poserCarteAction(int choixCarte) {
-		CarteAction carteAction = main.remove(choixCarte);
-		partie.getTable().add(carteAction);
+	public boolean poserCarteAction(int choixCarte) {
+		if(carteJouable(choixCarte)) {
+			if(!(main.get(choixCarte).getOrigine() == Origine.Aucune)) {
+				pointsAction[main.get(choixCarte).getOrigine().ordinal()]--;
+			}
+			CarteAction carteAction = main.remove(choixCarte);
+			partie.getTable().add(carteAction);
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	private boolean carteJouable(int choixCarte) {
+
+		if(main.get(choixCarte).getOrigine() == Origine.Aucune) {
+			return true;
+		} else {
+			if(pointsAction[main.get(choixCarte).getOrigine().ordinal()] >= 1) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	public void jouer() {
@@ -50,9 +70,9 @@ public class Joueur {
 	}
 	
 	public String afficherMain() {
-		String retour = "";
+		String retour = "Main:	";
 		for(int i = 0; i < main.size(); i++) {
-			retour += i+" - "+main.get(i).getNom()+"	";
+			retour += i+" - "+main.get(i).getCategorieEtNom()+"	";
 		}
 		return retour;
 	}
