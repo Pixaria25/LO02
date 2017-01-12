@@ -10,11 +10,8 @@ public class Apocalypse extends  CarteAction {
 	@Override
 	public void activerCapacite() {
 		// TODO Auto-generated method stub
-		boolean validite = Capacite.retirerPointAction(this, this.getOrigine());
-		if(validite) {
-			Capacite.lancerApocalypse(this.getJoueurLie().getPartie());
-			this.getJoueurLie().getPartie().setIndexJoueur1(this.getJoueurLie().getPartie().getJoueurs().indexOf(this.getJoueurLie()));
-		}
+		Capacite.lancerApocalypse(this.getJoueurLie().getPartie());
+		this.getJoueurLie().getPartie().setIndexJoueur1(this.getJoueurLie().getPartie().getJoueurs().indexOf(this.getJoueurLie()));
 	}
 
 	@Override

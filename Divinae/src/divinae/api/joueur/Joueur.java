@@ -126,6 +126,9 @@ public class Joueur {
 	
 	public void sacrifierCarte(CarteAction carte) {
 		if (carte.isAutorisationSacrifice()) {
+			if (carte instanceof Croyant) {
+				Capacite.majPointAction((Croyant)carte, -getNombreCroyant());
+			}
 			carte.activerCapacite();
 			tuerCarte(carte);
 		} else { 

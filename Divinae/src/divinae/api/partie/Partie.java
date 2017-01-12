@@ -87,6 +87,7 @@ public class Partie {
         	Divinite div = (piocheDivinite.remove(rd.nextInt(piocheDivinite.size())));
         	div.setJoueurLie(this.joueurs.get(i));
             this.joueurs.get(i).setDivinite(div);
+            Capacite.getActionSuivante().messageRecap(div.getNom() + " est maintenant liée a " + this.joueurs.get(i));
         }
 	}
 	

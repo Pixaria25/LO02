@@ -167,43 +167,14 @@ public class Capacite {
 		actionSuivante.messageRecap(GpCible.getJoueurLie().getNom() + " récupère le guide spirituel suivant : " + GpCible.getNom());
 	}
 
-	public static boolean retirerPointAction (Carte  carte, Origine origine) {
+	public static void majPointAction (Croyant  carte, int nbCroyantAjoute) {
 		int nbCroyantAvant = carte.getJoueurLie().getNombreCroyant();
-		int nbCroyantDeduit = (((Croyant) carte).getValeurCroyant());
-		
-		switch (carte.getOrigine()){
-		case Jour :
-			if (carte.getJoueurLie().getPointsAction()[Origine.Jour.ordinal()] >= 1) {
-				carte.getJoueurLie().getPointsAction()[Origine.Jour.ordinal()]--;
-				carte.getJoueurLie().setNombreCroyant(nbCroyantAvant-nbCroyantDeduit);
-				return true;
-			} else {
-				carte.getJoueurLie().messageListe("Pas de point d'origine jour.");
-				return false;
-			}
-		case Nuit :
-			if (carte.getJoueurLie().getPointsAction()[Origine.Nuit.ordinal()] >= 1) {
-				carte.getJoueurLie().getPointsAction()[Origine.Nuit.ordinal()]--;
-				carte.getJoueurLie().setNombreCroyant(nbCroyantAvant-nbCroyantDeduit);
-				return true;
-			} else {
-				carte.getJoueurLie().messageListe("Pas de point d'origine Nuit.");
-				return false;
-			}
-		case Neant :
-			if (carte.getJoueurLie().getPointsAction()[Origine.Neant.ordinal()] >= 1) {
-				carte.getJoueurLie().getPointsAction()[Origine.Neant.ordinal()]--;
-				carte.getJoueurLie().setNombreCroyant(nbCroyantAvant-nbCroyantDeduit);
-				return true;
-			} else {
-				carte.getJoueurLie().messageListe("Pas de point d'origine Neant.");
-				return false;
-			}
-			default : 
-				return true;
-			}
+				
+		carte.getJoueurLie().setNombreCroyant(nbCroyantAvant+nbCroyantAjoute);
+		Capacite.actionSuivante.messageRecap(carte.getJoueurLie().getDivinite().getNom() + " a maintenant " + carte.getJoueurLie().getNombreCroyant() + " croyants.");
 	}
 	
+
 	public static void recupererEffetBenef (Carte carte, Joueur joueur, Partie partie) {
 		ClasseName z = ClasseName.valueOf(carte.getClass().getSimpleName());
    

@@ -78,7 +78,7 @@ public class InterfacePartie {
 //					scanner.next();
 //			}
 //		} while(!quitterJeu);
-		scanner.close();
+//		scanner.close();
 	}
 
 	public void ajouterUnJoueur() {
@@ -162,7 +162,7 @@ public class InterfacePartie {
 	
 	public void jouerUnTour() {
 		partie.debuterUnTour();
-		System.out.println("De de Cosmogonie : "+partie.getDe().getInfluence());
+		System.out.println("Influence de de Cosmogonie : "+partie.getDe().getInfluence());
 		
 		int indexCourant = partie.getIndexJoueur1();
 		for(int i = 0; i <  partie.getJoueurs().size(); i++) {
