@@ -16,10 +16,11 @@ public class Tyran extends GuideSpirituel {
 
 	public void activerCapacite() {
 
-		for(int i = 0; i < this.getJoueurLie().getPartie().getTasDeCroyants().size(); i++) {
-			Dogme [] dogme1 = this.getJoueurLie().getPartie().getTasDeCroyants().get(i).getDogme();
-			if (Capacite.comparerDogme(dogme1, Dogme.Mystique, this.getJoueurLie().getPartie())) {
-				Capacite.defausser(this.getJoueurLie().getPartie().getTasDeCroyants().get(i), this.getJoueurLie().getPartie());
+		for(int i = 0; i < getJoueurLie().getPartie().getTasDeCroyants().size(); i++) {
+			Dogme [] dogme1 = getJoueurLie().getPartie().getTasDeCroyants().get(i).getDogme();
+			
+			if (Capacite.comparerDogme(dogme1, Dogme.Mystique, getJoueurLie().getPartie())) {
+				Capacite.defausser(getJoueurLie().getPartie().getTasDeCroyants().get(i), getJoueurLie().getPartie());
 			}
 		}
 	}

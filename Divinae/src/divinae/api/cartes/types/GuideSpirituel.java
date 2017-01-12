@@ -26,17 +26,15 @@ public abstract class GuideSpirituel extends CarteAction {
 			croyant.setGuideLie(this);
 			croyant.setJoueurLie(getJoueurLie());
 			croyantLie.add(croyant);
+			Capacite.majPointAction(croyant, +croyant.getValeurCroyant());
 		}
 	}
 	
 
 	public void poserCarteAction() {
-		boolean validite = Capacite.retirerPointAction(this, this.getOrigine());
-		if (validite) {	
 			int indexCourant = getJoueurLie().getPartie().getIndexJoueur1();
 			setJoueurLie(getJoueurLie().getPartie().getJoueurs().get(indexCourant));
 			convertirCroyant(getJoueurLie().getPartie());
-		}
 	}
 
 	public List<Croyant> getCroyantLie() {

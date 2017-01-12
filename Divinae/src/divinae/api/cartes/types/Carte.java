@@ -74,7 +74,7 @@ public abstract class Carte {
 			retour += dogmes[i]+", ";
 		}
 		return retour;
-
+	}
 	
 	public boolean isAutorisationSacrifice () {
 		return autorisationSacrifice;

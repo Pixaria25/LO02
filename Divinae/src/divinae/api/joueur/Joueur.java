@@ -126,6 +126,9 @@ public class Joueur {
 	
 	public void sacrifierCarte(CarteAction carte) {
 		if (carte.isAutorisationSacrifice()) {
+			if (carte instanceof Croyant) {
+				Capacite.majPointAction((Croyant)carte, -getNombreCroyant());
+			}
 			carte.activerCapacite();
 			tuerCarte(carte);
 		} else { 
@@ -147,12 +150,12 @@ public class Joueur {
 	}
 	
 	//Appel des methodes de ActionSuivante
-	public Joueur choisirJoueurCible() {
-		return Capacite.getActionSuivante().choisirJoueurCible(getPartie());
+	public Joueur choisirJoueurCible(List<Joueur> liste) {
+		return Capacite.getActionSuivante().choisirJoueurCible(liste);
 	}
 	
 	public GuideSpirituel choisirGsp() {
-		return Capacite.getActionSuivante().choisirGsp(getPartie());
+		return Capacite.getActionSuivante().choisirGsp(this, getPartie());
 	}
 	
 	public Divinite choisirDiviniteOuDogme (Dogme dogme1, Dogme dogme2) {

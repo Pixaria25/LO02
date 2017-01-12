@@ -18,7 +18,7 @@ public class Clerc extends GuideSpirituel {
 	public void activerCapacite() {
 		Origine origine = getJoueurLie().choisirOrigine();
 
-    Capacite.donnerPointAction(this.getCroyantLie().size(), origine, this.getJoueurLie());
+		Capacite.donnerPointAction(this.getCroyantLie().size(), origine, this.getJoueurLie());
 
 	}
 }

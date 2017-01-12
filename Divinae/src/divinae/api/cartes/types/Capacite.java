@@ -40,7 +40,7 @@ public class Capacite {
 		return gspCiblable;
 	}
 
-	public static List<GuideSpirituel> choisirDiviniteOrigine (Origine origine, Partie partie) {
+	public static List<GuideSpirituel> choisirGuideLieADiviniteOrigine (Origine origine, Partie partie) {
 		List <GuideSpirituel> gspCiblable = new ArrayList<GuideSpirituel>(); // tableau des guides que l'on peut cibler par cette capacitée
 		
 		for (int choixDivinite = 0; choixDivinite < partie.getJoueurs().size(); choixDivinite++) { // on parcours le tableau des joueurs 
@@ -167,43 +167,14 @@ public class Capacite {
 		actionSuivante.messageRecap(GpCible.getJoueurLie().getNom() + " récupère le guide spirituel suivant : " + GpCible.getNom());
 	}
 
-	public static boolean retirerPointAction (Carte  carte, Origine origine) {
+	public static void majPointAction (Croyant  carte, int nbCroyantAjoute) {
 		int nbCroyantAvant = carte.getJoueurLie().getNombreCroyant();
-		int nbCroyantDeduit = (((Croyant) carte).getValeurCroyant());
-		
-		switch (carte.getOrigine()){
-		case Jour :
-			if (carte.getJoueurLie().getPointsAction()[Origine.Jour.ordinal()] >= 1) {
-				carte.getJoueurLie().getPointsAction()[Origine.Jour.ordinal()]--;
-				carte.getJoueurLie().setNombreCroyant(nbCroyantAvant-nbCroyantDeduit);
-				return true;
-			} else {
-				carte.getJoueurLie().messageListe("Pas de point d'origine jour.");
-				return false;
-			}
-		case Nuit :
-			if (carte.getJoueurLie().getPointsAction()[Origine.Nuit.ordinal()] >= 1) {
-				carte.getJoueurLie().getPointsAction()[Origine.Nuit.ordinal()]--;
-				carte.getJoueurLie().setNombreCroyant(nbCroyantAvant-nbCroyantDeduit);
-				return true;
-			} else {
-				carte.getJoueurLie().messageListe("Pas de point d'origine Nuit.");
-				return false;
-			}
-		case Neant :
-			if (carte.getJoueurLie().getPointsAction()[Origine.Neant.ordinal()] >= 1) {
-				carte.getJoueurLie().getPointsAction()[Origine.Neant.ordinal()]--;
-				carte.getJoueurLie().setNombreCroyant(nbCroyantAvant-nbCroyantDeduit);
-				return true;
-			} else {
-				carte.getJoueurLie().messageListe("Pas de point d'origine Neant.");
-				return false;
-			}
-			default : 
-				return true;
-			}
+				
+		carte.getJoueurLie().setNombreCroyant(nbCroyantAvant+nbCroyantAjoute);
+		Capacite.actionSuivante.messageRecap(carte.getJoueurLie().getDivinite().getNom() + " a maintenant " + carte.getJoueurLie().getNombreCroyant() + " croyants.");
 	}
 	
+
 	public static void recupererEffetBenef (Carte carte, Joueur joueur, Partie partie) {
 		ClasseName z = ClasseName.valueOf(carte.getClass().getSimpleName());
    
@@ -374,14 +345,22 @@ public class Capacite {
 	public static void prendreCartes (Carte carte, int nbCarte, Partie partie) {
 		int nbCartesPrises = 0;
 		int choixHasard = 0 ;
-		Joueur joueur = carte.getJoueurLie().choisirJoueurCible();
+		List<Joueur> liste = extraireListeJoueurRestrainte (partie, carte.getJoueurLie());
+		Joueur joueur = carte.getJoueurLie().choisirJoueurCible(liste);
 		while (nbCartesPrises < nbCarte | !joueur.getMain().isEmpty()) {
 			choixHasard = (int)Math.random()*(joueur.getMain().size()-1);
 			carte.getJoueurLie().getMain().add(joueur.getMain().get(choixHasard));
 			nbCartesPrises++;
 		}
 	}
+	
+	public static List<Joueur> extraireListeJoueurRestrainte (Partie partie, Joueur joueur) {
+		List<Joueur> liste = partie.getJoueurs();
+		liste.remove(liste.indexOf(joueur));
 
+		return liste;
+	}
+	
 	public static void bloquerPointAction (Partie partie) {
 
 		setAutorisationPointAction(true);
@@ -433,7 +412,6 @@ public class Capacite {
 	}
 	
 	
-
 
 
 

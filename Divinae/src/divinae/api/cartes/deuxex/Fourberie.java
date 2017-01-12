@@ -1,5 +1,7 @@
 package divinae.api.cartes.deuxex;
 
+import java.util.List;
+
 import divinae.api.cartes.types.Capacite;
 import divinae.api.cartes.types.DeusEx;
 import divinae.api.cartes.types.Origine;
@@ -18,8 +20,8 @@ public class Fourberie extends DeusEx {
 	public void activerCapacite() {
 
 		Partie partie = this.getJoueurLie().getPartie();
-    
-		Joueur joueur =  getJoueurLie().choisirJoueurCible();
+		List<Joueur> liste = Capacite.extraireListeJoueurRestrainte (partie, this.getJoueurLie());
+		Joueur joueur =  getJoueurLie().choisirJoueurCible(liste);
 
 
 		int nbCroyantCiblable = 0;
@@ -33,7 +35,7 @@ public class Fourberie extends DeusEx {
 
 		if (nbCroyantCiblable < 2) {
 
-			joueur =  getJoueurLie().choisirJoueurCible();
+			joueur =  getJoueurLie().choisirJoueurCible(liste);
       
 		}
 

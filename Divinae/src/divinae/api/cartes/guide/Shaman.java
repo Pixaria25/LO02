@@ -17,8 +17,11 @@ public class Shaman extends GuideSpirituel {
 
 	public void activerCapacite() {
 		Divinite divinite = getJoueurLie().choisirDiviniteOuDogme(Dogme.Humain, Dogme.Humain);
+		
 		for (int balayageGuide = 0; balayageGuide < divinite.getJoueurLie().getGuides().size(); balayageGuide++) {
+			
 			for (int balayageCroyant = 0; balayageCroyant < divinite.getJoueurLie().getGuide(balayageGuide).getCroyantLie().size(); balayageCroyant++){
+			
 				if (divinite.getJoueurLie().getGuide(balayageGuide).getCroyantLie(balayageCroyant).getOrigine() == Origine.Neant){
 					divinite.getJoueurLie().getGuide(balayageGuide).getCroyantLie(balayageCroyant).activerCapacite();
 					Capacite.defausser(divinite.getJoueurLie().getGuide(balayageGuide).getCroyantLie(balayageCroyant), this.getJoueurLie().getPartie());

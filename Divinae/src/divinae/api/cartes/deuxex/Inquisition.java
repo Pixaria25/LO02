@@ -18,9 +18,6 @@ public class Inquisition extends DeusEx {
 	public void activerCapacite() {
 		GuideSpirituel MonGp =  getJoueurLie().choisirSonGsp();
 		GuideSpirituel SonGp =  getJoueurLie().choisirGsp();
-		while (SonGp.getJoueurLie()==this.getJoueurLie()){
-			SonGp =  getJoueurLie().choisirGsp();
-		}
 
 		De de = this.getJoueurLie().getPartie().getDe();
 		de.lancerDe();
