@@ -10,3 +10,15 @@ Commenter et visuel
 Mettre en place les threads
 Interface Graphique
 Exceptions (si le temps)
+
+12/01 :
+ Abe: afficherMessage : convertir croyants
+      afficher état partie (fin tour)
+      déplacer interruptions
+      gérer interuptions virtuel 
+      Vérifier pb convertir
+      Remplir Utilitaire, maj Capa et actionsuivanteconsole
+  Thomas :    enlever Partie en argument quand inutile
+              Mettre en valeur cartes jouable
+              Vérifier pb liaison Table et TasCroyant
+              Virer lignes TODO
