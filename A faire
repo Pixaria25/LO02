@@ -12,12 +12,12 @@ Interface Graphique
 Exceptions (si le temps)
 
 12/01 :
- Abe: afficherMessage : convertir croyants
+ Abe: afficherMessage : convertir croyants (fait)
       afficher état partie (fin tour)
       déplacer interruptions
       gérer interuptions virtuel 
-      Vérifier pb convertir
-      Remplir Utilitaire, maj Capa et actionsuivanteconsole
+      Vérifier pb convertir (fait)
+      Remplir Utilitaire, maj Capa et actionsuivanteconsole (fait)
   Thomas :    enlever Partie en argument quand inutile 
               Mettre en valeur cartes jouable
               Vérifier pb liaison Table et TasCroyant (fait)
