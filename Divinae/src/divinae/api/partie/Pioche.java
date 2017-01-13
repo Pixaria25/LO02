@@ -14,7 +14,11 @@ public class Pioche {
 	}
 	
 	public CarteAction sortirUneCarte() {
-		return pioche.pop();
+		if(pioche.isEmpty()) {
+			return null;
+		} else {
+			return pioche.pop();
+		}
 	}
 
 	public void setPioche(Collection<CarteAction> tasDeCarte) {

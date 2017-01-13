@@ -9,7 +9,6 @@ public  class Demons extends Croyant {
   
   public Demons (Dogme[] dogme, int id) {
 	 	super("Demons", Origine.Nuit, "Donne un point d'Action d'Origine Nuit.", dogme, 2, id);
-		// TODO Auto-generated constructor stub
 	}
   
   public void activerCapacite() {

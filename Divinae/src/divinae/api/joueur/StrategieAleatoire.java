@@ -58,6 +58,7 @@ public class StrategieAleatoire implements Strategie {
 		return liste.get(choix);
 	}
 	
+	//Enlever partie
 	public GuideSpirituel choisirGsp (Partie partie){
 		List<GuideSpirituel> gspCiblable = new ArrayList<GuideSpirituel>();
 		int indexGsp = 0;

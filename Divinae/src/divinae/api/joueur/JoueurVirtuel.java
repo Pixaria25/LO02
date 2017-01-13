@@ -45,6 +45,8 @@ public class JoueurVirtuel extends Joueur {
 				} 
 			}catch(IllegalArgumentException e) {
 					
+			}catch(IndexOutOfBoundsException e) {
+				
 			}
 			
 		} while(!tourJoueurFini);

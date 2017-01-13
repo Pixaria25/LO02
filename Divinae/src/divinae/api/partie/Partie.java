@@ -15,8 +15,9 @@ import divinae.api.cartes.deuxex.*;
 import divinae.api.cartes.guide.*;
 
 
-public class Partie {
+public final class Partie {
 	
+	private static volatile Partie instance = null;
 	private int indexJoueur1;
 	private List<Joueur> joueurs;
 	private List<CarteAction> table;
@@ -28,7 +29,7 @@ public class Partie {
 	private boolean partieFinie;
 	private int indexGagnant = -1;
 	
-	public Partie() {
+	private Partie() {
 		this.indexJoueur1 = 0;
 		this.joueurs = new ArrayList<Joueur>();
 		this.table = new ArrayList<CarteAction>();
@@ -44,6 +45,16 @@ public class Partie {
 		joueurs.add(new JoueurVirtuel("Fabrice", this, new StrategieAleatoire()));
 	}
 	
+	public final static Partie getInstance() {
+		if(Partie.instance == null) {
+			synchronized(Partie.class) {
+				if(Partie.instance == null) {
+					instance = new Partie();
+				}
+			}
+		}
+		return Partie.instance;
+	}
 	
 	public void debuterUnTour() {
 		de.lancerDe();
@@ -87,7 +98,7 @@ public class Partie {
         	Divinite div = (piocheDivinite.remove(rd.nextInt(piocheDivinite.size())));
         	div.setJoueurLie(this.joueurs.get(i));
             this.joueurs.get(i).setDivinite(div);
-            Capacite.getActionSuivante().messageRecap(div.getNom() + " est maintenant liée a " + this.joueurs.get(i));
+//            Capacite.getActionSuivante().messageRecap(div.getNom() + " est maintenant liée a " + this.joueurs.get(i));
         }
 	}
 	
@@ -190,9 +201,8 @@ public class Partie {
 	}
 	
 	public void activerCartes() {
-		for(int i = table.size()-1; i > 0; i++) {
-			table.get(i).poserCarteAction();
-			table.remove(i);
+		for(int i = table.size()-1; i >= 0; i--) {
+			table.remove(i).poserCarteAction();
 		}
 	}
 	
@@ -240,6 +250,10 @@ public class Partie {
 		return tasDeCroyants.get(i);
 	}
 
+	public void ajoutTasDCroyants(Croyant croyant) {
+		tasDeCroyants.add(croyant);
+	}
+	
 	public Pioche getPioche() {
 		return pioche;
 	}

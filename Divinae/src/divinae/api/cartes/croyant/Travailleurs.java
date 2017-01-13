@@ -13,7 +13,6 @@ public class Travailleurs extends Croyant {
 		super("Travailleurs", Origine.Jour, "Empeche une Divinite possedant le Dogme Nature ou "
 				+ "le Dogme Mystique de sacrifier une de ses cartes de Croyants durant ce tour.", dogme, 2, id);
 		this.option = option;
-		// TODO Auto-generated constructor stub
 	}
 	
 	public void activerCapacite() {

@@ -8,9 +8,8 @@ import divinae.api.cartes.types.Origine;
 public  class Diplomates extends Croyant {
 
 	public Diplomates() {
-		super("Diplomates", Origine.Jour, "Relancer le dé de Cosmogonie."
+		super("Diplomates", Origine.Jour, "Relancer le dï¿½ de Cosmogonie."
 				+ "Le tour se finit normalement sous la nouvelle influence.", new Dogme[]{Dogme.Humain,Dogme.Symboles,Dogme.Chaos}, 4, 13);
-		// TODO Auto-generated constructor stub
 	}
 
 	public void activerCapacite() {

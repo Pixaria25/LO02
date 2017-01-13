@@ -9,7 +9,7 @@ public class ModeleJeu extends Observable {
 	private Partie partie;
 	
 	public ModeleJeu() {
-		this.partie = new Partie();
+		this.partie = Partie.getInstance();
 	}
 	
 	public void initialiserPartie(String nomJoueurReel, int nombreJoueurVirtuel) {

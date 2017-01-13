@@ -24,7 +24,7 @@ public class InterfacePartie {
 	private Scanner scanner = new Scanner(System.in);
 	
 	public InterfacePartie() {
-		partie = new Partie();
+		partie = Partie.getInstance();
 		Capacite.setActionSuivante(new ActionSuivanteConsole());
 	}
 	
@@ -219,13 +219,13 @@ public class InterfacePartie {
 						choixCarte = scanner.nextInt();
 					} while(choixCarte < 0 || choixCarte > joueurCourant.getMain().size()+1);
 
-					
+					CarteAction carteChoisie = joueurCourant.getMain().get(choixCarte);
 					boolean poserCarte = joueurCourant.poserCarteAction(choixCarte);
 					
 					if(poserCarte) {
 						demanderInterruption();
 						// Solution ?
-						Capacite.setCarteInterupt(joueurCourant.getMain().get(choixCarte));
+						Capacite.setCarteInterupt(carteChoisie);
 						CarteAction cartePosee = Capacite.getCarteInterupt();
 						if (cartePosee.isCapaciteBloqué() && ( !(cartePosee instanceof Croyant) ||  !(cartePosee instanceof GuideSpirituel) )) {
 							System.out.println(cartePosee.getNom() + " a été bloqué !");

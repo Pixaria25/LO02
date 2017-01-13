@@ -8,9 +8,8 @@ import divinae.api.cartes.types.Origine;
 public class Nihillistes extends Croyant {
   
   public Nihillistes () {
-	 	super("Nihillistes", Origine.Neant, "Jusqu'à la fin du tour, plus aucune Divinité ne reçoit de points d'Action.",
+	 	super("Nihillistes", Origine.Neant, "Jusqu'ï¿½ la fin du tour, plus aucune Divinitï¿½ ne reï¿½oit de points d'Action.",
 	 			new Dogme [] {Dogme.Symboles, Dogme.Mystique, Dogme.Chaos}, 4, 37);
-		// TODO Auto-generated constructor stub
 	}
   
   public void activerCapacite() {
