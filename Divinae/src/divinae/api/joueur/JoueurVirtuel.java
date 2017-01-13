@@ -60,15 +60,13 @@ public class JoueurVirtuel extends Joueur {
 		List<CarteAction> cartesSacrifiables = recupererCartesSacrifiables();
 		strategie.choixSacrifice(cartesSacrifiables);
 	}
-
 	
 	//Appel des methodes de ActionSuivante
 
-	@Override
-	public Joueur choisirJoueurCible(List<Joueur> liste) {
-		return strategie.choisirJoueurCible(liste);
+	public void demanderInterruption() {
+		strategie.demanderInterruption();
 	}
-
+	
 	@Override
 	public GuideSpirituel choisirGsp() {
 		return strategie.choisirGsp(getPartie());

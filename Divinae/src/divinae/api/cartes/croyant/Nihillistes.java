@@ -13,6 +13,6 @@ public class Nihillistes extends Croyant {
 	}
   
   public void activerCapacite() {
-		Capacite.bloquerPointAction(this.getJoueurLie().getPartie());
+	  Capacite.bloquerPointAction(this.getJoueurLie().getPartie());
 	}
 }

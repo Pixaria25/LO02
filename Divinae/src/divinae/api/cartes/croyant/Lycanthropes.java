@@ -1,9 +1,9 @@
 package divinae.api.cartes.croyant;
 
-import divinae.api.cartes.types.Capacite;
 import divinae.api.cartes.types.Croyant;
 import divinae.api.cartes.types.Dogme;
 import divinae.api.cartes.types.Origine;
+import divinae.api.cartes.types.Utilitaire;
 
 public class Lycanthropes extends Croyant {
 
@@ -14,6 +14,6 @@ public class Lycanthropes extends Croyant {
 	}
 
 	 public void activerCapacite() {
-		  	Capacite.retirerTousCroyantLies(this, this.getJoueurLie().getPartie());
+		 Utilitaire.retirerTousCroyantLies(this, this.getJoueurLie().getPartie());
 	  }
 }

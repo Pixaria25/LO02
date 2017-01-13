@@ -1,22 +1,84 @@
 package divinae.console;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
 
 import divinae.api.cartes.types.ActionSuivante;
-import divinae.api.cartes.types.Capacite;
 import divinae.api.cartes.types.Carte;
 import divinae.api.cartes.types.Croyant;
 import divinae.api.cartes.types.Divinite;
 import divinae.api.cartes.types.Dogme;
 import divinae.api.cartes.types.GuideSpirituel;
 import divinae.api.cartes.types.Origine;
+import divinae.api.cartes.types.Utilitaire;
 import divinae.api.joueur.Joueur;
 import divinae.api.partie.Partie;
 
 public class ActionSuivanteConsole implements ActionSuivante {
+Partie partie = InterfacePartie.getPartie();
+private Scanner scanner = new Scanner(System.in);
 
+<<<<<<< HEAD
+=======
+	public void demanderInterruption() {
+		String interruption = "";
+		do {
+			System.out.println(partie.afficherTable());
+			System.out.println("Voulez vous intervenir ? (y/n)");
+			interruption = scanner.next();
+			if (interruption.equals("y")) {
+				interruption();
+			}
+
+			if (!(interruption.equals("n") || interruption.equals("y"))) {
+				System.out.println("Reponse invalide.");
+			}
+		} while (!interruption.equals("n"));
+		
+	}
+	
+	public void interruption() {
+		HashSet<Integer> actionsValides = new HashSet<Integer>();
+		Joueur joueurCourant = partie.getTable(partie.getTable().size()-1).getJoueurLie();
+		if(joueurCourant.aDesCartesSansOrigine()) {
+			System.out.println("1 - Jouer une carte sans Origine");
+			actionsValides.add(1);
+		}
+		if(!joueurCourant.getDivinite().capaciteActivee()) {
+			System.out.println("2 - Active la capacite de la divinite");
+			actionsValides.add(2);
+		}
+		int choixAction = 0;
+		do{
+			System.out.println("Entrez le nombre de l'action voulue.");
+			choixAction = scanner.nextInt();
+		} while(!actionsValides.contains(choixAction));
+		
+		switch(choixAction) {
+			case 1:
+				HashSet<Integer> cartesValides = new HashSet<Integer>();
+				for(int i = 0; i < joueurCourant.getMain().size(); i++) {
+					if(joueurCourant.getMain().get(i).getOrigine() == Origine.Aucune) {
+						System.out.println(i+" - "+joueurCourant.getMain().get(i).getNom());
+						cartesValides.add(i);
+					}
+				}
+				int carteChoisie = -1;
+				do{
+					System.out.println("Choisissez la carte que vous voulez jouer.");
+					carteChoisie = scanner.nextInt();
+				} while(!cartesValides.contains(carteChoisie));
+				joueurCourant.poserCarteAction(carteChoisie);
+			case 2:
+				joueurCourant.getDivinite().activerCapacite();
+			default:
+				System.out.println("Choix d'interruption invalide");
+		}
+	}
+	
+>>>>>>> refs/remotes/origin/Abe
 	@Override
 	public Joueur choisirJoueurCible(List<Joueur> liste) {
 		afficherListeJoueur(liste);
@@ -62,9 +124,9 @@ public class ActionSuivanteConsole implements ActionSuivante {
 
 		if (!(dogme1 == null) || !(dogme2 == null)) {
 			while (choixDivinite < partie.getJoueurs().size()) {
-				if (Capacite.comparerDogme(partie.getJoueurs().get(choixDivinite).getDivinite().getDogme(), dogme1,
+				if (Utilitaire.comparerDogme(partie.getJoueurs().get(choixDivinite).getDivinite().getDogme(), dogme1,
 						partie)
-						|| Capacite.comparerDogme(partie.getJoueurs().get(choixDivinite).getDivinite().getDogme(),
+						|| Utilitaire.comparerDogme(partie.getJoueurs().get(choixDivinite).getDivinite().getDogme(),
 								dogme2, partie)) {
 					diviniteCiblable.add(partie.getJoueurs().get(choixDivinite).getDivinite());
 				}
@@ -150,14 +212,14 @@ public class ActionSuivanteConsole implements ActionSuivante {
 		while (choixDivinite < partie.getJoueurs().size()) {
 			Dogme[] dogmeDivinite = partie.getJoueurs().get(choixDivinite).getDivinite().getDogme();
 			
-			if (!(Capacite.comparerDogme(dogmeDivinite, dogme,partie))) {
+			if (!(Utilitaire.comparerDogme(dogmeDivinite, dogme,partie))) {
 				gspCiblable.addAll(partie.getJoueurs().get(choixDivinite).getGuides());
 			} else {
 			
 				for (int choixGuide = 0; choixGuide < partie.getJoueurs().get(choixDivinite).getGuides().size(); choixGuide++) {
 					GuideSpirituel Gsp = partie.getJoueurs().get(choixDivinite).getGuide(choixGuide);
 					
-					if (!(Capacite.comparerDogme(dogmeDivinite, dogme,partie))) {
+					if (!(Utilitaire.comparerDogme(dogmeDivinite, dogme,partie))) {
 						gspCiblable.add(Gsp);
 						if (gspCiblable.get(gspCiblable.indexOf(Gsp)).isProtectionCiblage()) {
 							gspCiblable.remove(gspCiblable.indexOf(Gsp));

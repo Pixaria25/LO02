@@ -7,6 +7,10 @@ import divinae.api.partie.Partie;
 
 public interface ActionSuivante
 {
+	public void demanderInterruption();
+	
+	public void interruption();
+	
 	Joueur choisirJoueurCible(List<Joueur> liste);
 	
 	GuideSpirituel choisirGsp (Joueur joueur, Partie partie);

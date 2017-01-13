@@ -28,6 +28,8 @@ public final class Partie {
 	private De de;
 	private boolean partieFinie;
 	private int indexGagnant = -1;
+	private int indexPerdant = -1;
+	
 	
 	private Partie() {
 		this.indexJoueur1 = 0;
@@ -56,6 +58,11 @@ public final class Partie {
 		return Partie.instance;
 	}
 	
+	public int getIndexPerdant() {
+		return indexPerdant;
+	}
+
+
 	public void debuterUnTour() {
 		de.lancerDe();
 		ajoutPoint();
@@ -154,11 +161,17 @@ public final class Partie {
 	
 	public void finirUnePartie() {
 		int maxCroyants = 0;
+		int minCroyants = 0;
 		indexGagnant = 0;
+		indexPerdant = 0;
 		for(int i = 0; i < joueurs.size(); i++) {
 			if(joueurs.get(i).getNombreCroyant() > maxCroyants) {
 				maxCroyants = joueurs.get(i).getNombreCroyant();
 				indexGagnant = i;
+			}
+			if (joueurs.get(i).getNombreCroyant() < minCroyants) {
+				minCroyants = joueurs.get(i).getNombreCroyant();
+				indexPerdant = i;
 			}
 		}
 		
@@ -167,20 +180,21 @@ public final class Partie {
 	
 	
 	public void preparerTourProchain() {
+		
 		indexJoueur1 = (indexJoueur1 + 1) % joueurs.size();
-		Capacite.resetAutorisations(this);
+		
 	}
 	
 	//Ajout des points aux joueurs selon le type de leur divinite et selon la valeur du de de Cosmogonie
 	public void ajoutPoint() {
 		for(int i = 0; i < joueurs.size(); i++) {
-			if(deCosmogonie(de.getValeur()) == Origine.Jour) {
+			if(de.getInfluence()== Origine.Jour) {
 				if(joueurs.get(i).getDivinite().getOrigine() == Origine.Jour) {
 					joueurs.get(i).ajoutPointsAction(2, Origine.Jour);
 				} else if(joueurs.get(i).getDivinite().getOrigine() == Origine.Aube) {
 					joueurs.get(i).ajoutPointsAction(1, Origine.Jour);
 				}
-			} else if(deCosmogonie(de.getValeur()) == Origine.Nuit) {
+			} else if(de.getInfluence() == Origine.Nuit) {
 				if(joueurs.get(i).getDivinite().getOrigine() == Origine.Nuit) {
 					joueurs.get(i).ajoutPointsAction(2, Origine.Nuit);
 				} else if(joueurs.get(i).getDivinite().getOrigine() == Origine.Crepuscule) {
@@ -200,12 +214,15 @@ public final class Partie {
 		}
 	}
 	
+<<<<<<< HEAD
 	public void activerCartes() {
 		for(int i = table.size()-1; i >= 0; i--) {
 			table.remove(i).poserCarteAction();
 		}
 	}
 	
+=======
+>>>>>>> refs/remotes/origin/Abe
 	public String afficherTable() {
 		String retour = "Table: ";
 		for(int i = 0; i < table.size(); i++) {
@@ -274,16 +291,6 @@ public final class Partie {
 		return de;
 	}
 	
-	private Origine deCosmogonie(int nombre) {
-		if(nombre <= 2) {
-			return Origine.Neant;
-		} else if(nombre >= 3 && nombre <= 4) {
-			return Origine.Nuit;
-		} else {
-			return Origine.Jour;
-		}
-	}
-
 	public List<CarteAction> getTable() {
 		return table;
 	}

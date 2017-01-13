@@ -17,13 +17,13 @@ public class De {
 		Random rand = new Random();
 		valeur = 1+rand.nextInt(5);
 		switch (valeur) { 
-			case 1 | 4 :
-				influence = Origine.Jour;
+			case 1 :
+			case 4 :influence = Origine.Jour;
 				break;
-			case 2 | 5 :
-				influence = Origine.Nuit;
+			case 2 :
+			case 5 : influence = Origine.Nuit;
 				break;
-			default : influence = Origine.Neant;	
+			default: influence = Origine.Neant;
 		}
 	}
 

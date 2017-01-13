@@ -5,6 +5,7 @@ import java.util.List;
 import divinae.api.cartes.types.Capacite;
 import divinae.api.cartes.types.DeusEx;
 import divinae.api.cartes.types.Origine;
+import divinae.api.cartes.types.Utilitaire;
 import divinae.api.joueur.Joueur;
 import divinae.api.partie.Partie;
 
@@ -20,7 +21,7 @@ public class Fourberie extends DeusEx {
 	public void activerCapacite() {
 
 		Partie partie = this.getJoueurLie().getPartie();
-		List<Joueur> liste = Capacite.extraireListeJoueurRestrainte (partie, this.getJoueurLie());
+		List<Joueur> liste = Utilitaire.extraireListeJoueurRestrainte (partie, this.getJoueurLie());
 		Joueur joueur =  getJoueurLie().choisirJoueurCible(liste);
 
 

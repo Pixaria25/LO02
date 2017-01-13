@@ -1,10 +1,10 @@
 package divinae.api.joueur;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 
-import divinae.api.cartes.types.Capacite;
 import divinae.api.cartes.types.Carte;
 import divinae.api.cartes.types.CarteAction;
 import divinae.api.cartes.types.Croyant;
@@ -12,17 +12,66 @@ import divinae.api.cartes.types.Divinite;
 import divinae.api.cartes.types.Dogme;
 import divinae.api.cartes.types.GuideSpirituel;
 import divinae.api.cartes.types.Origine;
+import divinae.api.cartes.types.Utilitaire;
 import divinae.api.partie.Partie;
+import divinae.console.InterfacePartie;
 
 public class StrategieAleatoire implements Strategie {
 
 	private Random random = new Random();
+	
 	
 	@Override
 	public int jouer() {
 
 		int choix = random.nextInt(4);
 		return choix;
+	}
+	
+	@Override
+	public void demanderInterruption() {
+		interruption();
+	}
+
+	public void interruption() {
+		Partie partie = InterfacePartie.getPartie();
+		HashSet<Integer> actionsValides = new HashSet<Integer>();
+		Joueur joueurCourant = partie.getTable(partie.getTable().size()-1).getJoueurLie();
+
+		if(joueurCourant.aDesCartesSansOrigine()) {
+			actionsValides.add(1);
+		}
+		
+		if(!joueurCourant.getDivinite().capaciteActivee()) {
+			actionsValides.add(2);
+		}
+		
+		int choixInterruption = random.nextInt(8);
+		int choixAction = 0;
+		
+		if (!actionsValides.isEmpty()){
+			actionsValides.add(0);
+			choixAction = 0;
+		} else if (choixInterruption == 0) {
+				choixAction = random.nextInt(actionsValides.size());
+		}
+		
+		switch(choixAction) {
+			case 0: 
+				break;
+			case 1:
+				HashSet<Integer> cartesValides = new HashSet<Integer>();
+				for(int i = 0; i < joueurCourant.getMain().size(); i++) {
+					if(joueurCourant.getMain().get(i).getOrigine() == Origine.Aucune) {
+						cartesValides.add(i);
+					}
+				}
+				int carteChoisie = random.nextInt(cartesValides.size()-1);
+				joueurCourant.poserCarteAction(carteChoisie);
+			case 2:
+				joueurCourant.getDivinite().activerCapacite();
+			default:
+		}
 	}
 
 	@Override
@@ -42,8 +91,6 @@ public class StrategieAleatoire implements Strategie {
 	public int choixCarteAction(List<CarteAction> main) {
 		int numCarte = random.nextInt(main.size()+1);
 		return numCarte;
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
@@ -86,8 +133,8 @@ public class StrategieAleatoire implements Strategie {
 		int choixDivinite = 0;
 		List<Divinite> diviniteCiblable = new ArrayList<Divinite>();
 		while (choixDivinite < partie.getJoueurs().size()) {
-			if (Capacite.comparerDogme(partie.getJoueurs().get(choixDivinite).getDivinite().getDogme(), dogme1, partie)
-					|| Capacite.comparerDogme(partie.getJoueurs().get(choixDivinite).getDivinite().getDogme(), dogme2,
+			if (Utilitaire.comparerDogme(partie.getJoueurs().get(choixDivinite).getDivinite().getDogme(), dogme1, partie)
+					|| Utilitaire.comparerDogme(partie.getJoueurs().get(choixDivinite).getDivinite().getDogme(), dogme2,
 							partie)) {
 				diviniteCiblable.add(partie.getJoueurs().get(choixDivinite).getDivinite());
 			}
@@ -135,13 +182,13 @@ public class StrategieAleatoire implements Strategie {
 		List<GuideSpirituel> gspCiblable = new ArrayList<GuideSpirituel>();
 
 		while (choixDivinite < partie.getJoueurs().size()) {
-			if (!(Capacite.comparerDogme(partie.getJoueurs().get(choixDivinite).getDivinite().getDogme(), dogme,
+			if (!(Utilitaire.comparerDogme(partie.getJoueurs().get(choixDivinite).getDivinite().getDogme(), dogme,
 					partie))) {
 				gspCiblable.addAll(partie.getJoueurs().get(choixDivinite).getGuides());
 			} else {
 				for (int choixGuide = 0; choixGuide < partie.getJoueurs().get(choixDivinite).getGuides()
 						.size(); choixGuide++) {
-					if (!(Capacite.comparerDogme(partie.getJoueurs().get(choixDivinite).getDivinite().getDogme(), dogme,
+					if (!(Utilitaire.comparerDogme(partie.getJoueurs().get(choixDivinite).getDivinite().getDogme(), dogme,
 							partie))) {
 						gspCiblable.add(partie.getJoueurs().get(choixDivinite).getGuide(choixGuide));
 					}

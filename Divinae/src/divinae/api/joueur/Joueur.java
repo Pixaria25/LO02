@@ -11,6 +11,7 @@ import divinae.api.cartes.types.Divinite;
 import divinae.api.cartes.types.Dogme;
 import divinae.api.cartes.types.GuideSpirituel;
 import divinae.api.cartes.types.Origine;
+import divinae.api.cartes.types.Utilitaire;
 import divinae.api.partie.Partie;
 
 public class Joueur {
@@ -43,6 +44,7 @@ public class Joueur {
 			}
 			CarteAction carteAction = main.remove(choixCarte);
 			partie.getTable().add(carteAction);
+			Capacite.getActionSuivante().messageRecap(carteAction.getJoueurLie().getNom() + " pose " + carteAction.getNom());
 			return true;
 		} else {
 			return false;
@@ -133,7 +135,7 @@ public class Joueur {
 	public void sacrifierCarte(CarteAction carte) {
 		if (carte.isAutorisationSacrifice()) {
 			if (carte instanceof Croyant) {
-				Capacite.majPointAction((Croyant)carte, -getNombreCroyant());
+				Utilitaire.majPointAction((Croyant)carte, -getNombreCroyant());
 			}
 			carte.activerCapacite();
 			tuerCarte(carte);
@@ -155,7 +157,16 @@ public class Joueur {
 		partie.getDefausse().ajoutCarte(carte);
 	}
 	
+
 	//Appel des methodes de ActionSuivante
+	public void demanderInterruption() {
+		Capacite.getActionSuivante().demanderInterruption();
+	}
+	
+	public void interruption() {
+		Capacite.getActionSuivante().interruption();
+	}
+	
 	public Joueur choisirJoueurCible(List<Joueur> liste) {
 		return Capacite.getActionSuivante().choisirJoueurCible(liste);
 	}

@@ -46,4 +46,7 @@ public interface Strategie {
 	public abstract Croyant choisirTasCroyant(Joueur joueur, Partie partie);
 	
 	public abstract GuideSpirituel choisirGspRenvoye (List <GuideSpirituel> gspCiblable);
+
+	void demanderInterruption();
+
 }
