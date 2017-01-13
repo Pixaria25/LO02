@@ -27,6 +27,7 @@ public abstract class GuideSpirituel extends CarteAction {
 			croyant.setJoueurLie(getJoueurLie());
 			croyantLie.add(croyant);
 			Utilitaire.majPointAction(croyant, +croyant.getValeurCroyant());
+			Capacite.getActionSuivante().messageRecap(getJoueurLie().getNom() + " lie " + croyant.getNom() + " à " + getNom());
 		}
 	}
 	

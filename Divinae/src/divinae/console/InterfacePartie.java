@@ -220,7 +220,7 @@ public class InterfacePartie {
 					boolean poserCarte = joueurCourant.poserCarteAction(choixCarte);
 					
 					if(poserCarte) {
-						demanderInterruption();
+						joueurCourant.demanderInterruption();
 						// Solution ?
 						Capacite.setCarteInterupt(joueurCourant.getMain().get(choixCarte));
 						CarteAction cartePosee = Capacite.getCarteInterupt();
@@ -239,7 +239,7 @@ public class InterfacePartie {
 					if((joueurCourant.isAutorisationcr() && joueurCourant.isAutorisationgsp()) || joueurCourant.getGuides().size() == 0) {
 						System.out.println("Vous ne pouvez pas sacrifier de cartes.");
 					} else {
-						demanderInterruption();
+						joueurCourant.demanderInterruption();
 						List<CarteAction> listeCartesSacrifiables = joueurCourant.recupererCartesSacrifiables();
 						System.out.println("Quelle carte voulez-vous sacrifier ?");
 						for(int j = 0; j < listeCartesSacrifiables.size(); j++) {
@@ -253,7 +253,7 @@ public class InterfacePartie {
 							System.out.println("Vous ne pouvez pas sacrifier cette carte ce tour ci. (Utilisation d'une capacite contre vous)");
 						} else {
 									Capacite.setCarteInterupt(listeCartesSacrifiables.get(choixSacrifice));
-									demanderInterruption();
+									joueurCourant.demanderInterruption();
 									if (listeCartesSacrifiables.get(choixSacrifice).isCapaciteBloqué()) {
 										System.out.println(joueurCourant.getMain().get(choixSacrifice).getNom() + " a été bloqué !");
 									} else {
@@ -347,77 +347,7 @@ public class InterfacePartie {
 		}
 	}
 	
-	public void demanderInterruption() {
-		
-		String interruption = "";
-		do{
-			System.out.println(partie.afficherTable());
-			System.out.println("Est-ce qu'un joueur veut intervenir ? (y/n)");
-			interruption = scanner.next();
-			if(interruption.equals("y")) {
-				interruption();
-			}
-      
-			if(!(interruption.equals("n") || interruption.equals("y"))) {
-				System.out.println("Reponse invalide.");
-			}
-		} while(!interruption.equals("n"));
-	}
-	
-	public void interruption() {
-		System.out.println("Quel joueur veut interrompre le tour ?");
-		HashSet<Integer> joueursValides = new HashSet<Integer>();
-		for(int i = 0; i < partie.getJoueurs().size(); i++) {
-			if(!partie.getJoueurs().get(i).getDivinite().capaciteActivee() || partie.getJoueurs().get(i).aDesCartesSansOrigine()) {
-				System.out.println(i + " - " + partie.getJoueurs().get(i).getNom());
-				joueursValides.add(i);
-			}
-		}
-		int choixJoueur = -1;
-		do{
-			System.out.println("Entrez le nombre du joueur voulu.");
-			choixJoueur = scanner.nextInt();
-		} while(!joueursValides.contains(choixJoueur));
-		Joueur joueurChoisi = partie.getJoueurs().get(choixJoueur);
-		System.out.println();
-		
-		System.out.println("Choisissez l'action.");
-		HashSet<Integer> actionsValides = new HashSet<Integer>();
-		if(joueurChoisi.aDesCartesSansOrigine()) {
-			System.out.println("1 - Jouer une carte sans Origine");
-			actionsValides.add(1);
-		}
-		if(!joueurChoisi.getDivinite().capaciteActivee()) {
-			System.out.println("2 - Active la capacite de la divinite");
-			actionsValides.add(2);
-		}
-		int choixAction = 0;
-		do{
-			System.out.println("Entrez le nombre de l'action voulue.");
-			choixAction = scanner.nextInt();
-		} while(!actionsValides.contains(choixAction));
-		
-		switch(choixAction) {
-			case 1:
-				HashSet<Integer> cartesValides = new HashSet<Integer>();
-				for(int i = 0; i < joueurChoisi.getMain().size(); i++) {
-					if(joueurChoisi.getMain().get(i).getOrigine() == Origine.Aucune) {
-						System.out.println(i+" - "+joueurChoisi.getMain().get(i).getNom());
-						cartesValides.add(i);
-					}
-				}
-				int carteChoisie = -1;
-				do{
-					System.out.println("Choisissez la carte que vous voulez jouer.");
-					carteChoisie = scanner.nextInt();
-				} while(!cartesValides.contains(carteChoisie));
-				joueurChoisi.poserCarteAction(carteChoisie);
-			case 2:
-				joueurChoisi.getDivinite().activerCapacite();
-			default:
-				System.out.println("Choix d'interruption invalide");
-		}
-	}
+
 
 
 	public static Partie getPartie() {

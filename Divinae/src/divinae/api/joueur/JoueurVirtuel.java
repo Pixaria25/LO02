@@ -1,5 +1,6 @@
 package divinae.api.joueur;
 
+import java.util.HashSet;
 import java.util.List;
 
 import divinae.api.cartes.types.Carte;
@@ -58,7 +59,14 @@ public class JoueurVirtuel extends Joueur {
 		List<CarteAction> cartesSacrifiables = recupererCartesSacrifiables();
 		strategie.choixSacrifice(cartesSacrifiables);
 	}
-
+	
+	public void demanderInterruption() {
+		//Algo
+	}
+	
+	public void interruption() {
+		//Algo
+	}
 	
 	//Appel des methodes de ActionSuivante
 

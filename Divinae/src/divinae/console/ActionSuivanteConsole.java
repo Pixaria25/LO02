@@ -1,6 +1,7 @@
 package divinae.console;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
 
@@ -17,9 +18,66 @@ import divinae.api.joueur.Joueur;
 import divinae.api.partie.Partie;
 
 public class ActionSuivanteConsole implements ActionSuivante {
+Partie partie = InterfacePartie.getPartie();
+private Scanner scanner = new Scanner(System.in);
 
+	public void demanderInterruption() {
+		String interruption = "";
+		do {
+			System.out.println(partie.afficherTable());
+			System.out.println("Voulez vous intervenir ? (y/n)");
+			interruption = scanner.next();
+			if (interruption.equals("y")) {
+				interruption();
+			}
+
+			if (!(interruption.equals("n") || interruption.equals("y"))) {
+				System.out.println("Reponse invalide.");
+			}
+		} while (!interruption.equals("n"));
+		
+	}
+	
+	public void interruption() {
+		HashSet<Integer> actionsValides = new HashSet<Integer>();
+		Joueur joueurCourant = partie.getTable(partie.getTable().size()-1).getJoueurLie();
+		if(joueurCourant.aDesCartesSansOrigine()) {
+			System.out.println("1 - Jouer une carte sans Origine");
+			actionsValides.add(1);
+		}
+		if(!joueurCourant.getDivinite().capaciteActivee()) {
+			System.out.println("2 - Active la capacite de la divinite");
+			actionsValides.add(2);
+		}
+		int choixAction = 0;
+		do{
+			System.out.println("Entrez le nombre de l'action voulue.");
+			choixAction = scanner.nextInt();
+		} while(!actionsValides.contains(choixAction));
+		
+		switch(choixAction) {
+			case 1:
+				HashSet<Integer> cartesValides = new HashSet<Integer>();
+				for(int i = 0; i < joueurCourant.getMain().size(); i++) {
+					if(joueurCourant.getMain().get(i).getOrigine() == Origine.Aucune) {
+						System.out.println(i+" - "+joueurCourant.getMain().get(i).getNom());
+						cartesValides.add(i);
+					}
+				}
+				int carteChoisie = -1;
+				do{
+					System.out.println("Choisissez la carte que vous voulez jouer.");
+					carteChoisie = scanner.nextInt();
+				} while(!cartesValides.contains(carteChoisie));
+				joueurCourant.poserCarteAction(carteChoisie);
+			case 2:
+				joueurCourant.getDivinite().activerCapacite();
+			default:
+				System.out.println("Choix d'interruption invalide");
+		}
+	}
+	
 	@Override
-
 	public Joueur choisirJoueurCible(List<Joueur> liste) {
 		afficherListeJoueur(liste);
 		Joueur joueur = selectionnerElementListeJoueur(liste);

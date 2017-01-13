@@ -160,7 +160,7 @@ public class Partie {
 			}
 			if (joueurs.get(i).getNombreCroyant() < minCroyants) {
 				minCroyants = joueurs.get(i).getNombreCroyant();
-				indexGagnant = i;
+				indexPerdant = i;
 			}
 		}
 		

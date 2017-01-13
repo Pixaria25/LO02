@@ -1,6 +1,7 @@
 package divinae.api.joueur;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import divinae.api.cartes.types.CarteAction;
@@ -150,7 +151,16 @@ public class Joueur {
 		partie.getDefausse().ajoutCarte(carte);
 	}
 	
+
 	//Appel des methodes de ActionSuivante
+	public void demanderInterruption() {
+		Capacite.getActionSuivante().demanderInterruption();
+	}
+	
+	public void interruption() {
+		Capacite.getActionSuivante().interruption();
+	}
+	
 	public Joueur choisirJoueurCible(List<Joueur> liste) {
 		return Capacite.getActionSuivante().choisirJoueurCible(liste);
 	}
