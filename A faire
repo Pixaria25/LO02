@@ -18,7 +18,7 @@ Exceptions (si le temps)
       gérer interuptions virtuel 
       Vérifier pb convertir
       Remplir Utilitaire, maj Capa et actionsuivanteconsole
-  Thomas :    enlever Partie en argument quand inutile
+  Thomas :    enlever Partie en argument quand inutile 
               Mettre en valeur cartes jouable
-              Vérifier pb liaison Table et TasCroyant
+              Vérifier pb liaison Table et TasCroyant (fait)
               Virer lignes TODO
