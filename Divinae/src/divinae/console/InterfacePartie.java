@@ -2,7 +2,6 @@ package divinae.console;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -14,7 +13,6 @@ import divinae.api.cartes.types.GuideSpirituel;
 import divinae.api.cartes.types.Origine;
 import divinae.api.joueur.Joueur;
 import divinae.api.joueur.JoueurVirtuel;
-import divinae.api.joueur.StrategieAleatoire;
 import divinae.api.partie.Partie;
 import divinae.api.partie.TypeStrategie;
 
@@ -157,7 +155,6 @@ public class InterfacePartie {
 			jouerUnTour();
 			partie.preparerTourProchain();
 		} while(!partie.isPartieFinie());
-		System.out.println("Le gagnant est "+partie.getJoueurs().get(partie.getIndexGagnant()).getNom());
 	}
 	
 	public void jouerUnTour() {

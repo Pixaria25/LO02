@@ -7,6 +7,7 @@ import divinae.api.cartes.types.Croyant;
 import divinae.api.cartes.types.Dogme;
 import divinae.api.cartes.types.GuideSpirituel;
 import divinae.api.cartes.types.Origine;
+import divinae.api.cartes.types.Utilitaire;
 
 public class Paladin extends GuideSpirituel {
 
@@ -15,12 +16,11 @@ public class Paladin extends GuideSpirituel {
 	 			+ " sur la table sont dï¿½faussï¿½s. Les capacitï¿½s spï¿½ciales ne sont pas jouï¿½es.",
 	 			new Dogme [] {Dogme.Humain,Dogme.Symboles}, 3, 51);
 
-		// TODO Auto-generated constructor stub
 	}
 
 
 	public void activerCapacite() {
-		List<Croyant> croyantASuppr = Capacite.trierCroyantDogme(Origine.Nuit, Origine.Neant, Dogme.Nature, getJoueurLie().getPartie());
+		List<Croyant> croyantASuppr = Utilitaire.trierCroyantDogme(Origine.Nuit, Origine.Neant, Dogme.Nature, getJoueurLie().getPartie());
 		
 		for(int i=0; i < croyantASuppr.size(); i++){
 			Capacite.defausser(croyantASuppr.get(i), getJoueurLie().getPartie());

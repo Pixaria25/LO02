@@ -6,6 +6,7 @@ import divinae.api.cartes.types.Capacite;
 import divinae.api.cartes.types.Dogme;
 import divinae.api.cartes.types.GuideSpirituel;
 import divinae.api.cartes.types.Origine;
+import divinae.api.cartes.types.Utilitaire;
 
 public class Exorciste extends GuideSpirituel {
 
@@ -19,8 +20,8 @@ public class Exorciste extends GuideSpirituel {
 
 
 	public void activerCapacite() {
-		List <GuideSpirituel> gspCiblable = Capacite.choisirGuideLieADiviniteOrigine(Origine.Nuit, this.getJoueurLie().getPartie());
-		gspCiblable.addAll(Capacite.choisirDiviniteEtDogme(Dogme.Mystique, Dogme.Chaos, this.getJoueurLie().getPartie()));
+		List <GuideSpirituel> gspCiblable = Utilitaire.choisirGuideLieADiviniteOrigine(Origine.Nuit, this.getJoueurLie().getPartie());
+		gspCiblable.addAll(Utilitaire.choisirDiviniteEtDogme(Dogme.Mystique, Dogme.Chaos, this.getJoueurLie().getPartie()));
 		Capacite.renvoyerGsp(gspCiblable, this, this.getJoueurLie().getPartie());
 	}
 

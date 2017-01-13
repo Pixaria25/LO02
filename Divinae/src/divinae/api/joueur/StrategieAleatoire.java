@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import divinae.api.cartes.types.Capacite;
 import divinae.api.cartes.types.Carte;
 import divinae.api.cartes.types.CarteAction;
 import divinae.api.cartes.types.Croyant;
@@ -12,6 +11,7 @@ import divinae.api.cartes.types.Divinite;
 import divinae.api.cartes.types.Dogme;
 import divinae.api.cartes.types.GuideSpirituel;
 import divinae.api.cartes.types.Origine;
+import divinae.api.cartes.types.Utilitaire;
 import divinae.api.partie.Partie;
 
 public class StrategieAleatoire implements Strategie {
@@ -42,8 +42,6 @@ public class StrategieAleatoire implements Strategie {
 	public int choixCarteAction(List<CarteAction> main) {
 		int numCarte = random.nextInt(main.size()+1);
 		return numCarte;
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
@@ -85,8 +83,8 @@ public class StrategieAleatoire implements Strategie {
 		int choixDivinite = 0;
 		List<Divinite> diviniteCiblable = new ArrayList<Divinite>();
 		while (choixDivinite < partie.getJoueurs().size()) {
-			if (Capacite.comparerDogme(partie.getJoueurs().get(choixDivinite).getDivinite().getDogme(), dogme1, partie)
-					|| Capacite.comparerDogme(partie.getJoueurs().get(choixDivinite).getDivinite().getDogme(), dogme2,
+			if (Utilitaire.comparerDogme(partie.getJoueurs().get(choixDivinite).getDivinite().getDogme(), dogme1, partie)
+					|| Utilitaire.comparerDogme(partie.getJoueurs().get(choixDivinite).getDivinite().getDogme(), dogme2,
 							partie)) {
 				diviniteCiblable.add(partie.getJoueurs().get(choixDivinite).getDivinite());
 			}
@@ -134,13 +132,13 @@ public class StrategieAleatoire implements Strategie {
 		List<GuideSpirituel> gspCiblable = new ArrayList<GuideSpirituel>();
 
 		while (choixDivinite < partie.getJoueurs().size()) {
-			if (!(Capacite.comparerDogme(partie.getJoueurs().get(choixDivinite).getDivinite().getDogme(), dogme,
+			if (!(Utilitaire.comparerDogme(partie.getJoueurs().get(choixDivinite).getDivinite().getDogme(), dogme,
 					partie))) {
 				gspCiblable.addAll(partie.getJoueurs().get(choixDivinite).getGuides());
 			} else {
 				for (int choixGuide = 0; choixGuide < partie.getJoueurs().get(choixDivinite).getGuides()
 						.size(); choixGuide++) {
-					if (!(Capacite.comparerDogme(partie.getJoueurs().get(choixDivinite).getDivinite().getDogme(), dogme,
+					if (!(Utilitaire.comparerDogme(partie.getJoueurs().get(choixDivinite).getDivinite().getDogme(), dogme,
 							partie))) {
 						gspCiblable.add(partie.getJoueurs().get(choixDivinite).getGuide(choixGuide));
 					}

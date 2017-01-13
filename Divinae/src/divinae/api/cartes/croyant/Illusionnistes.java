@@ -6,6 +6,7 @@ import divinae.api.cartes.types.Capacite;
 import divinae.api.cartes.types.Croyant;
 import divinae.api.cartes.types.Dogme;
 import divinae.api.cartes.types.Origine;
+import divinae.api.cartes.types.Utilitaire;
 import divinae.api.joueur.Joueur;
 import divinae.api.partie.Partie;
 
@@ -20,7 +21,7 @@ public class Illusionnistes extends Croyant {
 	@Override
 	public void activerCapacite() {
 		Partie partie = this.getJoueurLie().getPartie();
-		List<Joueur> liste = Capacite.extraireListeJoueurRestrainte (partie, getJoueurLie());
+		List<Joueur> liste = Utilitaire.extraireListeJoueurRestrainte (partie, getJoueurLie());
 		Joueur joueur = getJoueurLie().choisirJoueurCible(liste);
 
 		if (joueur.getNombreCroyant() == 0) {

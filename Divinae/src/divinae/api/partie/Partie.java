@@ -27,6 +27,8 @@ public class Partie {
 	private De de;
 	private boolean partieFinie;
 	private int indexGagnant = -1;
+	private int indexPerdant = -1;
+	
 	
 	public Partie() {
 		this.indexJoueur1 = 0;
@@ -45,6 +47,11 @@ public class Partie {
 	}
 	
 	
+	public int getIndexPerdant() {
+		return indexPerdant;
+	}
+
+
 	public void debuterUnTour() {
 		de.lancerDe();
 		ajoutPoint();
@@ -143,10 +150,16 @@ public class Partie {
 	
 	public void finirUnePartie() {
 		int maxCroyants = 0;
+		int minCroyants = 0;
 		indexGagnant = 0;
+		indexPerdant = 0;
 		for(int i = 0; i < joueurs.size(); i++) {
 			if(joueurs.get(i).getNombreCroyant() > maxCroyants) {
 				maxCroyants = joueurs.get(i).getNombreCroyant();
+				indexGagnant = i;
+			}
+			if (joueurs.get(i).getNombreCroyant() < minCroyants) {
+				minCroyants = joueurs.get(i).getNombreCroyant();
 				indexGagnant = i;
 			}
 		}
@@ -156,8 +169,9 @@ public class Partie {
 	
 	
 	public void preparerTourProchain() {
+		
 		indexJoueur1 = (indexJoueur1 + 1) % joueurs.size();
-		Capacite.resetAutorisations(this);
+		
 	}
 	
 	//Ajout des points aux joueurs selon le type de leur divinite et selon la valeur du de de Cosmogonie

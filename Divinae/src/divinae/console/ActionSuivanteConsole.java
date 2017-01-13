@@ -12,6 +12,7 @@ import divinae.api.cartes.types.Divinite;
 import divinae.api.cartes.types.Dogme;
 import divinae.api.cartes.types.GuideSpirituel;
 import divinae.api.cartes.types.Origine;
+import divinae.api.cartes.types.Utilitaire;
 import divinae.api.joueur.Joueur;
 import divinae.api.partie.Partie;
 
@@ -63,9 +64,9 @@ public class ActionSuivanteConsole implements ActionSuivante {
 
 		if (!(dogme1 == null) || !(dogme2 == null)) {
 			while (choixDivinite < partie.getJoueurs().size()) {
-				if (Capacite.comparerDogme(partie.getJoueurs().get(choixDivinite).getDivinite().getDogme(), dogme1,
+				if (Utilitaire.comparerDogme(partie.getJoueurs().get(choixDivinite).getDivinite().getDogme(), dogme1,
 						partie)
-						|| Capacite.comparerDogme(partie.getJoueurs().get(choixDivinite).getDivinite().getDogme(),
+						|| Utilitaire.comparerDogme(partie.getJoueurs().get(choixDivinite).getDivinite().getDogme(),
 								dogme2, partie)) {
 					diviniteCiblable.add(partie.getJoueurs().get(choixDivinite).getDivinite());
 				}
@@ -151,14 +152,14 @@ public class ActionSuivanteConsole implements ActionSuivante {
 		while (choixDivinite < partie.getJoueurs().size()) {
 			Dogme[] dogmeDivinite = partie.getJoueurs().get(choixDivinite).getDivinite().getDogme();
 			
-			if (!(Capacite.comparerDogme(dogmeDivinite, dogme,partie))) {
+			if (!(Utilitaire.comparerDogme(dogmeDivinite, dogme,partie))) {
 				gspCiblable.addAll(partie.getJoueurs().get(choixDivinite).getGuides());
 			} else {
 			
 				for (int choixGuide = 0; choixGuide < partie.getJoueurs().get(choixDivinite).getGuides().size(); choixGuide++) {
 					GuideSpirituel Gsp = partie.getJoueurs().get(choixDivinite).getGuide(choixGuide);
 					
-					if (!(Capacite.comparerDogme(dogmeDivinite, dogme,partie))) {
+					if (!(Utilitaire.comparerDogme(dogmeDivinite, dogme,partie))) {
 						gspCiblable.add(Gsp);
 						if (gspCiblable.get(gspCiblable.indexOf(Gsp)).isProtectionCiblage()) {
 							gspCiblable.remove(gspCiblable.indexOf(Gsp));
