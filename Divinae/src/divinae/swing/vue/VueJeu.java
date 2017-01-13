@@ -24,9 +24,11 @@ import divinae.api.cartes.types.Croyant;
 import divinae.api.cartes.types.GuideSpirituel;
 import divinae.api.cartes.types.Origine;
 import divinae.api.joueur.Joueur;
+import divinae.swing.controleur.ControleurJeu;
 import divinae.swing.modele.ModeleJeu;
 
 public class VueJeu extends JFrame implements ActionListener, Observer {
+	private ControleurJeu controleurJeu;
 	private ModeleJeu modeleJeu;
 	private JTextArea log;
 	private JPanel panelTable = new JPanel();
@@ -39,7 +41,8 @@ public class VueJeu extends JFrame implements ActionListener, Observer {
     private JButton boutonFinDeTour = new JButton("Fin de tour");
 	private List<VueCarte> vueCartes = new ArrayList<>();
 
-	public VueJeu(ModeleJeu modeleJeu) {
+	public VueJeu(ControleurJeu controleurJeu, ModeleJeu modeleJeu) {
+		this.controleurJeu = controleurJeu;
 		this.modeleJeu = modeleJeu;
 		modeleJeu.addObserver(this);
 
@@ -179,27 +182,32 @@ public class VueJeu extends JFrame implements ActionListener, Observer {
 			List<VueCarte> vueCartes = getVueCartesSelectionnees();
 			VueCarte vueCarte = vueCartes.get(0);
 			Joueur joueur = vueCarte.getCarteAction().getJoueurLie();
-			boolean poserCarte = carteJouable(vueCarte.getCarteAction(), joueur);
-			
-			if(poserCarte) {
+			String message = carteJouable(vueCarte.getCarteAction(), joueur);
+			if(message == null) {
 				joueur.poserCarteAction(vueCarte.getId());
-				// TODO demanderInterruption();
+				//demanderInterruption();
 				// Solution ?
-				// TODO Capacite.setCarteInterupt(vueCarte.getCarteAction());
-				CarteAction cartePosee = Capacite.getCarteInterupt();
-				if (cartePosee.isCapaciteBloque() && ( !(cartePosee instanceof Croyant) ||  !(cartePosee instanceof GuideSpirituel) )) {
-					JOptionPane.showMessageDialog(null, cartePosee.getNom() + " a été bloqué !");
-				} else {
+				//Capacite.setCarteInterupt(vueCarte.getCarteAction());
+				//CarteAction cartePosee = Capacite.getCarteInterupt();
+				//if (cartePosee != null && cartePosee.isCapaciteBloqué() && ( !(cartePosee instanceof Croyant) ||  !(cartePosee instanceof GuideSpirituel) )) {
+				//	JOptionPane.showMessageDialog(null, cartePosee.getNom() + " a été bloqué !");
+				//} else {
 					modeleJeu.getPartie().activerCartes();
-				}
-
+				//}
+				boutonDefausser.setEnabled(false);
+				boutonJouer.setEnabled(false);
+				modeleJeu.getPartie().setCroyantsRattachables();
+				controleurJeu.jouerTourJoueursVirtuels();
 			} else {
-				JOptionPane.showMessageDialog(null, "Vous ne pouvez pas jouer cette carte.");
+				JOptionPane.showMessageDialog(null, message);
+				vueCarte.setSelected(false);
 			}
 		}
 		else if (source==boutonFinDeTour)
 		{
-			JOptionPane.showMessageDialog(null, "Implémenter Fin de tour");
+			boutonFinDeTour.setEnabled(false);
+			modeleJeu.getPartie().setCroyantsRattachables();
+			controleurJeu.jouerTourJoueursVirtuels();
 		}
 		else if (source instanceof VueCarte)
 		{
@@ -217,45 +225,42 @@ public class VueJeu extends JFrame implements ActionListener, Observer {
 		}
 	}
 
-	private boolean carteJouable(CarteAction carte, Joueur joueur) {
-
-		boolean poserCarte = false;
+	private String carteJouable(CarteAction carte, Joueur joueur) {
+		String result = null;
 		switch (carte.getOrigine()){
 			
 			case Jour :
 				if (joueur.getPointsAction()[Origine.Jour.ordinal()] >= 1) {
-					poserCarte = true;
+					result = null;
 				} else {
-					JOptionPane.showMessageDialog(null, "Pas de point d'origine jour.");
+					result = "Pas de point d'origine jour.";
 				}
 				break;
 				
 			case Nuit :
 				if (joueur.getPointsAction()[Origine.Nuit.ordinal()] >= 1) {
-					poserCarte = true;
+					result = null;
 				} else {
-					JOptionPane.showMessageDialog(null, "Pas de point d'origine Nuit.");
+					result =  "Pas de point d'origine Nuit.";
 				}
 				break;
 				
 			case Neant :
 				if (joueur.getPointsAction()[Origine.Neant.ordinal()] >= 1) {
-					poserCarte = true;
+					result = null;
 				} else {
-					JOptionPane.showMessageDialog(null, "Pas de point d'origine Neant.");
+					result = "Pas de point d'origine Neant.";
 				}
 				break;
 				
 			case Aube:
-				
 			case Crepuscule:
-				
 			case Aucune:
-				poserCarte = true;
+				result = null;
 				
 			default:
 		}
-		return poserCarte;
+		return result;
 	}
 
 	private List<CarteAction> getCartesSelectionnees() {
@@ -304,16 +309,25 @@ public class VueJeu extends JFrame implements ActionListener, Observer {
 			panelSelection.add(vueSelection);
 			VueCarte vueCarte = new VueCarte(id++, carte, vueSelection);
 			vueCarte.addActionListener(this);
+			if (carteJouable(vueCarte.getCarteAction(), carte.getJoueurLie()) == null) {
+				vueSelection.setBackground(Color.BLUE);
+			}
 			panelJoueur.add(vueCarte);
 			vueCartes.add(vueCarte);
 			afficherMessage(carte.toString());
 		}
 		panelJoueur.updateUI();
 	}
+
+	public void initialiserVueJoueur() {
+		boutonDefausser.setEnabled(true);
+		boutonFinDeTour.setEnabled(true);		
+	}
 	
 	private void effacerPanelJoueur() {
 		panelJoueur.removeAll();
 		panelSelection.removeAll();
 		panelSelection.updateUI();
+		vueCartes.clear();
 	}
 }

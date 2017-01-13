@@ -1,4 +1,4 @@
-package divinae.console;
+package divinae.swing.controleur;
 
 import java.util.List;
 import divinae.api.cartes.types.ActionSuivante;
