@@ -14,7 +14,7 @@ Exceptions (si le temps)
 12/01 :
  Abe: afficherMessage : convertir croyants (fait)
       afficher état partie (fin tour)
-      déplacer interruptions
+      déplacer interruptions (fait)
       gérer interuptions virtuel 
       Vérifier pb convertir (fait)
       Remplir Utilitaire, maj Capa et actionsuivanteconsole (fait)
