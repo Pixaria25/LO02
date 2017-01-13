@@ -19,7 +19,7 @@ import divinae.console.InterfacePartie;
 public class StrategieAleatoire implements Strategie {
 
 	private Random random = new Random();
-	private Partie partie = InterfacePartie.getPartie();
+	
 	
 	@Override
 	public int jouer() {
@@ -34,6 +34,7 @@ public class StrategieAleatoire implements Strategie {
 	}
 
 	public void interruption() {
+		Partie partie = InterfacePartie.getPartie();
 		HashSet<Integer> actionsValides = new HashSet<Integer>();
 		Joueur joueurCourant = partie.getTable(partie.getTable().size()-1).getJoueurLie();
 

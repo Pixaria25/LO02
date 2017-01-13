@@ -1,5 +1,6 @@
 package divinae.api.cartes.types;
 
+import divinae.api.joueur.Joueur;
 import divinae.api.partie.Partie;
 
 import java.util.ArrayList;
@@ -34,8 +35,15 @@ public abstract class GuideSpirituel extends CarteAction {
 
 	public void poserCarteAction() {
 			int indexCourant = getJoueurLie().getPartie().getIndexJoueur1();
-			setJoueurLie(getJoueurLie().getPartie().getJoueurs().get(indexCourant));
-			convertirCroyant(getJoueurLie().getPartie());
+			Partie partie = getJoueurLie().getPartie();
+			if (!partie.getTasDeCroyants().isEmpty()) {
+				setJoueurLie(partie.getJoueurs().get(indexCourant));
+				convertirCroyant(getJoueurLie().getPartie());
+			} else { 
+				getJoueurLie().messageListe("Pas de croyants disponible ! Reprise de la carte");
+				Capacite.donnerPointAction(1, getOrigine(), getJoueurLie());
+			}
+			
 	}
 
 	public List<Croyant> getCroyantLie() {

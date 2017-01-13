@@ -208,7 +208,7 @@ public class InterfacePartie {
 			switch(choixAction) {
 				case 1:
 					System.out.println(joueurCourant.afficherMain());
-					int choixCarte = -1;
+					int choixCarte;
 					do {
 						System.out.println("Entrez le numero de la carte que vous voulez jouer.");
 						choixCarte = scanner.nextInt();
@@ -218,10 +218,9 @@ public class InterfacePartie {
 					boolean poserCarte = joueurCourant.poserCarteAction(choixCarte);
 					
 					if(poserCarte) {
-						Capacite.setCarteInterupt(joueurCourant.getMain().get(choixCarte));
-						CarteAction cartePosee = Capacite.getCarteInterupt();
-						partie.getTable().add(cartePosee);
-						Capacite.getActionSuivante().messageRecap(cartePosee.getJoueurLie().getNom() + " pose " + cartePosee.getNom());
+						CarteAction cartePosee = joueurCourant.getMain().get(choixCarte-1);
+						Capacite.setCarteInterupt(cartePosee);
+						joueurCourant.poserCarteAction(choixCarte);
 						for (int i = 0; i < partie.getJoueurs().size(); i++) {
 							if (!(partie.getJoueurs().get(i).getNom() == joueurCourant.getNom())) {
 								partie.getJoueurs().get(i).demanderInterruption();

@@ -15,7 +15,7 @@ public class Apocalypse extends  CarteAction {
 	public void activerCapacite() {
 		Partie partie = getJoueurLie().getPartie();
 		List<Joueur> joueurs = partie.getJoueurs();
-		Joueur dernierJoueur = joueurs.get(partie.getIndexJoueur1() - 1);
+		Joueur dernierJoueur = joueurs.get((partie.getIndexJoueur1() - 1)%partie.getJoueurs().size());
 		int indexJoueurCourant = joueurs.indexOf(getJoueurLie());
 		
 		if (dernierJoueur.getNom() == joueurs.get(indexJoueurCourant + joueurs.size()-1).getNom()) {

@@ -44,6 +44,7 @@ public class Joueur {
 			}
 			CarteAction carteAction = main.remove(choixCarte);
 			partie.getTable().add(carteAction);
+			Capacite.getActionSuivante().messageRecap(carteAction.getJoueurLie().getNom() + " pose " + carteAction.getNom());
 			return true;
 		} else {
 			return false;

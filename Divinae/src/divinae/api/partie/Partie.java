@@ -177,13 +177,13 @@ public class Partie {
 	//Ajout des points aux joueurs selon le type de leur divinite et selon la valeur du de de Cosmogonie
 	public void ajoutPoint() {
 		for(int i = 0; i < joueurs.size(); i++) {
-			if(deCosmogonie(de.getValeur()) == Origine.Jour) {
+			if(de.getInfluence()== Origine.Jour) {
 				if(joueurs.get(i).getDivinite().getOrigine() == Origine.Jour) {
 					joueurs.get(i).ajoutPointsAction(2, Origine.Jour);
 				} else if(joueurs.get(i).getDivinite().getOrigine() == Origine.Aube) {
 					joueurs.get(i).ajoutPointsAction(1, Origine.Jour);
 				}
-			} else if(deCosmogonie(de.getValeur()) == Origine.Nuit) {
+			} else if(de.getInfluence() == Origine.Nuit) {
 				if(joueurs.get(i).getDivinite().getOrigine() == Origine.Nuit) {
 					joueurs.get(i).ajoutPointsAction(2, Origine.Nuit);
 				} else if(joueurs.get(i).getDivinite().getOrigine() == Origine.Crepuscule) {
@@ -267,16 +267,6 @@ public class Partie {
 		return de;
 	}
 	
-	private Origine deCosmogonie(int nombre) {
-		if(nombre <= 2) {
-			return Origine.Neant;
-		} else if(nombre >= 3 && nombre <= 4) {
-			return Origine.Nuit;
-		} else {
-			return Origine.Jour;
-		}
-	}
-
 	public List<CarteAction> getTable() {
 		return table;
 	}
