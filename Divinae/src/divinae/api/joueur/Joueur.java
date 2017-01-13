@@ -1,7 +1,6 @@
 package divinae.api.joueur;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
 import divinae.api.cartes.types.CarteAction;

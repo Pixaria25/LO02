@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Scanner;
 
 import divinae.api.cartes.types.ActionSuivante;
-import divinae.api.cartes.types.Capacite;
 import divinae.api.cartes.types.Carte;
 import divinae.api.cartes.types.Croyant;
 import divinae.api.cartes.types.Divinite;

@@ -1,7 +1,6 @@
 package divinae.console;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
 
@@ -10,7 +9,6 @@ import divinae.api.cartes.types.CarteAction;
 
 import divinae.api.cartes.types.Croyant;
 import divinae.api.cartes.types.GuideSpirituel;
-import divinae.api.cartes.types.Origine;
 import divinae.api.joueur.Joueur;
 import divinae.api.joueur.JoueurVirtuel;
 import divinae.api.partie.Partie;
@@ -220,14 +218,22 @@ public class InterfacePartie {
 					boolean poserCarte = joueurCourant.poserCarteAction(choixCarte);
 					
 					if(poserCarte) {
-						joueurCourant.demanderInterruption();
-						// Solution ?
 						Capacite.setCarteInterupt(joueurCourant.getMain().get(choixCarte));
 						CarteAction cartePosee = Capacite.getCarteInterupt();
+						partie.getTable().add(cartePosee);
+						Capacite.getActionSuivante().messageRecap(cartePosee.getJoueurLie().getNom() + " pose " + cartePosee.getNom());
+						for (int i = 0; i < partie.getJoueurs().size(); i++) {
+							if (!(partie.getJoueurs().get(i).getNom() == joueurCourant.getNom())) {
+								partie.getJoueurs().get(i).demanderInterruption();
+							}
+						}
+						
+						// Solution ?
 						if (cartePosee.isCapaciteBloqué() && ( !(cartePosee instanceof Croyant) ||  !(cartePosee instanceof GuideSpirituel) )) {
 							System.out.println(cartePosee.getNom() + " a été bloqué !");
+							joueurCourant.tuerCarte(cartePosee);
 						} else {
-							partie.activerCartes();
+							cartePosee.poserCarteAction();
 						}
 
 					} else {

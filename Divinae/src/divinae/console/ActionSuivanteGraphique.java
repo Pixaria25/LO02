@@ -104,7 +104,6 @@ public class ActionSuivanteGraphique implements ActionSuivante
 	@Override
 	public void demanderInterruption() {
 
-		
 	}
 
 	@Override

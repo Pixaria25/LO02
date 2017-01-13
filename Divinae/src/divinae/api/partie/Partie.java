@@ -203,13 +203,6 @@ public class Partie {
 		}
 	}
 	
-	public void activerCartes() {
-		for(int i = table.size()-1; i > 0; i++) {
-			table.get(i).poserCarteAction();
-			table.remove(i);
-		}
-	}
-	
 	public String afficherTable() {
 		String retour = "Table: ";
 		for(int i = 0; i < table.size(); i++) {
