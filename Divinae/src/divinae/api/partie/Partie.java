@@ -40,7 +40,7 @@ public final class Partie {
 		this.de = new De();
 		this.partieFinie = false;
 		//Joueurs par defaut
-		joueurs.add(new Joueur("Thomas", this));
+//		joueurs.add(new Joueur("Thomas", this));
 		joueurs.add(new JoueurVirtuel("Alex", this, new StrategieAleatoire()));
 		joueurs.add(new JoueurVirtuel("Fabrice", this, new StrategieAleatoire()));
 	}
@@ -148,7 +148,7 @@ public final class Partie {
 	public void distribuerCartes() {
 		for(int i = 0; i < this.joueurs.size();i++)
         {
-            this.joueurs.get(i).completerMain();;
+            this.joueurs.get(i).completerMain();
         }
 	}
 	

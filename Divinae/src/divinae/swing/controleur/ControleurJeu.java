@@ -1,6 +1,7 @@
 package divinae.swing.controleur;
 
 import divinae.api.joueur.Joueur;
+import divinae.api.joueur.JoueurVirtuel;
 import divinae.api.partie.Partie;
 import divinae.swing.modele.ModeleJeu;
 import divinae.swing.vue.InitialisationJeuDialog;
@@ -45,38 +46,10 @@ public class ControleurJeu {
 			vueJeu.afficherMessage("Pioche de " + nombreCartes + " cartes.");
 		}
 		joueurCourant.completerMain();
-		vueJeu.afficherJoueurDivinite(joueurCourant.getDivinite());
-		vueJeu.afficherMain(joueurCourant.lireCartes());
-		vueJeu.afficherMessage(joueurCourant.afficherMain());
-	}
-
-	private void defausser(Joueur joueur) {
-		vueJeu.afficherMessage("Voulez-vous defausser des cartes ? (y/n)");
-		String reponse = "";
-
-		//do{
-			// TODO reponse = scanner.next();
-			//if(!(reponse.equals("n") || reponse.equals("y"))) {
-				//vueJeu.afficherMessage("Reponse invalide.");
-			//}
-		//} while(!(reponse.equals("n") || reponse.equals("y")));
-		int nombreCartes = 0;
-		if(reponse.equals("y")) {
-			vueJeu.afficherMessage("Combien de cartes voulez-vous defausser ?");
-
-			boolean aDefausse = false;
-			//do{
-				// TODO nombreCartes = scanner.nextInt();
-				if(nombreCartes >= 0 || nombreCartes <= joueur.getMain().size()) {
-					aDefausse = true;
-				} else {
-					vueJeu.afficherMessage("Ce nombre de cartes est invalide.");
-				}
-			//} while(!aDefausse);
-			vueJeu.afficherMessage("Quelles cartes voulez-vous defausser ?");
-
-			//Donner toutes les cartes a defausser ? Donner le numero de la carte a defausser ? Donner le nombre de cartes a defausser puis donner lesquels ?
-			// TODO joueur.defausser(nombreCartes);
+		if (!(joueurCourant instanceof JoueurVirtuel)) {
+			vueJeu.afficherJoueurDivinite(joueurCourant.getDivinite());
+			vueJeu.afficherMain(joueurCourant.getMain());
 		}
+		vueJeu.afficherMessage(joueurCourant.afficherMain());
 	}
 }

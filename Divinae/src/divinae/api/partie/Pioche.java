@@ -24,4 +24,8 @@ public class Pioche {
 	public void setPioche(Collection<CarteAction> tasDeCarte) {
 		this.pioche.addAll(tasDeCarte);
 	}
+	
+	public boolean isEmpty() {
+		return pioche.isEmpty();
+	}
 }

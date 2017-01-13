@@ -227,7 +227,7 @@ public class InterfacePartie {
 						// Solution ?
 						Capacite.setCarteInterupt(carteChoisie);
 						CarteAction cartePosee = Capacite.getCarteInterupt();
-						if (cartePosee.isCapaciteBloqué() && ( !(cartePosee instanceof Croyant) ||  !(cartePosee instanceof GuideSpirituel) )) {
+						if (cartePosee.isCapaciteBloque() && ( !(cartePosee instanceof Croyant) ||  !(cartePosee instanceof GuideSpirituel) )) {
 							System.out.println(cartePosee.getNom() + " a été bloqué !");
 						} else {
 							partie.activerCartes();
@@ -257,7 +257,7 @@ public class InterfacePartie {
 						} else {
 									Capacite.setCarteInterupt(listeCartesSacrifiables.get(choixSacrifice));
 									demanderInterruption();
-									if (listeCartesSacrifiables.get(choixSacrifice).isCapaciteBloqué()) {
+									if (listeCartesSacrifiables.get(choixSacrifice).isCapaciteBloque()) {
 										System.out.println(joueurCourant.getMain().get(choixSacrifice).getNom() + " a été bloqué !");
 									} else {
 										joueurCourant.sacrifierCarte(listeCartesSacrifiables.get(choixSacrifice));

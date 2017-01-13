@@ -4,6 +4,8 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.Transparency;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
@@ -11,19 +13,35 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
 import divinae.api.cartes.types.Carte;
+import divinae.api.cartes.types.CarteAction;
 
 public class VueCarte extends JButton
 {
-	private Carte carte;
-	public VueCarte(Carte carte) {
+	public static int CARTE_LARGEUR = 132;
+	public static int CARTE_LONGUEUR = 200;
+
+	private int id;
+	private CarteAction carteAction = null;
+	private Carte carte = null;
+	private VueSelection vueSelection;
+
+	public VueCarte(int id, CarteAction carteAction, final VueSelection vueSelection)
+	{
+		this(id, (Carte)carteAction, vueSelection);
+		this.carteAction = carteAction;
+	}
+
+	public VueCarte(int id, Carte carte, final VueSelection vueSelection)
+	{
+		this.id = id;
 		this.carte = carte;
-		this.setMinimumSize(new Dimension(132, 200));
-		this.setMaximumSize(new Dimension(132, 200));
-		this.setPreferredSize(new Dimension(132, 200));
-		//this.setText(carte.getNom());
+		this.vueSelection = vueSelection;
+		this.setMinimumSize(new Dimension(CARTE_LARGEUR, CARTE_LONGUEUR));
+		this.setMaximumSize(new Dimension(CARTE_LARGEUR, CARTE_LONGUEUR));
+		this.setPreferredSize(new Dimension(CARTE_LARGEUR, CARTE_LONGUEUR));
 		try
 		{
-			this.setIcon(new ImageIcon(scale("/images/" + carte.getId() +".png", 132, 200)));
+			this.setIcon(new ImageIcon(scale("/images/" + carte.getId() +".png", CARTE_LARGEUR, CARTE_LONGUEUR)));
 		} catch (IOException e) {
 			// Icon not set
 		}
@@ -81,6 +99,27 @@ public class VueCarte extends JButton
 		}
 
 		return ret;
+	}
 
+	public int getId() {
+		return id;
+	}
+	
+	public void setSelected(boolean selected) {
+		if (vueSelection != null) {
+			vueSelection.setSelected(selected);
+		}
+	}
+	
+	public boolean isSelected() {
+		if (vueSelection == null)
+		{
+			return false;
+		}
+		return vueSelection.isSelected();
+	}
+
+	public CarteAction getCarteAction() {
+		return carteAction;
 	}
 }

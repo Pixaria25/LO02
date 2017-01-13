@@ -106,9 +106,15 @@ public class Joueur {
 	}
 		
 	public void completerMain() {
-		
 		int nbreCartes = TAILLE_MAIN_MAX-main.size();
 		for(int i = 0; i < nbreCartes; i++) {
+			if(partie.getPioche().isEmpty()) {
+				if(partie.getDefausse().isEmpty()) {
+					return;
+				} else {
+					partie.getDefausse().remettrePioche(partie.getPioche());
+				}
+			}
 			CarteAction carte = partie.getPioche().sortirUneCarte();
 			carte.setJoueurLie(this);
 			main.add(carte);
