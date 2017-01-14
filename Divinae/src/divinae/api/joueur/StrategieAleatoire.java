@@ -45,12 +45,13 @@ public class StrategieAleatoire implements Strategie {
 			actionsValides.add(2);
 		}
 		
+
 		int choixInterruption = random.nextInt(10);
 		int choixAction = 0;
+
 		
 		if (actionsValides.isEmpty()){
 			actionsValides.add(0);
-			choixAction = 0;
 		} else if (choixInterruption == 0) {
 				choixAction = random.nextInt(actionsValides.size());
 		}
@@ -88,6 +89,7 @@ public class StrategieAleatoire implements Strategie {
 	public int choixCarteAction(List<CarteAction> main) {
 		int numCarte = random.nextInt(main.size());
 		return numCarte;
+
 	}
 
 	@Override

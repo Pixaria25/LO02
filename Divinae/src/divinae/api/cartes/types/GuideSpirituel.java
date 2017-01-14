@@ -38,9 +38,12 @@ public abstract class GuideSpirituel extends CarteAction {
 			if (!partie.getTasDeCroyants().isEmpty()) {
 				setJoueurLie(partie.getJoueurs().get(indexCourant));
 				convertirCroyant(getJoueurLie().getPartie());
+				Capacite.getActionSuivante().messageRecap(getJoueurLie().getNom() + " joue " + getNom());
+				getJoueurLie().getMain().remove(this);
 			} else { 
 				getJoueurLie().messageRecap("Pas de croyants disponible ! Reprise de la carte");
 				Capacite.donnerPointAction(1, getOrigine(), getJoueurLie());
+				
 			}
 			
 	}

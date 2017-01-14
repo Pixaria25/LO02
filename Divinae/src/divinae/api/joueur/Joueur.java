@@ -42,7 +42,7 @@ public class Joueur {
 			if(!(main.get(choixCarte).getOrigine() == Origine.Aucune)) {
 				pointsAction[main.get(choixCarte).getOrigine().ordinal()]--;
 			}
-			CarteAction carteAction = main.remove(choixCarte);
+			CarteAction carteAction = main.get(choixCarte);
 			partie.getTable().add(carteAction);
 			Capacite.getActionSuivante().messageRecap(carteAction.getJoueurLie().getNom() + " pose " + carteAction.getNom());
 			return true;

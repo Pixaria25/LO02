@@ -1,9 +1,12 @@
 package divinae.api.cartes.croyant;
 
+import java.util.List;
+
 import divinae.api.cartes.types.Capacite;
 import divinae.api.cartes.types.Croyant;
 import divinae.api.cartes.types.Dogme;
 import divinae.api.cartes.types.Origine;
+import divinae.api.cartes.types.Utilitaire;
 import divinae.api.joueur.Joueur;
 
 public class GuerriersSaints extends Croyant {
@@ -14,7 +17,8 @@ public class GuerriersSaints extends Croyant {
 	}
 
 	 public void activerCapacite() {
-		 Joueur joueurVise = getJoueurLie().choisirJoueurCible(getJoueurLie().getPartie().getJoueurs());
+		 List<Joueur> liste = Utilitaire.extraireListeJoueurRestrainte (getJoueurLie().getPartie(), getJoueurLie());
+		 Joueur joueurVise = getJoueurLie().choisirJoueurCible(liste);
 		 Capacite.renvoyerGsp(joueurVise.getGuides(), this, this.getJoueurLie().getPartie());
 	  }
 }

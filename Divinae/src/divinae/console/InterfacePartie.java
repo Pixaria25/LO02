@@ -218,6 +218,7 @@ public class InterfacePartie {
 					boolean poserCarte = joueurCourant.poserCarteAction(choixCarte);
 					
 					if(poserCarte) {
+
 						Capacite.setCarteInterupt(cartePosee);
 						joueurCourant.poserCarteAction(choixCarte);
 						for (int i = 0; i < partie.getJoueurs().size(); i++) {
@@ -225,15 +226,9 @@ public class InterfacePartie {
 								partie.getJoueurs().get(i).demanderInterruption();
 							}
 						}
-						
-						// Solution ?
 
-						if (cartePosee.isCapaciteBloque() && ( !(cartePosee instanceof Croyant) ||  !(cartePosee instanceof GuideSpirituel) )) {
-							System.out.println(cartePosee.getNom() + " a été bloqué !");
-							joueurCourant.tuerCarte(cartePosee);
-						} else {
-							cartePosee.poserCarteAction();
-						}
+						partie.activerCapaCartesTour();
+						cartePosee.poserCarteAction();
 
 					} else {
 						System.out.println("Vous ne pouvez pas jouer cette carte.");

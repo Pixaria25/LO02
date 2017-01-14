@@ -8,9 +8,15 @@ public abstract class DeusEx extends CarteAction {
 
 	@Override
 	public void poserCarteAction() {
-
-		activerCapacite();
-		getJoueurLie().tuerCarte(this);
+		if (isCapaciteBloque()) {
+			System.out.println(getNom() + " a été bloqué !");
+			
+		} else {
+			Capacite.getActionSuivante().messageRecap(getJoueurLie().getNom() + " joue " + getNom());
+			activerCapacite();
+			getJoueurLie().getMain().remove(this);
+			getJoueurLie().tuerCarte(this);
+		}
 	}
 	
 	public String toString() {

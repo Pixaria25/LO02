@@ -124,7 +124,6 @@ public class Utilitaire {
 
 		return liste;
 	}
-	
 	public static List<GuideSpirituel> getGspCiblables(Joueur joueur, Partie partie) {
 		List<GuideSpirituel> gspCiblables = new ArrayList<GuideSpirituel>();
 		int indexGsp = 0;
@@ -141,6 +140,7 @@ public class Utilitaire {
 			indexGsp = 0;
 			indexJoueur++;
 		}
+	
 
 		for (int i = 0; i < gspCiblables.size(); i++) {
 			if (gspCiblables.get(i).isProtectionCiblage()) {
