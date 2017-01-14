@@ -7,9 +7,9 @@ import divinae.api.partie.Partie;
 
 public interface ActionSuivante
 {
-	public void demanderInterruption();
+	public void demanderInterruption(Joueur joueurCourant);
 	
-	public void interruption();
+	public void interruption(Joueur joueurCourant);
 	
 	Joueur choisirJoueurCible(List<Joueur> liste);
 	
