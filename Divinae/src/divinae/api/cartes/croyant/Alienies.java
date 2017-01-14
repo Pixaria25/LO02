@@ -12,7 +12,6 @@ public  class Alienies extends Croyant {
 	public Alienies(String nom, String capacite, Dogme[] dogme, int option, int id) {
 		super("Alienes", Origine.Neant, capacite, dogme, 2, id);
 		this.option = option;
-		// TODO Auto-generated constructor stub
 	}
 	
 	public void activerCapacite() {

@@ -16,7 +16,7 @@ public abstract class Croyant extends  CarteAction {
 	}
 
 	public void poserCarteAction() {
-		getJoueurLie().getPartie().getTasDeCroyants().add(this);
+		getJoueurLie().getPartie().ajoutTasDCroyants(this);
 		setJoueurLie(null);
 	}
 	

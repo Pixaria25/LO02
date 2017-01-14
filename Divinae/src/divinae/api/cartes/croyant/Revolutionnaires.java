@@ -13,7 +13,6 @@ public class Revolutionnaires extends Croyant {
 				+ " que vous le voulez. Chaque Divinit� choisit la carte � sacrifier. Les capacit�s sp�ciales sont jou�es.",
 				new Dogme [] {Dogme.Symboles, Dogme.Humain, Dogme.Chaos}, 2, 36);
 
-		// TODO Auto-generated constructor stub
 	}
   
   public void activerCapacite() {

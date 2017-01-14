@@ -12,13 +12,10 @@ public class Shingua extends Divinite {
 				+ "que le nombre de Guides Spirituels que la Divinité possède.", 
 				new Dogme[]{Dogme.Humain, Dogme.Mystique, Dogme.Chaos}, 
 				"Perverse et retorse, Shingva est une Divinité que toutes les autres détestent.", 88);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void activerCapacite() {
-		// TODO Auto-generated method stub
-		super.activerCapacite();
 		Capacite.donnerPointAction(this.getJoueurLie().getGuides().size(), Origine.Neant, getJoueurLie());	
 
 	}

@@ -25,7 +25,7 @@ public interface ActionSuivante
 	
 	GuideSpirituel choisirDiviniteOuGspNonDogme (Dogme dogme, Partie partie);
 	
-	void choisirFaceDe (Carte carte,Partie partie);
+	int choisirFaceDe (Joueur joueur,Partie partie);
 	
 	boolean choixMultiples (String cible);
 	

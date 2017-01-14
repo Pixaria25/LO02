@@ -2,7 +2,6 @@ package divinae.api.joueur;
 
 import java.util.List;
 
-import divinae.api.cartes.types.Carte;
 import divinae.api.cartes.types.CarteAction;
 import divinae.api.cartes.types.Croyant;
 import divinae.api.cartes.types.Divinite;
@@ -45,6 +44,8 @@ public class JoueurVirtuel extends Joueur {
 				} 
 			}catch(IllegalArgumentException e) {
 					
+			}catch(IndexOutOfBoundsException e) {
+				
 			}
 			
 		} while(!tourJoueurFini);
@@ -96,8 +97,8 @@ public class JoueurVirtuel extends Joueur {
 	}
 	
 	@Override
-	public void choisirFaceDe (Carte carte) {
-		strategie.choisirFaceDe(carte, getPartie());;
+	public int choisirFaceDe (Joueur joueur) {
+		return strategie.choisirFaceDe();
 	}
 
 	@Override
@@ -121,7 +122,7 @@ public class JoueurVirtuel extends Joueur {
 		return strategie.choisirGspRenvoye(gspCiblable);
 	}
 
-	public void messageListe (String message) {
+	public void messageRecap (String message) {
 
 	}
 	

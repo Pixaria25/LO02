@@ -15,8 +15,9 @@ import divinae.api.cartes.deuxex.*;
 import divinae.api.cartes.guide.*;
 
 
-public class Partie {
+public final class Partie {
 	
+	private static volatile Partie instance = null;
 	private int indexJoueur1;
 	private List<Joueur> joueurs;
 	private List<CarteAction> table;
@@ -30,7 +31,7 @@ public class Partie {
 	private int indexPerdant = -1;
 	
 	
-	public Partie() {
+	private Partie() {
 		this.indexJoueur1 = 0;
 		this.joueurs = new ArrayList<Joueur>();
 		this.table = new ArrayList<CarteAction>();
@@ -41,11 +42,21 @@ public class Partie {
 		this.de = new De();
 		this.partieFinie = false;
 		//Joueurs par defaut
-		joueurs.add(new Joueur("Thomas", this));
+//		joueurs.add(new Joueur("Thomas", this));
 		joueurs.add(new JoueurVirtuel("Alex", this, new StrategieAleatoire()));
 		joueurs.add(new JoueurVirtuel("Fabrice", this, new StrategieAleatoire()));
 	}
 	
+	public final static Partie getInstance() {
+		if(Partie.instance == null) {
+			synchronized(Partie.class) {
+				if(Partie.instance == null) {
+					instance = new Partie();
+				}
+			}
+		}
+		return Partie.instance;
+	}
 	
 	public int getIndexPerdant() {
 		return indexPerdant;
@@ -94,7 +105,7 @@ public class Partie {
         	Divinite div = (piocheDivinite.remove(rd.nextInt(piocheDivinite.size())));
         	div.setJoueurLie(this.joueurs.get(i));
             this.joueurs.get(i).setDivinite(div);
-            Capacite.getActionSuivante().messageRecap(div.getNom() + " est maintenant liée a " + this.joueurs.get(i));
+//            Capacite.getActionSuivante().messageRecap(div.getNom() + " est maintenant liée a " + this.joueurs.get(i));
         }
 	}
 	
@@ -144,7 +155,7 @@ public class Partie {
 	public void distribuerCartes() {
 		for(int i = 0; i < this.joueurs.size();i++)
         {
-            this.joueurs.get(i).completerMain();;
+            this.joueurs.get(i).completerMain();
         }
 	}
 	
@@ -203,6 +214,12 @@ public class Partie {
 		}
 	}
 	
+	public void activerCartes() {
+		for(int i = table.size()-1; i >= 0; i--) {
+			table.remove(i).poserCarteAction();
+		}
+	}
+	
 	public String afficherTable() {
 		String retour = "Table: ";
 		for(int i = 0; i < table.size(); i++) {
@@ -247,6 +264,10 @@ public class Partie {
 		return tasDeCroyants.get(i);
 	}
 
+	public void ajoutTasDCroyants(Croyant croyant) {
+		tasDeCroyants.add(croyant);
+	}
+	
 	public Pioche getPioche() {
 		return pioche;
 	}

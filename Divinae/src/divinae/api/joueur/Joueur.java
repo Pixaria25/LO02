@@ -108,9 +108,15 @@ public class Joueur {
 	}
 		
 	public void completerMain() {
-		
 		int nbreCartes = TAILLE_MAIN_MAX-main.size();
 		for(int i = 0; i < nbreCartes; i++) {
+			if(partie.getPioche().isEmpty()) {
+				if(partie.getDefausse().isEmpty()) {
+					return;
+				} else {
+					partie.getDefausse().remettrePioche(partie.getPioche());
+				}
+			}
 			CarteAction carte = partie.getPioche().sortirUneCarte();
 			carte.setJoueurLie(this);
 			main.add(carte);
@@ -189,8 +195,8 @@ public class Joueur {
 		return Capacite.getActionSuivante().choisirDiviniteOuGspNonDogme(dogme, getPartie());
 	}
 	
-	public void choisirFaceDe (Carte carte) {
-		Capacite.getActionSuivante().choisirFaceDe(carte, getPartie());
+	public int choisirFaceDe (Joueur joueur) {
+		return Capacite.getActionSuivante().choisirFaceDe(joueur, getPartie());
 	}
 	
 	public boolean choixMultiples (String cible) {
@@ -209,7 +215,7 @@ public class Joueur {
 		return Capacite.getActionSuivante().choisirGspRenvoye(gspCiblable);
 	}
 
-	public void messageListe (String message) {
+	public void messageRecap (String message) {
 			Capacite.getActionSuivante().messageRecap(message);
 	}
 	

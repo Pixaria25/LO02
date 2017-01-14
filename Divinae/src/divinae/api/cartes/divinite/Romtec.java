@@ -7,15 +7,13 @@ import divinae.api.cartes.types.Origine;
 public class Romtec extends Divinite {
 
 	public Romtec() {
-		super("Romtec", Origine.Crepuscule, "Peut empêcher un jour de créer un Guide Spirituel. "
-				+ "La carte est défaussée.", new Dogme[]{Dogme.Nature, Dogme.Humain, Dogme.Chaos}, 
-				"Romtec est une Divinité individualiste, pour qui chaque être vivant doit garder son libre arbitre.", 90);
-		// TODO Auto-generated constructor stub
+		super("Romtec", Origine.Crepuscule, "Peut empï¿½cher un jour de crï¿½er un Guide Spirituel. "
+				+ "La carte est dï¿½faussï¿½e.", new Dogme[]{Dogme.Nature, Dogme.Humain, Dogme.Chaos}, 
+				"Romtec est une Divinitï¿½ individualiste, pour qui chaque ï¿½tre vivant doit garder son libre arbitre.", 90);
 	}
 
 	@Override
 	public void activerCapacite() {
-		// TODO Auto-generated method stub
 		super.activerCapacite();
 	}
 

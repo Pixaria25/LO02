@@ -12,12 +12,10 @@ public class Yarstur extends Divinite {
 				+ "au centre de la table d'Origine N�ant.", 
 				new Dogme[]{Dogme.Chaos, Dogme.Symboles, Dogme.Mystique}, 
 				"Dernier pur du jour, Yarstur combat le N�ant sous toutes ses formes.", 83);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void activerCapacite() {
-		// TODO Auto-generated method stub
 		super.activerCapacite();
 		Partie partie = this.getJoueurLie().getPartie();
 		for (int i=0; i < partie.getTasDeCroyants().size(); i++) {

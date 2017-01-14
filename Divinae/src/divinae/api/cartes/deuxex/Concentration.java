@@ -9,11 +9,10 @@ public class Concentration extends DeusEx {
 	public Concentration() {
 		super("Concentration", Origine.Neant, "Vous r�cup�rez un des Guides Spirituels pos�s devant une autre Divinit� "
 				+ "et le placez devant vous avec les Croyants qui y sont attach�s.", 64);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void activerCapacite() {
-		Capacite.recupererUnGsp(this);
+		Capacite.recupererUnGsp(getJoueurLie());
 	}
 }

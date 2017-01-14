@@ -15,12 +15,10 @@ public class Gorpa extends Divinite {
 				new Dogme[]{Dogme.Humain, Dogme.Symboles, Dogme.Chaos}, 
 				"Divinit� joueuse et espi�gle, "
 				+ "Gorpa aime g�ner ses cons�urs dans leur recherche de puissance.", 89);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void activerCapacite() {
-		// TODO Auto-generated method stub
 		super.activerCapacite();
 		List<Joueur> liste = getJoueurLie().getPartie().getJoueurs();
 		liste.remove(liste.indexOf(this.getJoueurLie()));

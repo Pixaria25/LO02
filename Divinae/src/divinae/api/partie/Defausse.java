@@ -22,4 +22,8 @@ public class Defausse {
 		pioche.setPioche(defausse);
 		defausse = new ArrayList<CarteAction>();
 	}
+	
+	public boolean isEmpty() {
+		return defausse.isEmpty();
+	}
 }

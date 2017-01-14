@@ -8,8 +8,7 @@ import divinae.api.cartes.types.Origine;
 public class Esprits extends Croyant {
   
   public Esprits (Dogme[] dogme, int id) {
-	 	super("Esprit", Origine.Neant, "Donne un point d'Action d'Origine Néant.", dogme, 2, id);
-		// TODO Auto-generated constructor stub
+	 	super("Esprit", Origine.Neant, "Donne un point d'Action d'Origine Nï¿½ant.", dogme, 2, id);
 	}
   
   public void activerCapacite() {
