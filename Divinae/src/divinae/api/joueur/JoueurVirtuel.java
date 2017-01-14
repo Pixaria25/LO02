@@ -64,7 +64,7 @@ public class JoueurVirtuel extends Joueur {
 			Capacite.setCarteInterupt(cartePosee);
 			for (int i = 0; i < getPartie().getJoueurs().size(); i++) {
 				if (!(getPartie().getJoueurs().get(i).getNom() == getNom())) {
-					getPartie().getJoueurs().get(i).demanderInterruption();
+					getPartie().getJoueurs().get(i).demanderInterruption(getPartie().getJoueurs().get(i));
 				}
 			}
 
