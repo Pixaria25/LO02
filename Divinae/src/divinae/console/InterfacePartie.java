@@ -167,7 +167,7 @@ public class InterfacePartie {
 			
 			if(joueurCourant instanceof JoueurVirtuel) {
 				//Joueur virtuel
-				joueurCourant.jouer(joueurCourant);
+				joueurCourant.jouer();
 			} else {
 				jouerTourJoueurReel(joueurCourant);
 			}

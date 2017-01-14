@@ -21,12 +21,12 @@ public abstract class GuideSpirituel extends CarteAction {
 	
 
 	public void convertirCroyant (Partie partie) {
-		while (this.nombreCroyantLiable  >  croyantLie.size() || partie.getTasDeCroyants().size() > 0) { 
+		while (this.nombreCroyantLiable  >  croyantLie.size() && partie.getTasDeCroyants().size() > 0) { 
 			Croyant croyant = getJoueurLie().choisirTasCroyant();
 			croyant.setGuideLie(this);
 			croyant.setJoueurLie(getJoueurLie());
 			croyantLie.add(croyant);
-			Utilitaire.majPointAction(croyant, +croyant.getValeurCroyant());
+			Utilitaire.majPointsCroyant(croyant, +croyant.getValeurCroyant());
 			Capacite.getActionSuivante().messageRecap(getJoueurLie().getNom() + " lie " + croyant.getNom() + " à " + getNom());
 		}
 	}

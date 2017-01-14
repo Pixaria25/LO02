@@ -113,7 +113,7 @@ public class Utilitaire {
 		}
 	}
 	
-	public static void majPointAction (Croyant  carte, int nbCroyantAjoute) {
+	public static void majPointsCroyant (Croyant  carte, int nbCroyantAjoute) {
 		int nbCroyantAvant = carte.getJoueurLie().getNombreCroyant();
 				
 		carte.getJoueurLie().setNombreCroyant(nbCroyantAvant+nbCroyantAjoute);
@@ -252,7 +252,7 @@ public class Utilitaire {
 	public static void rendrePointActionEtCarte(CarteAction carteJouee) {
 		if(!(carteJouee.getOrigine() == Origine.Aucune)) {
 			Capacite.donnerPointAction(1, carteJouee.getOrigine(), carteJouee.getJoueurLie());
-			carteJouee.getJoueurLie().getPartie().getTable().remove(carteJouee.getJoueurLie().getPartie().getTable().indexOf(carteJouee));
+			carteJouee.getJoueurLie().getMain().add(carteJouee);
 		}
 	}
 	

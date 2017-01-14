@@ -279,7 +279,6 @@ public class ActionSuivanteConsole implements ActionSuivante {
 	public Joueur selectionnerElementListeJoueur (List<Joueur> liste) {
 		int indexJoueurCible = 0;
 			
-		System.out.println("Veuillez sélectionner un joueur :" + "\n");
 		do {
 			System.out.println("(Entrez le nombre compris entre 0 et " + (liste.size()-1)
 					+ ",nombre correspondant à votre choix) ");
@@ -307,7 +306,6 @@ public class ActionSuivanteConsole implements ActionSuivante {
 	public Divinite selectionnerElementListeDivinite (List<Divinite> liste) {
 		int indexDiviniteCible = 0;
 		
-		System.out.println("Veuillez sélectionner une divinité :" + "\n");
 		do {
 			System.out.println("(Entrez le nombre compris entre 0 et " + (liste.size()-1)
 					+ ",nombre correspondant à votre choix) ");
@@ -322,13 +320,7 @@ public class ActionSuivanteConsole implements ActionSuivante {
 	}
 	
 	public GuideSpirituel selectionnerElementListeGuide (List<GuideSpirituel> liste) {
-		int indice = 0;
 		int choix = 0;
-		System.out.println("Veuillez sélectionner un Guide Spirituel :" + "\n");
-		do {
-			System.out.println(indice + " : " + liste.get(indice).getNom());
-			indice++;
-		} while (indice < liste.size());
 		
 		do {
 			System.out.println("(Entrez le nombre compris entre 0 et " + (liste.size()-1)
@@ -343,13 +335,7 @@ public class ActionSuivanteConsole implements ActionSuivante {
 	}
 	
 	public Croyant selectionnerElementListeCroyant(List<Croyant> liste) {
-		System.out.println("Veuillez sélectionner un croyant :" + "\n");
-		int indice = 0;
 		int choix = 0;
-		do {
-			System.out.println(indice + " : " + liste.get(indice).getNom());
-			indice++;
-		} while (indice < liste.size());
 		
 		Scanner sc = new Scanner(System.in);
 	

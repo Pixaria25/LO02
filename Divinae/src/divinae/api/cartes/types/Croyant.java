@@ -15,6 +15,7 @@ public abstract class Croyant extends  CarteAction {
 		this.rattachable = false;
 	}
 
+	@Override
 	public void poserCarteAction() {
 		Capacite.getActionSuivante().messageRecap(getJoueurLie().getNom() + " joue " + getNom());
 		getJoueurLie().getMain().remove(this);

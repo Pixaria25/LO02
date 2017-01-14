@@ -14,12 +14,11 @@ import divinae.api.cartes.types.GuideSpirituel;
 import divinae.api.cartes.types.Origine;
 import divinae.api.cartes.types.Utilitaire;
 import divinae.api.partie.Partie;
-import divinae.console.InterfacePartie;
+
 
 public class StrategieAleatoire implements Strategie {
 
 	private Random random = new Random();
-	private Partie partie = InterfacePartie.getPartie();
 	
 	@Override
 	public int jouer(Joueur joueurCourant) {
@@ -75,7 +74,7 @@ public class StrategieAleatoire implements Strategie {
 	@Override
 	public List<CarteAction> defausser(List<CarteAction> main) {
 
-		int nombreCartes = random.nextInt(main.size());
+		int nombreCartes = random.nextInt(main.size()+1);
 		List<CarteAction> cartesADefausser = new ArrayList<CarteAction>();
 		for(int i = 0; i < nombreCartes; i++) {
 			int numCarte = random.nextInt(main.size());

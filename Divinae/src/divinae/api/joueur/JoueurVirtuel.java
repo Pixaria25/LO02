@@ -22,17 +22,17 @@ public class JoueurVirtuel extends Joueur {
 	}
 	
 	@Override
-	public void jouer (Joueur joueurCourant) {
+	public void jouer () {
 		defausser(strategie.defausser(getMain()));
 		boolean tourJoueurFini = false;
 		do{
 			try{
-				int choix = strategie.jouer(joueurCourant);
+				int choix = strategie.jouer(this);
 				switch(choix) {
 					case 0:
 						poserCarteAction();
-						demanderInterruption(joueurCourant);
-
+						demanderInterruption(this);
+						getPartie().activerCartes();
 						break;
 					case 1:
 						sacrifier();
@@ -75,13 +75,19 @@ public class JoueurVirtuel extends Joueur {
 	
 	public void sacrifier() {
 		List<CarteAction> cartesSacrifiables = recupererCartesSacrifiables();
-		sacrifierCarte(strategie.choixSacrifice(cartesSacrifiables));
+		if(!cartesSacrifiables.isEmpty()) {
+			sacrifierCarte(strategie.choixSacrifice(cartesSacrifiables));
+		}
 	}
 	
 	//Appel des methodes de ActionSuivante
 
 	public void demanderInterruption(Joueur joueurCourant) {
 		strategie.demanderInterruption(joueurCourant);
+	}
+	
+	public Joueur choisirJoueurCible(List<Joueur> liste) {
+		return strategie.choisirJoueurCible(liste);
 	}
 	
 	@Override

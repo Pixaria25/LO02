@@ -133,6 +133,9 @@ public final class Partie {
 				new Demons(new Dogme[]{Dogme.Symboles, Dogme.Mystique, Dogme.Chaos}, 16),
 				new Demons(new Dogme[]{Dogme.Mystique, Dogme.Nature, Dogme.Symboles}, 17),
 				new Demons(new Dogme[]{Dogme.Mystique, Dogme.Nature, Dogme.Chaos}, 18),
+				new Alchimistes(new Dogme[]{Dogme.Symboles, Dogme.Nature, Dogme.Chaos}, 1, 19),
+				new Alchimistes(new Dogme[]{Dogme.Mystique, Dogme.Nature, Dogme.Chaos}, 2, 20),
+				new Alchimistes(new Dogme[]{Dogme.Symboles, Dogme.Nature, Dogme.Chaos}, 3, 21),
 				new Esprits(new Dogme[]{Dogme.Humain, Dogme.Nature, Dogme.Mystique}, 27),
 				new Esprits(new Dogme[]{Dogme.Mystique, Dogme.Humain, Dogme.Chaos}, 28),
 				new Esprits(new Dogme[]{Dogme.Symboles, Dogme.Mystique, Dogme.Chaos}, 29),
@@ -188,7 +191,7 @@ public final class Partie {
 			}
 		}
 		
-		partieFinie = true;
+
 	}
 	
 	

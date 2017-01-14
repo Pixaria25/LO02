@@ -39,6 +39,7 @@ public class Capacite {
 
 	public static void lancerApocalypse (Partie partie) {
 		boolean egalite = false;
+		partie.finirUnePartie();
 		if (Capacite.isAutorisationApocalypse()== true) { // l'autorisation de lancer une Apocalypse est valide on lance l'apocalypse sinon
 			
 			if (partie.getJoueurs().size() < 4) {
@@ -48,7 +49,6 @@ public class Capacite {
 					}
 				}
 				if (!egalite) {
-					partie.finirUnePartie();
 					System.exit(0);
 				}
 			} else {
@@ -120,41 +120,50 @@ public class Capacite {
 		partie.getDefausse().ajoutCarte(carte);
 	}
 
-	public static GuideSpirituel renvoyerCroyantsGsp (List<GuideSpirituel> gspCiblable, CarteAction cartePosee, Partie partie) {
-		GuideSpirituel gsp = cartePosee.getJoueurLie().choisirGspRetire(gspCiblable);
-		partie.getTasDeCroyants().addAll(gsp.getCroyantLie ());
-		return gsp;
+	public static void renvoyerCroyantsGsp (List<GuideSpirituel> gspCiblable, CarteAction cartePosee, Partie partie) {
+		if(!gspCiblable.isEmpty()) {
+			GuideSpirituel gsp = cartePosee.getJoueurLie().choisirGspRetire(gspCiblable);
+			partie.getTasDeCroyants().addAll(gsp.getCroyantLie ());
+			gsp.getJoueurLie().tuerCarte(gsp);
+		}
+
 	}
 
 	public static void empecherSacrifice ( Dogme dogme1, Dogme dogme2, String vise, Carte cartePosee, Partie partie) {
 		Divinite divinite = cartePosee.getJoueurLie().choisirDiviniteOuDogme (dogme1, dogme2);
-		CarteAction carteCible = null;
-		
-		if (vise == "Croyant") {
-			carteCible = divinite.getJoueurLie().choisirCroyant(divinite.getJoueurLie());
-		} else if (vise == "GuideSpirituel") {
-			carteCible = divinite.getJoueurLie().choisirSonGsp();
+		if(divinite != null) {
+			CarteAction carteCible = null;
+			
+			if (vise == "Croyant") {
+				carteCible = divinite.getJoueurLie().choisirCroyant(divinite.getJoueurLie());
+			} else if (vise == "GuideSpirituel") {
+				carteCible = divinite.getJoueurLie().choisirSonGsp();
+			}
+			
+			carteCible.setAutorisationSacrifice(false);
 		}
-		
-		carteCible.setAutorisationSacrifice(false);
 	}
 
 	public static void imposerSacrifice (String vise, Joueur joueurVise, Partie partie) {
 		switch (vise) {
 			case "GuideSpirituel" :
 				GuideSpirituel guideSpirituel =  joueurVise.choisirSonGsp();
-				joueurVise.activerCapaciteCarte(guideSpirituel);
-				partie.getTasDeCroyants().addAll(guideSpirituel.getCroyantLie());
-				partie.getDefausse().ajoutCarte(guideSpirituel);
+				if(guideSpirituel != null) {
+					joueurVise.activerCapaciteCarte(guideSpirituel);
+					partie.getTasDeCroyants().addAll(guideSpirituel.getCroyantLie());
+					partie.getDefausse().ajoutCarte(guideSpirituel);
+				}
 			break;
 
 			case "Croyant" :
 				Croyant croyant =  joueurVise.choisirCroyant(joueurVise);
-				joueurVise.activerCapaciteCarte(croyant);
-				GuideSpirituel GpLie = croyant.getGuideLie();
-				partie.getDefausse().ajoutCarte(croyant);
-				if (GpLie.getCroyantLie().isEmpty()) {
-					partie.getDefausse().ajoutCarte(GpLie);
+				if(croyant != null) {
+					joueurVise.activerCapaciteCarte(croyant);
+					GuideSpirituel GpLie = croyant.getGuideLie();
+					partie.getDefausse().ajoutCarte(croyant);
+					if (GpLie.getCroyantLie().isEmpty()) {
+						partie.getDefausse().ajoutCarte(GpLie);
+					}
 				}
 			break;
 		}
@@ -165,9 +174,11 @@ public class Capacite {
 		Joueur joueur = divinite.getJoueurLie();
 
 		GuideSpirituel guideSpirituel = joueur.choisirSonGsp();
-		joueur.activerCapaciteCarte(guideSpirituel);
-		partie.getTasDeCroyants().addAll(guideSpirituel.getCroyantLie());
-		partie.getDefausse().ajoutCarte(guideSpirituel);
+		if(guideSpirituel != null) {
+			joueur.activerCapaciteCarte(guideSpirituel);
+			partie.getTasDeCroyants().addAll(guideSpirituel.getCroyantLie());
+			partie.getDefausse().ajoutCarte(guideSpirituel);
+		}
 	}
 
 	public static void copierCapacite (Joueur joueurCourant, Carte carteCible, Partie partie) {

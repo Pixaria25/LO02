@@ -30,8 +30,8 @@ public class ColereDivine extends DeusEx {
 		} else {
 			gspCiblable.addAll(Utilitaire.getGspOrigine(Origine.Jour, this, getJoueurLie().getPartie()));
 		}
-		GuideSpirituel gsp = Capacite.renvoyerCroyantsGsp(gspCiblable, this, getJoueurLie().getPartie());
-		gsp.getJoueurLie().tuerCarte(gsp);
+		Capacite.renvoyerCroyantsGsp(gspCiblable, this, getJoueurLie().getPartie());
+		
 	}
 
 }

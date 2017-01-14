@@ -52,7 +52,7 @@ public class ControleurJeu {
 			if (joueurCourant instanceof JoueurVirtuel)
 			{
 				vueJeu.afficherMessage(joueurCourant.getNom()+" joue ---------------->");
-				joueurCourant.jouer(joueurCourant);
+				joueurCourant.jouer();
 				partie.setCroyantsRattachables();
 			}
 		}

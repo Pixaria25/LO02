@@ -63,7 +63,7 @@ public class Joueur {
 		return false;
 	}
 	
-	public void jouer(Joueur joueurCourant) {
+	public void jouer() {
 		
 	}
 	 
@@ -135,7 +135,7 @@ public class Joueur {
 	public void sacrifierCarte(CarteAction carte) {
 		if (carte.isAutorisationSacrifice()) {
 			if (carte instanceof Croyant) {
-				Utilitaire.majPointAction((Croyant)carte, -getNombreCroyant());
+				Utilitaire.majPointsCroyant((Croyant)carte, -getNombreCroyant());
 			}
 			carte.activerCapacite();
 			tuerCarte(carte);
