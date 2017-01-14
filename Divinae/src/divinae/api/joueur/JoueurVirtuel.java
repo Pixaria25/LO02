@@ -31,7 +31,9 @@ public class JoueurVirtuel extends Joueur {
 				switch(choix) {
 					case 0:
 						poserCarteAction();
-						getPartie().activerCapaCartesTour();
+
+						demanderInterruption();
+
 						break;
 					case 1:
 						sacrifier();
@@ -54,6 +56,7 @@ public class JoueurVirtuel extends Joueur {
 	}
 
 	public void poserCarteAction() {
+
 		int choix = strategie.choixCarteAction(getMain());
 		CarteAction cartePosee = getMain().get(choix);
 		boolean poserCarte = poserCarteAction(choix);
@@ -66,7 +69,7 @@ public class JoueurVirtuel extends Joueur {
 				}
 			}
 
-			getPartie().activerCapaCartesTour();
+			
 
 		}
 	}
@@ -114,7 +117,7 @@ public class JoueurVirtuel extends Joueur {
 	
 	@Override
 	public int choisirFaceDe (Joueur joueur) {
-		return strategie.choisirFaceDe();
+		return strategie.choisirFaceDe(joueur);
 	}
 
 	@Override
@@ -134,7 +137,7 @@ public class JoueurVirtuel extends Joueur {
 	}
 	
   @Override
-	public GuideSpirituel choisirGspRenvoye(List<GuideSpirituel> gspCiblable) {
+	public GuideSpirituel choisirGspRetire(List<GuideSpirituel> gspCiblable) {
 		return strategie.choisirGspRenvoye(gspCiblable);
 	}
 

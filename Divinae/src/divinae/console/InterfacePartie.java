@@ -235,7 +235,9 @@ public class InterfacePartie {
 							}
 						}
 
-						partie.activerCapaCartesTour();
+						partie.activerCartes();
+						cartePosee.poserCarteAction();
+
 
 					} else {
 						System.out.println("Vous ne pouvez pas jouer cette carte.");

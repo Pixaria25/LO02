@@ -211,8 +211,8 @@ public class Joueur {
 		return Capacite.getActionSuivante().choisirTasCroyant(this, getPartie());
 	}
 	
-	public GuideSpirituel choisirGspRenvoye(List<GuideSpirituel> gspCiblable) {
-		return Capacite.getActionSuivante().choisirGspRenvoye(gspCiblable);
+	public GuideSpirituel choisirGspRetire(List<GuideSpirituel> gspCiblable) {
+		return Capacite.getActionSuivante().choisirGspRetire(gspCiblable);
 	}
 
 	public void messageRecap (String message) {

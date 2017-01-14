@@ -18,8 +18,8 @@ public class Apocalypse extends  CarteAction {
 		} else {
 			getJoueurLie().getPartie().setIndexJoueur1(getJoueurLie().getPartie().getJoueurs().indexOf(getJoueurLie()));
 			Capacite.lancerApocalypse(getJoueurLie().getPartie());
-			Capacite.getActionSuivante().messageRecap(getJoueurLie().getNom() + " joue " + getNom());
-			Capacite.getActionSuivante().messageRecap("Le gagnant est "+partie.getJoueurs().get(partie.getIndexGagnant()).getNom());
+			getJoueurLie().messageRecap(getJoueurLie().getNom() + " joue " + getNom());
+			getJoueurLie().messageRecap("Le gagnant est "+partie.getJoueurs().get(partie.getIndexGagnant()).getNom());
 
 		}
 	}

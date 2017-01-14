@@ -1,29 +1,37 @@
 package divinae.api.cartes.deuxex;
 
+import java.util.List;
+
+import divinae.api.cartes.types.Capacite;
 import divinae.api.cartes.types.DeusEx;
+import divinae.api.cartes.types.GuideSpirituel;
 import divinae.api.cartes.types.Origine;
+import divinae.api.cartes.types.Utilitaire;
 
 public class ColereDivine extends DeusEx {
 
 	public ColereDivine(Origine origine, int id) {
-		super("Colère Divine", origine, "", id);
-		String capacite = "Détruit une carte Guide Spirituel d'Origine ";
+		super("Colï¿½re Divine", origine, "", id);
+		String capacite = "Dï¿½truit une carte Guide Spirituel d'Origine ";
 		if(origine == Origine.Jour) {
 			capacite += "Nuit";
 		} else {
 			capacite += "Jour";
 		}
-		capacite += " ou Néant, dont la capacité spéciale n'a pas effet. Les Croyants attachés reviennent au centre de la table.";
+		capacite += " ou Nï¿½ant, dont la capacitï¿½ spï¿½ciale n'a pas effet. Les Croyants attachï¿½s reviennent au centre de la table.";
 		setCapacite(capacite);
 	}
 
 	@Override
 	public void activerCapacite() {
-		if(this.getOrigine() == Origine.Jour) {
-			
+		List<GuideSpirituel> gspCiblable = Utilitaire.getGspOrigine(Origine.Neant, this, getJoueurLie().getPartie());
+		if(getOrigine() == Origine.Jour) {
+			gspCiblable.addAll(Utilitaire.getGspOrigine(Origine.Nuit, this, getJoueurLie().getPartie()));
 		} else {
-			
+			gspCiblable.addAll(Utilitaire.getGspOrigine(Origine.Jour, this, getJoueurLie().getPartie()));
 		}
+		GuideSpirituel gsp = Capacite.renvoyerCroyantsGsp(gspCiblable, this, getJoueurLie().getPartie());
+		gsp.getJoueurLie().tuerCarte(gsp);
 	}
 
 }

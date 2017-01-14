@@ -39,7 +39,7 @@ public class ActionSuivanteConsole implements ActionSuivante {
 	
 	public void interruption() {
 		HashSet<Integer> actionsValides = new HashSet<Integer>();
-		Joueur joueurCourant = partie.getTable(partie.getTable().size()-1).getJoueurLie();
+		Joueur joueurCourant = partie.getTable().get(partie.getTable().size()-1).getJoueurLie();
 		if(joueurCourant.aDesCartesSansOrigine()) {
 			System.out.println("1 - Jouer une carte sans Origine");
 			actionsValides.add(1);
@@ -69,7 +69,7 @@ public class ActionSuivanteConsole implements ActionSuivante {
 					carteChoisie = scanner.nextInt();
 				} while(!cartesValides.contains(carteChoisie));
 				joueurCourant.poserCarteAction(carteChoisie);
-				partie.getCartesTour().add(joueurCourant.getMain().get(carteChoisie));
+
 			case 2:
 				joueurCourant.getDivinite().activerCapacite();
 			default:
@@ -213,10 +213,10 @@ public class ActionSuivanteConsole implements ActionSuivante {
 		return croyant;
 	}
 	
-	public GuideSpirituel choisirGspRenvoye(List<GuideSpirituel> gspCiblable) {
+	public GuideSpirituel choisirGspRetire(List<GuideSpirituel> gspCiblable) {
 		afficherListeGuide(gspCiblable);
-		GuideSpirituel Gsp = selectionnerElementListeGuide(gspCiblable);
-		return Gsp;
+		GuideSpirituel gsp = selectionnerElementListeGuide(gspCiblable);
+		return gsp;
 
 	}
 	
@@ -226,7 +226,7 @@ public class ActionSuivanteConsole implements ActionSuivante {
 		do {
 			System.out.println(indice + " : " + liste.get(indice).getNom());
 			indice++;
-		} while (indice <= liste.size());
+		} while (indice < liste.size());
 	}
 	
 	public void afficherListeGuide (List<GuideSpirituel> liste) {
@@ -244,7 +244,7 @@ public class ActionSuivanteConsole implements ActionSuivante {
 		do {
 			System.out.println(indice + " : " + liste.get(indice).getNom());
 			indice++;
-		} while (indice <= liste.size());
+		} while (indice < liste.size());
 	}
 	
 	public void afficherListeJoueur (List<Joueur> liste) {
@@ -330,16 +330,19 @@ public class ActionSuivanteConsole implements ActionSuivante {
 			System.out.println(indice + " : " + liste.get(indice).getNom());
 			indice++;
 		} while (indice < liste.size());
+		
+		Scanner sc = new Scanner(System.in);
+	
 		do {
 			System.out.println("(Entrez le nombre compris entre 0 et " + (liste.size()-1)
 					+ ",nombre correspondant à votre choix) ");
-			Scanner sc = new Scanner(System.in);
 			choix = sc.nextInt();
-			sc.close();
-
 		} while (choix < 0 || choix >= liste.size());
+	
+		sc.close();
 		System.out.println("Vous avez ciblé " + liste.get(choix).getNom());
 		return liste.get(choix);
 	}
+
 
 }
