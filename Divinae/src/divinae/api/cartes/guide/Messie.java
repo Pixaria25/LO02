@@ -1,5 +1,6 @@
 package divinae.api.cartes.guide;
 
+import divinae.api.cartes.types.Capacite;
 import divinae.api.cartes.types.Dogme;
 import divinae.api.cartes.types.GuideSpirituel;
 import divinae.api.cartes.types.Origine;
@@ -17,7 +18,7 @@ public class Messie extends GuideSpirituel {
 	@Override
 	public void activerCapacite() {
 		// TODO Auto-generated method stub
-		getJoueurLie().choisirFaceDe(this);
+		Capacite.changerFaceDe(getJoueurLie(), getJoueurLie().getPartie());
 	}
 
 }

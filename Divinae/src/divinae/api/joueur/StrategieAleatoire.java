@@ -5,7 +5,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 
-import divinae.api.cartes.types.Carte;
 import divinae.api.cartes.types.CarteAction;
 import divinae.api.cartes.types.Croyant;
 import divinae.api.cartes.types.Divinite;
@@ -46,10 +45,10 @@ public class StrategieAleatoire implements Strategie {
 			actionsValides.add(2);
 		}
 		
-		int choixInterruption = random.nextInt(8);
+		int choixInterruption = random.nextInt(10);
 		int choixAction = 0;
 		
-		if (!actionsValides.isEmpty()){
+		if (actionsValides.isEmpty()){
 			actionsValides.add(0);
 			choixAction = 0;
 		} else if (choixInterruption == 0) {
@@ -57,18 +56,16 @@ public class StrategieAleatoire implements Strategie {
 		}
 		
 		switch(choixAction) {
-			case 0: 
-				break;
-			case 1:
+			case 0:
 				HashSet<Integer> cartesValides = new HashSet<Integer>();
 				for(int i = 0; i < joueurCourant.getMain().size(); i++) {
 					if(joueurCourant.getMain().get(i).getOrigine() == Origine.Aucune) {
 						cartesValides.add(i);
 					}
 				}
-				int carteChoisie = random.nextInt(cartesValides.size()-1);
+				int carteChoisie = random.nextInt(cartesValides.size());
 				joueurCourant.poserCarteAction(carteChoisie);
-			case 2:
+			case 1:
 				joueurCourant.getDivinite().activerCapacite();
 			default:
 		}
@@ -77,7 +74,7 @@ public class StrategieAleatoire implements Strategie {
 	@Override
 	public List<CarteAction> defausser(List<CarteAction> main) {
 
-		int nombreCartes = random.nextInt(main.size()+1);
+		int nombreCartes = random.nextInt(main.size());
 		List<CarteAction> cartesADefausser = new ArrayList<CarteAction>();
 		for(int i = 0; i < nombreCartes; i++) {
 			int numCarte = random.nextInt(main.size());
@@ -89,7 +86,7 @@ public class StrategieAleatoire implements Strategie {
 
 	@Override
 	public int choixCarteAction(List<CarteAction> main) {
-		int numCarte = random.nextInt(main.size()+1);
+		int numCarte = random.nextInt(main.size());
 		return numCarte;
 	}
 
@@ -101,7 +98,7 @@ public class StrategieAleatoire implements Strategie {
 	}
 
 	public Joueur choisirJoueurCible(List<Joueur> liste) {
-		int choix = random.nextInt(liste.size()+1);
+		int choix = random.nextInt(liste.size());
 		return liste.get(choix);
 	}
 	
@@ -125,7 +122,7 @@ public class StrategieAleatoire implements Strategie {
 			}
 		}
 		
-		int choix = random.nextInt(gspCiblable.size()+1);
+		int choix = random.nextInt(gspCiblable.size());
 		return gspCiblable.get(choix);
 	}
 	
@@ -140,7 +137,7 @@ public class StrategieAleatoire implements Strategie {
 			}
 			choixDivinite++;
 		}
-		int choix = random.nextInt(diviniteCiblable.size()+1);
+		int choix = random.nextInt(diviniteCiblable.size());
 		return diviniteCiblable.get(choix);
 	}
 	
@@ -157,7 +154,7 @@ public class StrategieAleatoire implements Strategie {
 				gspCiblable.remove(i);
 			}
 		}
-		int choix = random.nextInt(gspCiblable.size()+1);
+		int choix = random.nextInt(gspCiblable.size());
 		return gspCiblable.get(choix);
 	}
 	
@@ -168,7 +165,7 @@ public class StrategieAleatoire implements Strategie {
 				croyantCiblable.add(joueur.getGuide(i).getCroyantLie(j));
 			}
 		}
-		int choix = random.nextInt(croyantCiblable.size()+1);
+		int choix = random.nextInt(croyantCiblable.size());
 		return croyantCiblable.get(choix);
 	}
 	
@@ -206,9 +203,9 @@ public class StrategieAleatoire implements Strategie {
 		return gspCiblable.get(choix);
 	}
 	
-	public void choisirFaceDe (Carte carte,Partie partie){
+	public int choisirFaceDe (){
 		int choix = random.nextInt(3);
-		partie.getDe().setInfluence(Origine.values()[choix]);
+		return choix;
 	}
 	
 	public boolean choixMultiples (String cible){
@@ -226,12 +223,12 @@ public class StrategieAleatoire implements Strategie {
 	}
 
 	public Croyant choisirTasCroyant(Joueur joueur, Partie partie){
-		int choix = random.nextInt(partie.getTasDeCroyants().size()+1);
+		int choix = random.nextInt(partie.getTasDeCroyants().size());
 		return partie.getTasDeCroyants(choix);
 	}
 	
 	public GuideSpirituel choisirGspRenvoye (List <GuideSpirituel> gspCiblable){
-		int choix = random.nextInt(gspCiblable.size()+1);
+		int choix = random.nextInt(gspCiblable.size());
 		return gspCiblable.get(choix);
 	}
 }

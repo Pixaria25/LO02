@@ -110,7 +110,6 @@ public class Utilitaire {
 		int nbCroyantAvant = carte.getJoueurLie().getNombreCroyant();
 				
 		carte.getJoueurLie().setNombreCroyant(nbCroyantAvant+nbCroyantAjoute);
-		Capacite.getActionSuivante().messageRecap(carte.getJoueurLie().getDivinite().getNom() + " a maintenant " + carte.getJoueurLie().getNombreCroyant() + " croyants.");
 	}
 	
 	public static void retirerTousCroyantLies (Carte carteJouee, Partie partie) {
@@ -126,5 +125,105 @@ public class Utilitaire {
 		return liste;
 	}
 	
+	public static List<GuideSpirituel> getGspCiblables(Joueur joueur, Partie partie) {
+		List<GuideSpirituel> gspCiblables = new ArrayList<GuideSpirituel>();
+		int indexGsp = 0;
+		int indexJoueur = 0;
+		
+		while (indexJoueur < partie.getJoueurs().size()) {
+			
+			if (!(partie.getJoueurs().get(indexJoueur) == joueur)) {
+				while (indexGsp < partie.getJoueurs().get(indexJoueur).getGuides().size()) {
+					gspCiblables.add(partie.getJoueurs().get(indexJoueur).getGuide(indexGsp));
+					indexGsp++;
+				} 
+			}
+			indexGsp = 0;
+			indexJoueur++;
+		}
 
+		for (int i = 0; i < gspCiblables.size(); i++) {
+			if (gspCiblables.get(i).isProtectionCiblage()) {
+				gspCiblables.remove(i);
+			}
+		}
+		return gspCiblables;
+	}
+	
+	public static List<Divinite> getDiviniteOuDogme(Dogme dogme1, Dogme dogme2, Partie partie) {
+		int choixDivinite = 0;
+		List<Divinite> diviniteCiblable = new ArrayList<Divinite>();
+
+		if (!(dogme1 == null) || !(dogme2 == null)) {
+			while (choixDivinite < partie.getJoueurs().size()) {
+				if (Utilitaire.comparerDogme(partie.getJoueurs().get(choixDivinite).getDivinite().getDogme(), dogme1,
+						partie)
+						|| Utilitaire.comparerDogme(partie.getJoueurs().get(choixDivinite).getDivinite().getDogme(),
+								dogme2, partie)) {
+					diviniteCiblable.add(partie.getJoueurs().get(choixDivinite).getDivinite());
+				}
+				choixDivinite++;
+			} 
+		} else {
+			while (choixDivinite < partie.getJoueurs().size()) {
+				diviniteCiblable.add(partie.getJoueurs().get(choixDivinite).getDivinite());
+				choixDivinite++;
+			}
+		}
+		return diviniteCiblable;
+	}
+	
+	public static List<GuideSpirituel> getSonGsp(Joueur joueur, Partie partie) {
+		List<GuideSpirituel> gspCiblable = new ArrayList<GuideSpirituel>();
+		int indexJoueur = partie.getJoueurs().indexOf(joueur);
+
+		for (int i = 0; i < partie.getJoueurs().get(indexJoueur).getGuides().size(); i++) {
+			gspCiblable.add(partie.getJoueurs().get(indexJoueur).getGuide(i));
+		}
+
+		for (int i = 0; i < gspCiblable.size(); i++) {
+			if (gspCiblable.get(i).isProtectionCiblage()) {
+				gspCiblable.remove(i);
+			}
+		}
+		return gspCiblable;
+	}
+	
+	public static List<Croyant> getCroyant(Joueur joueur, Partie partie) {
+		List<Croyant> croyantCiblable = new ArrayList<Croyant>();
+		for (int i = 0; i < joueur.getGuides().size(); i++) {
+			for (int j = 0; j < joueur.getGuide(i).getCroyantLie().size(); j++) {
+				croyantCiblable.add(joueur.getGuide(i).getCroyantLie(j));
+			}
+		}
+		return croyantCiblable;
+	}
+	
+	public static List<GuideSpirituel> getDiviniteOuGspNonDogme(Dogme dogme, Partie partie) {
+		int choixDivinite = 0;
+		List<GuideSpirituel> gspCiblable = new ArrayList<GuideSpirituel>();
+
+		while (choixDivinite < partie.getJoueurs().size()) {
+			Dogme[] dogmeDivinite = partie.getJoueurs().get(choixDivinite).getDivinite().getDogme();
+			
+			if (!(Utilitaire.comparerDogme(dogmeDivinite, dogme,partie))) {
+				gspCiblable.addAll(partie.getJoueurs().get(choixDivinite).getGuides());
+			} else {
+			
+				for (int choixGuide = 0; choixGuide < partie.getJoueurs().get(choixDivinite).getGuides().size(); choixGuide++) {
+					GuideSpirituel Gsp = partie.getJoueurs().get(choixDivinite).getGuide(choixGuide);
+					
+					if (!(Utilitaire.comparerDogme(dogmeDivinite, dogme,partie))) {
+						gspCiblable.add(Gsp);
+						if (gspCiblable.get(gspCiblable.indexOf(Gsp)).isProtectionCiblage()) {
+							gspCiblable.remove(gspCiblable.indexOf(Gsp));
+						}
+						
+					}
+				}
+			}
+			choixDivinite++;
+		}
+		return gspCiblable;
+	}
 }

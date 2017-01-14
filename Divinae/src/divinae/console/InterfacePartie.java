@@ -214,11 +214,10 @@ public class InterfacePartie {
 						choixCarte = scanner.nextInt();
 					} while(choixCarte < 0 || choixCarte > joueurCourant.getMain().size()+1);
 
-					CarteAction carteChoisie = joueurCourant.getMain().get(choixCarte);
+					CarteAction cartePosee = joueurCourant.getMain().get(choixCarte);
 					boolean poserCarte = joueurCourant.poserCarteAction(choixCarte);
 					
 					if(poserCarte) {
-						CarteAction cartePosee = joueurCourant.getMain().get(choixCarte-1);
 						Capacite.setCarteInterupt(cartePosee);
 						joueurCourant.poserCarteAction(choixCarte);
 						for (int i = 0; i < partie.getJoueurs().size(); i++) {
@@ -228,13 +227,8 @@ public class InterfacePartie {
 						}
 						
 						// Solution ?
-<<<<<<< HEAD
-						Capacite.setCarteInterupt(carteChoisie);
-						CarteAction cartePosee = Capacite.getCarteInterupt();
+
 						if (cartePosee.isCapaciteBloque() && ( !(cartePosee instanceof Croyant) ||  !(cartePosee instanceof GuideSpirituel) )) {
-=======
-						if (cartePosee.isCapaciteBloqué() && ( !(cartePosee instanceof Croyant) ||  !(cartePosee instanceof GuideSpirituel) )) {
->>>>>>> refs/remotes/origin/Abe
 							System.out.println(cartePosee.getNom() + " a été bloqué !");
 							joueurCourant.tuerCarte(cartePosee);
 						} else {
@@ -264,13 +258,10 @@ public class InterfacePartie {
 							System.out.println("Vous ne pouvez pas sacrifier cette carte ce tour ci. (Utilisation d'une capacite contre vous)");
 						} else {
 									Capacite.setCarteInterupt(listeCartesSacrifiables.get(choixSacrifice));
-<<<<<<< HEAD
-									demanderInterruption();
-									if (listeCartesSacrifiables.get(choixSacrifice).isCapaciteBloque()) {
-=======
+
 									joueurCourant.demanderInterruption();
-									if (listeCartesSacrifiables.get(choixSacrifice).isCapaciteBloqué()) {
->>>>>>> refs/remotes/origin/Abe
+									if (listeCartesSacrifiables.get(choixSacrifice).isCapaciteBloque()) {
+
 										System.out.println(joueurCourant.getMain().get(choixSacrifice).getNom() + " a été bloqué !");
 									} else {
 										joueurCourant.sacrifierCarte(listeCartesSacrifiables.get(choixSacrifice));

@@ -4,7 +4,6 @@ import divinae.api.cartes.types.Capacite;
 import divinae.api.joueur.Joueur;
 import divinae.api.joueur.JoueurVirtuel;
 import divinae.api.partie.Partie;
-import divinae.console.ActionSuivanteConsole;
 import divinae.swing.modele.ModeleJeu;
 import divinae.swing.vue.InitialisationJeuDialog;
 import divinae.swing.vue.VueJeu;
@@ -37,6 +36,7 @@ public class ControleurJeu {
 	}
 
 	public void jouerTourSuivant() {
+		vueJeu.afficherTable();
 		if (!partie.isPartieFinie()) {
 			partie.debuterUnTour();
 			vueJeu.afficherMessage("Influence de Dé Cosmogonie : "+partie.getDe().getInfluence());
@@ -51,7 +51,7 @@ public class ControleurJeu {
 			Joueur joueurCourant = partie.getJoueurs().get(i);
 			if (joueurCourant instanceof JoueurVirtuel)
 			{
-				vueJeu.afficherMessage(joueurCourant.getNom()+" joue.");
+				vueJeu.afficherMessage(joueurCourant.getNom()+" joue ---------------->");
 				joueurCourant.jouer();
 				partie.setCroyantsRattachables();
 			}
@@ -63,7 +63,7 @@ public class ControleurJeu {
 	private void jouerTourJoueurReel(Joueur joueurCourant) {
 		vueJeu.afficherMessage(joueurCourant.afficherPoints());
 		vueJeu.afficherMessage(joueurCourant.afficherMain());
-		vueJeu.afficherMessage(joueurCourant.getNom()+" joue.");
+		vueJeu.afficherMessage(joueurCourant.getNom()+" joue ---------------->");
 
 		int nombreCartes = 7-joueurCourant.getMain().size();
 		if (nombreCartes > 0)

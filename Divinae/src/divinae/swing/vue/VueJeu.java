@@ -38,6 +38,7 @@ public class VueJeu extends JFrame implements ActionListener, Observer {
 	private JPanel panelBoutons = new JPanel();
 	private JButton boutonDefausser = new JButton("Défausser");
 	private JButton boutonJouer = new JButton("Jouer");
+	private JButton boutonSacrifier = new JButton("Sacrifier");
     private JButton boutonFinDeTour = new JButton("Fin de tour");
 	private List<VueCarte> vueCartes = new ArrayList<>();
 
@@ -115,12 +116,18 @@ public class VueJeu extends JFrame implements ActionListener, Observer {
 		boutonJouer.setMinimumSize(new Dimension(200, 40));
 		boutonJouer.setMaximumSize(new Dimension(200, 40));
 		boutonJouer.setPreferredSize(new Dimension(200, 40));
+
+		boutonSacrifier.setMinimumSize(new Dimension(200, 40));
+		boutonSacrifier.setMaximumSize(new Dimension(200, 40));
+		boutonSacrifier.setPreferredSize(new Dimension(200, 40));
 		
 		boutonFinDeTour.setMinimumSize(new Dimension(200, 40));
 		boutonFinDeTour.setMaximumSize(new Dimension(200, 40));
 		boutonFinDeTour.setPreferredSize(new Dimension(200, 40));
+
 		panelBoutons.add(boutonDefausser);
 		panelBoutons.add(boutonJouer);
+		panelBoutons.add(boutonSacrifier);
 		panelBoutons.add(boutonFinDeTour);
 
 		// Panel du joueur : cartes + boutons
@@ -155,6 +162,10 @@ public class VueJeu extends JFrame implements ActionListener, Observer {
 		this.log.setCaretPosition(this.log.getDocument().getLength());
 	}
 
+	public void alert(String message) {
+		JOptionPane.showMessageDialog(null, message);
+	}
+	
 	@Override
 	public void update(Observable o, Object arg) {
 	}
@@ -190,17 +201,46 @@ public class VueJeu extends JFrame implements ActionListener, Observer {
 				//Capacite.setCarteInterupt(vueCarte.getCarteAction());
 				//CarteAction cartePosee = Capacite.getCarteInterupt();
 				//if (cartePosee != null && cartePosee.isCapaciteBloqué() && ( !(cartePosee instanceof Croyant) ||  !(cartePosee instanceof GuideSpirituel) )) {
-				//	JOptionPane.showMessageDialog(null, cartePosee.getNom() + " a été bloqué !");
+				//	alert(cartePosee.getNom() + " a été bloqué !");
 				//} else {
 					modeleJeu.getPartie().activerCartes();
 				//}
 				boutonDefausser.setEnabled(false);
 				boutonJouer.setEnabled(false);
 				modeleJeu.getPartie().setCroyantsRattachables();
+				afficherTable();
 				controleurJeu.jouerTourJoueursVirtuels();
 			} else {
-				JOptionPane.showMessageDialog(null, message);
+				alert(message);
 				vueCarte.setSelected(false);
+			}
+		}
+		else if (source==boutonSacrifier)
+		{
+			if (vueCartes.size() < 1)
+			{
+				throw new RuntimeException("Pas de carte dans la main, erreur inattendue.");
+			}
+			Joueur joueurCourant = vueCartes.get(0).getCarteAction().getJoueurLie();
+			List<CarteAction> listeCartesSacrifiables = joueurCourant.recupererCartesSacrifiables();
+			SelectionnerCarteDialog dialog = new SelectionnerCarteDialog(this, "Sacrifier une carte", listeCartesSacrifiables);
+			dialog.setVisible(true);
+			int choixSacrifice = dialog.getChoixCarte(); 
+			if ((joueurCourant.isAutorisationgsp() == false
+				&& listeCartesSacrifiables.get(choixSacrifice) instanceof GuideSpirituel) | (joueurCourant.isAutorisationcr() == false
+				&& listeCartesSacrifiables.get(choixSacrifice) instanceof Croyant)) {
+				alert("Vous ne pouvez pas sacrifier cette carte ce tour ci. (Utilisation d'une capacite contre vous)");
+			} else {
+				// Capacite.setCarteInterupt(listeCartesSacrifiables.get(choixSacrifice));
+				// TODO demanderInterruption();
+				// if (listeCartesSacrifiables.get(choixSacrifice).isCapaciteBloqué()) {
+				//	System.out.println(joueurCourant.getMain().get(choixSacrifice).getNom() + " a été bloqué !");
+				// } else {
+					joueurCourant.sacrifierCarte(listeCartesSacrifiables.get(choixSacrifice));
+				//	break;
+				//}
+				joueurCourant.tuerCarte(listeCartesSacrifiables.get(choixSacrifice));
+				afficherTable();
 			}
 		}
 		else if (source==boutonFinDeTour)
@@ -221,7 +261,7 @@ public class VueJeu extends JFrame implements ActionListener, Observer {
 		}
 		else
 		{
-			JOptionPane.showMessageDialog(null, "Aucune action prévue pour " + source);
+			alert("Aucune action prévue pour " + source);
 		}
 	}
 
@@ -300,6 +340,15 @@ public class VueJeu extends JFrame implements ActionListener, Observer {
 		this.panelJoueur.updateUI();
 	}
 
+	public void afficherTable() {
+		panelTable.removeAll();
+		int id = 0;
+		for (CarteAction carte:modeleJeu.getPartie().getTable())
+		{
+			panelTable.add(new VueCarte(id++, carte, null));
+		}
+	}
+	
 	public void afficherMain(List<CarteAction> cartes) {
 		effacerPanelJoueur();
 		int id = 0;
@@ -316,12 +365,18 @@ public class VueJeu extends JFrame implements ActionListener, Observer {
 			vueCartes.add(vueCarte);
 			afficherMessage(carte.toString());
 		}
+		Joueur joueurCourant = (cartes.size() > 0) ? cartes.get(0).getJoueurLie() : null;
+		if(joueurCourant != null && ((joueurCourant.isAutorisationcr()
+			&& joueurCourant.isAutorisationgsp()) || joueurCourant.getGuides().size() == 0)) {
+			boutonSacrifier.setEnabled(false);
+		}			
 		panelJoueur.updateUI();
 	}
 
 	public void initialiserVueJoueur() {
 		boutonDefausser.setEnabled(true);
 		boutonFinDeTour.setEnabled(true);		
+		boutonSacrifier.setEnabled(true);
 	}
 	
 	private void effacerPanelJoueur() {

@@ -195,8 +195,8 @@ public class Joueur {
 		return Capacite.getActionSuivante().choisirDiviniteOuGspNonDogme(dogme, getPartie());
 	}
 	
-	public void choisirFaceDe (Carte carte) {
-		Capacite.getActionSuivante().choisirFaceDe(carte, getPartie());
+	public int choisirFaceDe (Joueur joueur) {
+		return Capacite.getActionSuivante().choisirFaceDe(joueur, getPartie());
 	}
 	
 	public boolean choixMultiples (String cible) {
@@ -215,7 +215,7 @@ public class Joueur {
 		return Capacite.getActionSuivante().choisirGspRenvoye(gspCiblable);
 	}
 
-	public void messageListe (String message) {
+	public void messageRecap (String message) {
 			Capacite.getActionSuivante().messageRecap(message);
 	}
 	

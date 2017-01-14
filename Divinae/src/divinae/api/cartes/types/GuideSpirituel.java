@@ -1,6 +1,5 @@
 package divinae.api.cartes.types;
 
-import divinae.api.joueur.Joueur;
 import divinae.api.partie.Partie;
 
 import java.util.ArrayList;
@@ -24,20 +23,11 @@ public abstract class GuideSpirituel extends CarteAction {
 	public void convertirCroyant (Partie partie) {
 		while (this.nombreCroyantLiable  >  croyantLie.size() || partie.getTasDeCroyants().size() > 0) { 
 			Croyant croyant = getJoueurLie().choisirTasCroyant();
-<<<<<<< HEAD
-			if(croyant != null) {
-				croyant.setGuideLie(this);
-				croyant.setJoueurLie(getJoueurLie());
-				croyantLie.add(croyant);
-				Capacite.majPointAction(croyant, +croyant.getValeurCroyant());
-			} 
-=======
 			croyant.setGuideLie(this);
 			croyant.setJoueurLie(getJoueurLie());
 			croyantLie.add(croyant);
 			Utilitaire.majPointAction(croyant, +croyant.getValeurCroyant());
 			Capacite.getActionSuivante().messageRecap(getJoueurLie().getNom() + " lie " + croyant.getNom() + " à " + getNom());
->>>>>>> refs/remotes/origin/Abe
 		}
 	}
 	
@@ -49,7 +39,7 @@ public abstract class GuideSpirituel extends CarteAction {
 				setJoueurLie(partie.getJoueurs().get(indexCourant));
 				convertirCroyant(getJoueurLie().getPartie());
 			} else { 
-				getJoueurLie().messageListe("Pas de croyants disponible ! Reprise de la carte");
+				getJoueurLie().messageRecap("Pas de croyants disponible ! Reprise de la carte");
 				Capacite.donnerPointAction(1, getOrigine(), getJoueurLie());
 			}
 			
