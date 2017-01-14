@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 
+import divinae.api.cartes.types.Carte;
 import divinae.api.cartes.types.CarteAction;
 import divinae.api.cartes.types.Croyant;
 import divinae.api.cartes.types.Divinite;
@@ -18,7 +19,7 @@ import divinae.console.InterfacePartie;
 public class StrategieAleatoire implements Strategie {
 
 	private Random random = new Random();
-	
+	private Partie partie = InterfacePartie.getPartie();
 	
 	@Override
 	public int jouer() {
@@ -33,9 +34,8 @@ public class StrategieAleatoire implements Strategie {
 	}
 
 	public void interruption() {
-		Partie partie = InterfacePartie.getPartie();
 		HashSet<Integer> actionsValides = new HashSet<Integer>();
-		Joueur joueurCourant = partie.getTable(partie.getTable().size()-1).getJoueurLie();
+		Joueur joueurCourant = partie.getTable().get(partie.getTable().size()-1).getJoueurLie();
 
 		if(joueurCourant.aDesCartesSansOrigine()) {
 			actionsValides.add(1);
@@ -45,10 +45,8 @@ public class StrategieAleatoire implements Strategie {
 			actionsValides.add(2);
 		}
 		
-
-		int choixInterruption = random.nextInt(10);
-		int choixAction = 0;
-
+		int choixInterruption = random.nextInt(8);
+		int choixAction = -1;
 		
 		if (actionsValides.isEmpty()){
 			actionsValides.add(0);
@@ -64,10 +62,10 @@ public class StrategieAleatoire implements Strategie {
 						cartesValides.add(i);
 					}
 				}
-				if(!cartesValides.isEmpty()) {
-					int carteChoisie = random.nextInt(cartesValides.size());
-					joueurCourant.poserCarteAction(carteChoisie);
-				}
+				int carteChoisie = random.nextInt(cartesValides.size());
+				joueurCourant.poserCarteAction(carteChoisie);
+				
+			
 			case 1:
 				joueurCourant.getDivinite().activerCapacite();
 			default:
@@ -91,7 +89,6 @@ public class StrategieAleatoire implements Strategie {
 	public int choixCarteAction(List<CarteAction> main) {
 		int numCarte = random.nextInt(main.size());
 		return numCarte;
-
 	}
 
 	@Override
@@ -106,7 +103,6 @@ public class StrategieAleatoire implements Strategie {
 		return liste.get(choix);
 	}
 	
-	//Enlever partie
 	public GuideSpirituel choisirGsp (Partie partie){
 		List<GuideSpirituel> gspCiblable = new ArrayList<GuideSpirituel>();
 		int indexGsp = 0;
@@ -203,13 +199,13 @@ public class StrategieAleatoire implements Strategie {
 				gspCiblable.remove(i);
 			}
 		}
-		int choix = random.nextInt(gspCiblable.size()+1);
+		int choix = random.nextInt(gspCiblable.size());
 		return gspCiblable.get(choix);
 	}
 	
-	public int choisirFaceDe (){
+	public void choisirFaceDe (Carte carte,Partie partie){
 		int choix = random.nextInt(3);
-		return choix;
+		partie.getDe().setInfluence(Origine.values()[choix]);
 	}
 	
 	public boolean choixMultiples (String cible){
@@ -232,7 +228,21 @@ public class StrategieAleatoire implements Strategie {
 	}
 	
 	public GuideSpirituel choisirGspRenvoye (List <GuideSpirituel> gspCiblable){
-		int choix = random.nextInt(gspCiblable.size());
+		int choix = random.nextInt(gspCiblable.size()+1);
 		return gspCiblable.get(choix);
+	}
+
+	@Override
+	public int choisirFaceDe(Joueur joueur) {
+		int choix;
+		Origine origineDV = joueur.getDivinite().getOrigine();
+		switch (origineDV) {
+			case Jour :choix = 1;
+				break;
+			case Nuit : choix = 2;
+				break;	
+			default : choix = 3;
+		}
+		return choix;
 	}
 }

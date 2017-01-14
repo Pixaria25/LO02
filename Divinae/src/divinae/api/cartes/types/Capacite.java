@@ -33,7 +33,7 @@ public class Capacite {
 		partie.getDe().getValeur();
 		
 		int indexCarteJouee = partie.getTable().size()-1;
-		Joueur joueurCourant = partie.getTable(indexCarteJouee).getJoueurLie(); 
+		Joueur joueurCourant = partie.getTable().get(indexCarteJouee).getJoueurLie(); 
 		joueurCourant.messageRecap("La nouvelle influence est " + partie.getDe().getInfluence());
 	}
 
@@ -66,7 +66,7 @@ public class Capacite {
 			
 		} else {
 			int indexCarteJouee = partie.getTable().size()-1;
-			Joueur joueurCourant = partie.getTable(indexCarteJouee).getJoueurLie();
+			Joueur joueurCourant = partie.getTable().get(indexCarteJouee).getJoueurLie();
 			joueurCourant.messageRecap("Impossible de lancer une Apocalyspe ce tour-ci veuillez attendre le tour prochain");
 		}
 	}
@@ -120,10 +120,10 @@ public class Capacite {
 		partie.getDefausse().ajoutCarte(carte);
 	}
 
-	public static void renvoyerGsp (List<GuideSpirituel> gspCiblable, Carte cartePosee, Partie partie) {
-		GuideSpirituel gsp = cartePosee.getJoueurLie().choisirGspRenvoye(gspCiblable);
+	public static GuideSpirituel renvoyerCroyantsGsp (List<GuideSpirituel> gspCiblable, CarteAction cartePosee, Partie partie) {
+		GuideSpirituel gsp = cartePosee.getJoueurLie().choisirGspRetire(gspCiblable);
 		partie.getTasDeCroyants().addAll(gsp.getCroyantLie ());
-		gsp.getJoueurLie().tuerCarte(gsp);
+		return gsp;
 	}
 
 	public static void empecherSacrifice ( Dogme dogme1, Dogme dogme2, String vise, Carte cartePosee, Partie partie) {

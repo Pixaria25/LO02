@@ -34,7 +34,7 @@ public interface Strategie {
 	
 	public abstract GuideSpirituel choisirDiviniteOuGspNonDogme (Dogme dogme, Partie partie);
 	
-	public abstract int choisirFaceDe ();
+	public abstract int choisirFaceDe (Joueur joueur);
 	
 	public abstract boolean choixMultiples (String cible);
 	
@@ -46,6 +46,6 @@ public interface Strategie {
 	
 	public abstract GuideSpirituel choisirGspRenvoye (List <GuideSpirituel> gspCiblable);
 
-	void demanderInterruption();
+	public abstract void demanderInterruption();
 
 }

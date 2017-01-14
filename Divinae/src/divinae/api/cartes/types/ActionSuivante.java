@@ -35,6 +35,6 @@ public interface ActionSuivante
 
 	Croyant choisirTasCroyant(Joueur joueur, Partie partie);
 	
-	GuideSpirituel choisirGspRenvoye (List <GuideSpirituel> gspCiblable);
+	GuideSpirituel choisirGspRetire (List <GuideSpirituel> gspCiblable);
 	
 }

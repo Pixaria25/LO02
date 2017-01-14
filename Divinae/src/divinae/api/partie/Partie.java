@@ -22,9 +22,7 @@ public final class Partie {
 	private List<Joueur> joueurs;
 	private List<CarteAction> table;
 	private List<CarteAction> cartesTour;
-	public List<CarteAction> getCartesTour() {
-		return cartesTour;
-	}
+
 
 
 	private List<Croyant> tasDeCroyants;
@@ -48,9 +46,11 @@ public final class Partie {
 		this.de = new De();
 		this.partieFinie = false;
 		//Joueurs par defaut
+
 //		joueurs.add(new Joueur("Thomas", this));
 		/*joueurs.add(new JoueurVirtuel("Alex", this, new StrategieAleatoire()));
 		joueurs.add(new JoueurVirtuel("Fabrice", this, new StrategieAleatoire()));*/
+
 	}
 	
 	public final static Partie getInstance() {
@@ -193,15 +193,10 @@ public final class Partie {
 	
 	
 	public void preparerTourProchain() {
-		int indexdernierJoueurTour = getIndexJoueur1();
-//		indexJoueur1 = (indexJoueur1 + 1) % joueurs.size();
-		int indexJoueurCourant = getIndexJoueur1();
+		//indexJoueur1 = (indexJoueur1 + 1) % joueurs.size();
+		Utilitaire.resetAutorisations(this);
+
 	
-		if (indexdernierJoueurTour != indexJoueurCourant) {
-			Utilitaire.resetAutorisations(this);
-		}
-		
-		
 	}
 	
 	//Ajout des points aux joueurs selon le type de leur divinite et selon la valeur du de de Cosmogonie
@@ -250,7 +245,7 @@ public final class Partie {
 	public String afficherTasCroyants() {
 		String retour = "Tas des croyants: ";
 		for(int i = 0; i < tasDeCroyants.size(); i++) {
-			retour += tasDeCroyants.get(i).getNom()+"\n";
+			retour += i + " - " + tasDeCroyants.get(i).getNom()+"   ";
 		}
 		return retour;
 	}
@@ -275,15 +270,7 @@ public final class Partie {
 		return retour;
 	}
 	
-	public void activerCapaCartesTour () {
-		if (!cartesTour.isEmpty()) {
-			for (int i = cartesTour.size() - 1; i >= 0; i--) {
-				cartesTour.get(i).poserCarteAction();
-				cartesTour.remove(i);
-			} 
-		}
-	}
-	
+
 	public List<Croyant> getTasDeCroyants() {
 		return tasDeCroyants;
 	}
@@ -320,10 +307,6 @@ public final class Partie {
 		return table;
 	}
 	
-	public Carte getTable(int i) {
-		return table.get(i);
-	}
-
 	public int getIndexJoueur1() {
 		return indexJoueur1;
 	}
@@ -339,5 +322,9 @@ public final class Partie {
 
 	public int getIndexGagnant() {
 		return indexGagnant;
+	}
+	
+	public List<CarteAction> getCartesTour() {
+		return cartesTour;
 	}
 }

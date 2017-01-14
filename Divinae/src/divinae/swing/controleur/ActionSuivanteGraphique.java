@@ -100,7 +100,7 @@ public class ActionSuivanteGraphique implements ActionSuivante
 	}
 
 	@Override
-	public GuideSpirituel choisirGspRenvoye(List<GuideSpirituel> gspCiblable) {
+	public GuideSpirituel choisirGspRetire(List<GuideSpirituel> gspCiblable) {
 		// TODO Auto-generated method stub
 		return null;
 	}

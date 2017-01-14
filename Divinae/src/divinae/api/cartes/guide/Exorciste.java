@@ -22,7 +22,7 @@ public class Exorciste extends GuideSpirituel {
 	public void activerCapacite() {
 		List <GuideSpirituel> gspCiblable = Utilitaire.choisirGuideLieADiviniteOrigine(Origine.Nuit, this.getJoueurLie().getPartie());
 		gspCiblable.addAll(Utilitaire.choisirDiviniteEtDogme(Dogme.Mystique, Dogme.Chaos, this.getJoueurLie().getPartie()));
-		Capacite.renvoyerGsp(gspCiblable, this, this.getJoueurLie().getPartie());
+		Capacite.renvoyerCroyantsGsp(gspCiblable, this, this.getJoueurLie().getPartie());
 	}
 
 

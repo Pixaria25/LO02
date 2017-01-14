@@ -24,7 +24,7 @@ public class Transe extends DeusEx {
 	@Override
 	public void activerCapacite() {
 		Partie partie = this.getJoueurLie().getPartie();
-		Carte cartePosee = partie.getTable(partie.getTable().size()-1);
+		Carte cartePosee = partie.getTable().get(partie.getTable().size()-1);
 		Joueur joueur = this.getJoueurLie();
 		Capacite.recupererEffetBenef(cartePosee, joueur, partie);
 	}
