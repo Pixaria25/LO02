@@ -40,7 +40,6 @@ public final class Partie {
 		this.joueurs = new ArrayList<Joueur>();
 		this.table = new ArrayList<CarteAction>();
 		this.tasDeCroyants = new ArrayList<Croyant>();
-		this.cartesTour = new ArrayList<CarteAction>();
 		this.indexJoueurTour = 0;
 		this.pioche = new Pioche();
 		this.defausse = new Defausse();
@@ -185,15 +184,8 @@ public final class Partie {
 	
 	
 	public void preparerTourProchain() {
-		int indexdernierJoueurTour = getIndexJoueur1();
 		indexJoueur1 = (indexJoueur1 + 1) % joueurs.size();
-		int indexJoueurCourant = getIndexJoueur1();
-	
-		if (indexdernierJoueurTour != indexJoueurCourant) {
-			Utilitaire.resetAutorisations(this);
-		}
-		
-		
+		Utilitaire.resetAutorisations(this);
 	}
 	
 	//Ajout des points aux joueurs selon le type de leur divinite et selon la valeur du de de Cosmogonie
@@ -242,7 +234,7 @@ public final class Partie {
 	public String afficherTasCroyants() {
 		String retour = "Tas des croyants: ";
 		for(int i = 0; i < tasDeCroyants.size(); i++) {
-			retour += tasDeCroyants.get(i).getNom()+"\n";
+			retour += i + " - " + tasDeCroyants.get(i).getNom()+"   ";
 		}
 		return retour;
 	}
@@ -265,15 +257,6 @@ public final class Partie {
 			retour += tasDeCroyants.get(i)+"\n";
 		}
 		return retour;
-	}
-	
-	public void activerCapaCartesTour () {
-		if (!cartesTour.isEmpty()) {
-			for (int i = cartesTour.size() - 1; i >= 0; i--) {
-				cartesTour.get(i).poserCarteAction();
-				cartesTour.remove(i);
-			} 
-		}
 	}
 	
 	public List<Croyant> getTasDeCroyants() {
@@ -312,10 +295,6 @@ public final class Partie {
 		return table;
 	}
 	
-	public Carte getTable(int i) {
-		return table.get(i);
-	}
-
 	public int getIndexJoueur1() {
 		return indexJoueur1;
 	}

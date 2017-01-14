@@ -19,14 +19,14 @@ Partie partie = InterfacePartie.getPartie();
 private Scanner scanner = new Scanner(System.in);
 
 
-	public void demanderInterruption() {
+	public void demanderInterruption(Joueur joueur) {
 		String interruption = "";
 		do {
 			System.out.println(partie.afficherTable());
 			System.out.println("Voulez vous intervenir ? (y/n)");
 			interruption = scanner.next();
 			if (interruption.equals("y")) {
-				interruption();
+				interruption(joueur);
 			}
 
 			if (!(interruption.equals("n") || interruption.equals("y"))) {
@@ -36,14 +36,14 @@ private Scanner scanner = new Scanner(System.in);
 		
 	}
 	
-	public void interruption() {
+	public void interruption(Joueur joueur) {
 		HashSet<Integer> actionsValides = new HashSet<Integer>();
-		Joueur joueurCourant = partie.getTable(partie.getTable().size()-1).getJoueurLie();
-		if(joueurCourant.aDesCartesSansOrigine()) {
+		
+		if(joueur.aDesCartesSansOrigine()) {
 			System.out.println("1 - Jouer une carte sans Origine");
 			actionsValides.add(1);
 		}
-		if(!joueurCourant.getDivinite().capaciteActivee()) {
+		if(!joueur.getDivinite().capaciteActivee()) {
 			System.out.println("2 - Active la capacite de la divinite");
 			actionsValides.add(2);
 		}
@@ -56,9 +56,9 @@ private Scanner scanner = new Scanner(System.in);
 		switch(choixAction) {
 			case 1:
 				HashSet<Integer> cartesValides = new HashSet<Integer>();
-				for(int i = 0; i < joueurCourant.getMain().size(); i++) {
-					if(joueurCourant.getMain().get(i).getOrigine() == Origine.Aucune) {
-						System.out.println(i+" - "+joueurCourant.getMain().get(i).getNom());
+				for(int i = 0; i < joueur.getMain().size(); i++) {
+					if(joueur.getMain().get(i).getOrigine() == Origine.Aucune) {
+						System.out.println(i+" - "+joueur.getMain().get(i).getNom());
 						cartesValides.add(i);
 					}
 				}
@@ -67,10 +67,10 @@ private Scanner scanner = new Scanner(System.in);
 					System.out.println("Choisissez la carte que vous voulez jouer.");
 					carteChoisie = scanner.nextInt();
 				} while(!cartesValides.contains(carteChoisie));
-				joueurCourant.poserCarteAction(carteChoisie);
-				partie.getCartesTour().add(joueurCourant.getMain().get(carteChoisie));
+				joueur.poserCarteAction(carteChoisie);
+
 			case 2:
-				joueurCourant.getDivinite().activerCapacite();
+				joueur.getDivinite().activerCapacite();
 			default:
 				System.out.println("Choix d'interruption invalide");
 		}
@@ -220,12 +220,12 @@ private Scanner scanner = new Scanner(System.in);
 	}
 	
 	public void afficherListeDivinite (List<Divinite> liste) {
-		System.out.println("Veuillez la carte à cibler par cette compétence :" + "\n");
+		System.out.println("Veuillez sélectionner la carte à cibler par cette compétence :" + "\n");
 		int indice = 0;
 		do {
 			System.out.println(indice + " : " + liste.get(indice).getNom());
 			indice++;
-		} while (indice <= liste.size());
+		} while (indice < liste.size());
 	}
 	
 	public void afficherListeGuide (List<GuideSpirituel> liste) {
@@ -243,11 +243,11 @@ private Scanner scanner = new Scanner(System.in);
 		do {
 			System.out.println(indice + " : " + liste.get(indice).getNom());
 			indice++;
-		} while (indice <= liste.size());
+		} while (indice < liste.size());
 	}
 	
 	public void afficherListeJoueur (List<Joueur> liste) {
-		System.out.println("Veuillez la carte à cibler par cette compétence :" + "\n");
+		System.out.println("Veuillez sélectionner la carte à cibler par cette compétence :" + "\n");
 		int indice = 0;
 		do {
 			System.out.println(indice + " : " + liste.get(indice).getNom());
@@ -329,16 +329,19 @@ private Scanner scanner = new Scanner(System.in);
 			System.out.println(indice + " : " + liste.get(indice).getNom());
 			indice++;
 		} while (indice < liste.size());
+		
+		Scanner sc = new Scanner(System.in);
+	
 		do {
 			System.out.println("(Entrez le nombre compris entre 0 et " + (liste.size()-1)
 					+ ",nombre correspondant à votre choix) ");
-			Scanner sc = new Scanner(System.in);
 			choix = sc.nextInt();
-			sc.close();
-
 		} while (choix < 0 || choix >= liste.size());
+	
+		sc.close();
 		System.out.println("Vous avez ciblé " + liste.get(choix).getNom());
 		return liste.get(choix);
 	}
+
 
 }

@@ -33,7 +33,7 @@ public class Capacite {
 		partie.getDe().getValeur();
 		
 		int indexCarteJouee = partie.getTable().size()-1;
-		Joueur joueurCourant = partie.getTable(indexCarteJouee).getJoueurLie(); 
+		Joueur joueurCourant = partie.getTable().get(indexCarteJouee).getJoueurLie(); 
 		joueurCourant.messageRecap("La nouvelle influence est " + partie.getDe().getInfluence());
 	}
 
@@ -66,7 +66,7 @@ public class Capacite {
 			
 		} else {
 			int indexCarteJouee = partie.getTable().size()-1;
-			Joueur joueurCourant = partie.getTable(indexCarteJouee).getJoueurLie();
+			Joueur joueurCourant = partie.getTable().get(indexCarteJouee).getJoueurLie();
 			joueurCourant.messageRecap("Impossible de lancer une Apocalyspe ce tour-ci veuillez attendre le tour prochain");
 		}
 	}

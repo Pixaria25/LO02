@@ -95,14 +95,21 @@ public class Utilitaire {
 
 	public static void resetAutorisations (Partie partie) {
 		
-		for (int i=0; i < partie.getTable().size(); i++) {
+		for (int i=0; i < partie.getJoueurs().size(); i++) {
+				
+				for (int j = 0; j < partie.getJoueurs().get(i).getGuides().size(); j++) {
+					
+					for (int k = 0; k < partie.getJoueurs().get(i).getGuide(j).getCroyantLie().size(); k++) {
+						
+						partie.getJoueurs().get(i).getGuide(j).getCroyantLie().get(k).setProtectionCiblage(false);
+						partie.getJoueurs().get(i).getGuide(j).getCroyantLie().get(k).setAutorisationSacrifice(true);
+						Capacite.setAutorisationApocalypse(true);
+						Capacite.setAutorisationPointAction(true);
+					}
+					partie.getJoueurs().get(i).getGuide(j).setProtectionCiblage(false);
+					partie.getJoueurs().get(i).getGuide(j).setAutorisationSacrifice(true);
+				}
 			
-			if (partie.getTable(i).isProtectionCiblage()) {
-				partie.getTable(i).setProtectionCiblage(false);
-				partie.getTable(i).setAutorisationSacrifice(true);
-				Capacite.setAutorisationApocalypse(true);
-				Capacite.setAutorisationPointAction(true);
-			}
 		}
 	}
 	
