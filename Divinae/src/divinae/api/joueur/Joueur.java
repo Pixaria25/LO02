@@ -63,7 +63,7 @@ public class Joueur {
 		return false;
 	}
 	
-	public void jouer(Joueur joueurCourant) {
+	public void jouer() {
 		
 	}
 	 
@@ -159,12 +159,12 @@ public class Joueur {
 	
 
 	//Appel des methodes de ActionSuivante
-	public void demanderInterruption(Joueur joueur) {
-		Capacite.getActionSuivante().demanderInterruption(joueur);
+	public void demanderInterruption() {
+		Capacite.getActionSuivante().demanderInterruption();
 	}
 	
-	public void interruption(Joueur joueur) {
-		Capacite.getActionSuivante().interruption(this);
+	public void interruption() {
+		Capacite.getActionSuivante().interruption();
 	}
 	
 	public Joueur choisirJoueurCible(List<Joueur> liste) {

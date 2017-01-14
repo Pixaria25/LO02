@@ -19,14 +19,14 @@ Partie partie = InterfacePartie.getPartie();
 private Scanner scanner = new Scanner(System.in);
 
 
-	public void demanderInterruption(Joueur joueur) {
+	public void demanderInterruption() {
 		String interruption = "";
 		do {
 			System.out.println(partie.afficherTable());
 			System.out.println("Voulez vous intervenir ? (y/n)");
 			interruption = scanner.next();
 			if (interruption.equals("y")) {
-				interruption(joueur);
+				interruption();
 			}
 
 			if (!(interruption.equals("n") || interruption.equals("y"))) {
@@ -36,14 +36,14 @@ private Scanner scanner = new Scanner(System.in);
 		
 	}
 	
-	public void interruption(Joueur joueur) {
+	public void interruption() {
 		HashSet<Integer> actionsValides = new HashSet<Integer>();
-		
-		if(joueur.aDesCartesSansOrigine()) {
+		Joueur joueurCourant = partie.getTable().get(partie.getTable().size()-1).getJoueurLie();
+		if(joueurCourant.aDesCartesSansOrigine()) {
 			System.out.println("1 - Jouer une carte sans Origine");
 			actionsValides.add(1);
 		}
-		if(!joueur.getDivinite().capaciteActivee()) {
+		if(!joueurCourant.getDivinite().capaciteActivee()) {
 			System.out.println("2 - Active la capacite de la divinite");
 			actionsValides.add(2);
 		}
@@ -56,9 +56,9 @@ private Scanner scanner = new Scanner(System.in);
 		switch(choixAction) {
 			case 1:
 				HashSet<Integer> cartesValides = new HashSet<Integer>();
-				for(int i = 0; i < joueur.getMain().size(); i++) {
-					if(joueur.getMain().get(i).getOrigine() == Origine.Aucune) {
-						System.out.println(i+" - "+joueur.getMain().get(i).getNom());
+				for(int i = 0; i < joueurCourant.getMain().size(); i++) {
+					if(joueurCourant.getMain().get(i).getOrigine() == Origine.Aucune) {
+						System.out.println(i+" - "+joueurCourant.getMain().get(i).getNom());
 						cartesValides.add(i);
 					}
 				}
@@ -67,10 +67,10 @@ private Scanner scanner = new Scanner(System.in);
 					System.out.println("Choisissez la carte que vous voulez jouer.");
 					carteChoisie = scanner.nextInt();
 				} while(!cartesValides.contains(carteChoisie));
-				joueur.poserCarteAction(carteChoisie);
+				joueurCourant.poserCarteAction(carteChoisie);
 
 			case 2:
-				joueur.getDivinite().activerCapacite();
+				joueurCourant.getDivinite().activerCapacite();
 			default:
 				System.out.println("Choix d'interruption invalide");
 		}

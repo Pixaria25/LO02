@@ -14,11 +14,12 @@ import divinae.api.cartes.types.GuideSpirituel;
 import divinae.api.cartes.types.Origine;
 import divinae.api.cartes.types.Utilitaire;
 import divinae.api.partie.Partie;
+import divinae.console.InterfacePartie;
 
 public class StrategieAleatoire implements Strategie {
 
 	private Random random = new Random();
-	
+	private Partie partie = InterfacePartie.getPartie();
 	
 	@Override
 	public int jouer() {
@@ -28,19 +29,19 @@ public class StrategieAleatoire implements Strategie {
 	}
 	
 	@Override
-	public void demanderInterruption(Joueur joueur) {
-		interruption(joueur);
+	public void demanderInterruption() {
+		interruption();
 	}
 
-	public void interruption(Joueur joueur) {
+	public void interruption() {
 		HashSet<Integer> actionsValides = new HashSet<Integer>();
-		
+		Joueur joueurCourant = partie.getTable().get(partie.getTable().size()-1).getJoueurLie();
 
-		if(joueur.aDesCartesSansOrigine()) {
+		if(joueurCourant.aDesCartesSansOrigine()) {
 			actionsValides.add(1);
 		}
 		
-		if(!joueur.getDivinite().capaciteActivee()) {
+		if(!joueurCourant.getDivinite().capaciteActivee()) {
 			actionsValides.add(2);
 		}
 		
@@ -56,15 +57,15 @@ public class StrategieAleatoire implements Strategie {
 		switch(choixAction) {
 			case 0:
 				HashSet<Integer> cartesValides = new HashSet<Integer>();
-				for(int i = 0; i < joueur.getMain().size(); i++) {
-					if(joueur.getMain().get(i).getOrigine() == Origine.Aucune) {
+				for(int i = 0; i < joueurCourant.getMain().size(); i++) {
+					if(joueurCourant.getMain().get(i).getOrigine() == Origine.Aucune) {
 						cartesValides.add(i);
 					}
 				}
 				int carteChoisie = random.nextInt(cartesValides.size());
-				joueur.poserCarteAction(carteChoisie);
+				joueurCourant.poserCarteAction(carteChoisie);
 			case 1:
-				joueur.getDivinite().activerCapacite();
+				joueurCourant.getDivinite().activerCapacite();
 			default:
 		}
 	}

@@ -166,7 +166,7 @@ public class InterfacePartie {
 			
 			if(joueurCourant instanceof JoueurVirtuel) {
 				//Joueur virtuel
-				joueurCourant.jouer(joueurCourant);
+				joueurCourant.jouer();
 			} else {
 				jouerTourJoueurReel(joueurCourant);
 			}
@@ -222,7 +222,7 @@ public class InterfacePartie {
 						Capacite.setCarteInterupt(cartePosee);
 						for (int i = 0; i < partie.getJoueurs().size(); i++) {
 							if (!(partie.getJoueurs().get(i).getNom() == joueurCourant.getNom())) {
-								partie.getJoueurs().get(i).demanderInterruption(partie.getJoueurs().get(i));
+								partie.getJoueurs().get(i).demanderInterruption();
 							}
 						}
 
@@ -238,7 +238,7 @@ public class InterfacePartie {
 					if((joueurCourant.isAutorisationcr() && joueurCourant.isAutorisationgsp()) || joueurCourant.getGuides().size() == 0) {
 						System.out.println("Vous ne pouvez pas sacrifier de cartes.");
 					} else {
-						joueurCourant.demanderInterruption(null);
+						joueurCourant.demanderInterruption();
 						List<CarteAction> listeCartesSacrifiables = joueurCourant.recupererCartesSacrifiables();
 						System.out.println("Quelle carte voulez-vous sacrifier ?");
 						for(int j = 0; j < listeCartesSacrifiables.size(); j++) {
@@ -253,7 +253,7 @@ public class InterfacePartie {
 						} else {
 									Capacite.setCarteInterupt(listeCartesSacrifiables.get(choixSacrifice));
 
-									joueurCourant.demanderInterruption(null);
+									joueurCourant.demanderInterruption();
 									if (listeCartesSacrifiables.get(choixSacrifice).isCapaciteBloque()) {
 
 										System.out.println(joueurCourant.getMain().get(choixSacrifice).getNom() + " a été bloqué !");
