@@ -17,7 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
-import divinae.api.cartes.types.Capacite;
+
 import divinae.api.cartes.types.Carte;
 import divinae.api.cartes.types.CarteAction;
 import divinae.api.cartes.types.Croyant;
@@ -336,7 +336,7 @@ public class VueJeu extends JFrame implements ActionListener, Observer {
 
 	public void afficherJoueurDivinite(Carte carte) {
 		this.panelJoueurDivinite.add(new VueCarte(0, carte, null), BorderLayout.WEST);
-		afficherMessage(carte.toString());
+//		afficherMessage(carte.toString());
 		this.panelJoueur.updateUI();
 	}
 
@@ -363,7 +363,7 @@ public class VueJeu extends JFrame implements ActionListener, Observer {
 			}
 			panelJoueur.add(vueCarte);
 			vueCartes.add(vueCarte);
-			afficherMessage(carte.toString());
+//			afficherMessage(carte.toString());
 		}
 		Joueur joueurCourant = (cartes.size() > 0) ? cartes.get(0).getJoueurLie() : null;
 		if(joueurCourant != null && ((joueurCourant.isAutorisationcr()

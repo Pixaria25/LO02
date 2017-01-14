@@ -72,6 +72,7 @@ public class StrategieAleatoire implements Strategie {
 						joueurCourant.getDivinite().activerCapacite();
 					default:
 				}
+
 		}
 	}
 
