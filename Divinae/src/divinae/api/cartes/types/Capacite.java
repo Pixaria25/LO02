@@ -38,15 +38,30 @@ public class Capacite {
 	}
 
 	public static void lancerApocalypse (Partie partie) {
-		
+		boolean egalite = false;
 		if (Capacite.isAutorisationApocalypse()== true) { // l'autorisation de lancer une Apocalypse est valide on lance l'apocalypse sinon
 			
 			if (partie.getJoueurs().size() < 4) {
-				partie.finirUnePartie();
+				for (int i =0; i < partie.getJoueurs().size(); i++) {
+					if (partie.getJoueurs().get(i).getNombreCroyant() == partie.getJoueurs().get(partie.getIndexGagnant()).getNombreCroyant()){
+						egalite = true;
+					}
+				}
+				if (!egalite) {
+					partie.finirUnePartie();
+					System.exit(0);
+				}
 			} else {
-				partie.getJoueurs().remove(partie.getJoueurs().indexOf(partie.getIndexPerdant()));
-				Utilitaire.resetAutorisations(partie);
-				Capacite.setAutorisationApocalypse(false);
+				for (int i =0; i < partie.getJoueurs().size(); i++) {
+					if (partie.getJoueurs().get(i).getNombreCroyant() == partie.getJoueurs().get(partie.getIndexPerdant()).getNombreCroyant()){
+						egalite = true;
+					}
+				}
+				if (!egalite) {
+					partie.getJoueurs().remove(partie.getJoueurs().indexOf(partie.getIndexPerdant()));
+					Utilitaire.resetAutorisations(partie);
+					Capacite.setAutorisationApocalypse(false);
+				}
 			}
 			
 		} else {

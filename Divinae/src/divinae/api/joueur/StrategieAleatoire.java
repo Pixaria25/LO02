@@ -47,28 +47,25 @@ public class StrategieAleatoire implements Strategie {
 		}
 		
 		int choixInterruption = random.nextInt(8);
-		int choixAction = 0;
+		int choixAction = -1;
 		
-		if (!actionsValides.isEmpty()){
+		if (actionsValides.isEmpty()){
 			actionsValides.add(0);
-			choixAction = 0;
 		} else if (choixInterruption == 0) {
 				choixAction = random.nextInt(actionsValides.size());
 		}
 		
 		switch(choixAction) {
-			case 0: 
-				break;
-			case 1:
+			case 0:
 				HashSet<Integer> cartesValides = new HashSet<Integer>();
 				for(int i = 0; i < joueurCourant.getMain().size(); i++) {
 					if(joueurCourant.getMain().get(i).getOrigine() == Origine.Aucune) {
 						cartesValides.add(i);
 					}
 				}
-				int carteChoisie = random.nextInt(cartesValides.size()-1);
+				int carteChoisie = random.nextInt(cartesValides.size());
 				joueurCourant.poserCarteAction(carteChoisie);
-			case 2:
+			case 1:
 				joueurCourant.getDivinite().activerCapacite();
 			default:
 		}
@@ -89,8 +86,8 @@ public class StrategieAleatoire implements Strategie {
 
 	@Override
 	public int choixCarteAction(List<CarteAction> main) {
-		int numCarte = random.nextInt(main.size()+1);
-		return numCarte;
+		int numCarte = random.nextInt(main.size());
+		return numCarte-1;
 	}
 
 	@Override
@@ -101,7 +98,7 @@ public class StrategieAleatoire implements Strategie {
 	}
 
 	public Joueur choisirJoueurCible(List<Joueur> liste) {
-		int choix = random.nextInt(liste.size()+1);
+		int choix = random.nextInt(liste.size());
 		return liste.get(choix);
 	}
 	
@@ -124,7 +121,7 @@ public class StrategieAleatoire implements Strategie {
 			}
 		}
 		
-		int choix = random.nextInt(gspCiblable.size()+1);
+		int choix = random.nextInt(gspCiblable.size());
 		return gspCiblable.get(choix);
 	}
 	
@@ -139,7 +136,7 @@ public class StrategieAleatoire implements Strategie {
 			}
 			choixDivinite++;
 		}
-		int choix = random.nextInt(diviniteCiblable.size()+1);
+		int choix = random.nextInt(diviniteCiblable.size());
 		return diviniteCiblable.get(choix);
 	}
 	

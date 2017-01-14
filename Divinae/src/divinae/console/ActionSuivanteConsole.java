@@ -69,6 +69,7 @@ private Scanner scanner = new Scanner(System.in);
 					carteChoisie = scanner.nextInt();
 				} while(!cartesValides.contains(carteChoisie));
 				joueurCourant.poserCarteAction(carteChoisie);
+				partie.getCartesTour().add(joueurCourant.getMain().get(carteChoisie));
 			case 2:
 				joueurCourant.getDivinite().activerCapacite();
 			default:
@@ -356,7 +357,7 @@ private Scanner scanner = new Scanner(System.in);
 		do {
 			System.out.println(indice + " : " + liste.get(indice).getNom());
 			indice++;
-		} while (indice <= liste.size());
+		} while (indice < liste.size());
 	}
 	
 	public Joueur selectionnerElementListeJoueur (List<Joueur> liste) {

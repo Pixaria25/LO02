@@ -20,8 +20,14 @@ public class Partie {
 	private int indexJoueur1;
 	private List<Joueur> joueurs;
 	private List<CarteAction> table;
+	private List<CarteAction> cartesTour;
+	public List<CarteAction> getCartesTour() {
+		return cartesTour;
+	}
+
+
 	private List<Croyant> tasDeCroyants;
-	private int nombreTour;
+	private int indexJoueurTour;
 	private Pioche pioche;
 	private Defausse defausse;
 	private De de;
@@ -35,7 +41,7 @@ public class Partie {
 		this.joueurs = new ArrayList<Joueur>();
 		this.table = new ArrayList<CarteAction>();
 		this.tasDeCroyants = new ArrayList<Croyant>();
-		this.nombreTour = 1;
+		this.indexJoueurTour = 0;
 		this.pioche = new Pioche();
 		this.defausse = new Defausse();
 		this.de = new De();
@@ -169,8 +175,14 @@ public class Partie {
 	
 	
 	public void preparerTourProchain() {
-		
+		int indexdernierJoueurTour = getIndexJoueur1();
 		indexJoueur1 = (indexJoueur1 + 1) % joueurs.size();
+		int indexJoueurCourant = getIndexJoueur1();
+	
+		if (indexdernierJoueurTour != indexJoueurCourant) {
+			Utilitaire.resetAutorisations(this);
+		}
+		
 		
 	}
 	
@@ -239,6 +251,15 @@ public class Partie {
 		return retour;
 	}
 	
+	public void activerCapaCartesTour () {
+		if (!cartesTour.isEmpty()) {
+			for (int i = cartesTour.size() - 1; i >= 0; i++) {
+				cartesTour.get(i).poserCarteAction();
+				cartesTour.remove(i);
+			} 
+		}
+	}
+	
 	public List<Croyant> getTasDeCroyants() {
 		return tasDeCroyants;
 	}
@@ -260,7 +281,7 @@ public class Partie {
 	}
 
 	public int getNombreTour() {
-		return nombreTour;
+		return indexJoueurTour;
 	}
 
 	public De getDe() {
