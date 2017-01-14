@@ -190,7 +190,7 @@ public final class Partie {
 		indexJoueur1 = (indexJoueur1 + 1) % joueurs.size();
 		int indexJoueurCourant = getIndexJoueur1();
 	
-		if (indexdernierJoueurTour != indexJoueurCourant) {
+		if (indexdernierJoueurTour != indexJoueurCourant+1) {
 			Utilitaire.resetAutorisations(this);
 		}
 		
