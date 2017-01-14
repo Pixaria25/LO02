@@ -212,10 +212,10 @@ private Scanner scanner = new Scanner(System.in);
 		return croyant;
 	}
 	
-	public GuideSpirituel choisirGspRenvoye(List<GuideSpirituel> gspCiblable) {
+	public GuideSpirituel choisirGspRetire(List<GuideSpirituel> gspCiblable) {
 		afficherListeGuide(gspCiblable);
-		GuideSpirituel Gsp = selectionnerElementListeGuide(gspCiblable);
-		return Gsp;
+		GuideSpirituel gsp = selectionnerElementListeGuide(gspCiblable);
+		return gsp;
 
 	}
 	

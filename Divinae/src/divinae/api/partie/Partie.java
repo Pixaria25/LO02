@@ -22,9 +22,7 @@ public final class Partie {
 	private List<Joueur> joueurs;
 	private List<CarteAction> table;
 	private List<CarteAction> cartesTour;
-	public List<CarteAction> getCartesTour() {
-		return cartesTour;
-	}
+
 
 
 	private List<Croyant> tasDeCroyants;
@@ -42,13 +40,14 @@ public final class Partie {
 		this.joueurs = new ArrayList<Joueur>();
 		this.table = new ArrayList<CarteAction>();
 		this.tasDeCroyants = new ArrayList<Croyant>();
+		this.cartesTour = new ArrayList<CarteAction>();
 		this.indexJoueurTour = 0;
 		this.pioche = new Pioche();
 		this.defausse = new Defausse();
 		this.de = new De();
 		this.partieFinie = false;
 		//Joueurs par defaut
-//		joueurs.add(new Joueur("Thomas", this));
+		joueurs.add(new Joueur("Thomas", this));
 		joueurs.add(new JoueurVirtuel("Alex", this, new StrategieAleatoire()));
 		joueurs.add(new JoueurVirtuel("Fabrice", this, new StrategieAleatoire()));
 	}
@@ -270,7 +269,7 @@ public final class Partie {
 	
 	public void activerCapaCartesTour () {
 		if (!cartesTour.isEmpty()) {
-			for (int i = cartesTour.size() - 1; i >= 0; i++) {
+			for (int i = cartesTour.size() - 1; i >= 0; i--) {
 				cartesTour.get(i).poserCarteAction();
 				cartesTour.remove(i);
 			} 
@@ -332,5 +331,9 @@ public final class Partie {
 
 	public int getIndexGagnant() {
 		return indexGagnant;
+	}
+	
+	public List<CarteAction> getCartesTour() {
+		return cartesTour;
 	}
 }

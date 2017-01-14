@@ -118,7 +118,7 @@ public class JoueurVirtuel extends Joueur {
 	}
 	
   @Override
-	public GuideSpirituel choisirGspRenvoye(List<GuideSpirituel> gspCiblable) {
+	public GuideSpirituel choisirGspRetire(List<GuideSpirituel> gspCiblable) {
 		return strategie.choisirGspRenvoye(gspCiblable);
 	}
 

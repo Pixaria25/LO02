@@ -226,4 +226,26 @@ public class Utilitaire {
 		}
 		return gspCiblable;
 	}
+	
+	public static List<GuideSpirituel> getGspOrigine(Origine origine, CarteAction carte, Partie partie) {
+		List<GuideSpirituel> gspCiblable = new ArrayList<GuideSpirituel>();
+		gspCiblable.addAll(getGspCiblables(carte.getJoueurLie(), partie));
+		
+		for (int i = 0; i < gspCiblable.size(); i++) {
+			if(gspCiblable.get(i).getJoueurLie() == carte.getJoueurLie() || carte.getOrigine() != origine) {
+				gspCiblable.remove(i);
+				i--;
+			}
+		}
+		
+		return gspCiblable;
+	}
+	
+	// Si rajout annulation carte selectionnée
+	public static void rendrePointAction(CarteAction carteJouee) {
+		if(!(carteJouee.getOrigine() == Origine.Aucune)) {
+			Capacite.donnerPointAction(1, carteJouee.getOrigine(), carteJouee.getJoueurLie());
+		}
+	}
+	
 }

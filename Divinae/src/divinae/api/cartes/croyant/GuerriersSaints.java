@@ -19,6 +19,6 @@ public class GuerriersSaints extends Croyant {
 	 public void activerCapacite() {
 		 List<Joueur> liste = Utilitaire.extraireListeJoueurRestrainte (getJoueurLie().getPartie(), getJoueurLie());
 		 Joueur joueurVise = getJoueurLie().choisirJoueurCible(liste);
-		 Capacite.renvoyerGsp(joueurVise.getGuides(), this, this.getJoueurLie().getPartie());
+		 Capacite.renvoyerCroyantsGsp(joueurVise.getGuides(), this, this.getJoueurLie().getPartie());
 	  }
 }

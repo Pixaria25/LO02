@@ -120,10 +120,10 @@ public class Capacite {
 		partie.getDefausse().ajoutCarte(carte);
 	}
 
-	public static void renvoyerGsp (List<GuideSpirituel> gspCiblable, Carte cartePosee, Partie partie) {
-		GuideSpirituel gsp = cartePosee.getJoueurLie().choisirGspRenvoye(gspCiblable);
+	public static GuideSpirituel renvoyerCroyantsGsp (List<GuideSpirituel> gspCiblable, CarteAction cartePosee, Partie partie) {
+		GuideSpirituel gsp = cartePosee.getJoueurLie().choisirGspRetire(gspCiblable);
 		partie.getTasDeCroyants().addAll(gsp.getCroyantLie ());
-		gsp.getJoueurLie().tuerCarte(gsp);
+		return gsp;
 	}
 
 	public static void empecherSacrifice ( Dogme dogme1, Dogme dogme2, String vise, Carte cartePosee, Partie partie) {

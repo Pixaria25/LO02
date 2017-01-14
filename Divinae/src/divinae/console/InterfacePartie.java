@@ -220,7 +220,6 @@ public class InterfacePartie {
 					if(poserCarte) {
 
 						Capacite.setCarteInterupt(cartePosee);
-						joueurCourant.poserCarteAction(choixCarte);
 						for (int i = 0; i < partie.getJoueurs().size(); i++) {
 							if (!(partie.getJoueurs().get(i).getNom() == joueurCourant.getNom())) {
 								partie.getJoueurs().get(i).demanderInterruption();
