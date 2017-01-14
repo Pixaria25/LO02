@@ -220,7 +220,7 @@ private Scanner scanner = new Scanner(System.in);
 	}
 	
 	public void afficherListeDivinite (List<Divinite> liste) {
-		System.out.println("Veuillez la carte à cibler par cette compétence :" + "\n");
+		System.out.println("Veuillez sélectionner la carte à cibler par cette compétence :" + "\n");
 		int indice = 0;
 		do {
 			System.out.println(indice + " : " + liste.get(indice).getNom());
@@ -247,7 +247,7 @@ private Scanner scanner = new Scanner(System.in);
 	}
 	
 	public void afficherListeJoueur (List<Joueur> liste) {
-		System.out.println("Veuillez la carte à cibler par cette compétence :" + "\n");
+		System.out.println("Veuillez sélectionner la carte à cibler par cette compétence :" + "\n");
 		int indice = 0;
 		do {
 			System.out.println(indice + " : " + liste.get(indice).getNom());

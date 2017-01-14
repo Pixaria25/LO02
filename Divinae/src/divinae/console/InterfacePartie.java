@@ -9,6 +9,7 @@ import divinae.api.cartes.types.CarteAction;
 
 import divinae.api.cartes.types.Croyant;
 import divinae.api.cartes.types.GuideSpirituel;
+import divinae.api.cartes.types.Origine;
 import divinae.api.joueur.Joueur;
 import divinae.api.joueur.JoueurVirtuel;
 import divinae.api.partie.Partie;
@@ -26,7 +27,7 @@ public class InterfacePartie {
 	
 	public void lancerUnePartie() {
 		System.out.println("Lancement d'une partie.");
-		/*System.out.println("Entrez votre nom.");
+		System.out.println("Entrez votre nom.");
 		String nom = scanner.next();
 		System.out.println("Entrez le nombre de joueurs (entre 1 et 5).");
 		int nombreJoueurs = 0;
@@ -36,7 +37,7 @@ public class InterfacePartie {
 		partie.ajouterUnJoueurReel(nom);
 		for(int i = 0; i < nombreJoueurs; i++) {
 			partie.ajouterUnJoueurVirtuel("IA-"+(i+1), TypeStrategie.ALEATOIRE);
-		}*/
+		}
 		jouer();
 //		boolean quitterJeu = false;
 //		int choix = 0;
@@ -194,7 +195,15 @@ public class InterfacePartie {
 			
 			
 			System.out.println(partie.afficherTasCroyants());
-			System.out.println(joueurCourant.afficherMain());
+			String affichage = "";
+			for(int i = 0; i < joueurCourant.getMain().size(); i++) {
+				affichage += i +" - " + joueurCourant.getMain().get(i).getCategorieEtNom();
+				if(joueurCourant.getMain().get(i).getOrigine() == Origine.Aucune || joueurCourant.getPointsAction()[joueurCourant.getMain().get(i).getOrigine().ordinal()] > 0) {
+					affichage += "(V)";
+				}
+				affichage += "	";
+			}
+			System.out.println(affichage);
 			System.out.println(joueurCourant.afficherPoints());
 			System.out.println("1 - Jouer une carte");
 			System.out.println("2 - Sacrifier un croyant ou un guide spirituel");
@@ -220,7 +229,6 @@ public class InterfacePartie {
 					if(poserCarte) {
 
 						Capacite.setCarteInterupt(cartePosee);
-						joueurCourant.poserCarteAction(choixCarte);
 						for (int i = 0; i < partie.getJoueurs().size(); i++) {
 							if (!(partie.getJoueurs().get(i).getNom() == joueurCourant.getNom())) {
 								partie.getJoueurs().get(i).demanderInterruption();
@@ -228,7 +236,6 @@ public class InterfacePartie {
 						}
 
 						partie.activerCapaCartesTour();
-						cartePosee.poserCarteAction();
 
 					} else {
 						System.out.println("Vous ne pouvez pas jouer cette carte.");

@@ -2,6 +2,7 @@ package divinae.api.joueur;
 
 import java.util.List;
 
+import divinae.api.cartes.types.Capacite;
 import divinae.api.cartes.types.CarteAction;
 import divinae.api.cartes.types.Croyant;
 import divinae.api.cartes.types.Divinite;
@@ -30,6 +31,7 @@ public class JoueurVirtuel extends Joueur {
 				switch(choix) {
 					case 0:
 						poserCarteAction();
+						getPartie().activerCapaCartesTour();
 						break;
 					case 1:
 						sacrifier();
@@ -52,12 +54,26 @@ public class JoueurVirtuel extends Joueur {
 	}
 
 	public void poserCarteAction() {
-		strategie.choixCarteAction(getMain());
+		int choix = strategie.choixCarteAction(getMain());
+		CarteAction cartePosee = getMain().get(choix);
+		boolean poserCarte = poserCarteAction(choix);
+		if(poserCarte) {
+
+			Capacite.setCarteInterupt(cartePosee);
+			for (int i = 0; i < getPartie().getJoueurs().size(); i++) {
+				if (!(getPartie().getJoueurs().get(i).getNom() == getNom())) {
+					getPartie().getJoueurs().get(i).demanderInterruption();
+				}
+			}
+
+			getPartie().activerCapaCartesTour();
+
+		}
 	}
 	
 	public void sacrifier() {
 		List<CarteAction> cartesSacrifiables = recupererCartesSacrifiables();
-		strategie.choixSacrifice(cartesSacrifiables);
+		sacrifierCarte(strategie.choixSacrifice(cartesSacrifiables));
 	}
 	
 	//Appel des methodes de ActionSuivante
