@@ -19,14 +19,14 @@ Partie partie = InterfacePartie.getPartie();
 private Scanner scanner = new Scanner(System.in);
 
 
-	public void demanderInterruption() {
+	public void demanderInterruption(Joueur joueurCourant) {
 		String interruption = "";
 		do {
 			System.out.println(partie.afficherTable());
 			System.out.println("Voulez vous intervenir ? (y/n)");
 			interruption = scanner.next();
 			if (interruption.equals("y")) {
-				interruption();
+				interruption(joueurCourant);
 			}
 
 			if (!(interruption.equals("n") || interruption.equals("y"))) {
@@ -36,9 +36,8 @@ private Scanner scanner = new Scanner(System.in);
 		
 	}
 	
-	public void interruption() {
+	public void interruption(Joueur joueurCourant) {
 		HashSet<Integer> actionsValides = new HashSet<Integer>();
-		Joueur joueurCourant = partie.getTable().get(partie.getTable().size()-1).getJoueurLie();
 		if(joueurCourant.aDesCartesSansOrigine()) {
 			System.out.println("1 - Jouer une carte sans Origine");
 			actionsValides.add(1);
@@ -79,42 +78,57 @@ private Scanner scanner = new Scanner(System.in);
 
 	@Override
 	public Joueur choisirJoueurCible(List<Joueur> liste) {
-		afficherListeJoueur(liste);
-		Joueur joueur = selectionnerElementListeJoueur(liste);
-		
-		return joueur;
+		if (!liste.isEmpty()) {
+			afficherListeJoueur(liste);
+			Joueur joueur = selectionnerElementListeJoueur(liste);
+			return joueur;
+		} 
+		return null;
 	}
 
 	@Override
 	public GuideSpirituel choisirGsp(Joueur joueur, Partie partie) {
 		List<GuideSpirituel> gspCiblable = Utilitaire.getGspCiblables(joueur, partie);
-		afficherListeGuide(gspCiblable);
-		GuideSpirituel Gsp = selectionnerElementListeGuide(gspCiblable);
-		return Gsp;
-
+		
+		if (!gspCiblable.isEmpty()) {
+			afficherListeGuide(gspCiblable);
+			GuideSpirituel Gsp = selectionnerElementListeGuide(gspCiblable);
+			return Gsp;
+		}
+		return null;
 	}
 
 	public Divinite choisirDiviniteOuDogme(Dogme dogme1, Dogme dogme2, Partie partie) {
 		List<Divinite> diviniteCiblable = Utilitaire.getDiviniteOuDogme(dogme1, dogme2, partie);
-		afficherListeDivinite(diviniteCiblable);
-		Divinite divinite = selectionnerElementListeDivinite(diviniteCiblable);
-		return divinite;
+		if (!diviniteCiblable.isEmpty()) {
+			afficherListeDivinite(diviniteCiblable);
+			Divinite divinite = selectionnerElementListeDivinite(diviniteCiblable);
+			return divinite;
+		}
+		return null;
 	}
 
 	public GuideSpirituel choisirSonGsp(Joueur joueur, Partie partie) {
 		List<GuideSpirituel> gspCiblable = Utilitaire.getSonGsp(joueur, partie);
 
-		afficherListeGuide(gspCiblable);
-		GuideSpirituel Gsp = selectionnerElementListeGuide(gspCiblable);
-		return Gsp;
+		if (!gspCiblable.isEmpty()) {
+			afficherListeGuide(gspCiblable);
+			GuideSpirituel Gsp = selectionnerElementListeGuide(gspCiblable);
+			return Gsp;
+		}
+		
+		return null;
 	}
 
 	public Croyant choisirCroyant(Joueur joueur, Partie partie) {
 		List<Croyant> croyantCiblable = Utilitaire.getCroyant(joueur, partie);
 		
-		afficherListeCroyant(croyantCiblable);
-		Croyant croyant = selectionnerElementListeCroyant(croyantCiblable);
-		return croyant;
+		if (!croyantCiblable.isEmpty()) {
+			afficherListeCroyant(croyantCiblable);
+			Croyant croyant = selectionnerElementListeCroyant(croyantCiblable);
+			return croyant;
+		}
+		return null;
 	}
 	
 	public Origine choisirOrigine() {
@@ -137,9 +151,12 @@ private Scanner scanner = new Scanner(System.in);
 
 		List<GuideSpirituel> gspCiblable = Utilitaire.getDiviniteOuGspNonDogme(dogme, partie);
 
-		afficherListeGuide(gspCiblable);
-		GuideSpirituel Gsp = selectionnerElementListeGuide(gspCiblable);
-		return Gsp;
+		if (!gspCiblable.isEmpty()) {
+			afficherListeGuide(gspCiblable);
+			GuideSpirituel Gsp = selectionnerElementListeGuide(gspCiblable);
+			return Gsp;
+		}
+		return null;
 
 	}
 
@@ -213,10 +230,13 @@ private Scanner scanner = new Scanner(System.in);
 	}
 	
 	public GuideSpirituel choisirGspRetire(List<GuideSpirituel> gspCiblable) {
-		afficherListeGuide(gspCiblable);
-		GuideSpirituel gsp = selectionnerElementListeGuide(gspCiblable);
-		return gsp;
-
+		if (!gspCiblable.isEmpty()) {
+			afficherListeGuide(gspCiblable);
+			GuideSpirituel gsp = selectionnerElementListeGuide(gspCiblable);
+			return gsp;
+		}
+		
+		return null;
 	}
 	
 	public void afficherListeDivinite (List<Divinite> liste) {
@@ -234,7 +254,7 @@ private Scanner scanner = new Scanner(System.in);
 		do {
 			System.out.println(indice + " : " + liste.get(indice).getNom());
 			indice++;
-		} while (indice <= liste.size());
+		} while (indice < liste.size());
 	}
 	
 	public void afficherListeCroyant (List<Croyant> liste) {

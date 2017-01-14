@@ -248,10 +248,11 @@ public class Utilitaire {
 		return gspCiblable;
 	}
 	
-	// Si rajout annulation carte selectionnée
-	public static void rendrePointAction(CarteAction carteJouee) {
+
+	public static void rendrePointActionEtCarte(CarteAction carteJouee) {
 		if(!(carteJouee.getOrigine() == Origine.Aucune)) {
 			Capacite.donnerPointAction(1, carteJouee.getOrigine(), carteJouee.getJoueurLie());
+			carteJouee.getJoueurLie().getPartie().getTable().remove(carteJouee.getJoueurLie().getPartie().getTable().indexOf(carteJouee));
 		}
 	}
 	
