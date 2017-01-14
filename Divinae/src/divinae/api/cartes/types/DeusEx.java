@@ -8,7 +8,7 @@ public abstract class DeusEx extends CarteAction {
 
 	@Override
 	public void poserCarteAction() {
-		if (isCapaciteBloqué()) {
+		if (isCapaciteBloque()) {
 			System.out.println(getNom() + " a été bloqué !");
 			
 		} else {

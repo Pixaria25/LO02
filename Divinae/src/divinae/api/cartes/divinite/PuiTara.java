@@ -13,12 +13,10 @@ public class PuiTara extends Divinite {
 				new Dogme[]{Dogme.Nature, Dogme.Mystique, Dogme.Symboles}, 
 				"Pui-Tara est la Divinit� "
 				+ "sur laquelle l'influence de la Nuit s'est faite la plus forte.", 86);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void activerCapacite() {
-		// TODO Auto-generated method stub
 		super.activerCapacite();
 		Partie partie = this.getJoueurLie().getPartie();
 		for (int i=0; i < partie.getTasDeCroyants().size(); i++) {

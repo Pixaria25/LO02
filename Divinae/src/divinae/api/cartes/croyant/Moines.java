@@ -9,7 +9,6 @@ public class Moines extends Croyant {
   
   public Moines (Dogme [] dogme, int id) {
 	 	super("Moines", Origine.Jour, "Donne un point d'action d'Origine jour", dogme, 2, id);
-		// TODO Auto-generated constructor stub
 	}
 
 

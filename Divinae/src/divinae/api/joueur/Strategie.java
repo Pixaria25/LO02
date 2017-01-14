@@ -2,7 +2,6 @@ package divinae.api.joueur;
 
 import java.util.List;
 
-import divinae.api.cartes.types.Carte;
 import divinae.api.cartes.types.CarteAction;
 import divinae.api.cartes.types.Croyant;
 import divinae.api.cartes.types.Divinite;
@@ -35,7 +34,7 @@ public interface Strategie {
 	
 	public abstract GuideSpirituel choisirDiviniteOuGspNonDogme (Dogme dogme, Partie partie);
 	
-	public abstract void choisirFaceDe (Carte carte,Partie partie);
+	public abstract int choisirFaceDe ();
 	
 	public abstract boolean choixMultiples (String cible);
 	

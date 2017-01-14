@@ -12,7 +12,7 @@ public abstract class CarteAction extends Carte{
 	
 	
 
-	public boolean isCapaciteBloqué() {
+	public boolean isCapaciteBloque() {
 		return capaciteBloqué;
 	}
 

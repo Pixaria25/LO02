@@ -12,7 +12,6 @@ public class Vampire extends Croyant {
 		super(nom, Origine.Nuit, "Impose le sacrifice d'un Croyant d'un autre joueur. Celui-ci choisit le "
 				+ "sacrifi�. La capacit� sp�ciale du sacrifice est jou�e.", dogme, 1, id);
 
-		// TODO Auto-generated constructor stub
 	}
   
   public void activerCapacite() {

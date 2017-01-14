@@ -8,10 +8,10 @@ public class DivinaeGraphique {
 
 	public DivinaeGraphique() {
 		ModeleJeu modeleJeu = new ModeleJeu();
-		VueJeu vueJeu = new VueJeu(modeleJeu);
+		ControleurJeu controleurJeu = new ControleurJeu(modeleJeu);
+		VueJeu vueJeu = new VueJeu(controleurJeu, modeleJeu);
 		modeleJeu.addObserver(vueJeu);
-		ControleurJeu controleurJeu = new ControleurJeu(modeleJeu, vueJeu);
-		controleurJeu.initialiserJeu();
+		controleurJeu.initialiserJeu(vueJeu);
 		controleurJeu.jouer();
 	}
 

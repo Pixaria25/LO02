@@ -7,14 +7,13 @@ import divinae.api.cartes.types.Origine;
 public class Llewella extends Divinite {
 
 	public Llewella() {
-		super("Llewella", Origine.Nuit, "Peut obliger un joueur à poser une carte Apocalypse s'il en possède une.", 
+		super("Llewella", Origine.Nuit, "Peut obliger un joueur ï¿½ poser une carte Apocalypse s'il en possï¿½de une.", 
 				new Dogme[]{Dogme.Chaos, Dogme.Mystique, Dogme.Nature}, 
-				"Divinité machiavélique et manipulatrice, Killinstred cherche à influencer et contrôler ses ennemis.", 85);
+				"Divinitï¿½ machiavï¿½lique et manipulatrice, Killinstred cherche ï¿½ influencer et contrï¿½ler ses ennemis.", 85);
 	}
 
 	@Override
 	public void activerCapacite() {
-		// TODO Auto-generated method stub
 		super.activerCapacite();
 	}
 

@@ -12,7 +12,7 @@ public class Apocalypse extends  CarteAction {
 	public void activerCapacite() {
 		Partie partie = getJoueurLie().getPartie();
 		
-		if (isCapaciteBloqué()) {
+		if (isCapaciteBloque()) {
 			System.out.println(getNom() + " a été bloqué !");
 			
 		} else {

@@ -8,17 +8,15 @@ import divinae.api.cartes.types.Origine;
 public class Brewalen extends Divinite {
 
 	public Brewalen() {
-		super("Brewalen", Origine.Jour, "Peut empêcher l'utilisation d'une carte Apocalypse. "
-				+ "La carte est défaussée.", 
+		super("Brewalen", Origine.Jour, "Peut empï¿½cher l'utilisation d'une carte Apocalypse. "
+				+ "La carte est dï¿½faussï¿½e.", 
 				new Dogme[]{Dogme.Nature, Dogme.Humain, Dogme.Mystique}, 
-				"Premier enfant du Jour, Brewalen cherche à représenter une certaine image de l'harmonie, "
-				+ "et tente de mettre en place un statu quo entre les Divinités.", 81);
-		// TODO Auto-generated constructor stub
+				"Premier enfant du Jour, Brewalen cherche ï¿½ reprï¿½senter une certaine image de l'harmonie, "
+				+ "et tente de mettre en place un statu quo entre les Divinitï¿½s.", 81);
 	}
 
 	@Override
 	public void activerCapacite() {
-		// TODO Auto-generated method stub
 		super.activerCapacite();
 		Capacite.setAutorisationApocalypse(false);
 	

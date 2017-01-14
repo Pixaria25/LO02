@@ -1,12 +1,10 @@
 package divinae.console;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
 
 import divinae.api.cartes.types.ActionSuivante;
-import divinae.api.cartes.types.Carte;
 import divinae.api.cartes.types.Croyant;
 import divinae.api.cartes.types.Divinite;
 import divinae.api.cartes.types.Dogme;
@@ -19,6 +17,7 @@ import divinae.api.partie.Partie;
 public class ActionSuivanteConsole implements ActionSuivante {
 Partie partie = InterfacePartie.getPartie();
 private Scanner scanner = new Scanner(System.in);
+
 
 	public void demanderInterruption() {
 		String interruption = "";
@@ -77,6 +76,7 @@ private Scanner scanner = new Scanner(System.in);
 		}
 	}
 	
+
 	@Override
 	public Joueur choisirJoueurCible(List<Joueur> liste) {
 		afficherListeJoueur(liste);
@@ -87,29 +87,7 @@ private Scanner scanner = new Scanner(System.in);
 
 	@Override
 	public GuideSpirituel choisirGsp(Joueur joueur, Partie partie) {
-		List<GuideSpirituel> gspCiblable = new ArrayList<GuideSpirituel>();
-		int indexGsp = 0;
-		int indexJoueur = 0;
-		
-		while (indexJoueur < partie.getJoueurs().size()) {
-			
-			if (!(partie.getJoueurs().get(indexJoueur) == joueur)) {
-				while (indexGsp < partie.getJoueurs().get(indexJoueur).getGuides().size()) {
-					gspCiblable.add(partie.getJoueurs().get(indexJoueur).getGuide(indexGsp));
-					indexGsp++;
-				} 
-			}
-			indexGsp = 0;
-			indexJoueur++;
-		}
-
-		for (int i = 0; i < gspCiblable.size(); i++) {
-			if (gspCiblable.get(i).isProtectionCiblage()) {
-				gspCiblable.remove(i);
-			}
-		}
-
-		
+		List<GuideSpirituel> gspCiblable = Utilitaire.getGspCiblables(joueur, partie);
 		afficherListeGuide(gspCiblable);
 		GuideSpirituel Gsp = selectionnerElementListeGuide(gspCiblable);
 		return Gsp;
@@ -117,43 +95,14 @@ private Scanner scanner = new Scanner(System.in);
 	}
 
 	public Divinite choisirDiviniteOuDogme(Dogme dogme1, Dogme dogme2, Partie partie) {
-		int choixDivinite = 0;
-		List<Divinite> diviniteCiblable = new ArrayList<Divinite>();
-
-		if (!(dogme1 == null) || !(dogme2 == null)) {
-			while (choixDivinite < partie.getJoueurs().size()) {
-				if (Utilitaire.comparerDogme(partie.getJoueurs().get(choixDivinite).getDivinite().getDogme(), dogme1,
-						partie)
-						|| Utilitaire.comparerDogme(partie.getJoueurs().get(choixDivinite).getDivinite().getDogme(),
-								dogme2, partie)) {
-					diviniteCiblable.add(partie.getJoueurs().get(choixDivinite).getDivinite());
-				}
-				choixDivinite++;
-			} 
-		} else {
-			while (choixDivinite < partie.getJoueurs().size()) {
-				diviniteCiblable.add(partie.getJoueurs().get(choixDivinite).getDivinite());
-				choixDivinite++;
-			}
-		}
+		List<Divinite> diviniteCiblable = Utilitaire.getDiviniteOuDogme(dogme1, dogme2, partie);
 		afficherListeDivinite(diviniteCiblable);
 		Divinite divinite = selectionnerElementListeDivinite(diviniteCiblable);
 		return divinite;
 	}
 
 	public GuideSpirituel choisirSonGsp(Joueur joueur, Partie partie) {
-		List<GuideSpirituel> gspCiblable = new ArrayList<GuideSpirituel>();
-		int indexJoueur = partie.getJoueurs().indexOf(joueur);
-
-		for (int i = 0; i < partie.getJoueurs().get(indexJoueur).getGuides().size(); i++) {
-			gspCiblable.add(partie.getJoueurs().get(indexJoueur).getGuide(i));
-		}
-
-		for (int i = 0; i < gspCiblable.size(); i++) {
-			if (gspCiblable.get(i).isProtectionCiblage()) {
-				gspCiblable.remove(i);
-			}
-		}
+		List<GuideSpirituel> gspCiblable = Utilitaire.getSonGsp(joueur, partie);
 
 		afficherListeGuide(gspCiblable);
 		GuideSpirituel Gsp = selectionnerElementListeGuide(gspCiblable);
@@ -161,12 +110,7 @@ private Scanner scanner = new Scanner(System.in);
 	}
 
 	public Croyant choisirCroyant(Joueur joueur, Partie partie) {
-		List<Croyant> croyantCiblable = new ArrayList<Croyant>();
-		for (int i = 0; i < joueur.getGuides().size(); i++) {
-			for (int j = 0; j < joueur.getGuide(i).getCroyantLie().size(); j++) {
-				croyantCiblable.add(joueur.getGuide(i).getCroyantLie(j));
-			}
-		}
+		List<Croyant> croyantCiblable = Utilitaire.getCroyant(joueur, partie);
 		
 		afficherListeCroyant(croyantCiblable);
 		Croyant croyant = selectionnerElementListeCroyant(croyantCiblable);
@@ -174,60 +118,24 @@ private Scanner scanner = new Scanner(System.in);
 	}
 	
 	public Origine choisirOrigine() {
-		Origine origine = null;
-		boolean choixValide = false;
+		int choix = 0;
 		System.out.println("Veuillez choisir l'origine des point d'action à gagner : " + "\n 1 : Jour" + "\n 2 : Nuit"
 				+ "\n 3 : Neant");
 		do {
 			Scanner sc = new Scanner(System.in);
-			int choix = sc.nextInt();
+			choix = sc.nextInt();
 			sc.close();
-			switch (choix) {
-			case 1:
-				origine = Origine.Jour;
-				choixValide = true;
-				break;
-			case 2:
-				origine = Origine.Nuit;
-				choixValide = true;
-				break;
-			case 3:
-				origine = Origine.Neant;
-				choixValide = true;
-				break;
-			default:
+			if(choix < 1 || choix > 3) {
 				System.out.println("Vous devez choisir soit 1 pour Jour, 2 pour Nuit et 3 pour Neant");
-				break;
 			}
-		} while (!choixValide);
-		return origine;
+		} while (choix < 1 || choix > 3);
+		choix--;
+		return Origine.values()[choix];
 	}
 
 	public GuideSpirituel choisirDiviniteOuGspNonDogme(Dogme dogme, Partie partie) {
-		int choixDivinite = 0;
-		List<GuideSpirituel> gspCiblable = new ArrayList<GuideSpirituel>();
 
-		while (choixDivinite < partie.getJoueurs().size()) {
-			Dogme[] dogmeDivinite = partie.getJoueurs().get(choixDivinite).getDivinite().getDogme();
-			
-			if (!(Utilitaire.comparerDogme(dogmeDivinite, dogme,partie))) {
-				gspCiblable.addAll(partie.getJoueurs().get(choixDivinite).getGuides());
-			} else {
-			
-				for (int choixGuide = 0; choixGuide < partie.getJoueurs().get(choixDivinite).getGuides().size(); choixGuide++) {
-					GuideSpirituel Gsp = partie.getJoueurs().get(choixDivinite).getGuide(choixGuide);
-					
-					if (!(Utilitaire.comparerDogme(dogmeDivinite, dogme,partie))) {
-						gspCiblable.add(Gsp);
-						if (gspCiblable.get(gspCiblable.indexOf(Gsp)).isProtectionCiblage()) {
-							gspCiblable.remove(gspCiblable.indexOf(Gsp));
-						}
-						
-					}
-				}
-			}
-			choixDivinite++;
-		}
+		List<GuideSpirituel> gspCiblable = Utilitaire.getDiviniteOuGspNonDogme(dogme, partie);
 
 		afficherListeGuide(gspCiblable);
 		GuideSpirituel Gsp = selectionnerElementListeGuide(gspCiblable);
@@ -235,8 +143,8 @@ private Scanner scanner = new Scanner(System.in);
 
 	}
 
-	public void choisirFaceDe(Carte carte, Partie partie) {
-		int choix;
+	public int choisirFaceDe(Joueur joueur, Partie partie) {
+		int choix = 0;
 		System.out.println("Quel choix de face ? " + "1 : Jour \n" + "2 : Nuit \n" + "3 : Neant\n");
 		System.out.println("(Entrez le nombre compris entre 1 et 3 correspondant à votre choix) ");
 		do {
@@ -246,20 +154,9 @@ private Scanner scanner = new Scanner(System.in);
 			sc.close();
 
 		} while (choix < 1 || choix > 3);
-		switch (choix) {
-		case 1:
-			partie.getDe().setInfluence(Origine.Jour);
-			break;
-		case 2:
-			partie.getDe().setInfluence(Origine.Nuit);
-			break;
-		case 3:
-			partie.getDe().setInfluence(Origine.Neant);
-			break;
-		}
-		
-		partie.setIndexJoueur1(carte.getJoueurLie().getPartie().getJoueurs().indexOf(carte.getJoueurLie()));
-		System.out.println("La nouvelle influence est " + partie.getDe().getInfluence());
+		choix--;
+		System.out.println("La nouvelle influence est " + Origine.values()[choix]);
+		return choix;
 	}
 
 	public boolean choixMultiples(String cible) {
@@ -281,10 +178,8 @@ private Scanner scanner = new Scanner(System.in);
 			default:
 				valChoix = false;
 				throw new RuntimeException("Choix invalide, veuillez choisir 1 : OUI ou 2 : NON ");
-
 			}
 		}
-
 		if (choix == 1) {
 			return false;
 		} else {

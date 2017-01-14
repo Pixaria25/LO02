@@ -20,7 +20,7 @@ public class InterfacePartie {
 	private Scanner scanner = new Scanner(System.in);
 	
 	public InterfacePartie() {
-		partie = new Partie();
+		partie = Partie.getInstance();
 		Capacite.setActionSuivante(new ActionSuivanteConsole());
 	}
 	
@@ -214,11 +214,11 @@ public class InterfacePartie {
 						choixCarte = scanner.nextInt();
 					} while(choixCarte < 0 || choixCarte > joueurCourant.getMain().size()+1);
 
-					
+					CarteAction cartePosee = joueurCourant.getMain().get(choixCarte);
 					boolean poserCarte = joueurCourant.poserCarteAction(choixCarte);
 					
 					if(poserCarte) {
-						CarteAction cartePosee = joueurCourant.getMain().get(choixCarte);
+
 						Capacite.setCarteInterupt(cartePosee);
 						joueurCourant.poserCarteAction(choixCarte);
 						for (int i = 0; i < partie.getJoueurs().size(); i++) {
@@ -226,6 +226,7 @@ public class InterfacePartie {
 								partie.getJoueurs().get(i).demanderInterruption();
 							}
 						}
+
 						partie.activerCapaCartesTour();
 						cartePosee.poserCarteAction();
 
@@ -252,8 +253,10 @@ public class InterfacePartie {
 							System.out.println("Vous ne pouvez pas sacrifier cette carte ce tour ci. (Utilisation d'une capacite contre vous)");
 						} else {
 									Capacite.setCarteInterupt(listeCartesSacrifiables.get(choixSacrifice));
+
 									joueurCourant.demanderInterruption();
-									if (listeCartesSacrifiables.get(choixSacrifice).isCapaciteBloqué()) {
+									if (listeCartesSacrifiables.get(choixSacrifice).isCapaciteBloque()) {
+
 										System.out.println(joueurCourant.getMain().get(choixSacrifice).getNom() + " a été bloqué !");
 									} else {
 										joueurCourant.sacrifierCarte(listeCartesSacrifiables.get(choixSacrifice));

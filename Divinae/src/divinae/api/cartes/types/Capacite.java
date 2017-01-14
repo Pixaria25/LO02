@@ -24,7 +24,7 @@ public class Capacite {
 		if (Capacite.isAutorisationPointAction()) { // l'autorisation de modifier les points d'action est vérifié, on ajoute les points sinon c'est bloqué
 			joueur.ajoutPointsAction(point, origine);
 		} else {
-			joueur.messageListe("On ne peut pas gagner de point d'action jusqu'à la fin du tour (competence nihilistes)");
+			joueur.messageRecap("On ne peut pas gagner de point d'action jusqu'à la fin du tour (competence nihilistes)");
 		}
 	}
 	
@@ -34,7 +34,7 @@ public class Capacite {
 		
 		int indexCarteJouee = partie.getTable().size()-1;
 		Joueur joueurCourant = partie.getTable(indexCarteJouee).getJoueurLie(); 
-		joueurCourant.messageListe("La nouvelle influence est " + partie.getDe().getInfluence());
+		joueurCourant.messageRecap("La nouvelle influence est " + partie.getDe().getInfluence());
 	}
 
 	public static void lancerApocalypse (Partie partie) {
@@ -67,7 +67,7 @@ public class Capacite {
 		} else {
 			int indexCarteJouee = partie.getTable().size()-1;
 			Joueur joueurCourant = partie.getTable(indexCarteJouee).getJoueurLie();
-			joueurCourant.messageListe("Impossible de lancer une Apocalyspe ce tour-ci veuillez attendre le tour prochain");
+			joueurCourant.messageRecap("Impossible de lancer une Apocalyspe ce tour-ci veuillez attendre le tour prochain");
 		}
 	}
 	
@@ -87,7 +87,7 @@ public class Capacite {
 	    			} 
 	    		}
 	    	} else { 
-	    		carte.getJoueurLie().messageListe("Pas de place disponible pour lier ce croyant"); }
+	    		carte.getJoueurLie().messageRecap("Pas de place disponible pour lier ce croyant"); }
 	    break;
 	    
 	    case GuideSpirituel:
@@ -105,12 +105,12 @@ public class Capacite {
 	        case "Phoenix" : Capacite.copierCapacite(carte.getJoueurLie(), carte, partie);
 	     	break;
 	    
-	        default : carte.getJoueurLie().messageListe("Cette carte n'a aucun effet bénéfique dire pour vous.");
+	        default : carte.getJoueurLie().messageRecap("Cette carte n'a aucun effet bénéfique dire pour vous.");
 	       	break;
 	        }
 	    break;
 	    
-	    default : carte.getJoueurLie().messageListe("Aucun effet bénéfique pour vous.");
+	    default : carte.getJoueurLie().messageRecap("Aucun effet bénéfique pour vous.");
 	    break;
 	    }
 	    
@@ -257,12 +257,18 @@ public class Capacite {
 		}
 	}
 
-	public static void recupererUnGsp (Carte carte) {
-		GuideSpirituel GpCible = actionSuivante.choisirGsp(carte.getJoueurLie(), carte.getJoueurLie().getPartie());
-		
-		GpCible.setJoueurLie(carte.getJoueurLie());
-		actionSuivante.messageRecap(GpCible.getJoueurLie().getNom() + " récupère le guide spirituel suivant : " + GpCible.getNom());
+	public static void recupererUnGsp (Joueur joueur) {
+		GuideSpirituel gspCible = joueur.choisirGsp();
+		gspCible.setJoueurLie(joueur);
+		joueur.messageRecap(gspCible.getJoueurLie().getNom() + " récupère le guide spirituel suivant : " + gspCible.getNom());
 	}
+	
+	public static void changerFaceDe(Joueur joueur, Partie partie) {
+		int choix = joueur.choisirFaceDe(joueur);
+		partie.getDe().setInfluence(Origine.values()[choix]);
+		partie.setIndexJoueur1(partie.getJoueurs().indexOf(joueur));
+	}
+	
 	
 	public static void bloquerPointAction (Partie partie) {
 
