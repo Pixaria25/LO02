@@ -46,9 +46,11 @@ public final class Partie {
 		this.de = new De();
 		this.partieFinie = false;
 		//Joueurs par defaut
-		joueurs.add(new Joueur("Thomas", this));
-		joueurs.add(new JoueurVirtuel("Alex", this, new StrategieAleatoire()));
-		joueurs.add(new JoueurVirtuel("Fabrice", this, new StrategieAleatoire()));
+
+//		joueurs.add(new Joueur("Thomas", this));
+		/*joueurs.add(new JoueurVirtuel("Alex", this, new StrategieAleatoire()));
+		joueurs.add(new JoueurVirtuel("Fabrice", this, new StrategieAleatoire()));*/
+
 	}
 	
 	public final static Partie getInstance() {
@@ -124,6 +126,8 @@ public final class Partie {
 				new Travailleurs(new Dogme[]{Dogme.Symboles, Dogme.Humain, Dogme.Chaos}, 1, 6),
 				new Travailleurs(new Dogme[]{Dogme.Humain, Dogme.Nature, Dogme.Symboles}, 2, 7),
 				new Travailleurs(new Dogme[]{Dogme.Mystique, Dogme.Humain, Dogme.Chaos}, 3, 8),
+				new Ermite(new Dogme[]{Dogme.Mystique, Dogme.Nature, Dogme.Chaos},9),
+				new Ermite(new Dogme[]{Dogme.Mystique, Dogme.Nature, Dogme.Symboles},10),
 				new Demons(new Dogme[]{Dogme.Humain, Dogme.Nature, Dogme.Mystique}, 14),
 				new Demons(new Dogme[]{Dogme.Mystique, Dogme.Humain, Dogme.Chaos}, 15),
 				new Demons(new Dogme[]{Dogme.Symboles, Dogme.Mystique, Dogme.Chaos}, 16),
@@ -147,6 +151,11 @@ public final class Partie {
 				new Clerc(Origine.Nuit, new Dogme[]{Dogme.Nature, Dogme.Humain}, 48),
 				new ColereDivine(Origine.Jour, 58),
 				new ColereDivine(Origine.Nuit, 59),
+				new Stase(),
+				new OrdreCeleste(),
+				new Fourberie(),
+				new Diversion(),
+				new Concentration(),
 				new Apocalypse(Origine.Jour, 76),
 				new Apocalypse(Origine.Nuit, 77),
 				new Apocalypse(Origine.Neant, 78),
@@ -184,8 +193,10 @@ public final class Partie {
 	
 	
 	public void preparerTourProchain() {
-		indexJoueur1 = (indexJoueur1 + 1) % joueurs.size();
+		//indexJoueur1 = (indexJoueur1 + 1) % joueurs.size();
 		Utilitaire.resetAutorisations(this);
+
+	
 	}
 	
 	//Ajout des points aux joueurs selon le type de leur divinite et selon la valeur du de de Cosmogonie
@@ -259,6 +270,7 @@ public final class Partie {
 		return retour;
 	}
 	
+
 	public List<Croyant> getTasDeCroyants() {
 		return tasDeCroyants;
 	}

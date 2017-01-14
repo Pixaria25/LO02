@@ -64,12 +64,8 @@ public class StrategieAleatoire implements Strategie {
 				}
 				int carteChoisie = random.nextInt(cartesValides.size());
 				joueurCourant.poserCarteAction(carteChoisie);
-				for (int i = 0; i < partie.getJoueurs().size(); i++) {
-					if (!(partie.getJoueurs().get(i).getNom() == joueurCourant.getNom())) {
-						partie.getJoueurs().get(i).demanderInterruption();
-					}
-				}
 				
+			
 			case 1:
 				joueurCourant.getDivinite().activerCapacite();
 			default:

@@ -93,7 +93,7 @@ public class ActionSuivanteGraphique implements ActionSuivante
 	@Override
 	public Croyant choisirTasCroyant(Joueur joueur, Partie partie) {
 		List<? extends CarteAction> listeCartes = partie.getTasDeCroyants();
-		SelectionnerCarteDialog dialog = new SelectionnerCarteDialog(null, "Sacrifier une carte", listeCartes);
+		SelectionnerCarteDialog dialog = new SelectionnerCarteDialog(null, "Choisir un croyant", listeCartes);
 		dialog.setVisible(true);
 		int choixCarte = dialog.getChoixCarte(); 
 		return partie.getTasDeCroyants().get(choixCarte);
