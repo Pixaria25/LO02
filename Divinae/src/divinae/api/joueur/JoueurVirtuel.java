@@ -98,7 +98,7 @@ public class JoueurVirtuel extends Joueur {
 	
 	@Override
 	public int choisirFaceDe (Joueur joueur) {
-		return strategie.choisirFaceDe();
+		return strategie.choisirFaceDe(joueur);
 	}
 
 	@Override
