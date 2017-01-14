@@ -106,13 +106,13 @@ public class ActionSuivanteGraphique implements ActionSuivante
 	}
 
 	@Override
-	public void demanderInterruption() {
+	public void demanderInterruption(Joueur joueurCourant) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void interruption() {
+	public void interruption(Joueur joueurCourant) {
 		// TODO Auto-generated method stub
 		
 	}

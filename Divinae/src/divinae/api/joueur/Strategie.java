@@ -12,7 +12,7 @@ import divinae.api.partie.Partie;
 
 public interface Strategie {
 	
-	public abstract int jouer();
+	public abstract int jouer(Joueur joueurCourant);
 	
 	public abstract List<CarteAction> defausser(List<CarteAction> main);
 
@@ -46,6 +46,6 @@ public interface Strategie {
 	
 	public abstract GuideSpirituel choisirGspRenvoye (List <GuideSpirituel> gspCiblable);
 
-	public abstract void demanderInterruption();
+	public abstract void demanderInterruption(Joueur joueurCourant);
 
 }

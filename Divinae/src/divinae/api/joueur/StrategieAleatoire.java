@@ -22,20 +22,19 @@ public class StrategieAleatoire implements Strategie {
 	private Partie partie = InterfacePartie.getPartie();
 	
 	@Override
-	public int jouer() {
+	public int jouer(Joueur joueurCourant) {
 
 		int choix = random.nextInt(4);
 		return choix;
 	}
 	
 	@Override
-	public void demanderInterruption() {
-		interruption();
+	public void demanderInterruption(Joueur joueurCourant) {
+		interruption(joueurCourant);
 	}
 
-	public void interruption() {
+	public void interruption(Joueur joueurCourant) {
 		HashSet<Integer> actionsValides = new HashSet<Integer>();
-		Joueur joueurCourant = partie.getTable().get(partie.getTable().size()-1).getJoueurLie();
 
 		if(joueurCourant.aDesCartesSansOrigine()) {
 			actionsValides.add(1);
@@ -45,34 +44,34 @@ public class StrategieAleatoire implements Strategie {
 			actionsValides.add(2);
 		}
 		
-		int choixInterruption = random.nextInt(8);
+		int choixInterruption = random.nextInt(10);
 		int choixAction = -1;
 		
 		if (actionsValides.isEmpty()){
 			actionsValides.add(0);
 		} else if (choixInterruption == 0) {
 				choixAction = random.nextInt(actionsValides.size());
-		}
-		
-		switch(choixAction) {
-			case 0:
-				HashSet<Integer> cartesValides = new HashSet<Integer>();
-				for(int i = 0; i < joueurCourant.getMain().size(); i++) {
-					if(joueurCourant.getMain().get(i).getOrigine() == Origine.Aucune) {
-						cartesValides.add(i);
-					}
+	
+				switch(choixAction) {
+					case 0:
+						HashSet<Integer> cartesValides = new HashSet<Integer>();
+						for(int i = 0; i < joueurCourant.getMain().size(); i++) {
+							if(joueurCourant.getMain().get(i).getOrigine() == Origine.Aucune) {
+								cartesValides.add(i);
+							}
+						}
+						int carteChoisie = random.nextInt(cartesValides.size());
+						joueurCourant.poserCarteAction(carteChoisie);
+						for (int i = 0; i < partie.getJoueurs().size(); i++) {
+							if (!(partie.getJoueurs().get(i).getNom() == joueurCourant.getNom())) {
+								partie.getJoueurs().get(i).demanderInterruption(joueurCourant);
+							}
+						}
+						
+					case 1:
+						joueurCourant.getDivinite().activerCapacite();
+					default:
 				}
-				int carteChoisie = random.nextInt(cartesValides.size());
-				joueurCourant.poserCarteAction(carteChoisie);
-				for (int i = 0; i < partie.getJoueurs().size(); i++) {
-					if (!(partie.getJoueurs().get(i).getNom() == joueurCourant.getNom())) {
-						partie.getJoueurs().get(i).demanderInterruption();
-					}
-				}
-				
-			case 1:
-				joueurCourant.getDivinite().activerCapacite();
-			default:
 		}
 	}
 
@@ -97,9 +96,12 @@ public class StrategieAleatoire implements Strategie {
 
 	@Override
 	public CarteAction choixSacrifice(List<CarteAction> cartesValides) {
-		int numCarte = random.nextInt(cartesValides.size());
-		return cartesValides.get(numCarte);
-
+		if (!cartesValides.isEmpty()) {
+			int numCarte = random.nextInt(cartesValides.size());
+			return cartesValides.get(numCarte);
+		}
+		
+		return null;
 	}
 
 	public Joueur choisirJoueurCible(List<Joueur> liste) {
@@ -126,8 +128,12 @@ public class StrategieAleatoire implements Strategie {
 			}
 		}
 		
-		int choix = random.nextInt(gspCiblable.size());
-		return gspCiblable.get(choix);
+		if (!gspCiblable.isEmpty()) {
+			int choix = random.nextInt(gspCiblable.size());
+			return gspCiblable.get(choix);
+		}
+		
+		return null;
 	}
 	
 	public Divinite choisirDiviniteOuDogme (Dogme dogme1, Dogme dogme2, Partie partie){
@@ -141,8 +147,13 @@ public class StrategieAleatoire implements Strategie {
 			}
 			choixDivinite++;
 		}
-		int choix = random.nextInt(diviniteCiblable.size());
-		return diviniteCiblable.get(choix);
+		
+		if (!diviniteCiblable.isEmpty()) {
+			int choix = random.nextInt(diviniteCiblable.size());
+			return diviniteCiblable.get(choix);
+		}
+		
+		return null;
 	}
 	
 	public GuideSpirituel choisirSonGsp (Joueur joueur, Partie partie){
@@ -158,8 +169,13 @@ public class StrategieAleatoire implements Strategie {
 				gspCiblable.remove(i);
 			}
 		}
-		int choix = random.nextInt(gspCiblable.size());
-		return gspCiblable.get(choix);
+		
+		if (!gspCiblable.isEmpty()) {
+			int choix = random.nextInt(gspCiblable.size());
+			return gspCiblable.get(choix);
+		}
+		
+		return null;
 	}
 	
 	public Croyant choisirCroyant (Joueur joueur, Partie partie){
@@ -169,8 +185,12 @@ public class StrategieAleatoire implements Strategie {
 				croyantCiblable.add(joueur.getGuide(i).getCroyantLie(j));
 			}
 		}
-		int choix = random.nextInt(croyantCiblable.size());
-		return croyantCiblable.get(choix);
+		
+		if (!croyantCiblable.isEmpty()) {
+			int choix = random.nextInt(croyantCiblable.size());
+			return croyantCiblable.get(choix);
+		}
+		return null;
 	}
 	
 	public Origine choisirOrigine (){
@@ -203,8 +223,12 @@ public class StrategieAleatoire implements Strategie {
 				gspCiblable.remove(i);
 			}
 		}
-		int choix = random.nextInt(gspCiblable.size());
-		return gspCiblable.get(choix);
+		if (!gspCiblable.isEmpty()) {
+			int choix = random.nextInt(gspCiblable.size());
+			return gspCiblable.get(choix);
+		}
+		
+		return null;
 	}
 	
 	public void choisirFaceDe (Carte carte,Partie partie){
@@ -232,8 +256,11 @@ public class StrategieAleatoire implements Strategie {
 	}
 	
 	public GuideSpirituel choisirGspRenvoye (List <GuideSpirituel> gspCiblable){
-		int choix = random.nextInt(gspCiblable.size()+1);
-		return gspCiblable.get(choix);
+		if (!gspCiblable.isEmpty()) {
+			int choix = random.nextInt(gspCiblable.size() + 1);
+			return gspCiblable.get(choix);
+		}
+		return null;
 	}
 
 	@Override

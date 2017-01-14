@@ -21,16 +21,16 @@ public class JoueurVirtuel extends Joueur {
 	}
 	
 	@Override
-	public void jouer() {
+	public void jouer (Joueur joueurCourant) {
 		defausser(strategie.defausser(getMain()));
 		boolean tourJoueurFini = false;
 		do{
 			try{
-				int choix = strategie.jouer();
+				int choix = strategie.jouer(joueurCourant);
 				switch(choix) {
 					case 0:
 						poserCarteAction();
-						demanderInterruption();
+						demanderInterruption(joueurCourant);
 						break;
 					case 1:
 						sacrifier();
@@ -64,8 +64,8 @@ public class JoueurVirtuel extends Joueur {
 	
 	//Appel des methodes de ActionSuivante
 
-	public void demanderInterruption() {
-		strategie.demanderInterruption();
+	public void demanderInterruption(Joueur joueurCourant) {
+		strategie.demanderInterruption(joueurCourant);
 	}
 	
 	@Override
