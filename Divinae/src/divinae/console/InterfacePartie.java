@@ -180,7 +180,15 @@ public class InterfacePartie {
 	
 	private void jouerTourJoueurReel(Joueur joueurCourant) {
 		System.out.println(joueurCourant.afficherPoints());
-		System.out.println(joueurCourant.afficherMain());
+		String affichage = "";
+		for(int i = 0; i < joueurCourant.getMain().size(); i++) {
+			affichage += i +" - " + joueurCourant.getMain().get(i).getCategorieEtNom();
+			if(joueurCourant.getMain().get(i).getOrigine() == Origine.Aucune || joueurCourant.getPointsAction()[joueurCourant.getMain().get(i).getOrigine().ordinal()] > 0) {
+				affichage += "(V)";
+			}
+			affichage += "	";
+		}
+		System.out.println(affichage);
 		phaseDefausse(joueurCourant);
 		int nombreCartes = 7-joueurCourant.getMain().size();
 		System.out.println("Pioche de "+nombreCartes+" cartes.");
@@ -195,7 +203,7 @@ public class InterfacePartie {
 			
 			
 			System.out.println(partie.afficherTasCroyants());
-			String affichage = "";
+			affichage = "";
 			for(int i = 0; i < joueurCourant.getMain().size(); i++) {
 				affichage += i +" - " + joueurCourant.getMain().get(i).getCategorieEtNom();
 				if(joueurCourant.getMain().get(i).getOrigine() == Origine.Aucune || joueurCourant.getPointsAction()[joueurCourant.getMain().get(i).getOrigine().ordinal()] > 0) {
@@ -216,7 +224,15 @@ public class InterfacePartie {
 			choixAction = scanner.nextInt();
 			switch(choixAction) {
 				case 1:
-					System.out.println(joueurCourant.afficherMain());
+					affichage = "";
+					for(int i = 0; i < joueurCourant.getMain().size(); i++) {
+						affichage += i +" - " + joueurCourant.getMain().get(i).getCategorieEtNom();
+						if(joueurCourant.getMain().get(i).getOrigine() == Origine.Aucune || joueurCourant.getPointsAction()[joueurCourant.getMain().get(i).getOrigine().ordinal()] > 0) {
+							affichage += "(V)";
+						}
+						affichage += "	";
+					}
+					System.out.println(affichage);
 					int choixCarte;
 					do {
 						System.out.println("Entrez le numero de la carte que vous voulez jouer.");
@@ -236,7 +252,6 @@ public class InterfacePartie {
 						}
 
 						partie.activerCartes();
-						cartePosee.poserCarteAction();
 
 
 					} else {

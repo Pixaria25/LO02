@@ -56,15 +56,16 @@ public class StrategieAleatoire implements Strategie {
 		
 		switch(choixAction) {
 			case 0:
-				HashSet<Integer> cartesValides = new HashSet<Integer>();
+				List<Integer> cartesValides = new ArrayList<Integer>();
 				for(int i = 0; i < joueurCourant.getMain().size(); i++) {
 					if(joueurCourant.getMain().get(i).getOrigine() == Origine.Aucune) {
 						cartesValides.add(i);
 					}
 				}
-				int carteChoisie = random.nextInt(cartesValides.size());
-				joueurCourant.poserCarteAction(carteChoisie);
-				
+				if(!cartesValides.isEmpty()) {
+					int carteChoisie = random.nextInt(cartesValides.size());
+					joueurCourant.poserCarteAction(cartesValides.get(carteChoisie));
+				}
 			
 			case 1:
 				joueurCourant.getDivinite().activerCapacite();
