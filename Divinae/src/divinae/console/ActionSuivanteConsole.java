@@ -15,8 +15,9 @@ import divinae.api.joueur.Joueur;
 import divinae.api.partie.Partie;
 
 public class ActionSuivanteConsole implements ActionSuivante {
-Partie partie = InterfacePartie.getPartie();
-private Scanner scanner = new Scanner(System.in);
+
+	Partie partie = InterfacePartie.getPartie();
+	private Scanner scanner = new Scanner(System.in);
 
 
 	public void demanderInterruption() {
