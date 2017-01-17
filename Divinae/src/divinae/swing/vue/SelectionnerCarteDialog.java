@@ -1,5 +1,6 @@
 package divinae.swing.vue;
 
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -7,62 +8,48 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
-import divinae.api.cartes.types.CarteAction;
+import divinae.api.cartes.types.Carte;
 
 public class SelectionnerCarteDialog extends JDialog implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	private JPanel fenetre;
-	private JButton ok;
-	private JButton annuler;
 	private int choixCarte;
 	
-	public SelectionnerCarteDialog(JFrame parent, String titre, List<? extends CarteAction> listeCartes) {
+	public SelectionnerCarteDialog(JFrame parent, String titre, List<? extends Carte> listeCartes) {
 		super(parent, titre, true);
+		this.setMinimumSize(new Dimension(800, 240));
+		this.setMaximumSize(new Dimension(800, 240));
+		this.setPreferredSize(new Dimension(800, 240));
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 		init(listeCartes);
 	}
-	private void init(List<? extends CarteAction> listeCartes) {
+	private void init(List<? extends Carte> listeCartes) {
 		fenetre = new JPanel();
-		fenetre.setLayout(new GridLayout(0, 2, 10, 10));
+		fenetre.setLayout(new BoxLayout(fenetre, BoxLayout.X_AXIS));
+		JScrollPane scroll = new JScrollPane();
+		scroll.setViewportView(fenetre);
 		
 		JPanel pane = new JPanel();
-		
-		ok = new JButton("Ok");
-		ok.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent me) {
-				setVisible(false);
-			}
-		});
-
-		annuler = new JButton("Annuler");
-		annuler.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent me) {
-				setVisible(false);
-			}
-		});
 
 		int id = 0;
-		for (CarteAction carte: listeCartes) {
+		for (Carte carte: listeCartes) {
 			VueCarte vueCarte = new VueCarte(id++, carte, null);
 			vueCarte.addActionListener(this);
 			fenetre.add(vueCarte);
 		}
 		
-		fenetre.add(ok);
-		fenetre.add(annuler);
-		
-		pane.add(fenetre);
-		
-		
+		pane.add(scroll);
 		this.getContentPane().add(pane);
 		this.pack();
 	}
@@ -71,11 +58,7 @@ public class SelectionnerCarteDialog extends JDialog implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		Object  source=e.getSource();
 
-		if (source==annuler)
-		{
-			setVisible(false);
-		}
-		else if (source instanceof VueCarte)
+		if (source instanceof VueCarte)
 		{
 			choixCarte = ((VueCarte)source).getId();
 			setVisible(false);

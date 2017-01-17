@@ -7,8 +7,8 @@ import divinae.api.cartes.types.Origine;
 
 public class InfluenceNulle extends DeusEx {
 
-	public InfluenceNulle() {
-		super("Influence Nulle", Origine.Aucune, "Annule la capacit� sp�ciale d'une autre carte d'Action.", 70);
+	public InfluenceNulle(int id) {
+		super("Influence Nulle", Origine.Aucune, "Annule la capacit� sp�ciale d'une autre carte d'Action.", id);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -16,7 +16,9 @@ public class InfluenceNulle extends DeusEx {
 	public void activerCapacite() {
 		Origine [] origineCible = {Origine.Nuit,Origine.Neant,Origine.Jour,Origine.Aube, Origine.Aucune,Origine.Crepuscule};
 		CarteAction carteInterupt = Capacite.getCarteInterupt();
-	    Capacite.annulerEffetCarte(carteInterupt, origineCible, this.getJoueurLie().getPartie());
+		if (carteInterupt != null) {
+			Capacite.annulerEffetCarte(carteInterupt, origineCible, this.getJoueurLie().getPartie());
+		}
 	}
 
 }

@@ -9,7 +9,7 @@ public  class Alienies extends Croyant {
 
 	private int option;
 
-	public Alienies(String nom, String capacite, Dogme[] dogme, int option, int id) {
+	public Alienies(String capacite, Dogme[] dogme, int option, int id) {
 		super("Alienes", Origine.Neant, capacite, dogme, 2, id);
 		this.option = option;
 	}

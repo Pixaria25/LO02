@@ -118,8 +118,10 @@ public class Joueur {
 				}
 			}
 			CarteAction carte = partie.getPioche().sortirUneCarte();
-			carte.setJoueurLie(this);
-			main.add(carte);
+			if (carte != null) {
+				carte.setJoueurLie(this);
+				main.add(carte);
+			}
 		}
 	}
 	

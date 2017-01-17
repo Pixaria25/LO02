@@ -16,17 +16,23 @@ public class Inquisition extends DeusEx {
 
 	@Override
 	public void activerCapacite() {
-		GuideSpirituel MonGp =  getJoueurLie().choisirSonGsp();
-		GuideSpirituel SonGp =  getJoueurLie().choisirGsp();
+		GuideSpirituel monGp =  getJoueurLie().choisirSonGsp();
+		GuideSpirituel sonGp =  getJoueurLie().choisirGsp();
 
 		De de = this.getJoueurLie().getPartie().getDe();
 		de.lancerDe();
 		Origine influence = de.getInfluence();
 
 		switch (influence) {
-		case Jour : SonGp.getJoueurLie().sacrifierCarte(SonGp);
+		case Jour :
+			if (sonGp != null) {
+				sonGp.getJoueurLie().sacrifierCarte(sonGp);
+			}
 		break;
-		case Nuit : MonGp.getJoueurLie().sacrifierCarte(MonGp);
+		case Nuit :
+			if (monGp != null) {
+				monGp.getJoueurLie().sacrifierCarte(monGp);
+			}
 		break;
 		default:
 		break;

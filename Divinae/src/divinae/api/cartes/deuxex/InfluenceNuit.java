@@ -7,7 +7,7 @@ import divinae.api.cartes.types.Origine;
 
 public class InfluenceNuit extends DeusEx {
 
-	public InfluenceNuit(String nom, Origine origine, String capacite) {
+	public InfluenceNuit() {
 		super("Influence Nuit", Origine.Nuit, "Annule la capacit� sp�ciale d'une carte d'Action d'Origine Jour ou N�ant.", 68);
 		// TODO Auto-generated constructor stub
 	}

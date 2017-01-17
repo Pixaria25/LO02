@@ -12,18 +12,21 @@ import java.util.Observer;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
-
+import divinae.api.cartes.types.Capacite;
 import divinae.api.cartes.types.Carte;
 import divinae.api.cartes.types.CarteAction;
 import divinae.api.cartes.types.Croyant;
+import divinae.api.cartes.types.Divinite;
 import divinae.api.cartes.types.GuideSpirituel;
 import divinae.api.cartes.types.Origine;
 import divinae.api.joueur.Joueur;
+import divinae.api.partie.De;
 import divinae.swing.controleur.ControleurJeu;
 import divinae.swing.modele.ModeleJeu;
 
@@ -31,7 +34,10 @@ public class VueJeu extends JFrame implements ActionListener, Observer {
 	private ControleurJeu controleurJeu;
 	private ModeleJeu modeleJeu;
 	private JTextArea log;
+	private JPanel panelStatut = new JPanel();
 	private JPanel panelTable = new JPanel();
+	private JPanel panelTasCroyants = new JPanel();
+	private JPanel panelTableStatut = new JPanel();
 	private JPanel panelSelection = new JPanel();
 	private JPanel panelJoueur = new JPanel();
 	private JPanel panelJoueurDivinite = new JPanel();
@@ -41,6 +47,9 @@ public class VueJeu extends JFrame implements ActionListener, Observer {
 	private JButton boutonSacrifier = new JButton("Sacrifier");
     private JButton boutonFinDeTour = new JButton("Fin de tour");
 	private List<VueCarte> vueCartes = new ArrayList<>();
+	VueCarte vueDivinite;
+	Divinite divinite;
+	boolean diviniteActive = false;
 
 	public VueJeu(ControleurJeu controleurJeu, ModeleJeu modeleJeu) {
 		this.controleurJeu = controleurJeu;
@@ -55,12 +64,39 @@ public class VueJeu extends JFrame implements ActionListener, Observer {
 		this.setResizable(false);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+		// Panel de statut
+		panelStatut.setBackground(Color.GRAY);
+		panelStatut.setLayout(new BoxLayout(panelStatut, BoxLayout.X_AXIS));
+		panelStatut.setMinimumSize(new Dimension(1280, 40));
+		panelStatut.setMaximumSize(new Dimension(1280, 40));
+		panelStatut.setPreferredSize(new Dimension(1280, 40));
+		
 		// Panel de la table
 		panelTable.setBackground(Color.LIGHT_GRAY);
-		panelTable.setMinimumSize(new Dimension(1280, 600));
-		panelTable.setMaximumSize(new Dimension(1280, 600));
-		panelTable.setPreferredSize(new Dimension(1280, 600));
+		panelTable.setLayout(new BoxLayout(panelTable, BoxLayout.X_AXIS));
+		panelTable.setMinimumSize(new Dimension(1280, 240));
+		panelTable.setMaximumSize(new Dimension(1280, 240));
+		panelTable.setPreferredSize(new Dimension(1280, 240));
 
+		// Panel du tas de croyants
+		panelTasCroyants.setBackground(Color.LIGHT_GRAY);
+		panelTasCroyants.setLayout(new BoxLayout(panelTasCroyants, BoxLayout.X_AXIS));
+		JScrollPane scrollTasCroyants = new JScrollPane();
+		scrollTasCroyants.setViewportView(panelTasCroyants);
+		scrollTasCroyants.setMinimumSize(new Dimension(1280, 220));
+		scrollTasCroyants.setMaximumSize(new Dimension(1280, 220));
+		scrollTasCroyants.setPreferredSize(new Dimension(1280, 220));
+		
+		// Panel du groupe Table et Statut
+		panelTableStatut.setBackground(Color.LIGHT_GRAY);
+		panelTableStatut.setLayout(new BorderLayout());
+		panelTableStatut.setMinimumSize(new Dimension(1280, 600));
+		panelTableStatut.setMaximumSize(new Dimension(1280, 600));
+		panelTableStatut.setPreferredSize(new Dimension(1280, 600));
+		panelTableStatut.add(panelStatut, BorderLayout.NORTH);
+		panelTableStatut.add(panelTable, BorderLayout.CENTER);
+		panelTableStatut.add(scrollTasCroyants, BorderLayout.SOUTH);
+		
 		// Zone non utilisée
 		JPanel panelSeparateur = new JPanel();
 		panelSeparateur.setBackground(Color.BLACK);
@@ -151,7 +187,7 @@ public class VueJeu extends JFrame implements ActionListener, Observer {
 		this.setLocationRelativeTo(null);
         this.setLayout(new BorderLayout());
 		this.add(scrollPane, BorderLayout.NORTH);
-        this.add(panelTable, BorderLayout.CENTER);
+        this.add(panelTableStatut, BorderLayout.CENTER);
 		this.add(panelJoueurBouton, BorderLayout.SOUTH);
         this.pack();
         this.setVisible(true);
@@ -180,7 +216,6 @@ public class VueJeu extends JFrame implements ActionListener, Observer {
 			if (cartes.size() > 0) {
 				Joueur joueur = cartes.get(0).getJoueurLie();
 				joueur.defausser(cartes);
-				afficherMain(joueur.getMain());
 				int nombreCartes = 7-joueur.getMain().size();
 				afficherMessage("Pioche de "+nombreCartes+" cartes.");
 				joueur.completerMain();
@@ -217,30 +252,38 @@ public class VueJeu extends JFrame implements ActionListener, Observer {
 		}
 		else if (source==boutonSacrifier)
 		{
-			if (vueCartes.size() < 1)
-			{
-				throw new RuntimeException("Pas de carte dans la main, erreur inattendue.");
-			}
 			Joueur joueurCourant = vueCartes.get(0).getCarteAction().getJoueurLie();
-			List<CarteAction> listeCartesSacrifiables = joueurCourant.recupererCartesSacrifiables();
-			SelectionnerCarteDialog dialog = new SelectionnerCarteDialog(this, "Sacrifier une carte", listeCartesSacrifiables);
-			dialog.setVisible(true);
-			int choixSacrifice = dialog.getChoixCarte(); 
-			if ((joueurCourant.isAutorisationgsp() == false
-				&& listeCartesSacrifiables.get(choixSacrifice) instanceof GuideSpirituel) | (joueurCourant.isAutorisationcr() == false
-				&& listeCartesSacrifiables.get(choixSacrifice) instanceof Croyant)) {
-				alert("Vous ne pouvez pas sacrifier cette carte ce tour ci. (Utilisation d'une capacite contre vous)");
-			} else {
-				// Capacite.setCarteInterupt(listeCartesSacrifiables.get(choixSacrifice));
-				// TODO demanderInterruption();
-				// if (listeCartesSacrifiables.get(choixSacrifice).isCapaciteBloqué()) {
-				//	System.out.println(joueurCourant.getMain().get(choixSacrifice).getNom() + " a été bloqué !");
-				// } else {
-					joueurCourant.sacrifierCarte(listeCartesSacrifiables.get(choixSacrifice));
-				//	break;
-				//}
-				joueurCourant.tuerCarte(listeCartesSacrifiables.get(choixSacrifice));
-				afficherTable();
+			if(joueurCourant != null && !((joueurCourant.isAutorisationcr()
+					&& joueurCourant.isAutorisationgsp()) || joueurCourant.getGuides().size() == 0)) {
+				if (vueCartes.size() < 1)
+				{
+					throw new RuntimeException("Pas de carte dans la main, erreur inattendue.");
+				}
+				joueurCourant.demanderInterruption(joueurCourant);
+				List<CarteAction> listeCartesSacrifiables = joueurCourant.recupererCartesSacrifiables();
+				SelectionnerCarteDialog dialog = new SelectionnerCarteDialog(this, "Sacrifier une carte", listeCartesSacrifiables);
+				dialog.setVisible(true);
+				int choixSacrifice = dialog.getChoixCarte(); 
+				if ((joueurCourant.isAutorisationgsp() == false && listeCartesSacrifiables.get(choixSacrifice) instanceof GuideSpirituel) | (joueurCourant.isAutorisationcr() == false && listeCartesSacrifiables.get(choixSacrifice) instanceof Croyant)) {
+					alert("Vous ne pouvez pas sacrifier cette carte ce tour ci. (Utilisation d'une capacite contre vous)");
+				} else {
+					Capacite.setCarteInterupt(listeCartesSacrifiables.get(choixSacrifice));
+
+					joueurCourant.demanderInterruption(joueurCourant);
+					if (listeCartesSacrifiables.get(choixSacrifice).isCapaciteBloque()) {
+
+						alert(joueurCourant.getMain().get(choixSacrifice).getNom() + " a été bloqué !");
+						joueurCourant.tuerCarte(listeCartesSacrifiables.get(choixSacrifice));
+					} else {
+						joueurCourant.sacrifierCarte(listeCartesSacrifiables.get(choixSacrifice));
+					}
+				}
+			}
+		}
+		else if (source==vueDivinite)
+		{
+			if (!diviniteActive) {
+				activerCapaciteDivinite();
 			}
 		}
 		else if (source==boutonFinDeTour)
@@ -333,19 +376,37 @@ public class VueJeu extends JFrame implements ActionListener, Observer {
 		}
 		return nombreSelection;
 	}
+	
+	public void afficherDe(De de) {
+		afficherMessage("Influence de Dé Cosmogonie : " + de.getInfluence());
+		panelStatut.removeAll();
+		panelStatut.add(new JLabel("Dé Cosmogonie  "));
+		panelStatut.add(new VueSymbole("de", de.getInfluence().ordinal()+1));
+	}
 
-	public void afficherJoueurDivinite(Carte carte) {
-		this.panelJoueurDivinite.add(new VueCarte(0, carte, null), BorderLayout.WEST);
-//		afficherMessage(carte.toString());
+	public void afficherJoueurDivinite(Divinite divinite) {
+		this.divinite = divinite;
+		vueDivinite = new VueCarte(0, divinite, null);
+		this.panelJoueurDivinite.add(vueDivinite, BorderLayout.WEST);
+		vueDivinite.addActionListener(this);
 		this.panelJoueur.updateUI();
+	}
+	
+	private void activerCapaciteDivinite() {
+		if(!divinite.capaciteActivee()) {
+			afficherMessage(divinite.getJoueurLie().getNom()+" active la capacite de "+divinite.getNom());
+			divinite.getJoueurLie().activerCapaciteCarte(divinite);
+		} else {
+			alert("Vous ne pouvez pas activer la capacite de votre divinite.");
+		}
 	}
 
 	public void afficherTable() {
-		panelTable.removeAll();
+		panelTasCroyants.removeAll();
 		int id = 0;
-		for (CarteAction carte:modeleJeu.getPartie().getTable())
+		for (CarteAction carte:modeleJeu.getPartie().getTasDeCroyants())
 		{
-			panelTable.add(new VueCarte(id++, carte, null));
+			panelTasCroyants.add(new VueCarte(id++, carte, null));
 		}
 	}
 	
@@ -363,13 +424,9 @@ public class VueJeu extends JFrame implements ActionListener, Observer {
 			}
 			panelJoueur.add(vueCarte);
 			vueCartes.add(vueCarte);
-//			afficherMessage(carte.toString());
 		}
 		Joueur joueurCourant = (cartes.size() > 0) ? cartes.get(0).getJoueurLie() : null;
-		if(joueurCourant != null && ((joueurCourant.isAutorisationcr()
-			&& joueurCourant.isAutorisationgsp()) || joueurCourant.getGuides().size() == 0)) {
-			boutonSacrifier.setEnabled(false);
-		}			
+
 		panelJoueur.updateUI();
 	}
 

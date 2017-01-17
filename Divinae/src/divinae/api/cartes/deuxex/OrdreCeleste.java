@@ -14,8 +14,10 @@ public class OrdreCeleste extends DeusEx {
 
 	@Override
 	public void activerCapacite() {
-		GuideSpirituel GpVole =  getJoueurLie().choisirGsp();
-		GpVole.setJoueurLie(this.getJoueurLie());
+		GuideSpirituel gpVole =  getJoueurLie().choisirGsp();
+		if (gpVole != null) {
+			gpVole.setJoueurLie(this.getJoueurLie());
+		}
 	}
 
 }

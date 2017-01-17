@@ -20,9 +20,9 @@ public class PuiTara extends Divinite {
 		super.activerCapacite();
 		Partie partie = this.getJoueurLie().getPartie();
 		for (int i=0; i < partie.getTasDeCroyants().size(); i++) {
-			if (partie.getTasDeCroyants(i).getOrigine() == Origine.Jour) {
+			if (partie.getTasDeCroyants(i).getOrigine() == Origine.Jour
+				&& partie.getTasDeCroyants(i).getJoueurLie()!= null) {
 				partie.getTasDeCroyants(i).getJoueurLie().tuerCarte(partie.getTasDeCroyants(i));
-				
 			}
 		}
 		

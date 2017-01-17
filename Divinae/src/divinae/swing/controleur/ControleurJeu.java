@@ -4,6 +4,7 @@ import divinae.api.cartes.types.Capacite;
 import divinae.api.joueur.Joueur;
 import divinae.api.joueur.JoueurVirtuel;
 import divinae.api.partie.Partie;
+import divinae.console.ActionSuivanteConsole;
 import divinae.swing.modele.ModeleJeu;
 import divinae.swing.vue.InitialisationJeuDialog;
 import divinae.swing.vue.VueJeu;
@@ -16,11 +17,11 @@ public class ControleurJeu {
 	public ControleurJeu(ModeleJeu modeleJeu) {
 		this.modeleJeu = modeleJeu;
 		this.partie = modeleJeu.getPartie();
-		Capacite.setActionSuivante(new ActionSuivanteGraphique());
 	}
 
 	public void initialiserJeu(VueJeu vueJeu) {
 		this.vueJeu = vueJeu;
+		Capacite.setActionSuivante(new ActionSuivanteGraphique(this.vueJeu));
 		InitialisationJeuDialog dialog = new InitialisationJeuDialog(null, "Définir les joueurs", true);
 		dialog.setVisible(true);
 		String nomJoueurReel = dialog.getNomJoueurReel().getText();
@@ -39,9 +40,14 @@ public class ControleurJeu {
 		vueJeu.afficherTable();
 		if (!partie.isPartieFinie()) {
 			partie.debuterUnTour();
-			vueJeu.afficherMessage("Influence de Dé Cosmogonie : "+partie.getDe().getInfluence());
+			vueJeu.afficherDe(partie.getDe());
 			
 			jouerTourJoueurReel(partie.getJoueurs().get(partie.getIndexJoueur1()));
+		}
+		else
+		{
+			vueJeu.alert("La partie est terminée");
+			vueJeu.setVisible(false);
 		}
 	}
 	

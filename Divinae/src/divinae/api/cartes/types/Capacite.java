@@ -33,8 +33,10 @@ public class Capacite {
 		partie.getDe().getValeur();
 		
 		int indexCarteJouee = partie.getTable().size()-1;
-		Joueur joueurCourant = partie.getTable().get(indexCarteJouee).getJoueurLie(); 
-		joueurCourant.messageRecap("La nouvelle influence est " + partie.getDe().getInfluence());
+		if (indexCarteJouee >= 0) {
+			Joueur joueurCourant = partie.getTable().get(indexCarteJouee).getJoueurLie(); 
+			joueurCourant.messageRecap("La nouvelle influence est " + partie.getDe().getInfluence());
+		}
 	}
 
 	public static void lancerApocalypse (Partie partie) {
@@ -249,29 +251,34 @@ public class Capacite {
 		int choixHasard = 0 ;
 		List<Joueur> liste = Utilitaire.extraireListeJoueurRestrainte (partie, carte.getJoueurLie());
 		Joueur joueur = carte.getJoueurLie().choisirJoueurCible(liste);
-		while (nbCartesPrises < nbCarte | !joueur.getMain().isEmpty()) {
-			choixHasard = (int)Math.random()*(joueur.getMain().size()-1);
-			carte.getJoueurLie().getMain().add(joueur.getMain().get(choixHasard));
-			nbCartesPrises++;
+		if (joueur.getMain().size() > 0) {
+			while (nbCartesPrises < nbCarte | !joueur.getMain().isEmpty()) {
+				choixHasard = (int)Math.random()*(joueur.getMain().size()-1);
+				carte.getJoueurLie().getMain().add(joueur.getMain().get(choixHasard));
+				nbCartesPrises++;
+			}
 		}
 	}
 	
 	public static void annulerEffetCarte (CarteAction carteCible, Origine [] origineCible, Partie partie) {
-		int max = origineCible.length;
-		
-		for (int i=0; i < max; i++ ){
-			
-			if (carteCible.getOrigine() == origineCible[i]) {
-				carteCible.setCapaciteBloqué(true);
-				break;
+		if (carteCible != null) {
+			int max = origineCible.length;
+			for (int i=0; i < max; i++ ){
+				
+				if (carteCible.getOrigine() == origineCible[i]) {
+					carteCible.setCapaciteBloqué(true);
+					break;
+				}
 			}
 		}
 	}
 
 	public static void recupererUnGsp (Joueur joueur) {
 		GuideSpirituel gspCible = joueur.choisirGsp();
-		gspCible.setJoueurLie(joueur);
-		joueur.messageRecap(gspCible.getJoueurLie().getNom() + " récupère le guide spirituel suivant : " + gspCible.getNom());
+		if (gspCible != null) {
+			gspCible.setJoueurLie(joueur);
+			joueur.messageRecap(gspCible.getJoueurLie().getNom() + " récupère le guide spirituel suivant : " + gspCible.getNom());
+		}
 	}
 	
 	public static void changerFaceDe(Joueur joueur, Partie partie) {
