@@ -1,0 +1,31 @@
+package fr.utt.divinae.api.partie;
+
+import java.util.Collection;
+import java.util.Stack;
+
+import fr.utt.divinae.api.cartes.types.CarteAction;
+
+public class Pioche {
+
+	private Stack<CarteAction> pioche;
+	
+	public Pioche() {
+		pioche = new Stack<CarteAction>();
+	}
+	
+	public CarteAction sortirUneCarte() {
+		if(pioche.isEmpty()) {
+			return null;
+		} else {
+			return pioche.pop();
+		}
+	}
+
+	public void setPioche(Collection<CarteAction> tasDeCarte) {
+		this.pioche.addAll(tasDeCarte);
+	}
+	
+	public boolean isEmpty() {
+		return pioche.isEmpty();
+	}
+}
