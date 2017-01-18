@@ -4,7 +4,6 @@ import fr.utt.divinae.api.cartes.types.Capacite;
 import fr.utt.divinae.api.joueur.Joueur;
 import fr.utt.divinae.api.joueur.JoueurVirtuel;
 import fr.utt.divinae.api.partie.Partie;
-import fr.utt.divinae.console.ActionSuivanteConsole;
 import fr.utt.divinae.swing.modele.ModeleJeu;
 import fr.utt.divinae.swing.vue.InitialisationJeuDialog;
 import fr.utt.divinae.swing.vue.VueJeu;
@@ -21,7 +20,7 @@ public class ControleurJeu {
 
 	public void initialiserJeu(VueJeu vueJeu) {
 		this.vueJeu = vueJeu;
-		Capacite.setSelection(new ActionSuivanteGraphique(this.vueJeu));
+		Capacite.setSelection(new SelectionGraphique(this.vueJeu));
 		InitialisationJeuDialog dialog = new InitialisationJeuDialog(null, "Définir les joueurs", true);
 		dialog.setVisible(true);
 		String nomJoueurReel = dialog.getNomJoueurReel().getText();

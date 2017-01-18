@@ -21,7 +21,7 @@ public class InterfacePartie {
 	
 	public InterfacePartie() {
 		partie = Partie.getInstance();
-		Capacite.setSelection(new ActionSuivanteConsole());
+		Capacite.setSelection(new SelectionConsole());
 	}
 	
 	public void lancerUnePartie() {

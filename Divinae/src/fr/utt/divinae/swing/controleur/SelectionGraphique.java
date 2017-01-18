@@ -1,12 +1,10 @@
 package fr.utt.divinae.swing.controleur;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
 import fr.utt.divinae.api.cartes.types.Selection;
 import fr.utt.divinae.api.cartes.types.Carte;
-import fr.utt.divinae.api.cartes.types.CarteAction;
 import fr.utt.divinae.api.cartes.types.Croyant;
 import fr.utt.divinae.api.cartes.types.Divinite;
 import fr.utt.divinae.api.cartes.types.Dogme;
@@ -21,10 +19,10 @@ import fr.utt.divinae.swing.vue.SelectionnerOuiNonDialog;
 import fr.utt.divinae.swing.vue.SelectionnerSymboleDialog;
 import fr.utt.divinae.swing.vue.VueJeu;
 
-public class ActionSuivanteGraphique implements Selection
+public class SelectionGraphique implements Selection
 {
 	private VueJeu vueJeu;
-	public ActionSuivanteGraphique(VueJeu vueJeu) {
+	public SelectionGraphique(VueJeu vueJeu) {
 		this.vueJeu = vueJeu;
 	}
 	

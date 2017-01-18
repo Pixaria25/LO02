@@ -14,7 +14,7 @@ import fr.utt.divinae.api.cartes.types.Utilitaire;
 import fr.utt.divinae.api.joueur.Joueur;
 import fr.utt.divinae.api.partie.Partie;
 
-public class ActionSuivanteConsole implements Selection {
+public class SelectionConsole implements Selection {
 
 	Partie partie = InterfacePartie.getPartie();
 	private Scanner scanner = new Scanner(System.in);
