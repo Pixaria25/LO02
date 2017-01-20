@@ -17,13 +17,13 @@ public  class Alchimistes extends Croyant {
 	public void activerCapacite() {
 		switch (option) {
 		case 1 : 
-			Capacite.empecherSacrifice(Dogme.Humain, Dogme.Mystique, "Croyant" , this, this.getJoueurLie().getPartie());
+			Capacite.empecherSacrifice(Dogme.Humain, Dogme.Mystique, "Croyant" , this, getJoueurLie().getPartie());
 			break;
 		case 2 : 
-			Capacite.empecherSacrifice(Dogme.Humain, Dogme.Symboles, "GuideSpirituel" , this,  this.getJoueurLie().getPartie());
+			Capacite.empecherSacrifice(Dogme.Humain, Dogme.Symboles, "GuideSpirituel" , this, getJoueurLie().getPartie());
 			break;
 		case 3 : 
-			Capacite.prendreCartes(this, 2, this.getJoueurLie().getPartie());
+			Capacite.prendreCartes(this, 2, getJoueurLie().getPartie());
 			break;
 		default : 
 			throw new RuntimeException("Probl�me ! Cette option de capacit� n'est pas prise en compte dans le code");
