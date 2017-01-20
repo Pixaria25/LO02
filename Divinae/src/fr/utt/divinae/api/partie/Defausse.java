@@ -5,6 +5,11 @@ import java.util.List;
 
 import fr.utt.divinae.api.cartes.types.CarteAction;
 
+/**
+ * La classe Defausse represente la defausse d'une partie.
+ * @author Thomas, Abraham
+ *
+ */
 public class Defausse {
 
 	private List<CarteAction> defausse;

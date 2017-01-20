@@ -104,57 +104,7 @@ public class Joueur {
 		carte.activerCapacite();
 	}
 	
-	/**
-	 * Retourne une chaine contenant le nom des cartes dans la main du joueur.
-	 * @return une chaine contenant le nom des cartes dans la main du joueur
-	 */
-	public String afficherMain() {
-		String retour = "Main:	";
-		for(int i = 0; i < main.size(); i++) {
-			retour += i+" - "+main.get(i).getCategorieEtNom()+"	";
-		}
-		return retour;
-	}
 	
-	/**
-	 * Retourne une chaine contenant toutes les informations de chaque carte dans la main du joueur.
-	 * @return une chaine contenant toutes les informations de chaque carte dans la main du joueur
-	 */
-	public String afficherMainDetails() {
-		String retour = "";
-		for(int i = 0; i < main.size(); i++) {
-			retour += i+" - "+main.get(i)+"\n";
-		}
-		return retour;
-	}
-	
-	public String afficherMainJouable() {
-		String affichage = "";
-		for(int i = 0; i < main.size(); i++) {
-			affichage += i +" - " + main.get(i).getCategorieEtNom();
-			if(main.get(i).getOrigine() == Origine.Aucune || pointsAction[main.get(i).getOrigine().ordinal()] > 0) {
-				affichage += "(V)";
-			}
-			affichage += "	";
-		}
-		return affichage;
-	}
-	
-	public List<Carte> lireCartes() {
-		List<Carte> cartes = new ArrayList<Carte>();
-		for(int i = 0; i < main.size(); i++) {
-			cartes.add(main.get(i));
-		}
-		return cartes;
-	}
-	
-	public String afficherPoints() {
-		String retour = "Points :	";
-		for(int i = 0; i < pointsAction.length; i++) {
-			retour += Origine.values()[i]+": "+pointsAction[i]+",	"; 
-		}
-		return retour;
-	}
 	
 	/**
 	 * Retire une liste de cartes de la main du joueur.
@@ -207,6 +157,50 @@ public class Joueur {
 		carte.mort();
 	}
 	
+	//Methodes d'affichage
+	/**
+	 * Retourne une chaine contenant le nom des cartes dans la main du joueur.
+	 * @return une chaine contenant le nom des cartes dans la main du joueur
+	 */
+	public String afficherMain() {
+		String retour = "Main:	";
+		for(int i = 0; i < main.size(); i++) {
+			retour += i+" - "+main.get(i).getCategorieEtNom()+"	";
+		}
+		return retour;
+	}
+	
+	/**
+	 * Retourne une chaine contenant toutes les informations de chaque carte dans la main du joueur.
+	 * @return une chaine contenant toutes les informations de chaque carte dans la main du joueur
+	 */
+	public String afficherMainDetails() {
+		String retour = "";
+		for(int i = 0; i < main.size(); i++) {
+			retour += i+" - "+main.get(i)+"\n";
+		}
+		return retour;
+	}
+	
+	public String afficherMainJouable() {
+		String affichage = "";
+		for(int i = 0; i < main.size(); i++) {
+			affichage += i +" - " + main.get(i).getCategorieEtNom();
+			if(main.get(i).getOrigine() == Origine.Aucune || pointsAction[main.get(i).getOrigine().ordinal()] > 0) {
+				affichage += "(V)";
+			}
+			affichage += "	";
+		}
+		return affichage;
+	}
+	
+	public String afficherPoints() {
+		String retour = "Points :	";
+		for(int i = 0; i < pointsAction.length; i++) {
+			retour += Origine.values()[i]+": "+pointsAction[i]+",	"; 
+		}
+		return retour;
+	}
 
 	//Appel des methodes de ActionSuivante
 	public void demanderInterruption(Joueur joueurCourant) {

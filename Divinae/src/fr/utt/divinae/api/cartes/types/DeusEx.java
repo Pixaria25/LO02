@@ -15,7 +15,7 @@ public abstract class DeusEx extends CarteAction {
 			getJoueurLie().messageRecap(getJoueurLie().getNom() + " joue " + getNom());
 			activerCapacite();
 			getJoueurLie().getMain().remove(this);
-			getJoueurLie().tuerCarte(this);
+			mort();
 		}
 	}
 	

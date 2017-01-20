@@ -28,7 +28,7 @@ public class Apocalypse extends  CarteAction {
 	public void poserCarteAction() {
 		activerCapacite();
 		getJoueurLie().getMain().remove(this);
-		getJoueurLie().tuerCarte(this);
+		mort();
 	}
 
 	@Override
