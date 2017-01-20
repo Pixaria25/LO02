@@ -17,7 +17,7 @@ import fr.utt.divinae.api.partie.Partie;
 public class SelectionConsole implements Selection {
 
 	Partie partie = InterfaceConsole.getPartie();
-	private Scanner scanner = new Scanner(System.in);
+	private Scanner sc = new Scanner(System.in);
 
 	public void menu(Joueur joueurCourant) {
 		InterfaceConsole.jouerTourJoueurReel(joueurCourant);
@@ -28,7 +28,7 @@ public class SelectionConsole implements Selection {
 		do {
 			System.out.println(partie.afficherTable());
 			System.out.println("Voulez vous intervenir ? (y/n)");
-			interruption = scanner.next();
+			interruption = sc.next();
 			if (interruption.equals("y")) {
 				interruption(joueurCourant);
 			}
@@ -53,7 +53,7 @@ public class SelectionConsole implements Selection {
 		int choixAction = 0;
 		do{
 			System.out.println("Entrez le nombre de l'action voulue.");
-			choixAction = scanner.nextInt();
+			choixAction = sc.nextInt();
 		} while(!actionsValides.contains(choixAction));
 		
 		switch(choixAction) {
@@ -68,7 +68,7 @@ public class SelectionConsole implements Selection {
 				int carteChoisie = -1;
 				do{
 					System.out.println("Choisissez la carte que vous voulez jouer.");
-					carteChoisie = scanner.nextInt();
+					carteChoisie = sc.nextInt();
 				} while(!cartesValides.contains(carteChoisie));
 				joueurCourant.poserCarteAction(carteChoisie);
 
@@ -140,9 +140,7 @@ public class SelectionConsole implements Selection {
 		System.out.println("Veuillez choisir l'origine des point d'action à gagner : " + "\n 1 : Jour" + "\n 2 : Nuit"
 				+ "\n 3 : Neant");
 		do {
-			Scanner sc = new Scanner(System.in);
 			choix = sc.nextInt();
-			sc.close();
 			if(choix < 1 || choix > 3) {
 				System.out.println("Vous devez choisir soit 1 pour Jour, 2 pour Nuit et 3 pour Neant");
 			}
@@ -170,9 +168,7 @@ public class SelectionConsole implements Selection {
 		System.out.println("(Entrez le nombre compris entre 1 et 3 correspondant à votre choix) ");
 		do {
 			System.out.println("(Entrez le nombre compris entre 1 et 3 correspondant à votre choix) ");
-			Scanner sc = new Scanner(System.in);
 			choix = sc.nextInt();
-			sc.close();
 
 		} while (choix < 1 || choix > 3);
 		choix--;
@@ -185,9 +181,7 @@ public class SelectionConsole implements Selection {
 		boolean valChoix = false;
 		int choix = 0;
 		while (!valChoix) {
-			Scanner sc = new Scanner(System.in);
 			choix = sc.nextInt();
-			sc.close();
 
 			switch (choix) {
 			case 1:
@@ -213,12 +207,10 @@ public class SelectionConsole implements Selection {
 		System.out.println(
 				"Utiliser la capacité d'un croyant ou d'un guide ? \n" + "1 : croyant \n" + "2 : guide spirituel \n");
 		int choix = 0;
-		Scanner sc = new Scanner(System.in);
 		do {
 			System.out.println("Entrez 1 ou 2 ");
 			choix = sc.nextInt();
 		} while (!(choix == 1) | !(choix == 2));
-		sc.close();
 		return choix;
 	}
 
@@ -285,9 +277,7 @@ public class SelectionConsole implements Selection {
 		do {
 			System.out.println("(Entrez le nombre compris entre 0 et " + (liste.size()-1)
 					+ ",nombre correspondant à votre choix) ");
-			Scanner sc = new Scanner(System.in);
 			indexJoueurCible = sc.nextInt();
-			sc.close();
 		} while (indexJoueurCible < 0 | indexJoueurCible >= liste.size());
 		
 		
@@ -312,9 +302,7 @@ public class SelectionConsole implements Selection {
 		do {
 			System.out.println("(Entrez le nombre compris entre 0 et " + (liste.size()-1)
 					+ ",nombre correspondant à votre choix) ");
-			Scanner sc = new Scanner(System.in);
 			indexDiviniteCible = sc.nextInt();
-			sc.close();
 		} while (indexDiviniteCible < 0 || indexDiviniteCible >= liste.size());
 
 		System.out.println("Vous avez ciblé " + liste.get(indexDiviniteCible).getNom() + "appartenant à "
@@ -328,9 +316,7 @@ public class SelectionConsole implements Selection {
 		do {
 			System.out.println("(Entrez le nombre compris entre 0 et " + (liste.size()-1)
 					+ ",nombre correspondant à votre choix) ");
-			Scanner sc = new Scanner(System.in);
 			choix = sc.nextInt();
-			sc.close();
 
 		} while (choix < 0 || choix >= liste.size());
 		System.out.println("Vous avez ciblé " + liste.get(choix).getNom());
@@ -340,7 +326,6 @@ public class SelectionConsole implements Selection {
 	public Croyant selectionnerElementListeCroyant(List<Croyant> liste) {
 		int choix = 0;
 		
-		Scanner sc = new Scanner(System.in);
 	
 		do {
 			System.out.println("(Entrez le nombre compris entre 0 et " + (liste.size()-1)
@@ -348,7 +333,6 @@ public class SelectionConsole implements Selection {
 			choix = sc.nextInt();
 		} while (choix < 0 || choix >= liste.size());
 	
-		sc.close();
 		System.out.println("Vous avez ciblé " + liste.get(choix).getNom());
 		return liste.get(choix);
 	}

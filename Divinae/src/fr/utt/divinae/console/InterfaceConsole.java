@@ -16,7 +16,7 @@ import fr.utt.divinae.api.partie.TypeStrategie;
 public class InterfaceConsole {
 
 	private static Partie partie;
-	private Scanner scanner = new Scanner(System.in);
+	private static Scanner scanner = new Scanner(System.in);
 	
 	public InterfaceConsole() {
 		partie = Partie.getInstance();
@@ -80,9 +80,8 @@ public class InterfaceConsole {
 		int choixAction = 0;
 		boolean tourJoueurFini = false;
 		
-		
 		do{
-			Scanner scanner = new Scanner(System.in);
+			
 			if(partie.isPartieFinie()) {
 				
 			} else {
@@ -131,7 +130,7 @@ public class InterfaceConsole {
 						break;
 	
 					case 2:
-						if((joueurCourant.isAutorisationcr() && joueurCourant.isAutorisationgsp()) || joueurCourant.getGuides().size() == 0) {
+						if((!joueurCourant.isAutorisationcr() && !joueurCourant.isAutorisationgsp()) || joueurCourant.getGuides().size() == 0) {
 							System.out.println("Vous ne pouvez pas sacrifier de cartes.");
 						} else {
 							joueurCourant.demanderInterruption(joueurCourant);
@@ -206,7 +205,6 @@ public class InterfaceConsole {
 				}
 			}
 			System.out.println();
-			scanner.close();
 		} while(!tourJoueurFini);
 		
 		
@@ -215,7 +213,6 @@ public class InterfaceConsole {
 	
 	
 	private static void phaseDefausse(Joueur joueur) {
-		Scanner scanner = new Scanner(System.in);
 		System.out.println("Voulez-vous defausser des cartes ? (y/n)");
 		String reponse = "";
 		
@@ -247,7 +244,6 @@ public class InterfaceConsole {
 			//Donner toutes les cartes a defausser ? Donner le numero de la carte a defausser ? Donner le nombre de cartes a defausser puis donner lesquels ?
 			joueur.defausser(carteADefausser);
 		}
-		scanner.close();
 	}
 	
 
