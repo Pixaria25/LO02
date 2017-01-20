@@ -19,7 +19,7 @@ public class Defausse {
 	
 	public void remettrePioche(Pioche pioche) {
 		java.util.Collections.shuffle(defausse);
-		pioche.setPioche(defausse);
+		pioche.remplirPioche(defausse);
 		defausse = new ArrayList<CarteAction>();
 	}
 	

@@ -33,7 +33,7 @@ public class StrategieAleatoire implements Strategie {
 		interruption(joueurCourant);
 	}
 
-	public void interruption(Joueur joueurCourant) {
+	private void interruption(Joueur joueurCourant) {
 		HashSet<Integer> actionsValides = new HashSet<Integer>();
 
 		if(joueurCourant.aDesCartesSansOrigine()) {

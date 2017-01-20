@@ -15,7 +15,7 @@ import fr.utt.divinae.api.cartes.types.Selection;
 import fr.utt.divinae.api.partie.Partie;
 
 /**
- * La classe Joueur represente un joueur dans une partie du jeu, c'est-a-dire un participant d'une partie.
+ * La classe Joueur represente un joueur, c'est-a-dire un participant a une partie.
  * @author Thomas, Abraham
  *
  */

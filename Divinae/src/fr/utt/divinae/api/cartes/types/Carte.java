@@ -3,7 +3,7 @@ package fr.utt.divinae.api.cartes.types;
 import fr.utt.divinae.api.joueur.Joueur;
 
 /**
- * 
+ * La classe Carte represente les cartes du jeu.
  * @author Thomas, Abraham
  *
  */

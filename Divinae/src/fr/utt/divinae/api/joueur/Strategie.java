@@ -21,6 +21,9 @@ public interface Strategie {
 	
 	public abstract CarteSacrifiable choixSacrifice(List<CarteSacrifiable> cartesValides);
 	
+	//Implementation des methodes de Selection pour un joueur virtuel
+	public abstract void demanderInterruption(Joueur joueurCourant);
+	
 	public abstract Joueur choisirJoueurCible(List<Joueur> liste);
 	
 	public abstract GuideSpirituel choisirGsp (Partie partie);
@@ -47,6 +50,6 @@ public interface Strategie {
 	
 	public abstract GuideSpirituel choisirGspRenvoye (List <GuideSpirituel> gspCiblable);
 
-	public abstract void demanderInterruption(Joueur joueurCourant);
+	
 
 }

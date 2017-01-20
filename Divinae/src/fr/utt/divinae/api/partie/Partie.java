@@ -16,7 +16,7 @@ import fr.utt.divinae.api.joueur.StrategieAleatoire;
 
 
 /**
- * La classe Partie represente 
+ * La classe Partie represente une partie du jeu.S
  * @author Thomas, Abraham
  *
  */
@@ -26,7 +26,6 @@ public final class Partie {
 	
 	private List<Joueur> joueurs;
 	private List<CarteAction> table;
-	private List<CarteAction> cartesTour;
 	private List<Croyant> tasDeCroyants;
 	
 	private int indexJoueur1;
@@ -78,10 +77,6 @@ public final class Partie {
 	
 	public void ajouterUnJoueurVirtuel(String nom, TypeStrategie typeStrategie) {
 		joueurs.add(new JoueurVirtuel(nom, this, new StrategieAleatoire()));
-	}
-	
-	public void retirerUnJoueur(int indexJoueur) {
-		joueurs.remove(indexJoueur);
 	}
 	
 	public void distribuerLesDivinites() {
@@ -186,7 +181,7 @@ public final class Partie {
 				new Apocalypse(Origine.Aucune, 79),
 				new Apocalypse(Origine.Aucune, 80));
 		Collections.shuffle(piocheCartes);
-		pioche.setPioche(piocheCartes);
+		pioche.remplirPioche(piocheCartes);
 	}
 
 	/**
@@ -220,7 +215,9 @@ public final class Partie {
 		}
 	}
 	
-	
+	/**
+	 * Realise les operations necessaire pour commencer le tour suivant.
+	 */
 	public void preparerTourProchain() {
 		Utilitaire.resetAutorisations(this);
 	}
@@ -378,9 +375,5 @@ public final class Partie {
 
 	public int getIndexPerdant() {
 		return indexPerdant;
-	}
-	
-	public List<CarteAction> getCartesTour() {
-		return cartesTour;
 	}
 }

@@ -5,6 +5,11 @@ import java.util.Stack;
 
 import fr.utt.divinae.api.cartes.types.CarteAction;
 
+/**
+ * La classe Pioche represente 
+ * @author pixel
+ *
+ */
 public class Pioche {
 
 	private Stack<CarteAction> pioche;
@@ -21,7 +26,7 @@ public class Pioche {
 		}
 	}
 
-	public void setPioche(Collection<CarteAction> tasDeCarte) {
+	public void remplirPioche(Collection<CarteAction> tasDeCarte) {
 		this.pioche.addAll(tasDeCarte);
 	}
 	
