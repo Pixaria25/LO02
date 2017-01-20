@@ -5,9 +5,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 
-import fr.utt.divinae.api.cartes.guide.CarteSacrifiable;
 import fr.utt.divinae.api.cartes.types.Carte;
 import fr.utt.divinae.api.cartes.types.CarteAction;
+import fr.utt.divinae.api.cartes.types.CarteSacrifiable;
 import fr.utt.divinae.api.cartes.types.Croyant;
 import fr.utt.divinae.api.cartes.types.Divinite;
 import fr.utt.divinae.api.cartes.types.Dogme;

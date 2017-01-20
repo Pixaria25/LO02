@@ -3,9 +3,9 @@ package fr.utt.divinae.api.joueur;
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.utt.divinae.api.cartes.guide.CarteSacrifiable;
 import fr.utt.divinae.api.cartes.types.Carte;
 import fr.utt.divinae.api.cartes.types.CarteAction;
+import fr.utt.divinae.api.cartes.types.CarteSacrifiable;
 import fr.utt.divinae.api.cartes.types.Croyant;
 import fr.utt.divinae.api.cartes.types.Divinite;
 import fr.utt.divinae.api.cartes.types.Dogme;
@@ -36,8 +36,8 @@ public class Joueur {
 	private static Selection selection = null;
 	
 	/**
-	 * 
-	 * @param typeSelection
+	 * Met en place le type de selection adapte a l'interface choisie.
+	 * @param typeSelection le type de selection souhaite
 	 */
 	public static void setSelection (Selection typeSelection)
 	{
@@ -61,9 +61,9 @@ public class Joueur {
 	}
 	
 	/**
-	 * 
-	 * @param choixCarte
-	 * @return
+	 * Le joueur pose une carte Action sur la table.
+	 * @param choixCarte le numero de la carte a poser
+	 * @return un boolean indiquant si la carte a ete posee
 	 */
 	public boolean poserCarteAction(int choixCarte) {
 		if(carteJouable(choixCarte)) {
@@ -79,6 +79,11 @@ public class Joueur {
 		}
 	}
 	
+	/**
+	 * Verifie le joueur a suffisamment de points du bon type pour jouer la carte selectionnee.
+	 * @param choixCarte le numero de la carte que le joueur souhaite jouer
+	 * @return un boolean indiquant si la carte peut etre posee
+	 */
 	private boolean carteJouable(int choixCarte) {
 
 		if(main.get(choixCarte).getOrigine() == Origine.Aucune) {

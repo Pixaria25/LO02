@@ -5,7 +5,7 @@ package fr.utt.divinae.api.cartes.types;
  * @author Thomas, Abraham
  *
  */
-public abstract class CarteAction extends Carte{
+public abstract class CarteAction extends Carte {
 	private boolean capaciteBloqué = false;
 
   public CarteAction(String nom, String categorie, Origine origine, String capacite, int id) {
@@ -15,8 +15,8 @@ public abstract class CarteAction extends Carte{
 	abstract public void poserCarteAction();
 	
 	public void mort() {
-		setJoueurLie(null);
 		getJoueurLie().getPartie().getDefausse().ajoutCarte(this);
+		setJoueurLie(null);
 	}
 
 	public boolean isCapaciteBloque() {

@@ -3,7 +3,6 @@ package fr.utt.divinae.api.cartes.types;
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.utt.divinae.api.cartes.guide.CarteSacrifiable;
 import fr.utt.divinae.api.partie.Partie;
 
 /**

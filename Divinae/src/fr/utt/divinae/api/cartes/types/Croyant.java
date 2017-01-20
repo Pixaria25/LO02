@@ -1,7 +1,5 @@
 package fr.utt.divinae.api.cartes.types;
 
-import fr.utt.divinae.api.cartes.guide.CarteSacrifiable;
-
 /**
  * La classe Croyant modelise les cartes Croyant.
  * @author Thomas, Abraham
