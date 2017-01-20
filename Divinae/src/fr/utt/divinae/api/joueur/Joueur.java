@@ -3,9 +3,9 @@ package fr.utt.divinae.api.joueur;
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.utt.divinae.api.cartes.guide.CarteSacrifiable;
 import fr.utt.divinae.api.cartes.types.Carte;
 import fr.utt.divinae.api.cartes.types.CarteAction;
+import fr.utt.divinae.api.cartes.types.CarteSacrifiable;
 import fr.utt.divinae.api.cartes.types.Croyant;
 import fr.utt.divinae.api.cartes.types.Divinite;
 import fr.utt.divinae.api.cartes.types.Dogme;
