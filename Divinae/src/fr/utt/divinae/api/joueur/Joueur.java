@@ -11,7 +11,6 @@ import fr.utt.divinae.api.cartes.types.Divinite;
 import fr.utt.divinae.api.cartes.types.Dogme;
 import fr.utt.divinae.api.cartes.types.GuideSpirituel;
 import fr.utt.divinae.api.cartes.types.Origine;
-import fr.utt.divinae.api.cartes.types.Selection;
 import fr.utt.divinae.api.partie.Partie;
 
 /**

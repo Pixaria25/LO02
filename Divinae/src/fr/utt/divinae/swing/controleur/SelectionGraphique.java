@@ -3,7 +3,6 @@ package fr.utt.divinae.swing.controleur;
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.utt.divinae.api.cartes.types.Selection;
 import fr.utt.divinae.api.cartes.types.Carte;
 import fr.utt.divinae.api.cartes.types.Croyant;
 import fr.utt.divinae.api.cartes.types.Divinite;
@@ -12,6 +11,7 @@ import fr.utt.divinae.api.cartes.types.GuideSpirituel;
 import fr.utt.divinae.api.cartes.types.Origine;
 import fr.utt.divinae.api.cartes.types.Utilitaire;
 import fr.utt.divinae.api.joueur.Joueur;
+import fr.utt.divinae.api.joueur.Selection;
 import fr.utt.divinae.api.partie.Partie;
 import fr.utt.divinae.swing.vue.SelectionnerCarteDialog;
 import fr.utt.divinae.swing.vue.SelectionnerJoueurDialog;
