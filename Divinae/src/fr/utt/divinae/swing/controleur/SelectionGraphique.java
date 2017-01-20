@@ -166,4 +166,9 @@ public class SelectionGraphique implements Selection
 		int choixCarte = dialog.getChoixCarte(); 
 		return choixCarte;
 	}
+
+	@Override
+	public void menu(Joueur joueurCourant) {
+		
+	}
 }

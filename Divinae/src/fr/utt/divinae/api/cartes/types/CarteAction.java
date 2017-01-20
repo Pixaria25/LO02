@@ -2,7 +2,7 @@ package fr.utt.divinae.api.cartes.types;
 
 /**
  * La classe CarteAction represente les cartes Actions, c'est-a-dire les cartes qui peuvent etre posees durant une partie.
- * @author pixel
+ * @author Thomas, Abraham
  *
  */
 public abstract class CarteAction extends Carte{
@@ -10,12 +10,14 @@ public abstract class CarteAction extends Carte{
 
   public CarteAction(String nom, String categorie, Origine origine, String capacite, int id) {
 		super(nom, categorie, origine, capacite, id);
-		// TODO Auto-generated constructor stub
 	}
 
 	abstract public void poserCarteAction();
 	
-	
+	public void mort() {
+		setJoueurLie(null);
+		getJoueurLie().getPartie().getDefausse().ajoutCarte(this);
+	}
 
 	public boolean isCapaciteBloque() {
 		return capaciteBloqué;

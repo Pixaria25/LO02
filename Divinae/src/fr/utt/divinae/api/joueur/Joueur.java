@@ -3,7 +3,7 @@ package fr.utt.divinae.api.joueur;
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.utt.divinae.api.cartes.types.Capacite;
+import fr.utt.divinae.api.cartes.guide.CarteSacrifiable;
 import fr.utt.divinae.api.cartes.types.Carte;
 import fr.utt.divinae.api.cartes.types.CarteAction;
 import fr.utt.divinae.api.cartes.types.Croyant;
@@ -11,7 +11,7 @@ import fr.utt.divinae.api.cartes.types.Divinite;
 import fr.utt.divinae.api.cartes.types.Dogme;
 import fr.utt.divinae.api.cartes.types.GuideSpirituel;
 import fr.utt.divinae.api.cartes.types.Origine;
-import fr.utt.divinae.api.cartes.types.Utilitaire;
+import fr.utt.divinae.api.cartes.types.Selection;
 import fr.utt.divinae.api.partie.Partie;
 
 /**
@@ -33,6 +33,17 @@ public class Joueur {
 	
 	public static final int TAILLE_MAIN_MAX = 7;
 	
+	private static Selection selection = null;
+	
+	/**
+	 * 
+	 * @param typeSelection
+	 */
+	public static void setSelection (Selection typeSelection)
+	{
+		selection = typeSelection;
+	}
+	
 	public Joueur(String nom, Partie partie) {
 		this.nom = nom;
 		this.divinite = null;
@@ -42,8 +53,11 @@ public class Joueur {
 		this.partie = partie;
 	}
 	
+	/**
+	 * 
+	 */
 	public void jouer() {
-		
+		selection.menu(this);
 	}
 	
 	/**
@@ -58,7 +72,7 @@ public class Joueur {
 			}
 			CarteAction carteAction = main.get(choixCarte);
 			partie.getTable().add(carteAction);
-			Capacite.getActionSuivante().messageRecap(carteAction.getJoueurLie().getNom() + " pose " + carteAction.getNom());
+			selection.messageRecap(carteAction.getJoueurLie().getNom() + " pose " + carteAction.getNom());
 			return true;
 		} else {
 			return false;
@@ -109,6 +123,18 @@ public class Joueur {
 		return retour;
 	}
 	
+	public String afficherMainJouable() {
+		String affichage = "";
+		for(int i = 0; i < main.size(); i++) {
+			affichage += i +" - " + main.get(i).getCategorieEtNom();
+			if(main.get(i).getOrigine() == Origine.Aucune || pointsAction[main.get(i).getOrigine().ordinal()] > 0) {
+				affichage += "(V)";
+			}
+			affichage += "	";
+		}
+		return affichage;
+	}
+	
 	public List<Carte> lireCartes() {
 		List<Carte> cartes = new ArrayList<Carte>();
 		for(int i = 0; i < main.size(); i++) {
@@ -151,8 +177,12 @@ public class Joueur {
 		}
 	}
 	
-	public List<CarteAction> recupererCartesSacrifiables() {
-		List<CarteAction> listeCartesSacrifiables = new ArrayList<CarteAction>();
+	/**
+	 * Recupere et renvoie la liste des cartes sacrifiables du joueur.
+	 * @return une liste contenant les cartes sacrifiables du joueur
+	 */
+	public List<CarteSacrifiable> recupererCartesSacrifiables() {
+		List<CarteSacrifiable> listeCartesSacrifiables = new ArrayList<CarteSacrifiable>();
 		listeCartesSacrifiables.addAll(getGuides());
 		for(int j = 0; j < getGuides().size(); j++) {
 			listeCartesSacrifiables.addAll(getGuide(j).getCroyantLie());
@@ -160,95 +190,86 @@ public class Joueur {
 		return listeCartesSacrifiables;
 	}
 	
-	public void sacrifierCarte(CarteAction carte) {
+	public void sacrifierCarte(CarteSacrifiable carte) {
 		if (carte.isAutorisationSacrifice()) {
-			if (carte instanceof Croyant) {
-				Utilitaire.majPointsCroyant((Croyant)carte, -getNombreCroyant());
-			}
-			carte.activerCapacite();
-			tuerCarte(carte);
+			carte.sacrifice();
 		} else { 
-			Capacite.getActionSuivante().messageRecap(carte.getNom() + " est protegée contre le sacrifice");
+			selection.messageRecap(carte.getNom() + " est protegée contre le sacrifice");
 		}
 	}
 
 	public void tuerCarte(CarteAction carte) {
-		if(carte instanceof GuideSpirituel) {
-			this.partie.getTasDeCroyants().addAll((((GuideSpirituel) carte).getCroyantLie()));
-			((GuideSpirituel) carte).getCroyantLie().clear();
-		}
-		if(carte instanceof Croyant) {
-			((Croyant) carte).setGuideLie(null);
-			((Croyant) carte).setRattachable(false);
-		}
-		carte.setJoueurLie(null);
-		partie.getDefausse().ajoutCarte(carte);
+		carte.mort();
 	}
 	
 
 	//Appel des methodes de ActionSuivante
 	public void demanderInterruption(Joueur joueurCourant) {
-		Capacite.getActionSuivante().demanderInterruption(joueurCourant);
+		selection.demanderInterruption(joueurCourant);
 	}
 	
 	public void interruption(Joueur joueurCourant) {
-		Capacite.getActionSuivante().interruption(joueurCourant);
+		selection.interruption(joueurCourant);
 	}
 	
 	public Joueur choisirJoueurCible(List<Joueur> liste) {
-		return Capacite.getActionSuivante().choisirJoueurCible(liste);
+		return selection.choisirJoueurCible(liste);
 	}
 	
 	public GuideSpirituel choisirGsp() {
-		return Capacite.getActionSuivante().choisirGsp(this, getPartie());
+		return selection.choisirGsp(this, getPartie());
 	}
 	
 	public Divinite choisirDiviniteOuDogme (Dogme dogme1, Dogme dogme2) {
-		return Capacite.getActionSuivante().choisirDiviniteOuDogme(dogme1, dogme2, getPartie());
+		return selection.choisirDiviniteOuDogme(dogme1, dogme2, getPartie());
 	}
 	
 	public GuideSpirituel choisirSonGsp () {
-		return Capacite.getActionSuivante().choisirSonGsp(this, getPartie());
+		return selection.choisirSonGsp(this, getPartie());
 	}
 	
 	public Croyant choisirCroyant (Joueur joueur) {
-		return Capacite.getActionSuivante().choisirCroyant(joueur, getPartie());
+		return selection.choisirCroyant(joueur, getPartie());
 	}
 	
 	public Origine choisirOrigine () {
-		return Capacite.getActionSuivante().choisirOrigine();
+		return selection.choisirOrigine();
 	}
 	
 	public GuideSpirituel choisirDiviniteOuGspNonDogme (Dogme dogme) {
-		return Capacite.getActionSuivante().choisirDiviniteOuGspNonDogme(dogme, getPartie());
+		return selection.choisirDiviniteOuGspNonDogme(dogme, getPartie());
 	}
 	
 	public int choisirFaceDe (Joueur joueur) {
-		return Capacite.getActionSuivante().choisirFaceDe(joueur, getPartie());
+		return selection.choisirFaceDe(joueur, getPartie());
 	}
 	
 	public boolean choixMultiples (String cible) {
-		return Capacite.getActionSuivante().choixMultiples(cible);
+		return selection.choixMultiples(cible);
 	}
 	
 	public int gspOuCroyant () {
-		return Capacite.getActionSuivante().gspOuCroyant();
+		return selection.gspOuCroyant();
 	}
 	
 	public Croyant choisirTasCroyant() {
-		return Capacite.getActionSuivante().choisirTasCroyant(this, getPartie());
+		return selection.choisirTasCroyant(this, getPartie());
 	}
 	
 	public GuideSpirituel choisirGspRetire(List<GuideSpirituel> gspCiblable) {
-		return Capacite.getActionSuivante().choisirGspRetire(gspCiblable);
+		return selection.choisirGspRetire(gspCiblable);
 	}
 
 	public void messageRecap (String message) {
-			Capacite.getActionSuivante().messageRecap(message);
+			selection.messageRecap(message);
 	}
 	
 	
 	//Getters et setters
+	public Selection getSelection() {
+		return selection;
+	}
+	
 	public Divinite getDivinite() {
 		return divinite;
 	}

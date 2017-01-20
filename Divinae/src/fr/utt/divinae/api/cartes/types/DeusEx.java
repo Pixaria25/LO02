@@ -12,7 +12,7 @@ public abstract class DeusEx extends CarteAction {
 			System.out.println(getNom() + " a été bloqué !");
 			
 		} else {
-			Capacite.getActionSuivante().messageRecap(getJoueurLie().getNom() + " joue " + getNom());
+			getJoueurLie().messageRecap(getJoueurLie().getNom() + " joue " + getNom());
 			activerCapacite();
 			getJoueurLie().getMain().remove(this);
 			getJoueurLie().tuerCarte(this);

@@ -8,6 +8,13 @@ import fr.utt.divinae.api.partie.Partie;
 
 public class Utilitaire {
 
+	/**
+	 * 
+	 * @param dogme1
+	 * @param dogme2
+	 * @param partie
+	 * @return
+	 */
 	public static List <GuideSpirituel> choisirDiviniteEtDogme (Dogme dogme1, Dogme dogme2, Partie partie) {
 		List <GuideSpirituel> gspCiblable = new ArrayList<GuideSpirituel>(); // tableau des guides que l'on peut cibler par cette capacitée
 		
@@ -26,6 +33,12 @@ public class Utilitaire {
 		return gspCiblable;
 	}
 	
+	/**
+	 * 
+	 * @param origine
+	 * @param partie
+	 * @return
+	 */
 	public static List<GuideSpirituel> choisirGuideLieADiviniteOrigine (Origine origine, Partie partie) {
 		List <GuideSpirituel> gspCiblable = new ArrayList<GuideSpirituel>(); // tableau des guides que l'on peut cibler par cette capacitée
 		

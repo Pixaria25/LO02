@@ -16,15 +16,11 @@ public class Capacite {
 
 	private static boolean autorisationPointAction = true;
 	private static boolean autorisationApocalypse = true;
-	private static Selection selection = null;
+	
 
 	static CarteAction carteInterupt;
 
-
-	public static void setSelection (Selection typeSelection)
-	{
-		selection = typeSelection;
-	}
+	
 
 	public static void donnerPointAction (int point, Origine origine, Joueur joueur) {
 		
@@ -49,7 +45,7 @@ public class Capacite {
 	public static void lancerApocalypse (Partie partie) {
 		boolean egalite = false;
 		partie.finirUnePartie();
-		if (Capacite.isAutorisationApocalypse()== true) { // l'autorisation de lancer une Apocalypse est valide on lance l'apocalypse sinon
+		if (Capacite.isAutorisationApocalypse()== true) {
 			
 			if (partie.getJoueurs().size() < 4) {
 				for (int i = 0; i < partie.getJoueurs().size(); i++) {
@@ -122,7 +118,6 @@ public class Capacite {
 	    default : carte.getJoueurLie().messageRecap("Aucun effet bénéfique pour vous.");
 	    break;
 	    }
-	    
 	}
 
 	public static void defausser (CarteAction carte, Partie partie) {
@@ -135,7 +130,6 @@ public class Capacite {
 			partie.getTasDeCroyants().addAll(gsp.getCroyantLie ());
 			gsp.getJoueurLie().tuerCarte(gsp);
 		}
-
 	}
 
 	public static void empecherSacrifice ( Dogme dogme1, Dogme dogme2, String vise, Carte cartePosee, Partie partie) {
@@ -176,7 +170,6 @@ public class Capacite {
 				}
 			break;
 		}
-
 	  }
 
 	public static void imposerSacrificeGuideSpirituel (Divinite divinite, Partie partie) {
@@ -230,27 +223,26 @@ public class Capacite {
 					partie.getJoueurs().get(i).soustrPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Nuit.ordinal()],Origine.Nuit);
 					partie.getJoueurs().get(i).soustrPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Neant.ordinal()],Origine.Neant);
 				}
-			} else {
-				for (int i = indexJoueurCourant+1; i < partie.getJoueurs().size();i++){
-					joueurCourant.ajoutPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Jour.ordinal()],Origine.Jour);
-					joueurCourant.ajoutPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Nuit.ordinal()],Origine.Nuit );
-					joueurCourant.ajoutPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Neant.ordinal()],Origine.Neant);
+		} else {
+			for (int i = indexJoueurCourant+1; i < partie.getJoueurs().size();i++){
+				joueurCourant.ajoutPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Jour.ordinal()],Origine.Jour);
+				joueurCourant.ajoutPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Nuit.ordinal()],Origine.Nuit );
+				joueurCourant.ajoutPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Neant.ordinal()],Origine.Neant);
 
-					partie.getJoueurs().get(i).soustrPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Jour.ordinal()],Origine.Jour);
-					partie.getJoueurs().get(i).soustrPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Nuit.ordinal()],Origine.Nuit);
-					partie.getJoueurs().get(i).soustrPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Neant.ordinal()],Origine.Neant);
-				}
-				for (int i = indexJoueur1-1; i > -1 ;i--){
-					joueurCourant.ajoutPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Jour.ordinal()],Origine.Jour);
-					joueurCourant.ajoutPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Nuit.ordinal()],Origine.Nuit );
-					joueurCourant.ajoutPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Neant.ordinal()],Origine.Neant);
-
-					partie.getJoueurs().get(i).soustrPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Jour.ordinal()],Origine.Jour);
-					partie.getJoueurs().get(i).soustrPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Nuit.ordinal()],Origine.Nuit);
-					partie.getJoueurs().get(i).soustrPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Neant.ordinal()],Origine.Neant);
-				}
+				partie.getJoueurs().get(i).soustrPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Jour.ordinal()],Origine.Jour);
+				partie.getJoueurs().get(i).soustrPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Nuit.ordinal()],Origine.Nuit);
+				partie.getJoueurs().get(i).soustrPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Neant.ordinal()],Origine.Neant);
 			}
+			for (int i = indexJoueur1-1; i > -1 ;i--){
+				joueurCourant.ajoutPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Jour.ordinal()],Origine.Jour);
+				joueurCourant.ajoutPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Nuit.ordinal()],Origine.Nuit );
+				joueurCourant.ajoutPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Neant.ordinal()],Origine.Neant);
 
+				partie.getJoueurs().get(i).soustrPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Jour.ordinal()],Origine.Jour);
+				partie.getJoueurs().get(i).soustrPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Nuit.ordinal()],Origine.Nuit);
+				partie.getJoueurs().get(i).soustrPointsAction(partie.getJoueurs().get(i).getPointsAction()[Origine.Neant.ordinal()],Origine.Neant);
+			}
+		}
 	}
 
 	public static void prendreCartes (Carte carte, int nbCarte, Partie partie) {
@@ -294,13 +286,9 @@ public class Capacite {
 		partie.setIndexJoueur1(partie.getJoueurs().indexOf(joueur));
 	}
 	
-	
 	public static void bloquerPointAction (Partie partie) {
-
 		setAutorisationPointAction(true);
 	}
-	
-	
 	
 	public static void setAutorisationPointAction(boolean autorisationPointAction) {
 		Capacite.autorisationPointAction = autorisationPointAction;
@@ -318,9 +306,7 @@ public class Capacite {
 		return autorisationPointAction;
 	}
 
-	public static Selection getActionSuivante() {
-		return selection;
-	}
+	
 
 
 	public static CarteAction getCarteInterupt() {
@@ -330,19 +316,4 @@ public class Capacite {
 	public static void setCarteInterupt(CarteAction carteInterupt) {
 		Capacite.carteInterupt = carteInterupt;
 	}
-	
-	
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

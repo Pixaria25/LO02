@@ -1,5 +1,10 @@
 package fr.utt.divinae.api.cartes.types;
 
+/**
+ * 
+ * @author pixel
+ *
+ */
 public abstract class Divinite extends Carte {
 
 	private Dogme[] dogme;

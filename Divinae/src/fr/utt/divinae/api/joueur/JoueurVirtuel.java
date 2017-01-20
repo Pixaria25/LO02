@@ -2,6 +2,7 @@ package fr.utt.divinae.api.joueur;
 
 import java.util.List;
 
+import fr.utt.divinae.api.cartes.guide.CarteSacrifiable;
 import fr.utt.divinae.api.cartes.types.Capacite;
 import fr.utt.divinae.api.cartes.types.CarteAction;
 import fr.utt.divinae.api.cartes.types.Croyant;
@@ -19,7 +20,7 @@ import fr.utt.divinae.api.partie.Partie;
  */
 public class JoueurVirtuel extends Joueur {
 
-	private Strategie strategie;
+	private Strategie strategie; //la strategie du joueur virtuel
 	
 	public JoueurVirtuel(String nom, Partie partie,Strategie strategie) {
 		super(nom, partie);
@@ -79,7 +80,7 @@ public class JoueurVirtuel extends Joueur {
 	}
 	
 	public void sacrifier() {
-		List<CarteAction> cartesSacrifiables = recupererCartesSacrifiables();
+		List<CarteSacrifiable> cartesSacrifiables = recupererCartesSacrifiables();
 		if(!cartesSacrifiables.isEmpty()) {
 			sacrifierCarte(strategie.choixSacrifice(cartesSacrifiables));
 		}

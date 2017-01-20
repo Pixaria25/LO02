@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 
+import fr.utt.divinae.api.cartes.guide.CarteSacrifiable;
 import fr.utt.divinae.api.cartes.types.Carte;
 import fr.utt.divinae.api.cartes.types.CarteAction;
 import fr.utt.divinae.api.cartes.types.Croyant;
@@ -91,7 +92,7 @@ public class StrategieAleatoire implements Strategie {
 	}
 
 	@Override
-	public CarteAction choixSacrifice(List<CarteAction> cartesValides) {
+	public CarteSacrifiable choixSacrifice(List<CarteSacrifiable> cartesValides) {
 		if (!cartesValides.isEmpty()) {
 			int numCarte = random.nextInt(cartesValides.size());
 			return cartesValides.get(numCarte);

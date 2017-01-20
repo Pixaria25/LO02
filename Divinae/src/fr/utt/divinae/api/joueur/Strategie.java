@@ -2,6 +2,7 @@ package fr.utt.divinae.api.joueur;
 
 import java.util.List;
 
+import fr.utt.divinae.api.cartes.guide.CarteSacrifiable;
 import fr.utt.divinae.api.cartes.types.CarteAction;
 import fr.utt.divinae.api.cartes.types.Croyant;
 import fr.utt.divinae.api.cartes.types.Divinite;
@@ -18,7 +19,7 @@ public interface Strategie {
 
 	public abstract int choixCarteAction(List<CarteAction> main);
 	
-	public abstract CarteAction choixSacrifice(List<CarteAction> cartesValides);
+	public abstract CarteSacrifiable choixSacrifice(List<CarteSacrifiable> cartesValides);
 	
 	public abstract Joueur choisirJoueurCible(List<Joueur> liste);
 	

@@ -3,6 +3,7 @@ package fr.utt.divinae.api.cartes.types;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.utt.divinae.api.cartes.guide.CarteSacrifiable;
 import fr.utt.divinae.api.partie.Partie;
 
 /**
@@ -10,7 +11,7 @@ import fr.utt.divinae.api.partie.Partie;
  * @author Thomas, Abraham
  *
  */
-public abstract class GuideSpirituel extends CarteAction {
+public abstract class GuideSpirituel extends CarteSacrifiable {
 
 	private List<Croyant> croyantLie;
 	private Dogme [] dogme;
@@ -24,6 +25,12 @@ public abstract class GuideSpirituel extends CarteAction {
 		this.nombreCroyantLiable = nombreCroyantLiable;
 	}
 	
+	@Override
+	public void mort() {
+		getJoueurLie().getPartie().getTasDeCroyants().addAll(croyantLie);
+		croyantLie.clear();
+		super.mort();
+	}
 
 	public void convertirCroyant (Partie partie) {
 		while (this.nombreCroyantLiable  >  croyantLie.size() && partie.getTasDeCroyants().size() > 0) { 
@@ -31,19 +38,18 @@ public abstract class GuideSpirituel extends CarteAction {
 			croyant.setGuideLie(this);
 			croyant.setJoueurLie(getJoueurLie());
 			croyantLie.add(croyant);
-			Utilitaire.majPointsCroyant(croyant, +croyant.getValeurCroyant());
-			Capacite.getActionSuivante().messageRecap(getJoueurLie().getNom() + " lie " + croyant.getNom() + " à " + getNom());
+			Utilitaire.majPointsCroyant(croyant, +croyant.getNombrePrieres());
+			getJoueurLie().messageRecap(getJoueurLie().getNom() + " lie " + croyant.getNom() + " à " + getNom());
 		}
 	}
 	
-
 	public void poserCarteAction() {
 			int indexCourant = getJoueurLie().getPartie().getIndexJoueur1();
 			Partie partie = getJoueurLie().getPartie();
 			if (!partie.getTasDeCroyants().isEmpty()) {
 				setJoueurLie(partie.getJoueurs().get(indexCourant));
 				convertirCroyant(getJoueurLie().getPartie());
-				Capacite.getActionSuivante().messageRecap(getJoueurLie().getNom() + " joue " + getNom());
+				getJoueurLie().messageRecap(getJoueurLie().getNom() + " joue " + getNom());
 				getJoueurLie().getMain().remove(this);
 			} else { 
 				getJoueurLie().messageRecap("Pas de croyants disponible ! Reprise de la carte");

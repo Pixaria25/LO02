@@ -16,10 +16,13 @@ import fr.utt.divinae.api.partie.Partie;
 
 public class SelectionConsole implements Selection {
 
-	Partie partie = InterfacePartie.getPartie();
+	Partie partie = InterfaceConsole.getPartie();
 	private Scanner scanner = new Scanner(System.in);
 
-
+	public void menu(Joueur joueurCourant) {
+		InterfaceConsole.jouerTourJoueurReel(joueurCourant);
+	}
+	
 	public void demanderInterruption(Joueur joueurCourant) {
 		String interruption = "";
 		do {

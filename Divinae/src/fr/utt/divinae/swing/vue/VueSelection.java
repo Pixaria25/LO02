@@ -6,6 +6,7 @@ import javax.swing.JPanel;
 
 public class VueSelection extends JPanel
 {
+	private static final long serialVersionUID = 1L;
 	private boolean selected;
 	public VueSelection(boolean selected) {
 		this.selected = selected;

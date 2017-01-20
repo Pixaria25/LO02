@@ -4,8 +4,7 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.Transparency;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
@@ -17,6 +16,7 @@ import fr.utt.divinae.api.cartes.types.CarteAction;
 
 public class VueCarte extends JButton
 {
+	private static final long serialVersionUID = 1L;
 	public static int CARTE_LARGEUR = 132;
 	public static int CARTE_LONGUEUR = 200;
 

@@ -18,8 +18,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+import fr.utt.divinae.api.cartes.guide.CarteSacrifiable;
 import fr.utt.divinae.api.cartes.types.Capacite;
-import fr.utt.divinae.api.cartes.types.Carte;
 import fr.utt.divinae.api.cartes.types.CarteAction;
 import fr.utt.divinae.api.cartes.types.Croyant;
 import fr.utt.divinae.api.cartes.types.Divinite;
@@ -31,6 +31,7 @@ import fr.utt.divinae.swing.controleur.ControleurJeu;
 import fr.utt.divinae.swing.modele.ModeleJeu;
 
 public class VueJeu extends JFrame implements ActionListener, Observer {
+	private static final long serialVersionUID = 1L;
 	private ControleurJeu controleurJeu;
 	private ModeleJeu modeleJeu;
 	private JTextArea log;
@@ -231,15 +232,7 @@ public class VueJeu extends JFrame implements ActionListener, Observer {
 			String message = carteJouable(vueCarte.getCarteAction(), joueur);
 			if(message == null) {
 				joueur.poserCarteAction(vueCarte.getId());
-				//demanderInterruption();
-				// Solution ?
-				//Capacite.setCarteInterupt(vueCarte.getCarteAction());
-				//CarteAction cartePosee = Capacite.getCarteInterupt();
-				//if (cartePosee != null && cartePosee.isCapaciteBloqué() && ( !(cartePosee instanceof Croyant) ||  !(cartePosee instanceof GuideSpirituel) )) {
-				//	alert(cartePosee.getNom() + " a été bloqué !");
-				//} else {
-					modeleJeu.getPartie().activerCartes();
-				//}
+				modeleJeu.getPartie().activerCartes();
 				boutonDefausser.setEnabled(false);
 				boutonJouer.setEnabled(false);
 				modeleJeu.getPartie().setCroyantsRattachables();
@@ -260,7 +253,7 @@ public class VueJeu extends JFrame implements ActionListener, Observer {
 					throw new RuntimeException("Pas de carte dans la main, erreur inattendue.");
 				}
 				joueurCourant.demanderInterruption(joueurCourant);
-				List<CarteAction> listeCartesSacrifiables = joueurCourant.recupererCartesSacrifiables();
+				List<CarteSacrifiable> listeCartesSacrifiables = joueurCourant.recupererCartesSacrifiables();
 				SelectionnerCarteDialog dialog = new SelectionnerCarteDialog(this, "Sacrifier une carte", listeCartesSacrifiables);
 				dialog.setVisible(true);
 				int choixSacrifice = dialog.getChoixCarte(); 
@@ -425,7 +418,6 @@ public class VueJeu extends JFrame implements ActionListener, Observer {
 			panelJoueur.add(vueCarte);
 			vueCartes.add(vueCarte);
 		}
-		Joueur joueurCourant = (cartes.size() > 0) ? cartes.get(0).getJoueurLie() : null;
 
 		panelJoueur.updateUI();
 	}

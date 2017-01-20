@@ -16,21 +16,20 @@ import fr.utt.divinae.api.joueur.StrategieAleatoire;
 
 
 /**
- * 
+ * La classe Partie represente 
  * @author Thomas, Abraham
  *
  */
 public final class Partie {
 	
 	private static volatile Partie instance = null;
-	private int indexJoueur1;
+	
 	private List<Joueur> joueurs;
 	private List<CarteAction> table;
 	private List<CarteAction> cartesTour;
-
-
-
 	private List<Croyant> tasDeCroyants;
+	
+	private int indexJoueur1;
 	private int indexJoueurTour;
 	private Pioche pioche;
 	private Defausse defausse;
@@ -63,11 +62,11 @@ public final class Partie {
 		return Partie.instance;
 	}
 	
-	public int getIndexPerdant() {
-		return indexPerdant;
-	}
-
-
+	/**
+	 * Effectue les operations de debut de partie c'est-a-dire lancer le de de Cosmogonie 
+	 * et ajouter des points aux joueurs en fonction de l'Origine de leur Divinite 
+	 * et de la face du de.
+	 */
 	public void debuterUnTour() {
 		de.lancerDe();
 		ajoutPoint();
@@ -100,6 +99,9 @@ public final class Partie {
         }
 	}
 	
+	/**
+	 * Remplit la pioche avec les cartes du jeu.
+	 */
 	public void remplirPioche() {
 		ArrayList<CarteAction> piocheCartes = new ArrayList<CarteAction>();
 		Collections.addAll(piocheCartes, 
@@ -187,6 +189,9 @@ public final class Partie {
 		pioche.setPioche(piocheCartes);
 	}
 
+	/**
+	 * Distribue des cartes aux joueurs.
+	 */
 	public void distribuerCartes() {
 		for(int i = 0; i < this.joueurs.size();i++)
         {
@@ -194,6 +199,10 @@ public final class Partie {
         }
 	}
 	
+	/**
+	 * Calcule quel est le joueur ayant le plus grand nombre de prieres
+	 * et celui ayant le moins grand nombre.
+	 */
 	public void finirUnePartie() {
 		int maxCroyants = 0;
 		int minCroyants = 0;
@@ -213,14 +222,14 @@ public final class Partie {
 	
 	
 	public void preparerTourProchain() {
-		//indexJoueur1 = (indexJoueur1 + 1) % joueurs.size();
 		Utilitaire.resetAutorisations(this);
-
-	
 	}
 	
-	//Ajout des points aux joueurs selon le type de leur divinite et selon la valeur du de de Cosmogonie
-	public void ajoutPoint() {
+	/**
+	 * Ajoute des points aux joueurs en fonction de l'Origine de leur Divinite 
+	 * et de la face du de de Cosmogonie.
+	 */
+	private void ajoutPoint() {
 		for(int i = 0; i < joueurs.size(); i++) {
 			if(de.getInfluence()== Origine.Jour) {
 				if(joueurs.get(i).getDivinite().getOrigine() == Origine.Jour) {
@@ -242,18 +251,28 @@ public final class Partie {
 		}
 	}
 	
+	/**
+	 * Indique qu'un Croyant pose peut etre rattache a un Guide Spirituel.
+	 */
 	public void setCroyantsRattachables() {
 		for(int i = 0; i < tasDeCroyants.size(); i ++) {
 			tasDeCroyants.get(i).setRattachable(true);
 		}
 	}
 	
+	/**
+	 * Active les cartes qui ont ete posees sur la table.
+	 */
 	public void activerCartes() {
 		for(int i = table.size()-1; i >= 0; i--) {
 			table.remove(i).poserCarteAction();
 		}
 	}
 	
+	/**
+	 * Retourne une chaine contenant le nom et le type des cartes places sur la table.
+	 * @return une chaine contenant le nom et le type des cartes places sur la table
+	 */
 	public String afficherTable() {
 		String retour = "Table: ";
 		for(int i = 0; i < table.size(); i++) {
@@ -262,6 +281,10 @@ public final class Partie {
 		return retour;
 	}
 	
+	/**
+	 * Retourne une chaine contenant le nom des Croyants dans le tas de Croyants.
+	 * @return une chaine contenant le nom des Croyants dans le tas de Croyants
+	 */
 	public String afficherTasCroyants() {
 		String retour = "Tas des croyants: ";
 		for(int i = 0; i < tasDeCroyants.size(); i++) {
@@ -270,6 +293,12 @@ public final class Partie {
 		return retour;
 	}
 	
+	/**
+	 * Retourne une chaine contenant les details des Guides Spirituel 
+	 * et des Croyants qui leurs sont lies d'un joueur.
+	 * @param joueur le joueur dont on souhaite voir les croyants et les guides
+	 * @return les details des Guides Spirituel et des Croyants d'un joueur
+	 */
 	public String afficherDetailsGuidesCroyants(Joueur joueur) {
 		String retour = "Joueur "+joueur.getNom()+"\n \n";
 		for(int i = 0; i < joueur.getGuides().size(); i++) {
@@ -282,6 +311,10 @@ public final class Partie {
 		return retour;
 	}
 	
+	/**
+	 * Retourne une chaine contenant les details des cartes du tas de Croyant
+	 * @return une chaine contenant les details des cartes du tas de Croyant
+	 */
 	public String afficherDetailsTasCroyants() {
 		String retour = "";
 		for(int i = 0; i < tasDeCroyants.size(); i++) {
@@ -290,7 +323,7 @@ public final class Partie {
 		return retour;
 	}
 	
-
+	//Getter et setters
 	public List<Croyant> getTasDeCroyants() {
 		return tasDeCroyants;
 	}
@@ -339,9 +372,12 @@ public final class Partie {
 		return partieFinie;
 	}
 
-
 	public int getIndexGagnant() {
 		return indexGagnant;
+	}
+
+	public int getIndexPerdant() {
+		return indexPerdant;
 	}
 	
 	public List<CarteAction> getCartesTour() {
