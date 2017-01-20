@@ -6,9 +6,9 @@ package fr.utt.divinae.api.cartes.types;
  *
  */
 public abstract class CarteAction extends Carte {
-	private boolean capaciteBloqué = false;
+	private boolean capaciteBloque = false;
 
-  public CarteAction(String nom, String categorie, Origine origine, String capacite, int id) {
+	public CarteAction(String nom, String categorie, Origine origine, String capacite, int id) {
 		super(nom, categorie, origine, capacite, id);
 	}
 
@@ -20,11 +20,11 @@ public abstract class CarteAction extends Carte {
 	}
 
 	public boolean isCapaciteBloque() {
-		return capaciteBloqué;
+		return capaciteBloque;
 	}
 
-	public void setCapaciteBloqué(boolean capaciteBloqué) {
-		this.capaciteBloqué = capaciteBloqué;
+	public void setCapaciteBloque(boolean capaciteBloque) {
+		this.capaciteBloque = capaciteBloque;
 	}
 	
 }

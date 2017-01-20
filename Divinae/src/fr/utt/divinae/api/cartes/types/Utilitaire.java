@@ -238,7 +238,6 @@ public class Utilitaire {
 						if (gspCiblable.get(gspCiblable.indexOf(Gsp)).isProtectionCiblage()) {
 							gspCiblable.remove(gspCiblable.indexOf(Gsp));
 						}
-						
 					}
 				}
 			}
@@ -257,7 +256,6 @@ public class Utilitaire {
 				i--;
 			}
 		}
-		
 		return gspCiblable;
 	}
 	

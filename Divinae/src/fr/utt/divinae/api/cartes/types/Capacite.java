@@ -265,7 +265,7 @@ public class Capacite {
 			for (int i=0; i < max; i++ ){
 				
 				if (carteCible.getOrigine() == origineCible[i]) {
-					carteCible.setCapaciteBloqué(true);
+					carteCible.setCapaciteBloque(true);
 					break;
 				}
 			}

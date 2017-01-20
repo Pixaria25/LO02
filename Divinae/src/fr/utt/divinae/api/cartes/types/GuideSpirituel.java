@@ -53,9 +53,7 @@ public abstract class GuideSpirituel extends CarteSacrifiable {
 			} else { 
 				getJoueurLie().messageRecap("Pas de croyants disponible ! Reprise de la carte");
 				Utilitaire.rendrePointActionEtCarte (this);
-				
 			}
-			
 	}
 
 	public List<Croyant> getCroyantLie() {

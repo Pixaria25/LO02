@@ -18,6 +18,10 @@ import fr.utt.divinae.api.partie.Partie;
  */
 public interface Selection
 {
+	/**
+	 * Affiche les actions qu'un joueur va pouvoir faire durant son tour.
+	 * @param joueurCourant le joueur qui agit
+	 */
 	public void menu(Joueur joueurCourant);
 	
 	/**
@@ -63,9 +67,24 @@ public interface Selection
 	
 	public int gspOuCroyant ();
 	
+	/**
+	 * Affiche un message
+	 * @param message le message a afficher
+	 */
 	public void messageRecap (String message);
 
+	/**
+	 * Choisit un croyant dans le tas de croyants.
+	 * @param joueur le joueur devant choisir un croyant
+	 * @param partie la partie en cours
+	 * @return le croyant choisi
+	 */
 	public Croyant choisirTasCroyant(Joueur joueur, Partie partie);
 	
+	/**
+	 * Choisit un guide spirituel a retirer.
+	 * @param gspCiblable une liste contenant les guides pouvant etre cibles
+	 * @return le guide spirituel a retirer
+	 */
 	public GuideSpirituel choisirGspRetire (List <GuideSpirituel> gspCiblable);
 }

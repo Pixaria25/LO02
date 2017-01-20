@@ -53,7 +53,7 @@ public class Joueur {
 	}
 	
 	/**
-	 * 
+	 * Donne les actions qu'un joueur peut effectuer lors de son tour.
 	 */
 	public void jouer() {
 		selection.menu(this);

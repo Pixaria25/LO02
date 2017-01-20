@@ -13,7 +13,7 @@ public abstract class CarteSacrifiable extends CarteAction {
 	}
 
 	/**
-	 * Sacrifie la carte appelant cette methode. Le sacrifice active la capacite de la carte
+	 * Sacrifie la carte. Le sacrifice active la capacite de la carte
 	 * et envoie la carte dans la defausse.
 	 */
 	public void sacrifice() {
