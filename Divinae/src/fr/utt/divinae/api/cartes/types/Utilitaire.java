@@ -6,14 +6,19 @@ import java.util.List;
 import fr.utt.divinae.api.joueur.Joueur;
 import fr.utt.divinae.api.partie.Partie;
 
+/**
+ * La classe Utilitaire contient toutes les méthodes juguées comme des "utilitaires", qui ne sont ni des effets ni du ciblage.
+ * @author Thomas, Abraham
+ *
+ */
 public class Utilitaire {
 
 	/**
-	 * 
-	 * @param dogme1
-	 * @param dogme2
-	 * @param partie
-	 * @return
+	 * Renvoit une liste de guides ciblables choisit sur le critère suivant : correspondance des deux dogmes avec les dogmes de les divinités correspondantes !
+	 * @param dogme1 Premier dogme qui doit correspondre aux guides.
+	 * @param dogme2 Deuxième dogme qui doit correspondre aux guides.
+	 * @param partie La partie qui se joue actuellement.
+	 * @return gspCiblable La liste de guide ciblable.
 	 */
 	public static List <GuideSpirituel> choisirDiviniteEtDogme (Dogme dogme1, Dogme dogme2, Partie partie) {
 		List <GuideSpirituel> gspCiblable = new ArrayList<GuideSpirituel>(); // tableau des guides que l'on peut cibler par cette capacitée
@@ -34,10 +39,10 @@ public class Utilitaire {
 	}
 	
 	/**
-	 * 
-	 * @param origine
-	 * @param partie
-	 * @return
+	 * Renvoit une liste de guides ciblables choisit sur le critère suivant : correspondance de l'origine ciblée avec l'origine de la divinité correspondante !
+	 * @param origine L'origine ciblée.
+	 * @param partie La partie qui se joue actuellement.
+	 * @return gspCiblable La liste de guide ciblable.
 	 */
 	public static List<GuideSpirituel> choisirGuideLieADiviniteOrigine (Origine origine, Partie partie) {
 		List <GuideSpirituel> gspCiblable = new ArrayList<GuideSpirituel>(); // tableau des guides que l'on peut cibler par cette capacitée
@@ -57,6 +62,13 @@ public class Utilitaire {
 		return gspCiblable;
 	}
 	
+	/**
+	 * Compare les dogmes d'une carte au dogme ciblée.
+	 * @param dogme1 Le tableau des dogmes de la carte ciblée.
+	 * @param dogme2 Le dogme ciblé.
+	 * @param partie La partie jouée actuellement.
+	 * @return true Si au moins un des dogmes corresponds.
+	 */
 	public static boolean comparerDogme (Dogme[] dogme1, Dogme dogme2, Partie partie) {
 		boolean egal = false; 
 		
@@ -70,6 +82,14 @@ public class Utilitaire {
 		return egal;
 	}
 
+	/**
+	 * Renvoit une liste de croyant choisit sur le critère suivant : correspondance avec la première origine ou la deuxième ET le dogme.
+	 * @param origine1 La première origine qui peut correspondre (condition suffisante).
+	 * @param origine2 La deuxième origine qui peut correspondre (condition non suffisante à associer avec le dogme).
+	 * @param dogme	Le dogme qui peut correspondre (condition non suffisante à associer avec la deuxième origine).
+	 * @param partie La partie jouée actuellement.
+	 * @return croyantCiblable La liste de croyant ciblable.
+	 */
 	public static List<Croyant> trierCroyantDogme (Origine origine1, Origine origine2, Dogme dogme, Partie partie){
 		List <Croyant> croyantCiblable = new ArrayList <Croyant> (); // tableau des croyants que l'on peut cibler par cette capacitée
 		
@@ -106,6 +126,10 @@ public class Utilitaire {
 		return croyantCiblable;
 	}
 
+	/**
+	 * Remets tous les boolean de type autorisation.
+	 * @param partie La partie jouée actuellement
+	 */
 	public static void resetAutorisations (Partie partie) {
 		
 		for (int i=0; i < partie.getJoueurs().size(); i++) {
@@ -125,25 +149,48 @@ public class Utilitaire {
 			
 		}
 	}
-	
+
+	/**
+	 * Mets à jour le nombre de croyant des joueurs (sacrifice et conversion des croyants).
+	 * @param carte	La carte croyant sacrifiée ou lié au guide.
+	 * @param nbCroyantAjoute Le nombre de croyants que rapporte cette carte.
+	 */
 	public static void majPointsCroyant (Croyant  carte, int nbCroyantAjoute) {
 		int nbCroyantAvant = carte.getJoueurLie().getNombreCroyant();
 				
 		carte.getJoueurLie().setNombreCroyant(nbCroyantAvant+nbCroyantAjoute);
 	}
-	
+
+	/**
+	 * Retire tous les croyants liés à un guide.
+	 * @param carteJouee Le guide qui est ciblé.
+	 * @param partie La partie jouée actuellement.
+	 */
 	public static void retirerTousCroyantLies (Carte carteJouee, Partie partie) {
 		GuideSpirituel gsp = carteJouee.getJoueurLie().choisirGsp();
 		partie.getTasDeCroyants().addAll(gsp.getCroyantLie());
 		partie.getDefausse().ajoutCarte(gsp);
 	}
 	
+	/**
+	 * Renvoit la liste des joueurs de la partie excepté le joueur placé en paramète.
+	 * @param partie La partie jouée actuellement.
+	 * @param joueur Le joueur exclut de la liste.
+	 * @return liste La liste restrainte des joueurs.
+	 */
 	public static List<Joueur> extraireListeJoueurRestrainte (Partie partie, Joueur joueur) {
 		List<Joueur> liste = partie.getJoueurs();
 		liste.remove(liste.indexOf(joueur));
 
 		return liste;
 	}
+	
+	/**
+	 * Renvoit la liste de tous les guides en jeu et ciblable excepté ceux du joueur placé en paramètre.
+	 * @param joueur Le joueur exclut du ciblage.
+	 * @param partie La partie jouée actuellement.
+	 * @return gspCiblable La liste de guide ciblable.
+	 */
 	public static List<GuideSpirituel> getGspCiblables(Joueur joueur, Partie partie) {
 		List<GuideSpirituel> gspCiblables = new ArrayList<GuideSpirituel>();
 		int indexGsp = 0;
@@ -169,7 +216,14 @@ public class Utilitaire {
 		}
 		return gspCiblables;
 	}
-	
+
+	/**
+	 * Renvoit une liste de Divinités sur ce critère : correspondance d'au moins l'un des deux dogmes.
+	 * @param dogme1 Le premier dogme ciblé.
+	 * @param dogme2 Le deuxième dogme ciblé.
+	 * @param partie La partie jouée actuellement
+	 * @return diviniteCiblable La liste des divinité jouable.
+	 */
 	public static List<Divinite> getDiviniteOuDogme(Dogme dogme1, Dogme dogme2, Partie partie) {
 		int choixDivinite = 0;
 		List<Divinite> diviniteCiblable = new ArrayList<Divinite>();
@@ -193,6 +247,12 @@ public class Utilitaire {
 		return diviniteCiblable;
 	}
 	
+	/**
+	 * Renvoit la liste des guides spirituels ciblable parmet ceux du joueur placé en paramètre.
+	 * @param joueur Le joueur  ciblé.
+	 * @param partie La partie jouée actuellement.
+	 * @return La liste de guide ciblable.
+	 */
 	public static List<GuideSpirituel> getSonGsp(Joueur joueur, Partie partie) {
 		List<GuideSpirituel> gspCiblable = new ArrayList<GuideSpirituel>();
 		int indexJoueur = partie.getJoueurs().indexOf(joueur);
@@ -209,6 +269,12 @@ public class Utilitaire {
 		return gspCiblable;
 	}
 	
+	/**
+	 * Renvoit la liste de croyants lié à un joueur
+	 * @param joueur Le joueur ciblé.
+	 * @param partie La partie jouée actuellement.
+	 * @return croyantCiblable La liste de croyant ciblable.
+	 */
 	public static List<Croyant> getCroyant(Joueur joueur, Partie partie) {
 		List<Croyant> croyantCiblable = new ArrayList<Croyant>();
 		for (int i = 0; i < joueur.getGuides().size(); i++) {
@@ -219,6 +285,12 @@ public class Utilitaire {
 		return croyantCiblable;
 	}
 	
+	/**
+	 * Renvoit une liste de guide sur le critère suivant : correspondance du dogme visé à la divinité ou au guide en question.
+	 * @param dogme Le dogme visé.
+	 * @param partie La partie jouée actuellement.
+	 * @return
+	 */
 	public static List<GuideSpirituel> getDiviniteOuGspNonDogme(Dogme dogme, Partie partie) {
 		int choixDivinite = 0;
 		List<GuideSpirituel> gspCiblable = new ArrayList<GuideSpirituel>();
@@ -247,6 +319,13 @@ public class Utilitaire {
 		return gspCiblable;
 	}
 	
+	/**
+	 * Renvoit une liste de guide sur le critère suivant : correspondance de l'origine visé avec le guide.
+	 * @param origine l'origine visé.
+	 * @param carte	La carte action jouée.
+	 * @param partie La partie jouée actuellement.
+	 * @return gspCiblable La liste de guide ciblable.
+	 */
 	public static List<GuideSpirituel> getGspOrigine(Origine origine, CarteAction carte, Partie partie) {
 		List<GuideSpirituel> gspCiblable = new ArrayList<GuideSpirituel>();
 		gspCiblable.addAll(getGspCiblables(carte.getJoueurLie(), partie));
@@ -261,7 +340,10 @@ public class Utilitaire {
 		return gspCiblable;
 	}
 	
-
+	/**
+	 * Redonne les points d'actions (en cas de reprise d'une carte).
+	 * @param carteJouee La carte qui est reprise.
+	 */
 	public static void rendrePointActionEtCarte(CarteAction carteJouee) {
 		if(!(carteJouee.getOrigine() == Origine.Aucune)) {
 			Capacite.donnerPointAction(1, carteJouee.getOrigine(), carteJouee.getJoueurLie());

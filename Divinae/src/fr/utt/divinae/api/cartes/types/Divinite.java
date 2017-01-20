@@ -1,8 +1,8 @@
 package fr.utt.divinae.api.cartes.types;
 
 /**
- * 
- * @author pixel
+ * La classe Divinite modélise les Divinités
+ * @author Thomas, Abraham
  *
  */
 public abstract class Divinite extends Carte {

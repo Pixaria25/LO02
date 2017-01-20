@@ -20,7 +20,6 @@ public class Capacite {
 
 	static CarteAction carteInterupt;
 
-	
 	/**
     Donne des points d'actions
     @param point Le nombre de point d'action à donner

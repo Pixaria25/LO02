@@ -1,5 +1,10 @@
 package fr.utt.divinae.api.cartes.types;
 
+/**
+ * La classe Apocalypse modélise les cartes Deus Ex
+ * @author Thomas, Abraham
+ *
+ */
 public abstract class DeusEx extends CarteAction {
 
 	public DeusEx(String nom, Origine origine, String capacite, int id) {

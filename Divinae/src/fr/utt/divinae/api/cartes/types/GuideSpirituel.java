@@ -6,7 +6,7 @@ import java.util.List;
 import fr.utt.divinae.api.partie.Partie;
 
 /**
- * La classe GuideSpirituel modelise les cartes Guide Spirituel.
+ * La classe GuideSpirituel modélise les cartes Guide Spirituel.
  * @author Thomas, Abraham
  *
  */

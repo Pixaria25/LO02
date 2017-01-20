@@ -2,7 +2,12 @@ package fr.utt.divinae.api.cartes.types;
 
 import fr.utt.divinae.api.partie.Partie;
 
-public class Apocalypse extends  CarteAction {
+/**
+ * La classe Apocalypse modélise les cartes Apocalypses
+ * @author Thomas, Abraham
+ *
+ */
+public class Apocalypse extends CarteAction {
 
 	public Apocalypse(Origine origine, int id) {
 		super("Apocalypse", "",origine, "Lance une apocalypse.", id);
